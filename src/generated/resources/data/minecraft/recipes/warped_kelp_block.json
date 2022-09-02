@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "netherdepthsupgrade:warped_kelp"
+    }
+  },
+  "result": {
+    "item": "netherdepthsupgrade:warped_kelp_block"
+  }
+}

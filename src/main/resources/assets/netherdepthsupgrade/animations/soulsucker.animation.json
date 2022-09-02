@@ -1,0 +1,46 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"soulsucker.moving": {
+			"animation_length": 11.88,
+			"bones": {
+				"FrontLeftFin": {
+					"rotation": {
+						"vector": [0, 0, "math.sin(query.anim_time*300)*5"]
+					}
+				},
+				"FrontRightFin": {
+					"rotation": {
+						"vector": [0, 0, "-math.sin(query.anim_time*300)*5"]
+					}
+				},
+				"BackLeftFin": {
+					"rotation": {
+						"vector": [0, 0, "math.sin(query.anim_time*200)*3"]
+					}
+				},
+				"BackRightFin": {
+					"rotation": {
+						"vector": [0, 0, "-math.sin(query.anim_time*200)*3"]
+					}
+				},
+				"BackFin": {
+					"rotation": {
+						"vector": [0, "math.sin(query.anim_time*200)", 0]
+					}
+				},
+				"BodyMid": {
+					"rotation": {
+						"vector": [0, "math.sin(query.anim_time*200)*7", 0]
+					}
+				},
+				"BodyBack": {
+					"rotation": {
+						"vector": [0, "math.sin(query.anim_time*200)*5", 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

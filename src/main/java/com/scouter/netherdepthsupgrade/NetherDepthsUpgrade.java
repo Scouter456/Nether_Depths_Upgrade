@@ -1,11 +1,24 @@
 package com.scouter.netherdepthsupgrade;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
+import com.scouter.netherdepthsupgrade.events.ClientEvents;
+import com.scouter.netherdepthsupgrade.events.ForgeEvents;
+import com.scouter.netherdepthsupgrade.setup.ClientSetup;
+import com.scouter.netherdepthsupgrade.setup.ModSetup;
+import com.scouter.netherdepthsupgrade.setup.Registration;
+import com.scouter.netherdepthsupgrade.world.NDUGeneration;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -14,68 +27,39 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+import software.bernie.geckolib3.GeckoLib;
 
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("netherdepthsupgrade")
 public class NetherDepthsUpgrade
 {
+    public static final String MODID = "netherdepthsupgrade";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
-
+    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public NetherDepthsUpgrade()
     {
-        // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-        // Register the processIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        Registration.init();
+        ModSetup.setup();
+        IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+        IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
+        modbus.addListener(ModSetup::init);
+        //forgeBus.addListener(ForgeEvents::OnEntityJoinWorld);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modbus.addListener(ClientSetup::init));
+        MinecraftForge.EVENT_BUS.register(ClientEvents.class);
+        MinecraftForge.EVENT_BUS.register(ForgeEvents.class);
+        forgeBus.addListener(EventPriority.HIGH, NDUGeneration::generateFeatures);
+        //forgeBus.addListener(EventPriority.HIGH, MFGeneration::spawnCreatures);
+        GeckoLib.initialize();
 
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private void setup(final FMLCommonSetupEvent event)
-    {
-        // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+
+    public static ResourceLocation prefix(String name) {
+        return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
     }
 
-    private void enqueueIMC(final InterModEnqueueEvent event)
-    {
-        // Some example code to dispatch IMC to another mod
-        InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
-    }
-
-    private void processIMC(final InterModProcessEvent event)
-    {
-        // Some example code to receive and process InterModComms from other mods
-        LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m->m.messageSupplier().get()).
-                collect(Collectors.toList()));
-    }
-
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event)
-    {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
-    }
-
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents
-    {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent)
-        {
-            // Register a new block here
-            LOGGER.info("HELLO from Register Block");
-        }
-    }
 }

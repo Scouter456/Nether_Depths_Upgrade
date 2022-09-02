@@ -1,0 +1,25 @@
+{
+    "parent": "block/block",
+    "textures": {
+        "particle": "netherdepthsupgrade:block/warped_kelp_side",
+        "down": "netherdepthsupgrade:block/warped_kelp_bottom",
+        "up": "netherdepthsupgrade:block/warped_kelp_top",
+        "north": "netherdepthsupgrade:block/warped_kelp_side",
+        "east": "netherdepthsupgrade:block/warped_kelp_side",
+        "south": "netherdepthsupgrade:block/warped_kelp_side",
+        "west": "netherdepthsupgrade:block/warped_kelp_side"
+    },
+    "elements": [
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "texture": "#down", "cullface": "down" },
+                "up":    { "texture": "#up", "cullface": "up" },
+                "north": { "texture": "#north", "cullface": "north" },
+                "south": { "uv": [16, 0, 0, 16], "texture": "#south", "cullface": "south" },
+                "west":  { "texture": "#west", "cullface": "west" },
+                "east":  { "uv": [16, 0, 0, 16], "texture": "#east", "cullface": "east" }
+            }
+        }
+    ]
+}

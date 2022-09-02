@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "netherdepthsupgrade:block/lava_sponge"
+  }
+}
