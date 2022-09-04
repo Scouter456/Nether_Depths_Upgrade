@@ -2,6 +2,7 @@ package com.scouter.netherdepthsupgrade.entity.entities;
 
 
 import com.scouter.netherdepthsupgrade.entity.AbstractLavaSchoolingFish;
+import com.scouter.netherdepthsupgrade.entity.ai.FollowLavaFlockLeaderGoal;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
@@ -16,7 +17,6 @@ public class SearingCodEntity extends AbstractLavaSchoolingFish {
     public SearingCodEntity(EntityType<? extends AbstractLavaSchoolingFish> p_27523_, Level p_27524_) {
         super(p_27523_, p_27524_);
     }
-
     public void tick() {
         super.tick();
         if(!this.isInLava()){
