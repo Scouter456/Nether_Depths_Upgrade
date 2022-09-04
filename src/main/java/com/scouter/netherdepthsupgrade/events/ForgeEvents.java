@@ -21,17 +21,21 @@ public class ForgeEvents {
 
     @SubscribeEvent
     public static void lavaMovementSpeed(TickEvent.PlayerTickEvent event){
-        if(event.player == null){
+        if(event.player == null || event.player.isCreative() || event.player.isSpectator()){
             return;
         }
+        double d0 = 0.08D;
+        boolean flag = event.player.getDeltaMovement().y <= 0.0D;
         AttributeInstance gravity = event.player.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
         if(EnchantmentHelper.getEnchantments(event.player.getItemBySlot(EquipmentSlot.FEET)).containsKey(NDUEnchantments.HELL_STRIDER.get())){
             double level = EnchantmentHelper.getEnchantments(event.player.getItemBySlot(EquipmentSlot.FEET)).get(NDUEnchantments.HELL_STRIDER.get());
             if(event.player.isInLava()){
-               event.player.makeStuckInBlock(Blocks.LAVA.defaultBlockState(), new Vec3(4.0D * level, 2.5D, 4.0D * level));
+                event.player.setDeltaMovement(event.player.getDeltaMovement().multiply(0.45D * level, (double)0.3F * level, 0.45D * level));
+                Vec3 vec33 = event.player.getFluidFallingAdjustedMovement(d0, flag,event.player.getDeltaMovement());
+                event.player.setDeltaMovement(vec33);
+            }
+               //event.player.makeStuckInBlock(Blocks.LAVA.defaultBlockState(), new Vec3(1.5D * level, 2.5D, 1.5D * level));
             }
         }
     }
 
-
-}
