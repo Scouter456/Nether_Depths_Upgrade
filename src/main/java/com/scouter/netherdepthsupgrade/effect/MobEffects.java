@@ -9,5 +9,5 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class MobEffects {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, NetherDepthsUpgrade.MODID);
-    public static final RegistryObject<MobEffect> LAVA_VISION = MOB_EFFECTS.register("lava_vision", () -> new LavaVisionEffect(MobEffectCategory.BENEFICIAL, 1761122));
+    public static final RegistryObject<MobEffect> LAVA_VISION = MOB_EFFECTS.register("lava_vision", () -> new LavaVisionEffect(MobEffectCategory.BENEFICIAL, 0xf4d919));
 }
