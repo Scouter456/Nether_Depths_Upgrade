@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Material;
@@ -38,14 +39,14 @@ public class LavaSpongeBlock extends Block {
     }
 
     protected void tryAbsorbLava(Level pLevel, BlockPos pPos) {
-        if (this.removeWaterBreadthFirstSearch(pLevel, pPos)) {
-            pLevel.setBlock(pPos, NDUBlocks.WET_LAVA_SPONGE.get().defaultBlockState(), 2);
+        if (this.removeLavaBreadthFirstSearch(pLevel, pPos)) {
+            pLevel.setBlock(pPos, NDUBlocks.WET_LAVA_SPONGE.get().defaultBlockState(), 3);
             pLevel.levelEvent(2001, pPos, Block.getId(Blocks.LAVA.defaultBlockState()));
         }
 
     }
 
-    private boolean removeWaterBreadthFirstSearch(Level pLevel, BlockPos pPos) {
+    private boolean removeLavaBreadthFirstSearch(Level pLevel, BlockPos pPos) {
         Queue<Tuple<BlockPos, Integer>> queue = Lists.newLinkedList();
         queue.add(new Tuple<>(pPos, 0));
         int i = 0;
@@ -72,15 +73,15 @@ public class LavaSpongeBlock extends Block {
                         if (j < 6) {
                             queue.add(new Tuple<>(blockpos1, j + 1));
                         }
-                    }// else if (material == Material.WATER_PLANT || material == Material.REPLACEABLE_WATER_PLANT) {
-                      //  BlockEntity blockentity = blockstate.hasBlockEntity() ? pLevel.getBlockEntity(blockpos1) : null;
-                       // dropResources(blockstate, pLevel, blockpos1, blockentity);
-                        //pLevel.setBlock(blockpos1, Blocks.AIR.defaultBlockState(), 3);
-                        //++i;
-                        //if (j < 6) {
-                        //    queue.add(new Tuple<>(blockpos1, j + 1));
-                        //}
-                    //}
+                    } else if (material == Material.WATER_PLANT || material == Material.REPLACEABLE_WATER_PLANT) {
+                        BlockEntity blockentity = blockstate.hasBlockEntity() ? pLevel.getBlockEntity(blockpos1) : null;
+                        dropResources(blockstate, pLevel, blockpos1, blockentity);
+                        pLevel.setBlock(blockpos1, Blocks.AIR.defaultBlockState(), 3);
+                        ++i;
+                        if (j < 6) {
+                            queue.add(new Tuple<>(blockpos1, j + 1));
+                        }
+                    }
                 }
             }
 
