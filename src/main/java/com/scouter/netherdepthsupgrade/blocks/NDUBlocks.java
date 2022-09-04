@@ -17,8 +17,8 @@ import org.slf4j.Logger;
 public class NDUBlocks {
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, NetherDepthsUpgrade.MODID);
-    public static final RegistryObject<Block> LAVA_SPONGE = BLOCKS.register("lava_sponge", () -> new LavaSpongeBlock(BlockBehaviour.Properties.of(Material.SPONGE).strength(0.6F).sound(SoundType.GRASS).noOcclusion()));
-    public static final RegistryObject<Block> WET_LAVA_SPONGE = BLOCKS.register("wet_lava_sponge", () -> new WetLavaSpongeBlock(BlockBehaviour.Properties.of(Material.SPONGE).strength(0.6F).sound(SoundType.GRASS).noOcclusion()));
+    public static final RegistryObject<Block> LAVA_SPONGE = BLOCKS.register("lava_sponge", () -> new LavaSpongeBlock(BlockBehaviour.Properties.of(Material.SPONGE).strength(0.6F).sound(SoundType.GRASS)));
+    public static final RegistryObject<Block> WET_LAVA_SPONGE = BLOCKS.register("wet_lava_sponge", () -> new WetLavaSpongeBlock(BlockBehaviour.Properties.of(Material.SPONGE).strength(0.6F).sound(SoundType.GRASS)));
     public static final RegistryObject<Block> WARPED_KELP_PLANT = BLOCKS.register("warped_kelp_plant", () -> new LavaKelpPlantBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS).noOcclusion()));
     public static final RegistryObject<Block> WARPED_KELP = BLOCKS.register("warped_kelp", () -> new LavaKelpBlock(BlockBehaviour.Properties.of(Material.WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS).noOcclusion()));
     public static final RegistryObject<Block> WARPED_SEAGRASS = BLOCKS.register("warped_seagrass", () -> new LavaSeagrassBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS).noOcclusion()));
