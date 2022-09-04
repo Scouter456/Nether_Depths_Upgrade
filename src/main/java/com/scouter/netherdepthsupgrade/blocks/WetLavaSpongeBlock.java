@@ -22,8 +22,7 @@ public class WetLavaSpongeBlock extends Block {
     }
 
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
-        LOGGER.info("state" + pLevel.getBlockState(pPos));
-        if (pLevel.getBlockState(pPos).getFluidState().is(FluidTags.WATER)) {
+        if (pLevel.getBlockState(pPos.above()).getFluidState().is(FluidTags.WATER)) {
             pLevel.setBlock(pPos, NDUBlocks.LAVA_SPONGE.get().defaultBlockState(), 3);
             pLevel.levelEvent(2009, pPos, 0);
             pLevel.playSound((Player)null, pPos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 1.0F, (1.0F + pLevel.getRandom().nextFloat() * 0.2F) * 0.7F);
