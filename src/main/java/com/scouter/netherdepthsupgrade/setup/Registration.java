@@ -9,9 +9,11 @@ import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.particle.NDUParticle;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
+import com.scouter.netherdepthsupgrade.structures.NDUStructures;
 import com.scouter.netherdepthsupgrade.world.feature.NDUConfiguredFeatures;
 import com.scouter.netherdepthsupgrade.world.feature.NDUFeatures;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
@@ -25,10 +27,13 @@ public class Registration {
     public static void init(){
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+
         NDUBlocks.BLOCKS.register(bus);
         NDUEntity.ENTITY_TYPES.register(bus);
         NDUItems.ITEMS.register(bus);
         MobEffects.MOB_EFFECTS.register(bus);
+        bus.addGenericListener(StructureFeature.class, NDUStructures::setupStructures);
+        NDUStructures.STRUCTURES.register(bus);
         NDUParticle.PARTICLE.register(bus);
         NDUEnchantments.ENCHANTMENT.register(bus);
         NDUPotions.POTIONS.register(bus);
