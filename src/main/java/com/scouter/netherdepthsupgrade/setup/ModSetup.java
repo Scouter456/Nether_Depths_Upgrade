@@ -38,7 +38,6 @@ public class ModSetup {
 
     public static void setup(){
         IEventBus bus = MinecraftForge.EVENT_BUS;
-
     }
 
 
