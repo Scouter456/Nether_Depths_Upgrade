@@ -43,54 +43,54 @@ public class NDUItems {
     public static final RegistryObject<Item> SOULSUCKER = ITEMS.register("soulsucker", () -> new Item(Registration.fishBuilder().fireResistant()));
 
     //FISH_BUCKET
-    public static final RegistryObject<Item> LAVA_PUFFERFISH_BUCKET = ITEMS.register("lava_pufferfish_bucket", () -> new FishBucketItem(NDUEntity.LAVA_PUFFERFISH, Fluids.LAVA, (Registration.defaultBuilder())));
-    public static final RegistryObject<Item> OBSIDIANFISH_BUCKET = ITEMS.register("obsidianfish_bucket", () -> new FishBucketItem(NDUEntity.OBSIDIAN_FISH, Fluids.LAVA, (Registration.defaultBuilder())));
-    public static final RegistryObject<Item> SEARING_COD_BUCKET = ITEMS.register("searing_cod_bucket", () -> new FishBucketItem(NDUEntity.SEARING_COD, Fluids.LAVA, (Registration.defaultBuilder())));
-    public static final RegistryObject<Item> BONEFISH_BUCKET = ITEMS.register("bonefish_bucket", () -> new FishBucketItem(NDUEntity.BONEFISH, Fluids.LAVA, (Registration.defaultBuilder())));
-    public static final RegistryObject<Item> WITHER_BONEFISH_BUCKET = ITEMS.register("wither_bonefish_bucket", () -> new FishBucketItem(NDUEntity.WITHER_BONEFISH, Fluids.LAVA, (Registration.defaultBuilder())));
-    public static final RegistryObject<Item> BLAZEFISH_BUCKET = ITEMS.register("blazefish_bucket", () -> new FishBucketItem(NDUEntity.BLAZEFISH, Fluids.LAVA, (Registration.defaultBuilder())));
-    public static final RegistryObject<Item> MAGMACUBEFISH_BUCKET = ITEMS.register("magmacubefish_bucket", () -> new FishBucketItem(NDUEntity.MAGMACUBEFISH, Fluids.LAVA, (Registration.defaultBuilder())));
-    public static final RegistryObject<Item> GLOWDINE_BUCKET = ITEMS.register("glowdine_bucket", () -> new FishBucketItem(NDUEntity.GLOWDINE, Fluids.LAVA, (Registration.defaultBuilder())));
-    public static final RegistryObject<Item> SOULSUCKER_BUCKET = ITEMS.register("soulsucker_bucket", () -> new FishBucketItem(NDUEntity.SOULSUCKER, Fluids.LAVA, (Registration.defaultBuilder())));
+    public static final RegistryObject<Item> LAVA_PUFFERFISH_BUCKET = ITEMS.register("lava_pufferfish_bucket", () -> new FishBucketItem(NDUEntity.LAVA_PUFFERFISH, Fluids.LAVA, (Registration.fishBuilder())));
+    public static final RegistryObject<Item> OBSIDIANFISH_BUCKET = ITEMS.register("obsidianfish_bucket", () -> new FishBucketItem(NDUEntity.OBSIDIAN_FISH, Fluids.LAVA, (Registration.fishBuilder())));
+    public static final RegistryObject<Item> SEARING_COD_BUCKET = ITEMS.register("searing_cod_bucket", () -> new FishBucketItem(NDUEntity.SEARING_COD, Fluids.LAVA, (Registration.fishBuilder())));
+    public static final RegistryObject<Item> BONEFISH_BUCKET = ITEMS.register("bonefish_bucket", () -> new FishBucketItem(NDUEntity.BONEFISH, Fluids.LAVA, (Registration.fishBuilder())));
+    public static final RegistryObject<Item> WITHER_BONEFISH_BUCKET = ITEMS.register("wither_bonefish_bucket", () -> new FishBucketItem(NDUEntity.WITHER_BONEFISH, Fluids.LAVA, (Registration.fishBuilder())));
+    public static final RegistryObject<Item> BLAZEFISH_BUCKET = ITEMS.register("blazefish_bucket", () -> new FishBucketItem(NDUEntity.BLAZEFISH, Fluids.LAVA, (Registration.fishBuilder())));
+    public static final RegistryObject<Item> MAGMACUBEFISH_BUCKET = ITEMS.register("magmacubefish_bucket", () -> new FishBucketItem(NDUEntity.MAGMACUBEFISH, Fluids.LAVA, (Registration.fishBuilder())));
+    public static final RegistryObject<Item> GLOWDINE_BUCKET = ITEMS.register("glowdine_bucket", () -> new FishBucketItem(NDUEntity.GLOWDINE, Fluids.LAVA, (Registration.fishBuilder())));
+    public static final RegistryObject<Item> SOULSUCKER_BUCKET = ITEMS.register("soulsucker_bucket", () -> new FishBucketItem(NDUEntity.SOULSUCKER, Fluids.LAVA, (Registration.fishBuilder())));
 
 
     //Spawn Eggs
     public static final RegistryObject<Item> LAVA_PUFFERFISH_SPAWN_EGG = ITEMS.register("lava_pufferfish_spawn_egg", ()-> new ForgeSpawnEggItem(NDUEntity.LAVA_PUFFERFISH,
-            0xFFF6F6, 0xE01313, Registration.defaultBuilder()));
+            0xf47c7c, 0xE01313, Registration.fishBuilder()));
 
     public static final RegistryObject<Item> OBSIDIANFISH_SPAWN_EGG = ITEMS.register("obsidianfish_spawn_egg", ()-> new ForgeSpawnEggItem(NDUEntity.OBSIDIAN_FISH,
-            0xFFF6F6, 0xE01313, Registration.defaultBuilder()));
+            0x000001, 0x3b2754, Registration.fishBuilder()));
 
     public static final RegistryObject<Item> SEARING_COD_SPAWN_EGG = ITEMS.register("searing_cod_spawn_egg", ()-> new ForgeSpawnEggItem(NDUEntity.SEARING_COD,
-            0xFFF6F6, 0xE01313, Registration.defaultBuilder()));
+            0xe35507, 0xfb5e07, Registration.fishBuilder()));
 
     public static final RegistryObject<Item> BONEFISH_SPAWN_EGG = ITEMS.register("bonefish_spawn_egg", ()-> new ForgeSpawnEggItem(NDUEntity.BONEFISH,
-            0xFFF6F6, 0xE01313, Registration.defaultBuilder()));
+            12698049, 4802889, Registration.fishBuilder()));
 
     public static final RegistryObject<Item> WITHER_BONEFISH_SPAWN_EGG = ITEMS.register("wither_bonefish_spawn_egg", ()-> new ForgeSpawnEggItem(NDUEntity.WITHER_BONEFISH,
-            0xFFF6F6, 0xE01313, Registration.defaultBuilder()));
+            1315860, 4672845, Registration.fishBuilder()));
 
     public static final RegistryObject<Item> BLAZEFISH_SPAWN_EGG = ITEMS.register("blazefish_spawn_egg", ()-> new ForgeSpawnEggItem(NDUEntity.BLAZEFISH,
-            0xFFF6F6, 0xE01313, Registration.defaultBuilder()));
+            16167425, 16775294, Registration.fishBuilder()));
 
     public static final RegistryObject<Item> MAGMACUBEFISH_SPAWN_EGG = ITEMS.register("magmacubefish_spawn_egg", ()-> new ForgeSpawnEggItem(NDUEntity.MAGMACUBEFISH,
-            0xFFF6F6, 0xE01313, Registration.defaultBuilder()));
+            3407872, 16579584, Registration.fishBuilder()));
 
     public static final RegistryObject<Item> GLOWDINE_SPAWN_EGG = ITEMS.register("glowdine_spawn_egg", ()-> new ForgeSpawnEggItem(NDUEntity.GLOWDINE,
-            0xFFF6F6, 0xE01313, Registration.defaultBuilder()));
+            0xfbda74, 0xcc8654, Registration.fishBuilder()));
 
     public static final RegistryObject<Item> SOULSUCKER_SPAWN_EGG = ITEMS.register("soulsucker_spawn_egg", ()-> new ForgeSpawnEggItem(NDUEntity.SOULSUCKER,
-            0xFFF6F6, 0xE01313, Registration.defaultBuilder()));
+            0x796152 ,0xcc8654, Registration.fishBuilder()));
     public static final RegistryObject<Item> LAVA_FISHING_ROD = ITEMS.register("lava_fishing_rod", () -> new LavaFishingRod((Registration.defaultBuilder()).durability(128)));
 
-    public static CreativeModeTab creativeTab = new CreativeModeTab(NetherDepthsUpgrade.MODID) {
+    public static CreativeModeTab creativeTab = new CreativeModeTab( "netherdepthsupgrade") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(WARPED_KELP.get());
         }
     };
 
-    public static CreativeModeTab creativeTabFish = new CreativeModeTab(NetherDepthsUpgrade.MODID) {
+    public static CreativeModeTab creativeTabFish = new CreativeModeTab("netherdepthsupgrade_fish") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(SEARING_COD.get());
