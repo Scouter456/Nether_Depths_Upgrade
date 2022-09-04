@@ -15,8 +15,12 @@ public class NDUFeatures {
 
     private static final String WARPED_KELP_FEATURE_NAME = "warped_kelp_feature";
     private static final String WARPED_SEAGRASS_FEATURE_NAME = "warped_seagrass_feature";
-
+    private static final String VENT_FEATURE_NAME = "vent_feature";
+    private static final String LAVA_SPONGE_FEATURE_NAME = "lava_sponge_feature";
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> WARPED_KELP = FEATURES.register(WARPED_KELP_FEATURE_NAME, () -> new WarpedKelpFeature(NoneFeatureConfiguration.CODEC));
 
-    public static final RegistryObject<Feature<ProbabilityFeatureConfiguration>> WARPED_SEAGRASS = FEATURES.register("seagrass", () -> new WarpedSeagrassFeature(ProbabilityFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<ProbabilityFeatureConfiguration>> WARPED_SEAGRASS = FEATURES.register(WARPED_SEAGRASS_FEATURE_NAME, () -> new WarpedSeagrassFeature(ProbabilityFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> VENT = FEATURES.register(VENT_FEATURE_NAME, () -> new VentFeature(NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> LAVA_SPONGE = FEATURES.register(LAVA_SPONGE_FEATURE_NAME, () -> new SpongeFeature(NoneFeatureConfiguration.CODEC));
+
 }
