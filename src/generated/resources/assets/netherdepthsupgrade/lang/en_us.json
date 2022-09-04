@@ -11,7 +11,7 @@
   "entity.netherdepthsupgrade.glowdine": "Glowdine",
   "entity.netherdepthsupgrade.lava_pufferfish": "Lava Pufferfish",
   "entity.netherdepthsupgrade.magmacubefish": "Magma Cube fish",
-  "entity.netherdepthsupgrade.obsidian_fish": "Obsidianfish",
+  "entity.netherdepthsupgrade.obsidianfish": "Obsidianfish",
   "entity.netherdepthsupgrade.searing_cod": "Searing Cod",
   "entity.netherdepthsupgrade.soulsucker": "Soul Sucker",
   "entity.netherdepthsupgrade.wither_bonefish": "Wither Bonefish",
@@ -47,5 +47,7 @@
   "item.netherdepthsupgrade.soulsucker_spawn_egg": "Soul Sucker Spawn Egg",
   "item.netherdepthsupgrade.wither_bonefish": "Wither Bonefish",
   "item.netherdepthsupgrade.wither_bonefish_bucket": "Bucket of Wither Bonefish",
-  "item.netherdepthsupgrade.wither_bonefish_spawn_egg": "Wither Bonefish Spawn Egg"
+  "item.netherdepthsupgrade.wither_bonefish_spawn_egg": "Wither Bonefish Spawn Egg",
+  "itemGroup.netherdepthsupgrade": "Nether Depths Upgrade",
+  "itemGroup.netherdepthsupgrade_fish": "Nether Depths Upgrade Fish"
 }
