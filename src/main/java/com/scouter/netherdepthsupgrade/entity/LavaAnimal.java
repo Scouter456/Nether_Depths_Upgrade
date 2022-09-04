@@ -1,5 +1,6 @@
 package com.scouter.netherdepthsupgrade.entity;
 
+import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -13,10 +14,12 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import org.slf4j.Logger;
 
 import java.util.Random;
 
 public abstract class LavaAnimal extends PathfinderMob {
+    private static final Logger LOGGER = LogUtils.getLogger();
     protected LavaAnimal(EntityType<? extends LavaAnimal> p_30341_, Level p_30342_) {
         super(p_30341_, p_30342_);
         this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
@@ -78,9 +81,10 @@ public abstract class LavaAnimal extends PathfinderMob {
         return false;
     }
 
-    public static boolean checkSurfaceLavaAnimalSpawnRules(EntityType<? extends LavaAnimal> p_186238_, LevelAccessor p_186239_, MobSpawnType p_186240_, BlockPos p_186241_, Random p_186242_) {
+    public static boolean checkSurfaceLavaAnimalSpawnRules(EntityType<? extends LavaAnimal> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, Random p_186242_) {
+        LOGGER.info("trying to spawn " + p_186238_);
         int i = 40;
-        int j = i - 20;
-        return p_186241_.getY() >= j && p_186241_.getY() <= i && p_186239_.getFluidState(p_186241_.below()).is(FluidTags.LAVA) && p_186239_.getBlockState(p_186241_.above()).is(Blocks.LAVA);
+        int j = i - 30;
+        return pos.getY() >= j && pos.getY() <= i && (spawnType == MobSpawnType.SPAWNER || level.getFluidState(pos.below()).is(FluidTags.LAVA) && level.getBlockState(pos.above()).is(Blocks.LAVA));
     }
 }
