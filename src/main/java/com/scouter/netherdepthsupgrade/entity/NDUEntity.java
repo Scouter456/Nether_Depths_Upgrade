@@ -21,10 +21,10 @@ public class NDUEntity {
                     .sized(0.7F, 0.7F).clientTrackingRange(4)
                     .build(prefix("lava_pufferfish").toString()));
 
-    public static final RegistryObject<EntityType<ObsidianfishEntity>> OBSIDIAN_FISH = ENTITY_TYPES.register("obsidian_fish",
+    public static final RegistryObject<EntityType<ObsidianfishEntity>> OBSIDIAN_FISH = ENTITY_TYPES.register("obsidianfish",
             () -> EntityType.Builder.of(ObsidianfishEntity::new, MobCategory.WATER_AMBIENT)
                     .sized(0.7F, 0.4F).clientTrackingRange(4)
-                    .build(prefix("obsidian_fish").toString()));
+                    .build(prefix("obsidianfish").toString()));
 
     public static final RegistryObject<EntityType<SearingCodEntity>> SEARING_COD = ENTITY_TYPES.register("searing_cod",
             () -> EntityType.Builder.of(SearingCodEntity::new, MobCategory.WATER_AMBIENT)
@@ -60,7 +60,4 @@ public class NDUEntity {
             () -> EntityType.Builder.of(SoulSuckerEntity::new, MobCategory.WATER_AMBIENT)
                     .sized(0.6F, 0.6F).clientTrackingRange(4)
                     .build(prefix("soulsucker").toString()));
-    public static final RegistryObject<EntityType<LavaFishingHook>> LAVA_BOBBER = ENTITY_TYPES.register("lava_bobber",
-            () -> EntityType.Builder.<LavaFishingHook>of(LavaFishingHook::new, MobCategory.MISC).noSave().noSummon().sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(5).build("lava_bobber"));
-
 }
