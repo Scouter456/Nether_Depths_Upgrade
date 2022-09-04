@@ -21,7 +21,6 @@ public class NDUGeneration {
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void generateFeatures(BiomeLoadingEvent event) {
-        //LOGGER.info("Categories: " + event.getCategory().getName().toLowerCase() + " temperature: " + event.getClimate().temperature + " downfall: " + event.getClimate().downfall + " effects: " + event.getEffects().getAmbientAdditionsSettings());
         if(event.getCategory().equals(Biome.BiomeCategory.NETHER)) {
             event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.WARPED_SEAGRASS_SIMPLE_PLACED.getHolder().orElseThrow());
             event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.WARPED_KELP_PLACED.getHolder().orElseThrow());
@@ -29,7 +28,8 @@ public class NDUGeneration {
             event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.WARPED_SEAGRASS_SHORT_PLACED.getHolder().orElseThrow());
             event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.WARPED_SEAGRASS_MID_PLACED.getHolder().orElseThrow());
             event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.WARPED_SEAGRASS_TALL_PLACED.getHolder().orElseThrow());
-
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.VENT_PLACED.getHolder().orElseThrow());
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.LAVA_SPONGE_PLACED.getHolder().orElseThrow());
         }
 
         spawnCreatures(event);
@@ -38,8 +38,32 @@ public class NDUGeneration {
     public static void spawnCreatures(final BiomeLoadingEvent event) {
         if(event.getCategory().equals(Biome.BiomeCategory.NETHER)) {
             List<MobSpawnSettings.SpawnerData> base = event.getSpawns().getSpawner(MobCategory.WATER_AMBIENT);
-            base.add(new MobSpawnSettings.SpawnerData(NDUEntity.OBSIDIAN_FISH.get(), 15, 1, 5));
+
+            base.add(new MobSpawnSettings.SpawnerData(NDUEntity.BONEFISH.get(), 8, 1, 5));
             base.add(new MobSpawnSettings.SpawnerData(NDUEntity.SEARING_COD.get(), 10, 3, 6));
+
+            if (event.getName().equals(new ResourceLocation("minecraft", "soul_sand_valley"))) {
+                base.add(new MobSpawnSettings.SpawnerData(NDUEntity.SOULSUCKER.get(), 10, 1, 2));
+                base.add(new MobSpawnSettings.SpawnerData(NDUEntity.WITHER_BONEFISH.get(), 5, 1, 3));
+            }
+
+            if (event.getName().equals(new ResourceLocation("minecraft", "basalt_deltas"))) {
+                base.add(new MobSpawnSettings.SpawnerData(NDUEntity.OBSIDIAN_FISH.get(), 15, 1, 5));
+                base.add(new MobSpawnSettings.SpawnerData(NDUEntity.MAGMACUBEFISH.get(), 10, 2, 4));
+            }
+
+            if (event.getName().equals(new ResourceLocation("minecraft", "crimson_forest"))) {
+                base.add(new MobSpawnSettings.SpawnerData(NDUEntity.LAVA_PUFFERFISH.get(), 15, 1, 5));
+                base.add(new MobSpawnSettings.SpawnerData(NDUEntity.WITHER_BONEFISH.get(), 3, 1, 3));
+            }
+
+            if (event.getName().equals(new ResourceLocation("minecraft", "warped_forest"))) {
+                base.add(new MobSpawnSettings.SpawnerData(NDUEntity.LAVA_PUFFERFISH.get(), 15, 1, 5));
+            }
+
+            if ((!event.getName().equals(new ResourceLocation("minecraft", "crimson_forest")) || (!event.getName().equals(new ResourceLocation("minecraft", "warped_forest"))))) {
+                base.add(new MobSpawnSettings.SpawnerData(NDUEntity.GLOWDINE.get(), 8, 4, 6));
+            }
 
         }
     }
