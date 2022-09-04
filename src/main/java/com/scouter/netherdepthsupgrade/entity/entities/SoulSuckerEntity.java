@@ -428,7 +428,7 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
         double z12 = z1 - z2;
 
         double disTot = (x12 * x12) + (y12 * y12) + (z12 * z12);
-        LOGGER.info("dis " + disTot);
+        //LOGGER.info("dis " + disTot);
         return (disTot <= 3.0);
     }
 }
