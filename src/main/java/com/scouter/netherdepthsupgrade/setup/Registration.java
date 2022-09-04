@@ -30,8 +30,8 @@ public class Registration {
 
         NDUBlocks.BLOCKS.register(bus);
         NDUEntity.ENTITY_TYPES.register(bus);
-        NDUItems.ITEMS.register(bus);
         MobEffects.MOB_EFFECTS.register(bus);
+        NDUItems.ITEMS.register(bus);
         bus.addGenericListener(StructureFeature.class, NDUStructures::setupStructures);
         NDUStructures.STRUCTURES.register(bus);
         NDUParticle.PARTICLE.register(bus);
