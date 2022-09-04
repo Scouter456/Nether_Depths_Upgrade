@@ -1,5 +1,6 @@
 package com.scouter.netherdepthsupgrade.datagen;
 
+import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.effect.MobEffects;
@@ -8,8 +9,10 @@ import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.common.data.LanguageProvider;
+import org.slf4j.Logger;
 
 import java.util.function.Supplier;
 
@@ -17,7 +20,7 @@ public class LanguageGenerator extends LanguageProvider {
     public LanguageGenerator(DataGenerator gen){
         super(gen, NetherDepthsUpgrade.MODID, "en_us");
     }
-
+    private static final Logger LOGGER = LogUtils.getLogger();
     @Override
     protected void addTranslations(){
 
@@ -75,11 +78,23 @@ public class LanguageGenerator extends LanguageProvider {
 
         //EFFECTS
         addEffect(MobEffects.LAVA_VISION, "Lava Vision");
+
+        //TABS
+        addTabName(NDUItems.creativeTab, "Nether Depths Upgrade");
+        addTabName(NDUItems.creativeTabFish, "Nether Depths Upgrade Fish");
     }
 
     @Override
     public String getName() {
-        return "Monster Food Languages: en_us";
+        return "Nether Depths Upgrade Languages: en_us";
+    }
+
+    public void addTabName(CreativeModeTab key, String name){
+        add(key.getDisplayName().getString(), name);
+    }
+
+    public void add(CreativeModeTab key, String name) {
+        add(key.getDisplayName().getString(), name);
     }
 
     public void addPotion(Supplier<? extends Potion> key, String name) {

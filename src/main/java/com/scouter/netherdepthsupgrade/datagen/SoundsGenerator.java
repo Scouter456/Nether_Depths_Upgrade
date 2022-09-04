@@ -27,6 +27,6 @@ public class SoundsGenerator extends SoundDefinitionsProvider {
     @Override
     public String getName()
     {
-        return "Monsterfood Sound Generator";
+        return "Nether Depths Upgrade Sound Generator";
     }
 }

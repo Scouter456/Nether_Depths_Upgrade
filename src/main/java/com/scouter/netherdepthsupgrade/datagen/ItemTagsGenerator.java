@@ -30,5 +30,5 @@ public class ItemTagsGenerator extends ItemTagsProvider {
     }
 
     @Override
-    public String getName() { return "Monster Food Item Tags";}
+    public String getName() { return "Nether Depths Upgrade Item Tags";}
 }
