@@ -81,7 +81,7 @@ public class NDUItems {
 
     public static final RegistryObject<Item> SOULSUCKER_SPAWN_EGG = ITEMS.register("soulsucker_spawn_egg", ()-> new ForgeSpawnEggItem(NDUEntity.SOULSUCKER,
             0x796152 ,0xcc8654, Registration.fishBuilder()));
-    public static final RegistryObject<Item> LAVA_FISHING_ROD = ITEMS.register("lava_fishing_rod", () -> new LavaFishingRod((Registration.defaultBuilder()).durability(128)));
+
 
     public static CreativeModeTab creativeTab = new CreativeModeTab( "netherdepthsupgrade") {
         @Override

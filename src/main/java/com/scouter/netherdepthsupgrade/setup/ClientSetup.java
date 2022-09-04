@@ -24,7 +24,6 @@ public class ClientSetup {
 
     public static void init(FMLClientSetupEvent event){
         RenderLayerRegistration.init();
-        registerFishingRodModelProperties(NDUItems.LAVA_FISHING_ROD.get());
         EntityRenderers.register(NDUEntity.LAVA_PUFFERFISH.get(), LavaPufferfishRenderer::new);
         EntityRenderers.register(NDUEntity.OBSIDIAN_FISH.get(), ObsidianfishRenderer::new);
         EntityRenderers.register(NDUEntity.SEARING_COD.get(), SearingCodRenderer::new);
@@ -34,23 +33,6 @@ public class ClientSetup {
         EntityRenderers.register(NDUEntity.MAGMACUBEFISH.get(), MagmaCubefishrenderer::new);
         EntityRenderers.register(NDUEntity.GLOWDINE.get(), GlowdineRenderer::new);
         EntityRenderers.register(NDUEntity.SOULSUCKER.get(), SoulSuckerRenderer::new);
-        EntityRenderers.register(NDUEntity.LAVA_BOBBER.get(), LavaFishingHookRenderer::new);
-        //OverlayRegistry.registerOverlayAbove(HOTBAR_ELEMENT, "name", StructureOverlay.HUD_STRUCTURE);
-    }
-
-    public static void registerFishingRodModelProperties(Item fishingRod) {
-        ItemProperties.register(fishingRod, new ResourceLocation("cast"), (stack, level, entity, i) -> {
-            if (entity == null) {
-                return 0.0F;
-            } else {
-                boolean isMainhand = entity.getMainHandItem() == stack;
-                boolean isOffHand = entity.getOffhandItem() == stack;
-                if (entity.getMainHandItem().getItem() instanceof FishingRodItem) {
-                    isOffHand = false;
-                }
-                return (isMainhand || isOffHand) && entity instanceof Player && ((Player) entity).fishing != null ? 1.0F : 0.0F;
-            }
-        });
     }
 
 }
