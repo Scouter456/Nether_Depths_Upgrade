@@ -53,8 +53,10 @@ public abstract class AbstractLavaSchoolingFish extends AbstractLavaFish {
     }
 
     public void stopFollowing() {
+        if(this.leader != null){
         this.leader.removeFollower();
         this.leader = null;
+        }
     }
 
     private void addFollower() {
