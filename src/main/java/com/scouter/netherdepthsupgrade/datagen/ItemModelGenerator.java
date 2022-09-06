@@ -47,6 +47,8 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(NDUItems.GLOWDINE);
         singleTex(NDUItems.SOULSUCKER_BUCKET);
         singleTex(NDUItems.SOULSUCKER);
+        singleTex(NDUItems.SOUL_SUCKER_LEATHER);
+
 
         toBlock(NDUBlocks.LAVA_SPONGE.get());
         toBlock(NDUBlocks.WET_LAVA_SPONGE.get());

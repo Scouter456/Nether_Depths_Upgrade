@@ -73,6 +73,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(NDUItems.GLOWDINE, "Glowdine");
         addItem(NDUItems.SOULSUCKER_BUCKET, "Bucket of Soul Sucker");
         addItem(NDUItems.SOULSUCKER, "Soul Sucker");
+        addItem(NDUItems.SOUL_SUCKER_BOOTS, "Soul Sucker Boots");
+        addItem(NDUItems.SOUL_SUCKER_LEATHER, "Soul Sucker Leather");
         //ENCHANTMENTS
         addEnchantment(NDUEnchantments.HELL_STRIDER, "Hell Strider");
 

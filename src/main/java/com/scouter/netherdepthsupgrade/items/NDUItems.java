@@ -7,6 +7,7 @@ import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.setup.Registration;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -15,9 +16,9 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.checkerframework.checker.units.qual.A;
 
 
-//import static com.scouter.monsterfood.setup.Registration.fromBlock;
 
 public class NDUItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, NetherDepthsUpgrade.MODID);
@@ -28,6 +29,14 @@ public class NDUItems {
     public static final RegistryObject<Item> WARPED_KELP = fromBlockFireRes(NDUBlocks.WARPED_KELP);
     public static final RegistryObject<Item> WARPED_SEAGRASS = fromBlockFireRes(NDUBlocks.WARPED_SEAGRASS);
     public static final RegistryObject<Item> WARPED_KELP_BLOCK = fromBlockFireResFuel(NDUBlocks.WARPED_KELP_BLOCK);
+
+    //ITEM
+    public static final RegistryObject<Item> SOUL_SUCKER_LEATHER = ITEMS.register("soul_sucker_leather", () -> new Item(Registration.defaultBuilder().fireResistant()));
+
+
+    //ARMOR
+    public static final RegistryObject<ArmorItem> SOUL_SUCKER_BOOTS = ITEMS.register("soul_sucker_boots", () -> new SoulSuckerArmorItem(NDUMaterialInit.SOUL_SUCKER, EquipmentSlot.FEET, Registration.defaultBuilder().fireResistant()));
+
 
     //FISH
     public static final RegistryObject<Item> LAVA_PUFFERFISH = ITEMS.register("lava_pufferfish", () -> new Item(Registration.fishBuilder().fireResistant()

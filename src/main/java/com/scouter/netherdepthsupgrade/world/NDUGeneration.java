@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import java.util.List;
 
 public class NDUGeneration {
-    private static final Logger LOGGER = LogUtils.getLogger();
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void generateFeatures(BiomeLoadingEvent event) {

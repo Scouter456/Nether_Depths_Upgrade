@@ -12,11 +12,9 @@ import com.scouter.netherdepthsupgrade.utils.BetterBrewingRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -59,5 +57,6 @@ public class ModSetup {
     public static void registerParticleTypes(ParticleFactoryRegisterEvent event){
         Minecraft.getInstance().particleEngine.register(NDUParticle.GLOWDINE_PARTICLE.get(), GlowdineParticle.GlowdineProvider::new);
     }
+
 
 }

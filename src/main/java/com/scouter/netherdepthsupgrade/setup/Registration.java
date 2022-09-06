@@ -32,7 +32,6 @@ public class Registration {
         NDUEntity.ENTITY_TYPES.register(bus);
         MobEffects.MOB_EFFECTS.register(bus);
         NDUItems.ITEMS.register(bus);
-        bus.addGenericListener(StructureFeature.class, NDUStructures::setupStructures);
         NDUStructures.STRUCTURES.register(bus);
         NDUParticle.PARTICLE.register(bus);
         NDUEnchantments.ENCHANTMENT.register(bus);

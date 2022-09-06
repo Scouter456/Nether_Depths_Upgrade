@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -37,5 +36,5 @@ public class ForgeEvents {
                //event.player.makeStuckInBlock(Blocks.LAVA.defaultBlockState(), new Vec3(1.5D * level, 2.5D, 1.5D * level));
             }
         }
-    }
+}
 

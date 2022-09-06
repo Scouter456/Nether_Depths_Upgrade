@@ -82,7 +82,6 @@ public abstract class LavaAnimal extends PathfinderMob {
     }
 
     public static boolean checkSurfaceLavaAnimalSpawnRules(EntityType<? extends LavaAnimal> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, Random p_186242_) {
-        LOGGER.info("trying to spawn " + p_186238_);
         int i = 40;
         int j = i - 30;
         return pos.getY() >= j && pos.getY() <= i && (spawnType == MobSpawnType.SPAWNER || level.getFluidState(pos.below()).is(FluidTags.LAVA) && level.getBlockState(pos.above()).is(Blocks.LAVA));
