@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "netherdepthsupgrade:soul_sucker_boots"
+    ]
+  },
+  "criteria": {
+    "has_soul_sucker_leather": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "netherdepthsupgrade:soul_sucker_leather"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "netherdepthsupgrade:soul_sucker_boots"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_soul_sucker_leather",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sLs",
+    "LLL"
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:string"
+    },
+    "L": {
+      "item": "netherdepthsupgrade:soul_sucker_leather"
+    }
+  },
+  "result": {
+    "item": "netherdepthsupgrade:soul_sucker_boots"
+  }
+}
