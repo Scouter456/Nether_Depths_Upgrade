@@ -4,11 +4,14 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
+import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.NoiseColumn;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -25,7 +28,9 @@ import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplie
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.event.world.StructureSpawnListGatherEvent;
 import org.slf4j.Logger;
 
 import java.util.Optional;
@@ -61,33 +66,37 @@ public class NetherFortressPiece extends StructureFeature<JigsawConfiguration> {
     public static Optional<PieceGenerator<JigsawConfiguration>> generatePieces(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
         // Check if the spot is valid for our structure. This is just as another method for cleanness.
         // Returning an empty optional tells the game to skip this spot as it will not generate the structure.
-        if (!NetherFortressPiece.isFeatureChunk(context)) {
+        int y = rand.nextInt(15,30);
+        BlockPos centerPos = new BlockPos(context.chunkPos().getMinBlockX(), y, context.chunkPos().getMinBlockZ());
+        if(!isFeatureChunk(context)) {
             return Optional.empty();
         }
 
+
         // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
         BlockPos blockpos = context.chunkPos().getMiddleBlockPosition(0);
+        blockpos = blockpos.offset(0,y,0);
 
+        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+        ChunkGenerator chunkGenerator = context.chunkGenerator();
+        mutable = mutable.set(centerPos);
+        NoiseColumn columnOfBlocks = chunkGenerator.getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
+        BlockState state = columnOfBlocks.getBlock(blockpos.getY());
+        if(!state.getFluidState().is(Fluids.LAVA)){
+            return Optional.empty();
+        }
+
+        while(state.getFluidState().is(Fluids.LAVA) || blockpos.getY() > 0){
+            blockpos = blockpos.below();
+            state = columnOfBlocks.getBlock(blockpos.getY());
+            if(!state.getFluidState().is(Fluids.LAVA)){
+                break;
+            }
+        }
         // Set's our spawning blockpos's y offset to be 60 blocks up.
         // Since we are going to have heightmap/terrain height spawning set to true further down, this will make it so we spawn 60 blocks above terrain.
         // If we wanted to spawn on ocean floor, we would set heightmap/terrain height spawning to false and the grab the y value of the terrain with OCEAN_FLOOR_WG heightmap.
 
-        NoiseColumn columnOfBlocks = context.chunkGenerator().getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
-
-        int y = rand.nextInt(15,30);
-        blockpos = blockpos.above(y);
-        BlockState state = columnOfBlocks.getBlock(blockpos.getY());
-
-
-        while(state.is(Blocks.LAVA) && blockpos.getY() > 0){
-            blockpos = blockpos.below();
-            LOGGER.info("blockpos " + blockpos);
-        }
-        if(blockpos.getY() == 0 ){
-            return Optional.empty();
-        }
-
-        LOGGER.info("blockpos " + blockpos);
         Optional<PieceGenerator<JigsawConfiguration>> structurePiecesGenerator =
                 JigsawPlacement.addPieces(
                         context, // Used for JigsawPlacement to get all the proper behaviors done.
@@ -113,11 +122,12 @@ public class NetherFortressPiece extends StructureFeature<JigsawConfiguration> {
         if(structurePiecesGenerator.isPresent()) {
             // I use to debug and quickly find out if the structure is spawning or not and where it is.
             // This is returning the coordinates of the center starting piece.
-            LOGGER.info("Fortress piece at {}", blockpos);
+            //LOGGER.info("Fortress piece at {}", blockpos);
         }
-
         // Return the pieces generator that is now set up so that the game runs it when it needs to create the layout of structure pieces.
         return structurePiecesGenerator;
     }
+
+
 }
 
