@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#netherdepthsupgrade:is_wither_bonefish_biome",
+  "spawners": {
+    "type": "netherdepthsupgrade:wither_bonefish",
+    "weight": 3,
+    "minCount": 1,
+    "maxCount": 3,
+    "category": "water_ambient"
+  }
+}

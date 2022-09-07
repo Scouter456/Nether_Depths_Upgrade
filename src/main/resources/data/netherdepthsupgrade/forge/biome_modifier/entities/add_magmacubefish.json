@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "minecraft:basalt_deltas",
+  "spawners": {
+    "type": "netherdepthsupgrade:magmacubefish",
+    "weight": 10,
+    "minCount": 2,
+    "maxCount": 4,
+    "category": "water_ambient"
+  }
+}

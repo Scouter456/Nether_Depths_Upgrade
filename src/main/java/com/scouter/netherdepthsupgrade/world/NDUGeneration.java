@@ -1,7 +1,5 @@
 package com.scouter.netherdepthsupgrade.world;
 
-import com.mojang.logging.LogUtils;
-
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.world.feature.NDUConfiguredFeatures;
 import net.minecraft.resources.ResourceLocation;
@@ -9,15 +7,13 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import org.slf4j.Logger;
 
 import java.util.List;
 
 public class NDUGeneration {
-
+ /*
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void generateFeatures(BiomeLoadingEvent event) {
         if(event.getCategory().equals(Biome.BiomeCategory.NETHER)) {
@@ -65,5 +61,5 @@ public class NDUGeneration {
             }
 
         }
-    }
+    }*/
 }

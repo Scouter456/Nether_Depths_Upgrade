@@ -12,7 +12,7 @@ logoFile="soulsucker_logo.png" #optional
 credits=""
 authors="Scouter456"
 description='''
-This is a mod that gives the lava in the nether a little upgrade
+This is a mod that gives the lava depths in the nether a little upgrade
 '''
 
 [[dependencies.netherdepthsupgrade]]
@@ -24,6 +24,6 @@ side="BOTH"
 [[dependencies.netherdepthsupgrade]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.18.2,1.19)"
+versionRange="[1.18.2,1.20)"
 ordering="NONE"
 side="BOTH"

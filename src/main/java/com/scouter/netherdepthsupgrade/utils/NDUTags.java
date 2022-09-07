@@ -7,6 +7,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
 import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
@@ -41,6 +42,20 @@ public class NDUTags {
         }
         private static TagKey<EntityType<?>> forgeTag(String name){
             return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation("forge", name));
+
+        }
+    }
+
+    public static class Biomes {
+        public static final TagKey<Biome> IS_LAVA_PUFFERFISH_BIOME = tag("is_lava_pufferfish_biome");
+        public static final TagKey<Biome> IS_WITHER_BONEFISH_BIOME = tag("is_wither_bonefish_biome");
+
+        private static TagKey<Biome> tag(String name){
+            return TagKey.create(Registry.BIOME_REGISTRY, prefix(name));
+
+        }
+        private static TagKey<Biome> forgeTag(String name){
+            return TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("forge", name));
 
         }
     }

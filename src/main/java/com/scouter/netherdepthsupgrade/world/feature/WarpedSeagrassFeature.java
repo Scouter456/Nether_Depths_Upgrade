@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.blocks.TallLavaSeagrassBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,7 +29,7 @@ public class WarpedSeagrassFeature extends Feature<ProbabilityFeatureConfigurati
      */
     public boolean place(FeaturePlaceContext<ProbabilityFeatureConfiguration> p_160318_) {
         boolean flag = false;
-        Random random = p_160318_.random();
+        RandomSource random = p_160318_.random();
         WorldGenLevel worldgenlevel = p_160318_.level();
         BlockPos blockpos = p_160318_.origin();
         ProbabilityFeatureConfiguration probabilityfeatureconfiguration = p_160318_.config();

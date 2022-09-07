@@ -10,17 +10,17 @@ import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class SoulSuckerModel extends AnimatedTickingGeoModel<SoulSuckerEntity> {
     @Override
-    public ResourceLocation getModelLocation(SoulSuckerEntity object) {
+    public ResourceLocation getModelResource(SoulSuckerEntity object) {
         return prefix("geo/soulsucker.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(SoulSuckerEntity object) {
+    public ResourceLocation getTextureResource(SoulSuckerEntity object) {
         return prefix("textures/entity/fish/soulsucker.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(SoulSuckerEntity animatable) {
+    public ResourceLocation getAnimationResource(SoulSuckerEntity animatable) {
         return prefix("animations/soulsucker.animation.json");
     }
 }

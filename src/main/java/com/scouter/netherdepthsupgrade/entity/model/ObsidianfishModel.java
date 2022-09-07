@@ -10,17 +10,17 @@ import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class ObsidianfishModel extends AnimatedTickingGeoModel<ObsidianfishEntity> {
     @Override
-    public ResourceLocation getModelLocation(ObsidianfishEntity object) {
+    public ResourceLocation getModelResource(ObsidianfishEntity object) {
         return prefix("geo/obsidianfish.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ObsidianfishEntity object) {
+    public ResourceLocation getTextureResource(ObsidianfishEntity object) {
         return prefix("textures/entity/fish/obsidianfish.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(ObsidianfishEntity animatable) {
+    public ResourceLocation getAnimationResource(ObsidianfishEntity animatable) {
         return prefix("animations/obsidianfish.animation.json");
     }
 }

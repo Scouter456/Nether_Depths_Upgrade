@@ -10,17 +10,17 @@ import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class MagmaCubefishModel extends AnimatedTickingGeoModel<MagmaCubefishEntity> {
     @Override
-    public ResourceLocation getModelLocation(MagmaCubefishEntity object) {
+    public ResourceLocation getModelResource(MagmaCubefishEntity object) {
         return prefix("geo/magmacubefish.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(MagmaCubefishEntity object) {
+    public ResourceLocation getTextureResource(MagmaCubefishEntity object) {
         return prefix("textures/entity/fish/magmacubefish.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(MagmaCubefishEntity animatable) {
+    public ResourceLocation getAnimationResource(MagmaCubefishEntity animatable) {
         return prefix("animations/magmacubefish.animation.json");
     }
 }

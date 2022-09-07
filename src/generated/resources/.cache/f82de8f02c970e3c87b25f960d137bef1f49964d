@@ -1,0 +1,5 @@
+// 1.19.2	2022-09-07T20:16:25.6613145	Nether Depths Upgrade loot tables
+e4fff4e548d5d7f40da49b8bedc87aff19381c54 data/netherdepthsupgrade/loot_tables/blocks/tall_warped_seagrass.json
+0b6c87ef7397cbc7894ddee3c172a3baa3b00e76 data/netherdepthsupgrade/loot_tables/blocks/warped_kelp.json
+0b6c87ef7397cbc7894ddee3c172a3baa3b00e76 data/netherdepthsupgrade/loot_tables/blocks/warped_kelp_plant.json
+1fea3cc67b2599241c9f11eb85c82d3eaf32d807 data/netherdepthsupgrade/loot_tables/blocks/warped_seagrass.json

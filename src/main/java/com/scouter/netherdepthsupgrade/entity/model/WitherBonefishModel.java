@@ -9,17 +9,17 @@ import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class WitherBonefishModel extends AnimatedTickingGeoModel<WitherBonefishEntity> {
     @Override
-    public ResourceLocation getModelLocation(WitherBonefishEntity object) {
+    public ResourceLocation getModelResource(WitherBonefishEntity object) {
         return prefix("geo/witherbonefish.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(WitherBonefishEntity object) {
+    public ResourceLocation getTextureResource(WitherBonefishEntity object) {
         return prefix("textures/entity/fish/wither_bonefish.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(WitherBonefishEntity animatable) {
+    public ResourceLocation getAnimationResource(WitherBonefishEntity animatable) {
         return prefix("animations/witherbonefish.animation.json");
     }
 }

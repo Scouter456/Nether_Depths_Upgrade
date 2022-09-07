@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "minecraft:basalt_deltas",
+  "spawners": {
+    "type": "netherdepthsupgrade:obsidianfish",
+    "weight": 15,
+    "minCount": 1,
+    "maxCount": 5,
+    "category": "water_ambient"
+  }
+}

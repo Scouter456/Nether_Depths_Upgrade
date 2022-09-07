@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
@@ -23,9 +24,10 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels(){
-        for(Item i : Registry.ITEM){
-            if (i instanceof SpawnEggItem && i.getRegistryName().getNamespace().equals(NetherDepthsUpgrade.MODID)){
-                getBuilder(i.getRegistryName().getPath()).parent((getExistingFile(new ResourceLocation("item/template_spawn_egg"))));
+        for (Item i : Registry.ITEM) {
+            if (i instanceof SpawnEggItem && ForgeRegistries.ITEMS.getKey(i).getNamespace().equals(NetherDepthsUpgrade.MODID)) {
+                getBuilder(ForgeRegistries.ITEMS.getKey(i).getPath())
+                        .parent(getExistingFile(new ResourceLocation("item/template_spawn_egg")));
             }
         }
 
@@ -50,21 +52,21 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(NDUItems.SOUL_SUCKER_LEATHER);
 
 
-        toBlock(NDUBlocks.LAVA_SPONGE.get());
-        toBlock(NDUBlocks.WET_LAVA_SPONGE.get());
-        toBlock(NDUBlocks.WARPED_KELP_BLOCK.get());
+        toBlock(NDUBlocks.LAVA_SPONGE);
+        toBlock(NDUBlocks.WET_LAVA_SPONGE);
+        toBlock(NDUBlocks.WARPED_KELP_BLOCK);
 
     }
-    private void toBlock(Block b) {
-        toBlockModel(b, b.getRegistryName().getPath());
+    private void toBlock(RegistryObject<Block> b) {
+        toBlockModel(b, b.getId().getPath());
     }
 
-    private void toBlockModel(Block b, String model) {
+    private void toBlockModel(RegistryObject<Block> b, String model) {
         toBlockModel(b, prefix("block/" + model));
     }
 
-    private void toBlockModel(Block b, ResourceLocation model) {
-        withExistingParent(b.getRegistryName().getPath(), model);
+    private void toBlockModel(RegistryObject<Block> b, ResourceLocation model) {
+        withExistingParent(b.getId().getPath(), model);
     }
 
     private ItemModelBuilder singleTex(RegistryObject<Item> item) {

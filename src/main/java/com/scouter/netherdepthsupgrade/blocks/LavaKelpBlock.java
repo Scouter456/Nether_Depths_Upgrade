@@ -3,6 +3,7 @@ package com.scouter.netherdepthsupgrade.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -49,7 +50,7 @@ public class LavaKelpBlock extends GrowingLavaPlantHeadBlock implements LiquidBl
     /**
      * Used to determine how much to grow the plant when using bonemeal.
      */
-    protected int getBlocksToGrowWhenBonemealed(Random pRandom) {
+    protected int getBlocksToGrowWhenBonemealed(RandomSource pRandom) {
         return 1;
     }
 

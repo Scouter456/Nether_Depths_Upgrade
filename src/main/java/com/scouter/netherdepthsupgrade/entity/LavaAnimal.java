@@ -3,6 +3,7 @@ package com.scouter.netherdepthsupgrade.entity;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
@@ -81,7 +82,7 @@ public abstract class LavaAnimal extends PathfinderMob {
         return false;
     }
 
-    public static boolean checkSurfaceLavaAnimalSpawnRules(EntityType<? extends LavaAnimal> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, Random p_186242_) {
+    public static boolean checkSurfaceLavaAnimalSpawnRules(EntityType<? extends LavaAnimal> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
         int i = 40;
         int j = i - 30;
         return pos.getY() >= j && pos.getY() <= i && (spawnType == MobSpawnType.SPAWNER || level.getFluidState(pos.below()).is(FluidTags.LAVA) && level.getBlockState(pos.above()).is(Blocks.LAVA));

@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_nether",
+  "features": "netherdepthsupgrade:warped_seagrass_short_feature_placed",
+  "step": "vegetal_decoration"
+}

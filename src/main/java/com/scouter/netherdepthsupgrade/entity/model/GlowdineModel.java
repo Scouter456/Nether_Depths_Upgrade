@@ -10,17 +10,17 @@ import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class GlowdineModel extends AnimatedTickingGeoModel<GlowdineEntity> {
     @Override
-    public ResourceLocation getModelLocation(GlowdineEntity object) {
+    public ResourceLocation getModelResource(GlowdineEntity object) {
         return prefix("geo/glowdine.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(GlowdineEntity object) {
+    public ResourceLocation getTextureResource(GlowdineEntity object) {
         return prefix("textures/entity/fish/glowdine.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(GlowdineEntity animatable) {
+    public ResourceLocation getAnimationResource(GlowdineEntity animatable) {
         return prefix("animations/glowdine.animation.json");
     }
 }

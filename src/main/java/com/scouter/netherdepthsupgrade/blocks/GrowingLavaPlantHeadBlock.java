@@ -3,6 +3,7 @@ package com.scouter.netherdepthsupgrade.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -42,7 +43,7 @@ public abstract class GrowingLavaPlantHeadBlock extends GrowingLavaPlantBlock im
     /**
      * Performs a random tick on a block.
      */
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
+    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         if (pState.getValue(AGE) < 25 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos.relative(this.growthDirection), pLevel.getBlockState(pPos.relative(this.growthDirection)),pRandom.nextDouble() < this.growPerTickProbability)) {
             BlockPos blockpos = pPos.relative(this.growthDirection);
             if (this.canGrowInto(pLevel.getBlockState(blockpos))) {
@@ -53,16 +54,16 @@ public abstract class GrowingLavaPlantHeadBlock extends GrowingLavaPlantBlock im
 
     }
 
-    protected BlockState getGrowIntoState(BlockState pState, Random pRandom) {
+    protected BlockState getGrowIntoState(BlockState pState, RandomSource pRandom) {
         return pState.cycle(AGE);
     }
 
-    public BlockState getMaxAgeState(BlockState p_187439_) {
-        return p_187439_.setValue(AGE, Integer.valueOf(25));
+    public BlockState getMaxAgeState(BlockState pState) {
+        return pState.setValue(AGE, Integer.valueOf(25));
     }
 
-    public boolean isMaxAge(BlockState p_187441_) {
-        return p_187441_.getValue(AGE) == 25;
+    public boolean isMaxAge(BlockState pState) {
+        return pState.getValue(AGE) == 25;
     }
 
     protected BlockState updateBodyAfterConvertedFromHead(BlockState p_153329_, BlockState p_153330_) {
@@ -102,11 +103,11 @@ public abstract class GrowingLavaPlantHeadBlock extends GrowingLavaPlantBlock im
         return this.canGrowInto(pLevel.getBlockState(pPos.relative(this.growthDirection)));
     }
 
-    public boolean isBonemealSuccess(Level pLevel, Random pRand, BlockPos pPos, BlockState pState) {
+    public boolean isBonemealSuccess(Level pLevel, RandomSource pRand, BlockPos pPos, BlockState pState) {
         return true;
     }
 
-    public void performBonemeal(ServerLevel pLevel, Random pRand, BlockPos pPos, BlockState pState) {
+    public void performBonemeal(ServerLevel pLevel, RandomSource pRand, BlockPos pPos, BlockState pState) {
         BlockPos blockpos = pPos.relative(this.growthDirection);
         int i = Math.min(pState.getValue(AGE) + 1, 25);
         int j = this.getBlocksToGrowWhenBonemealed(pRand);
@@ -122,7 +123,7 @@ public abstract class GrowingLavaPlantHeadBlock extends GrowingLavaPlantBlock im
     /**
      * Used to determine how much to grow the plant when using bonemeal.
      */
-    protected abstract int getBlocksToGrowWhenBonemealed(Random pRandom);
+    protected abstract int getBlocksToGrowWhenBonemealed(RandomSource pRandom);
 
     protected abstract boolean canGrowInto(BlockState pState);
 

@@ -13,7 +13,7 @@ import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 
 public class NDUEntity {
-    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, NetherDepthsUpgrade.MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, NetherDepthsUpgrade.MODID);
 
 
     public static final RegistryObject<EntityType<LavaPufferfishEntity>> LAVA_PUFFERFISH = ENTITY_TYPES.register("lava_pufferfish",

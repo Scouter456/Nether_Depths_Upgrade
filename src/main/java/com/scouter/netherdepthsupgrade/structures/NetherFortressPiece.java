@@ -3,50 +3,61 @@ package com.scouter.netherdepthsupgrade.structures;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
-import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.LevelHeightAccessor;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.NoiseColumn;
-import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.LegacyRandomSource;
-import net.minecraft.world.level.levelgen.WorldgenRandom;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
-import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
-import net.minecraft.world.level.levelgen.structure.PostPlacementProcessor;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
-import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.event.world.StructureSpawnListGatherEvent;
 import org.slf4j.Logger;
 
 import java.util.Optional;
 import java.util.Random;
 
-public class NetherFortressPiece extends StructureFeature<JigsawConfiguration> {
+public class NetherFortressPiece extends Structure {
     private static final Logger LOGGER = LogUtils.getLogger();
     static Random rand = new Random();
-    public static final Codec<JigsawConfiguration> CODEC = RecordCodecBuilder.create((codec) -> {
-        return codec.group(
-                StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(JigsawConfiguration::startPool),
-                Codec.intRange(0, 30).fieldOf("size").forGetter(JigsawConfiguration::maxDepth)
-        ).apply(codec, JigsawConfiguration::new);
-    });
-    public NetherFortressPiece() {
-        super(CODEC, NetherFortressPiece::generatePieces, PostPlacementProcessor.NONE);
+    public static final Codec<NetherFortressPiece> CODEC =  RecordCodecBuilder.<NetherFortressPiece>mapCodec(instance ->
+            instance.group(NetherFortressPiece.settingsCodec(instance),
+                    StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
+                    ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
+                    Codec.intRange(0, 30).fieldOf("size").forGetter(structure -> structure.size),
+                    HeightProvider.CODEC.fieldOf("start_height").forGetter(structure -> structure.startHeight),
+                    Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter(structure -> structure.projectStartToHeightmap),
+                    Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter)
+            ).apply(instance, NetherFortressPiece::new)).codec();
+
+    private final Holder<StructureTemplatePool> startPool;
+    private final Optional<ResourceLocation> startJigsawName;
+    private final int size;
+    private final HeightProvider startHeight;
+    private final Optional<Heightmap.Types> projectStartToHeightmap;
+    private final int maxDistanceFromCenter;
+
+
+    public NetherFortressPiece(Structure.StructureSettings config,
+                         Holder<StructureTemplatePool> startPool,
+                         Optional<ResourceLocation> startJigsawName,
+                         int size,
+                         HeightProvider startHeight,
+                         Optional<Heightmap.Types> projectStartToHeightmap,
+                         int maxDistanceFromCenter)
+    {
+        super(config);
+        this.startPool = startPool;
+        this.startJigsawName = startJigsawName;
+        this.size = size;
+        this.startHeight = startHeight;
+        this.projectStartToHeightmap = projectStartToHeightmap;
+        this.maxDistanceFromCenter = maxDistanceFromCenter;
     }
 
     @Override
@@ -54,23 +65,23 @@ public class NetherFortressPiece extends StructureFeature<JigsawConfiguration> {
         return GenerationStep.Decoration.SURFACE_STRUCTURES;
     }
 
-    private static boolean isFeatureChunk(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
-        // Grabs the chunk position we are at
-        ChunkPos chunkpos = context.chunkPos();
-
-        // Checks to make sure our structure does not spawn within 10 chunks of an Ocean Monument
+    //private static boolean isFeatureChunk(Structure.GenerationContext context, BlockPos pos) {
+    //    // Grabs the chunk position we are at
+    //    ChunkPos chunkpos = context.chunkPos();
+//
+  //      // Checks to make sure our structure does not spawn within 10 chunks of an Ocean Monument
         // to demonstrate how this method is good for checking extra conditions for spawning
-        return !context.chunkGenerator().hasFeatureChunkInRange(BuiltinStructureSets.NETHER_COMPLEXES, context.seed(), chunkpos.x, chunkpos.z, 10);
-    }
-
-    public static Optional<PieceGenerator<JigsawConfiguration>> generatePieces(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
+   //     return !context.chunkGenerator().findNearestMapStructure( BuiltinStructureSets.NETHER_COMPLEXES, pos, 10);
+    //}
+    @Override
+    public Optional<Structure.GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
         // Check if the spot is valid for our structure. This is just as another method for cleanness.
         // Returning an empty optional tells the game to skip this spot as it will not generate the structure.
         int y = rand.nextInt(15,30);
         BlockPos centerPos = new BlockPos(context.chunkPos().getMinBlockX(), y, context.chunkPos().getMinBlockZ());
-        if(!isFeatureChunk(context)) {
-            return Optional.empty();
-        }
+       // if(!isFeatureChunk(context, centerPos)) {
+       //     return Optional.empty();
+       // }
 
 
         // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
@@ -80,7 +91,7 @@ public class NetherFortressPiece extends StructureFeature<JigsawConfiguration> {
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
         ChunkGenerator chunkGenerator = context.chunkGenerator();
         mutable = mutable.set(centerPos);
-        NoiseColumn columnOfBlocks = chunkGenerator.getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor());
+        NoiseColumn columnOfBlocks = chunkGenerator.getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor(), context.randomState());
         BlockState state = columnOfBlocks.getBlock(blockpos.getY());
         if(!state.getFluidState().is(Fluids.LAVA)){
             return Optional.empty();
@@ -97,18 +108,20 @@ public class NetherFortressPiece extends StructureFeature<JigsawConfiguration> {
         // Since we are going to have heightmap/terrain height spawning set to true further down, this will make it so we spawn 60 blocks above terrain.
         // If we wanted to spawn on ocean floor, we would set heightmap/terrain height spawning to false and the grab the y value of the terrain with OCEAN_FLOOR_WG heightmap.
 
-        Optional<PieceGenerator<JigsawConfiguration>> structurePiecesGenerator =
+        Optional<Structure.GenerationStub> structurePiecesGenerator =
                 JigsawPlacement.addPieces(
                         context, // Used for JigsawPlacement to get all the proper behaviors done.
-                        PoolElementStructurePiece::new, // Needed in order to create a list of jigsaw pieces when making the structure's layout.
-                        blockpos, // Position of the structure. Y value is ignored if last parameter is set to true.
-                        false,  // Special boundary adjustments for villages. It's... hard to explain. Keep this false and make your pieces not be partially intersecting.
-                        // Either not intersecting or fully contained will make children pieces spawn just fine. It's easier that way.
-                        false // Adds the terrain height's y value to the passed in blockpos's y value. (This uses WORLD_SURFACE_WG heightmap which stops at top water too)
+                        this.startPool, // The starting pool to use to create the structure layout from
+                        this.startJigsawName, // Can be used to only spawn from one Jigsaw block. But we don't need to worry about this.
+                        this.size, // How deep a branch of pieces can go away from center piece. (5 means branches cannot be longer than 5 pieces from center piece)
+                        blockpos, // Where to spawn the structure.
+                        false, // "useExpansionHack" This is for legacy villages to generate properly. You should keep this false always.
+                        this.projectStartToHeightmap, // Adds the terrain height's y value to the passed in blockpos's y value. (This uses WORLD_SURFACE_WG heightmap which stops at top water too)
                         // Here, blockpos's y value is 60 which means the structure spawn 60 blocks above terrain height.
                         // Set this to false for structure to be place only at the passed in blockpos's Y value instead.
                         // Definitely keep this false when placing structures in the nether as otherwise, heightmap placing will put the structure on the Bedrock roof.
-                );
+                        this.maxDistanceFromCenter); // Maximum limit for how far pieces can spawn from center. You cannot set this bigger than 128 or else pieces gets cutoff.
+
 
         /*
          * Note, you are always free to make your own JigsawPlacement class and implementation of how the structure
@@ -122,12 +135,15 @@ public class NetherFortressPiece extends StructureFeature<JigsawConfiguration> {
         if(structurePiecesGenerator.isPresent()) {
             // I use to debug and quickly find out if the structure is spawning or not and where it is.
             // This is returning the coordinates of the center starting piece.
-            //LOGGER.info("Fortress piece at {}", blockpos);
+            LOGGER.info("Fortress piece at {}", blockpos);
         }
         // Return the pieces generator that is now set up so that the game runs it when it needs to create the layout of structure pieces.
         return structurePiecesGenerator;
     }
 
-
+    @Override
+    public StructureType<?> type() {
+        return NDUStructures.NETHER_FORTRESS_PIECE.get(); // Helps the game know how to turn this structure back to json to save to chunks
+    }
 }
 

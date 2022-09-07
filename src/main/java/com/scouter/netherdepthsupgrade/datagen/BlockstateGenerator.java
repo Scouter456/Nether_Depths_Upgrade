@@ -20,7 +20,7 @@ public class BlockstateGenerator extends BlockStateProvider {
     }
 
     private String blockName(Block block) {
-        return block.getRegistryName().getPath();
+        return block.getLootTable().getPath();
     }
 
     public ResourceLocation resourceBlock(String path) {

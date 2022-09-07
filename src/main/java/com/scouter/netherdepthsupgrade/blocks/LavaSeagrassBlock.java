@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -64,7 +65,7 @@ public class LavaSeagrassBlock extends BushBlock implements BonemealableBlock, L
         return true;
     }
 
-    public boolean isBonemealSuccess(Level p_154515_, Random p_154516_, BlockPos p_154517_, BlockState p_154518_) {
+    public boolean isBonemealSuccess(Level p_154515_, RandomSource p_154516_, BlockPos p_154517_, BlockState p_154518_) {
         return true;
     }
 
@@ -72,7 +73,7 @@ public class LavaSeagrassBlock extends BushBlock implements BonemealableBlock, L
         return Fluids.LAVA.getSource(false);
     }
 
-    public void performBonemeal(ServerLevel p_154498_, Random p_154499_, BlockPos p_154500_, BlockState p_154501_) {
+    public void performBonemeal(ServerLevel p_154498_, RandomSource p_154499_, BlockPos p_154500_, BlockState p_154501_) {
         BlockState blockstate = NDUBlocks.TALL_WARPED_SEAGRASS.get().defaultBlockState();
         BlockState blockstate1 = blockstate.setValue(TallSeagrassBlock.HALF, DoubleBlockHalf.UPPER);
         BlockPos blockpos = p_154500_.above();

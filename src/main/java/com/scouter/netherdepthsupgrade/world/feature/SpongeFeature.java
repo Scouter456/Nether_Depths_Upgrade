@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,7 +34,7 @@ public class SpongeFeature extends Feature<NoneFeatureConfiguration> {
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> p_159956_) {
         WorldGenLevel worldgenlevel = p_159956_.level();
         BlockPos blockpos = p_159956_.origin();
-        Random random = p_159956_.random();
+        RandomSource random = p_159956_.random();
         int t = 30 + random.nextInt(-29, 0);
         BlockPos blockpos1 = new BlockPos(blockpos.getX(), t, blockpos.getZ());
         BlockState block = NDUBlocks.WET_LAVA_SPONGE.get().defaultBlockState();

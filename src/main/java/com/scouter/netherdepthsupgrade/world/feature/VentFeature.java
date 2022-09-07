@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -39,7 +40,7 @@ public class VentFeature extends Feature<NoneFeatureConfiguration> {
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> p_159956_) {
         WorldGenLevel worldgenlevel = p_159956_.level();
         BlockPos blockpos = p_159956_.origin();
-        Random random = p_159956_.random();
+        RandomSource random = p_159956_.random();
         int z = 30 + random.nextInt(-29, 0);
         BlockPos blockpos1 = new BlockPos(blockpos.getX(), z, blockpos.getZ());
         if (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA)) {

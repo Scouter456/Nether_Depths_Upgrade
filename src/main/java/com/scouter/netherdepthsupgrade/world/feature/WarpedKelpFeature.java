@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.scouter.netherdepthsupgrade.blocks.LavaKelpBlock;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,7 +35,7 @@ public class WarpedKelpFeature extends Feature<NoneFeatureConfiguration> {
         int i = 0;
         WorldGenLevel worldgenlevel = p_159956_.level();
         BlockPos blockpos = p_159956_.origin();
-        Random random = p_159956_.random();
+        RandomSource random = p_159956_.random();
         //LOGGER.info("placing" + worldgenlevel);
         int j = 30 + random.nextInt(-29,10);
         //LOGGER.info("j" + j);

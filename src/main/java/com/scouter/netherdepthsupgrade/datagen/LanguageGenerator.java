@@ -41,8 +41,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(NDUItems.GLOWDINE_SPAWN_EGG, "Glowdine Spawn Egg");
         addItem(NDUItems.SOULSUCKER_SPAWN_EGG, "Soul Sucker Spawn Egg");
         //POTIONS
-        addPotion(NDUPotions.LAVA_VISION, "Potion of Lava Vision");
-        addPotion(NDUPotions.LONG_LAVA_VISION, "Potion of Lava Vision");
+        addPotion(NDUPotions.LAVA_VISION, "Potion of Lava Vision", "lava_vision");
+        addPotion(NDUPotions.LONG_LAVA_VISION, "Potion of Lava Vision", "lava_vision");
 
         //ENTITIES
         addEntityType(NDUEntity.LAVA_PUFFERFISH, "Lava Pufferfish");
@@ -99,13 +99,13 @@ public class LanguageGenerator extends LanguageProvider {
         add(key.getDisplayName().getString(), name);
     }
 
-    public void addPotion(Supplier<? extends Potion> key, String name) {
-        add(key.get(), name);
+    public void addPotion(Supplier<? extends Potion> key, String name, String regName) {
+        add(key.get(), name, regName);
     }
 
-    public void add(Potion key, String name) {
-        add("item.minecraft.potion.effect." + key.getRegistryName().getPath(), name);
-        add("item.minecraft.splash_potion.effect." + key.getRegistryName().getPath(), "Splash " + name);
-        add("item.minecraft.lingering_potion.effect." + key.getRegistryName().getPath(), "Lingering " + name);
+    public void add(Potion key, String name, String regName) {
+        add("item.minecraft.potion.effect." + regName, name);
+        add("item.minecraft.splash_potion.effect." + regName, "Splash " + name);
+        add("item.minecraft.lingering_potion.effect." + regName, "Lingering " + name);
     }
 }

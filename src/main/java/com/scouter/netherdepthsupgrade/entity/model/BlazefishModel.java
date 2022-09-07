@@ -8,17 +8,17 @@ import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class BlazefishModel extends AnimatedTickingGeoModel<BlazefishEntity> {
     @Override
-    public ResourceLocation getModelLocation(BlazefishEntity object) {
+    public ResourceLocation getModelResource(BlazefishEntity object) {
         return prefix("geo/blazefish.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BlazefishEntity object) {
+    public ResourceLocation getTextureResource(BlazefishEntity object) {
         return prefix("textures/entity/fish/blazefish.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(BlazefishEntity animatable) {
+    public ResourceLocation getAnimationResource(BlazefishEntity animatable) {
         return prefix("animations/blazefish.animation.json");
     }
 }

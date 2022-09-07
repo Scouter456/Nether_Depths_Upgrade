@@ -34,7 +34,7 @@ public class SoulSuckerArmorItem extends ArmorItem {
 
     @Override
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
-        if (allowdedIn(tab)) {
+        if (allowedIn(tab)) {
             ItemStack istack = new ItemStack(this);
             switch (this.getSlot()) {
                 case HEAD:
