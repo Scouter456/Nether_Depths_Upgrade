@@ -1,8 +1,15 @@
 package com.scouter.netherdepthsupgrade.entity.entities;
 
+import com.scouter.netherdepthsupgrade.entity.AbstractLavaFish;
 import com.scouter.netherdepthsupgrade.entity.AbstractLavaSchoolingFish;
+import com.scouter.netherdepthsupgrade.entity.ai.FollowLavaFlockLeaderGoal;
+import com.scouter.netherdepthsupgrade.entity.ai.LavaFishJumpGoal;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.particle.NDUParticle;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -23,6 +30,11 @@ public class GlowdineEntity extends AbstractLavaSchoolingFish implements IAnimat
 
     public GlowdineEntity(EntityType<? extends AbstractLavaSchoolingFish> p_27523_, Level p_27524_) {
         super(p_27523_, p_27524_);
+    }
+
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(1, new LavaFishJumpGoal(this,4));
     }
 
     public void aiStep() {
@@ -76,5 +88,4 @@ public class GlowdineEntity extends AbstractLavaSchoolingFish implements IAnimat
     public int getMaxSchoolSize() {
         return 20;
     }
-
 }

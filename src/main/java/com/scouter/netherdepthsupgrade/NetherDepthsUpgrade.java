@@ -47,12 +47,10 @@ public class NetherDepthsUpgrade
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
         modbus.addListener(ModSetup::init);
-        //forgeBus.addListener(ForgeEvents::OnEntityJoinWorld);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modbus.addListener(ClientSetup::init));
         MinecraftForge.EVENT_BUS.register(ClientEvents.class);
         MinecraftForge.EVENT_BUS.register(ForgeEvents.class);
         forgeBus.addListener(EventPriority.HIGH, NDUGeneration::generateFeatures);
-        //forgeBus.addListener(EventPriority.HIGH, MFGeneration::spawnCreatures);
         GeckoLib.initialize();
 
     }

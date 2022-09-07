@@ -1,15 +1,18 @@
 package com.scouter.netherdepthsupgrade.entity;
 
+import com.scouter.netherdepthsupgrade.entity.ai.FishSwimGoal;
 import com.scouter.netherdepthsupgrade.entity.ai.FollowLavaFlockLeaderGoal;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -18,13 +21,14 @@ public abstract class AbstractLavaSchoolingFish extends AbstractLavaFish {
     private AbstractLavaSchoolingFish leader;
     private int schoolSize = 1;
 
+
     public AbstractLavaSchoolingFish(EntityType<? extends AbstractLavaSchoolingFish> p_27523_, Level p_27524_) {
         super(p_27523_, p_27524_);
     }
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(5, new FollowLavaFlockLeaderGoal(this));
+        this.goalSelector.addGoal(4, new FollowLavaFlockLeaderGoal(this));
     }
 
     /**

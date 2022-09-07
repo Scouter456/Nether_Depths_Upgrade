@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 
+import com.scouter.netherdepthsupgrade.entity.ai.LavaFishJumpGoal;
 import com.scouter.netherdepthsupgrade.entity.entities.GlowdineEntity;
 import com.scouter.netherdepthsupgrade.entity.model.GlowdineModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -31,7 +32,7 @@ public class GlowdineRenderer extends GeoEntityRenderer<GlowdineEntity> {
         super.applyRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
         float f = 4.3F * Mth.sin(0.6F * ageInTicks);
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(f));
-        if (!entityLiving.isInLava()) {
+        if (!entityLiving.isInLava() && !entityLiving.getIsJumping()) {
             matrixStackIn.translate((double) 0.1F, (double) 0.1F, (double) -0.1F);
             matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
         }
