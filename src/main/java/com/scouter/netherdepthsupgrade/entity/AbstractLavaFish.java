@@ -20,6 +20,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
@@ -29,9 +30,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 
+import javax.annotation.Nullable;
+import java.util.EnumSet;
+
 public abstract class AbstractLavaFish extends LavaAnimal implements BucketableLava {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(AbstractLavaFish.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> JUMPING = SynchedEntityData.defineId(AbstractLavaFish.class, EntityDataSerializers.BOOLEAN);
+
+    @Nullable
+    public FishSwimGoal fishSwimGoal;
 
     public AbstractLavaFish(EntityType<? extends AbstractLavaFish> p_27461_, Level p_27462_) {
         super(p_27461_, p_27462_);
@@ -66,6 +74,7 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FROM_BUCKET, false);
+        this.entityData.define(JUMPING, Boolean.valueOf(false));
     }
 
     public boolean fromBucket() {
@@ -75,10 +84,16 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
     public void setFromBucket(boolean p_27498_) {
         this.entityData.set(FROM_BUCKET, p_27498_);
     }
-
+    public void setIsJumping(boolean isJumping){
+        this.entityData.set(JUMPING, Boolean.valueOf(isJumping));
+    }
+    public boolean getIsJumping(){
+        return this.entityData.get(JUMPING).booleanValue();
+    }
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("FromBucket", this.fromBucket());
+        pCompound.putBoolean("isJumping", this.getIsJumping());
     }
 
     /**
@@ -87,13 +102,16 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.setFromBucket(pCompound.getBoolean("FromBucket"));
+        setIsJumping(pCompound.getBoolean("isJumping"));
     }
 
     protected void registerGoals() {
         super.registerGoals();
+        this.fishSwimGoal = new FishSwimGoal(this);
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(4, new FishSwimGoal(this));
+        this.goalSelector.addGoal(3, new FishSwimGoal(this));
+        this.fishSwimGoal.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
     protected PathNavigation createNavigation(Level pLevel) {

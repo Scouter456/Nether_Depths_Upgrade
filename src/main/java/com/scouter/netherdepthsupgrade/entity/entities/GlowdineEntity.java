@@ -1,6 +1,7 @@
 package com.scouter.netherdepthsupgrade.entity.entities;
 
 import com.scouter.netherdepthsupgrade.entity.AbstractLavaSchoolingFish;
+import com.scouter.netherdepthsupgrade.entity.ai.LavaFishJumpGoal;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.particle.NDUParticle;
 import net.minecraft.sounds.SoundEvent;
@@ -28,6 +29,11 @@ public class GlowdineEntity extends AbstractLavaSchoolingFish implements IAnimat
     public void aiStep() {
         super.aiStep();
         this.level.addParticle(NDUParticle.GLOWDINE_PARTICLE.get(), this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
+    }
+
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(1, new LavaFishJumpGoal(this,4));
     }
 
     public ItemStack getBucketItemStack() {
