@@ -28,6 +28,9 @@ public class LootTableBlocks extends BlockLoot {
     @Override
     protected void addTables() {
         dropSelf(NDUBlocks.WARPED_KELP.get());
+        dropSelf(NDUBlocks.LAVA_SPONGE.get());
+        dropSelf(NDUBlocks.WET_LAVA_SPONGE.get());
+        dropSelf(NDUBlocks.WARPED_KELP_BLOCK.get());
         dropOther(NDUBlocks.WARPED_KELP_PLANT.get(), NDUBlocks.WARPED_KELP.get());
         add(NDUBlocks.WARPED_SEAGRASS.get(), BlockLoot::createShearsOnlyDrop);
         add(NDUBlocks.TALL_WARPED_SEAGRASS.get(), createDoublePlantShearsDrop(NDUBlocks.WARPED_SEAGRASS.get()));

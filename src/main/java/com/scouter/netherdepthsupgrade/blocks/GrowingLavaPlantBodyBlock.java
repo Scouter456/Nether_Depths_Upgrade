@@ -72,7 +72,7 @@ public abstract class GrowingLavaPlantBodyBlock extends GrowingLavaPlantBlock im
         Optional<BlockPos> optional = this.getHeadPos(pLevel, pPos, pState.getBlock());
         if (optional.isPresent()) {
             BlockState blockstate = pLevel.getBlockState(optional.get());
-            ((GrowingPlantHeadBlock)blockstate.getBlock()).performBonemeal(pLevel, pRandom, optional.get(), blockstate);
+            ((GrowingLavaPlantHeadBlock)blockstate.getBlock()).performBonemeal(pLevel, pRandom, optional.get(), blockstate);
         }
 
     }

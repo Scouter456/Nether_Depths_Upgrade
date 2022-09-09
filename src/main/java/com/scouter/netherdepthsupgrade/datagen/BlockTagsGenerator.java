@@ -15,7 +15,9 @@ public class BlockTagsGenerator extends BlockTagsProvider {
     @Override
     protected void addTags(){
         tag(BlockTags.MINEABLE_WITH_HOE)
-                .add(NDUBlocks.WARPED_KELP_BLOCK.get());
+                .add(NDUBlocks.WARPED_KELP_BLOCK.get())
+                .add(NDUBlocks.LAVA_SPONGE.get())
+                .add(NDUBlocks.WET_LAVA_SPONGE.get());
 
         //tag(BlockTags.MINEABLE_WITH_PICKAXE)
         //        .add(NDUBlocks.ORETEST.get());

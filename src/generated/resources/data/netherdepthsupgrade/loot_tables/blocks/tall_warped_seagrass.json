@@ -10,8 +10,7 @@
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": 2.0,
-              "add": false
+              "count": 2.0
             }
           ],
           "name": "netherdepthsupgrade:warped_seagrass"
