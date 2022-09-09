@@ -2,6 +2,7 @@ package com.scouter.netherdepthsupgrade.world.feature;
 
 import com.google.common.collect.ImmutableList;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
+import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -43,7 +44,7 @@ public class NDUConfiguredFeatures {
     private static final String LAVA_SPONGE_FEATURE_NAME_PLACED = "lava_sponge_feature_placed";
     private static Random rand = new Random();
 
-    public static final RegistryObject<ConfiguredFeature<?, ?>> CONFIGURED_WARPED_SEAGRASS_SIMPLE = CONFIGURED_FEATURES.register(WARPED_SEAGRASS_SIMPLE_FEATURE_NAME, () -> new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.SEAGRASS))));
+    public static final RegistryObject<ConfiguredFeature<?, ?>> CONFIGURED_WARPED_SEAGRASS_SIMPLE = CONFIGURED_FEATURES.register(WARPED_SEAGRASS_SIMPLE_FEATURE_NAME, () -> new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(NDUBlocks.WARPED_SEAGRASS.get()))));
 
     public static final RegistryObject<ConfiguredFeature<?, ?>> CONFIGURED_WARPED_KELP = CONFIGURED_FEATURES.register(WARPED_KELP_FEATURE_NAME, () -> new ConfiguredFeature<>(NDUFeatures.WARPED_KELP.get(), new NoneFeatureConfiguration()));
 

@@ -53,7 +53,7 @@ public class ObsidianfishEntity extends AbstractLavaSchoolingFish implements IAn
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(NDUItems.OBSIDIANFISH.get());
+        return new ItemStack(NDUItems.OBSIDIANFISH_BUCKET.get());
     }
 
     @Override

@@ -8,7 +8,6 @@ import com.scouter.netherdepthsupgrade.events.ForgeEvents;
 import com.scouter.netherdepthsupgrade.setup.ClientSetup;
 import com.scouter.netherdepthsupgrade.setup.ModSetup;
 import com.scouter.netherdepthsupgrade.setup.Registration;
-import com.scouter.netherdepthsupgrade.world.NDUGeneration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;

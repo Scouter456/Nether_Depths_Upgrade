@@ -135,7 +135,7 @@ public class NetherFortressPiece extends Structure {
         if(structurePiecesGenerator.isPresent()) {
             // I use to debug and quickly find out if the structure is spawning or not and where it is.
             // This is returning the coordinates of the center starting piece.
-            LOGGER.info("Fortress piece at {}", blockpos);
+            //LOGGER.info("Fortress piece at {}", blockpos);
         }
         // Return the pieces generator that is now set up so that the game runs it when it needs to create the layout of structure pieces.
         return structurePiecesGenerator;
