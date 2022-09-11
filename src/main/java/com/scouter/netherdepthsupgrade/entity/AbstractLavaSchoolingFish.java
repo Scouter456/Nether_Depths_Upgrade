@@ -1,13 +1,13 @@
 package com.scouter.netherdepthsupgrade.entity;
 
 import com.scouter.netherdepthsupgrade.entity.ai.FollowLavaFlockLeaderGoal;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.IServerWorld;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -18,13 +18,14 @@ public abstract class AbstractLavaSchoolingFish extends AbstractLavaFish {
     private AbstractLavaSchoolingFish leader;
     private int schoolSize = 1;
 
-    public AbstractLavaSchoolingFish(EntityType<? extends AbstractLavaSchoolingFish> p_27523_, Level p_27524_) {
+
+    public AbstractLavaSchoolingFish(EntityType<? extends AbstractLavaSchoolingFish> p_27523_, World p_27524_) {
         super(p_27523_, p_27524_);
     }
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(5, new FollowLavaFlockLeaderGoal(this));
+        this.goalSelector.addGoal(4, new FollowLavaFlockLeaderGoal(this));
     }
 
     /**
@@ -109,7 +110,7 @@ public abstract class AbstractLavaSchoolingFish extends AbstractLavaFish {
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public ILivingEntityData finalizeSpawn(IServerWorld pLevel, DifficultyInstance pDifficulty, SpawnReason pReason, @Nullable ILivingEntityData pSpawnData, @Nullable CompoundNBT pDataTag) {
         super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         if (pSpawnData == null) {
             pSpawnData = new SchoolSpawnGroupData(this);
@@ -120,7 +121,7 @@ public abstract class AbstractLavaSchoolingFish extends AbstractLavaFish {
         return pSpawnData;
     }
 
-    public static class SchoolSpawnGroupData implements SpawnGroupData {
+    public static class SchoolSpawnGroupData implements ILivingEntityData {
         public final AbstractLavaSchoolingFish leader;
 
         public SchoolSpawnGroupData(AbstractLavaSchoolingFish p_27553_) {

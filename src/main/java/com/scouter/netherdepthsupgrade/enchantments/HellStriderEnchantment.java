@@ -1,13 +1,13 @@
 package com.scouter.netherdepthsupgrade.enchantments;
 
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentType;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.inventory.EquipmentSlotType;
 
 public class HellStriderEnchantment extends Enchantment {
-    protected HellStriderEnchantment(Rarity pRarity, EquipmentSlot... pApplicableSlots) {
-        super(pRarity, EnchantmentCategory.ARMOR_FEET, pApplicableSlots);
+    protected HellStriderEnchantment(Rarity pRarity, EquipmentSlotType... pApplicableSlots) {
+        super(pRarity, EnchantmentType.ARMOR_FEET, pApplicableSlots);
     }
 
     /**

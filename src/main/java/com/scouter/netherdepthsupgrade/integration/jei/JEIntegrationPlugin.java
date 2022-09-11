@@ -3,7 +3,7 @@ package com.scouter.netherdepthsupgrade.integration.jei;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ResourceLocation;
 
 import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 

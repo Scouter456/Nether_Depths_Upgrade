@@ -1,30 +1,29 @@
 package com.scouter.netherdepthsupgrade.entity.entities;
 
-import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.entity.AbstractLavaFish;
 import com.scouter.netherdepthsupgrade.entity.ai.FishSwimGoal;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.util.DefaultRandomPos;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.Vec3;
-import org.slf4j.Logger;
+import net.minecraft.tags.ITag;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.IAnimationTickable;
 import software.bernie.geckolib3.core.PlayState;
@@ -40,17 +39,20 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
 
+import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.MODID;
+
 public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, IAnimationTickable {
-    private static final EntityDataAccessor<BlockPos> SOULSAND_POS = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.BLOCK_POS);
-    private static final EntityDataAccessor<Integer> SEEK_SOULSAND_TIMER = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> COOLDOWN_TTIMER = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.INT);
+    private static final DataParameter<BlockPos> SOULSAND_POS = EntityDataManager.defineId(SoulSuckerEntity.class, DataSerializers.BLOCK_POS);
+    private static final DataParameter<Integer> SEEK_SOULSAND_TIMER = EntityDataManager.defineId(SoulSuckerEntity.class, DataSerializers.INT);
+    private static final DataParameter<Integer> COOLDOWN_TTIMER = EntityDataManager.defineId(SoulSuckerEntity.class, DataSerializers.INT);
     private AnimationFactory factory = new AnimationFactory(this);
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(MODID);
+
     public int suckTimer = 0;
     @Nullable
     protected FishSwimGoal fishSwimGoal;
 
-    public SoulSuckerEntity(EntityType<? extends AbstractLavaFish> p_27523_, Level p_27524_) {
+    public SoulSuckerEntity(EntityType<? extends AbstractLavaFish> p_27523_, World p_27524_) {
         super(p_27523_, p_27524_);
     }
 
@@ -66,6 +68,8 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
     public void aiStep() {
         super.aiStep();
         if (!this.level.isClientSide) {
+            //LOGGER.info("timer? " + this.getSeekSoulSandTimer());
+
             if (this.getCooldownTimer().intValue() > 0) {
                 this.setSeekSoulSandTimer(this.getSeekSoulSandTimer() - 1);
                 this.setCooldownTimer(this.getSeekSoulSandTimer());
@@ -131,7 +135,7 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
         this.entityData.define(COOLDOWN_TTIMER, 0);
     }
 
-    public void addAdditionalSaveData(CompoundTag pCompound) {
+    public void addAdditionalSaveData(CompoundNBT pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("SoulSandPosX", this.getSoulSandPos().getX());
         pCompound.putInt("SoulSandPosY", this.getSoulSandPos().getY());
@@ -140,7 +144,7 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
         pCompound.putInt("cooldowntimer", this.getCooldownTimer());
     }
 
-    public void readAdditionalSaveData(CompoundTag pCompound) {
+    public void readAdditionalSaveData(CompoundNBT pCompound) {
         int i = pCompound.getInt("SoulSandPosX");
         int j = pCompound.getInt("SoulSandPosY");
         int k = pCompound.getInt("SoulSandPosZ");
@@ -176,119 +180,21 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
 
     protected boolean closeToNextPos() {
         BlockPos blockpos = this.getNavigation().getTargetPos();
-        return blockpos != null ? blockpos.closerToCenterThan(this.position(), 0.0D) : false;
+        return blockpos != null ? blockpos.closerThan(this.position(), 0.0D) : false;
     }
 
-    static class FindSoulSandGoal extends Goal {
-        private static final Logger LOGGER = LogUtils.getLogger();
-        private final SoulSuckerEntity mob;
-        private boolean stuck;
 
-        public FindSoulSandGoal(SoulSuckerEntity mob) {
-            this.mob = mob;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-        }
-
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
-        @Override
-        public boolean canUse() {
-            //LOGGER.info("in lava? " + this.mob.isInLava());
-            //LOGGER.info("Block below? " + (this.mob.level.getBlockState(this.mob.blockPosition().below()) != Blocks.SOUL_SAND.defaultBlockState()));
-            //LOGGER.info("Pos" + this.mob.blockPosition());
-            return (this.mob.isInLava() && !this.mob.level.getBlockState(this.mob.blockPosition().below()).is(Blocks.SOUL_SAND)) && this.mob.getSeekSoulSandTimer().intValue() == 0;
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            BlockPos blockpos = this.mob.getSoulSandPos();
-            return (!(new BlockPos((double) blockpos.getX(), this.mob.getY(), (double) blockpos.getZ())).closerToCenterThan(this.mob.position(), 0.0D) && !this.stuck) || this.mob.getSeekSoulSandTimer().intValue() < 300;
-        }
-
-
-        @Override
-        public void start() {
-            if (this.mob.level instanceof ServerLevel) {
-                this.mob.setSeekSoulSandTimer(this.mob.getSeekSoulSandTimer() + 1);
-                ServerLevel serverlevel = (ServerLevel) this.mob.level;
-                this.stuck = false;
-                this.mob.getNavigation().stop();
-                BlockPos blockpos = this.mob.blockPosition();
-                for (BlockPos blockpos1 : BlockPos.betweenClosed(Mth.floor(this.mob.getX() - 2.0D), Mth.floor(this.mob.getY() - 10.0D), Mth.floor(this.mob.getZ() - 2.0D), Mth.floor(this.mob.getX() + 2.0D), this.mob.getBlockY() + 2, Mth.floor(this.mob.getZ() + 2.0D))) {
-                    //LOGGER.info("blocks " + this.mob.level.getBlockState(blockpos1));
-                    if (this.mob.level.getBlockState(blockpos1).is(Blocks.SOUL_SAND) && this.mob.level.getFluidState(blockpos1.above()).is(Fluids.LAVA) && !this.mob.level.getFluidState(blockpos1.below()).is(Fluids.LAVA)) {
-                        //LOGGER.info("I am getting set at " + this.mob.level.getBlockState(blockpos1));
-                        //LOGGER.info("I am getting set at pos " + blockpos1);
-                        this.mob.setSoulsandPos(blockpos1);
-                        blockpos = blockpos1;
-                        break;
-                    } else {
-                        this.mob.setSeekSoulSandTimer(300);
-                        this.mob.setCooldownTimer(this.mob.getSeekSoulSandTimer());
-                        this.mob.fishSwimGoal.trigger();
-                    }
-                }
-            }
-        }
-
-        @Override
-        public void stop() {
-            BlockPos blockpos = this.mob.getSoulSandPos();
-            if ((new BlockPos((double) blockpos.getX(), this.mob.getY(), (double) blockpos.getZ())).closerToCenterThan(this.mob.position(), 0.0D) || this.stuck || this.mob.getSeekSoulSandTimer().intValue() >= 300) {
-                super.stop();
-                this.mob.setSeekSoulSandTimer(300);
-                this.mob.setCooldownTimer(this.mob.getSeekSoulSandTimer());
-                this.mob.fishSwimGoal.trigger();
-            }
-        }
-
-        @Override
-        public void tick() {
-            this.mob.setSeekSoulSandTimer(this.mob.getSeekSoulSandTimer() + 1);
-            Level level = this.mob.level;
-            if (this.mob.closeToNextPos() || this.mob.getNavigation().isDone()) {
-                Vec3 vec3 = Vec3.atCenterOf(this.mob.getSoulSandPos());
-                LOGGER.info("vec3" + vec3);
-                Vec3 vec31 = DefaultRandomPos.getPosTowards(this.mob, 16, 0, vec3, (double) ((float) Math.PI / 8F));
-                if (vec31 == null) {
-                    vec31 = DefaultRandomPos.getPosTowards(this.mob, 8, 0, vec3, (double) ((float) Math.PI / 2F));
-                }
-
-                if (vec31 != null) {
-                    BlockPos blockpos = new BlockPos(vec31);
-                    if (!level.getFluidState(blockpos).is(FluidTags.LAVA)) {
-                        vec31 = DefaultRandomPos.getPosTowards(this.mob, 8, 0, vec3, (double) ((float) Math.PI / 2F));
-                    }
-                }
-
-                if (vec31 == null) {
-                    this.stuck = true;
-                    return;
-                }
-                //LOGGER.info("vec31" + vec31);
-                this.mob.getLookControl().setLookAt(vec3.x, vec3.y, vec3.z, (float) (this.mob.getMaxHeadYRot() + 20), (float) this.mob.getMaxHeadXRot());
-                this.mob.getNavigation().moveTo(vec3.x - 1, vec3.y - 1, vec3.z - 1, 0.3D);
-                if (level.random.nextInt(this.adjustedTickDelay(80)) == 0) {
-                    level.broadcastEntityEvent(this.mob, (byte) 38);
-                    this.mob.fishSwimGoal.trigger();
-
-                }
-            }
-
-        }
-
-    }
 
     static class FindSoulSandGoal3 extends Goal {
-        private static final Logger LOGGER = LogUtils.getLogger();
+        public static final Logger LOGGER = LogManager.getLogger(MODID);
+
         private final SoulSuckerEntity mob;
         private int i = 0;
         private int counter = 0;
         private int suckCounter = 30;
         private BlockPos lastPos;
         private Random rand = new Random();
+        public List<Integer> list = new ArrayList<>();
         public final List<BlockPos> soulSandList = new ArrayList<>();
         private boolean stuck;
 
@@ -305,15 +211,20 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
         @Override
         public boolean canContinueToUse() {
             BlockPos blockpos = this.mob.getSoulSandPos();
+            //LOGGER.info("canContinue? " + this.mob.getSeekSoulSandTimer().intValue());
             return this.mob.getSeekSoulSandTimer().intValue() == 0;
         }
 
 
         @Override
         public void start() {
+            //LOGGER.info("starting");
+            for(int l = -5; l < 6;l++){
+                list.add(l);
+            }
             //LOGGER.info("starting!!");
-            if (this.mob.level instanceof ServerLevel) {
-                ServerLevel serverlevel = (ServerLevel) this.mob.level;
+            if (this.mob.level instanceof ServerWorld) {
+                ServerWorld serverlevel = (ServerWorld) this.mob.level;
                 this.mob.getNavigation().stop();
                 BlockPos blockpos = this.mob.blockPosition();
                 for (int x = -5; x < 5; x++) {
@@ -323,8 +234,9 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
                             double posY = this.mob.blockPosition().getY();
                             double posZ = this.mob.blockPosition().getZ();
                             BlockPos blockPos = new BlockPos(posX - x, posY - y, posZ - z);
-                            if (this.mob.level.getBlockState(blockPos).is(Blocks.SOUL_SAND) && this.mob.level.getFluidState(blockPos.above()).is(Fluids.LAVA) && !this.mob.level.getFluidState(blockPos.below()).is(Fluids.LAVA) && this.mob.level.getBlockState(blockPos.north()).is(Blocks.SOUL_SAND) && this.mob.level.getBlockState(blockPos.east()).is(Blocks.SOUL_SAND) && this.mob.level.getBlockState(blockPos.south()).is(Blocks.SOUL_SAND) && this.mob.level.getBlockState(blockPos.west()).is(Blocks.SOUL_SAND)) {
-                                //LOGGER.info("I am getting set at " + this.mob.level.getBlockState(blockpos1));
+                            //LOGGER.info("I am getting set at " + this.mob.level.getBlockState(blockPos));
+                            if (this.mob.level.getBlockState(blockPos).is(Blocks.SOUL_SAND) && this.mob.level.getFluidState(blockPos.above()).is(FluidTags.LAVA) && !(this.mob.level.getFluidState(blockPos.below()).is(FluidTags.LAVA)) && this.mob.level.getBlockState(blockPos.north()).is(Blocks.SOUL_SAND) && this.mob.level.getBlockState(blockPos.east()).is(Blocks.SOUL_SAND) && this.mob.level.getBlockState(blockPos.south()).is(Blocks.SOUL_SAND) && this.mob.level.getBlockState(blockPos.west()).is(Blocks.SOUL_SAND)) {
+
                                 //LOGGER.info("I am getting set at pos " + blockpos1);
                                 soulSandList.add(blockPos);
 
@@ -332,11 +244,12 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
                         }
                     }
                 }
-
+                //LOGGER.info("list " + soulSandList);
                 if (soulSandList.size() > 0) {
 
                     this.mob.getNavigation().moveTo(soulSandList.get(i).getX(), soulSandList.get(i).getY() + 0.5, soulSandList.get(i).getZ(), 1.0F);
                 } else {
+                    //LOGGER.info("Going here ");
                     this.mob.setSeekSoulSandTimer(500);
                     this.mob.setCooldownTimer(this.mob.getSeekSoulSandTimer());
                     this.mob.fishSwimGoal.trigger();
@@ -355,6 +268,7 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
             suckCounter = 0;
             counter =0;
             i = 0;
+            list.clear();
         }
 
         //TODO very bad change to better code plz
@@ -380,8 +294,11 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
                 this.mob.fishSwimGoal.trigger();
                 return;
             }
+
+            //LOGGER.info("?? " + (this.mob.level.getBlockState(this.mob.blockPosition().below())));
             if (((this.mob.level.getBlockState(this.mob.blockPosition().below()).is(Blocks.SOUL_SAND)) || (this.mob.level.getBlockState(this.mob.blockPosition().below()).is(Blocks.SOUL_SOIL)))&& checkDistance(this.mob.blockPosition(), soulSandList.get(i))) {
                 suckCounter++;
+                //LOGGER.info("counter " + suckCounter);
                 this.mob.getNavigation().moveTo(soulSandList.get(i).getX(), soulSandList.get(i).getY() + 0.5, soulSandList.get(i).getZ(), 1.0F);
                 if (suckCounter == 100) {
                     if(!this.mob.level.getBlockState(this.mob.blockPosition()).is(Blocks.SOUL_SAND)) {
@@ -402,9 +319,9 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
                     this.mob.getNavigation().moveTo(soulSandList.get(i).getX(), soulSandList.get(i).getY() + 0.5, soulSandList.get(i).getZ(), 1.0F);
 
                 } else {
-                    BlockPos blockPos = new BlockPos(this.mob.blockPosition().getX() + rand.nextInt(-5, 5), this.mob.blockPosition().getY() + +rand.nextInt(0, 3), this.mob.blockPosition().getZ() + +rand.nextInt(-5, 5));
-                    if (this.mob.level.getFluidState(blockPos).is(Fluids.LAVA)) {
-                        this.mob.getNavigation().moveTo(this.mob.blockPosition().getX() + rand.nextInt(-5, 5), this.mob.blockPosition().getY() + +rand.nextInt(0, 3), this.mob.blockPosition().getZ() + +rand.nextInt(-5, 5), 1.0F);
+                    BlockPos blockPos = new BlockPos(this.mob.blockPosition().getX() + list.get(rand.nextInt(10)), this.mob.blockPosition().getY() + rand.nextInt( 3), this.mob.blockPosition().getZ() + list.get(rand.nextInt(10)));
+                    if (this.mob.level.getFluidState(blockPos).equals(Fluids.LAVA)) {
+                        this.mob.getNavigation().moveTo(this.mob.blockPosition().getX() + list.get(rand.nextInt(10)), this.mob.blockPosition().getY() + rand.nextInt(3), this.mob.blockPosition().getZ() + list.get(rand.nextInt(10)), 1.0F);
                     }
                     this.mob.setSeekSoulSandTimer(500);
                     this.stop();

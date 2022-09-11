@@ -1,13 +1,14 @@
 package com.scouter.netherdepthsupgrade.items;
 
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.IArmorMaterial;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.SoundEvent;
 
 import java.util.function.Supplier;
 
-public class NDUArmorMaterial implements ArmorMaterial {
+public class NDUArmorMaterial implements IArmorMaterial {
     private final int enchantability;
     private final int[] durability, damageReduction;
     private final float knockbackResistance, toughness;
@@ -29,12 +30,12 @@ public class NDUArmorMaterial implements ArmorMaterial {
     }
 
     @Override
-    public int getDefenseForSlot(EquipmentSlot slot) {
+    public int getDefenseForSlot(EquipmentSlotType slot) {
         return this.damageReduction[slot.getIndex()];
     }
 
     @Override
-    public int getDurabilityForSlot(EquipmentSlot slot) {
+    public int getDurabilityForSlot(EquipmentSlotType slot) {
         return this.durability[slot.getIndex()];
     }
 

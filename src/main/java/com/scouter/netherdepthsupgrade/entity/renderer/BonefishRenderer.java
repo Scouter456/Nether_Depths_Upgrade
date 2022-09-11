@@ -1,35 +1,37 @@
 package com.scouter.netherdepthsupgrade.entity.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
-
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.scouter.netherdepthsupgrade.entity.entities.BonefishEntity;
 import com.scouter.netherdepthsupgrade.entity.model.BonefishModel;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3f;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
+import javax.annotation.Nullable;
+
 public class BonefishRenderer extends GeoEntityRenderer<BonefishEntity> {
-    public BonefishRenderer(EntityRendererProvider.Context renderManager) {
+    public BonefishRenderer(EntityRendererManager renderManager) {
         super(renderManager, new BonefishModel());
         this.shadowRadius = 0.3F;
     }
 
     @Override
-    public RenderType getRenderType(BonefishEntity animatable, float partialTicks, PoseStack stack, MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int PackedLightIn, ResourceLocation textureLocation){
-        //stack.scale(2f,2f,2f);
+    public RenderType getRenderType(BonefishEntity animatable, float partialTicks, MatrixStack stack,
+                                   @Nullable IRenderTypeBuffer renderTypeBuffer, @Nullable IVertexBuilder vertexBuilder, int packedLightIn,
+                                   ResourceLocation textureLocation) {        //stack.scale(2f,2f,2f);
         return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
     }
 
     @Override
-    protected void applyRotations(BonefishEntity entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw,
-                                  float partialTicks) {
+    public void applyRotations(BonefishEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw,
+                               float partialTicks) {
         super.applyRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
-        float f = 4.3F * Mth.sin(0.6F * ageInTicks);
+        float f = 4.3F * MathHelper.sin(0.6F * ageInTicks);
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(f));
         if (!entityLiving.isInLava()) {
             matrixStackIn.translate((double) 0.1F, (double) 0.1F, (double) -0.1F);

@@ -1,19 +1,16 @@
 package com.scouter.netherdepthsupgrade.blocks;
 
 import com.google.common.collect.Lists;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Tuple;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BucketPickup;
-import net.minecraft.world.level.block.LiquidBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.Queue;
 
@@ -26,19 +23,19 @@ public class LavaSpongeBlock extends Block {
     }
 
     @Override
-    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+    public void onPlace(BlockState pState, World pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
         if (!pOldState.is(pState.getBlock())) {
             this.tryAbsorbLava(pLevel, pPos);
         }
     }
 
     @Override
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+    public void neighborChanged(BlockState pState, World pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
         this.tryAbsorbLava(pLevel, pPos);
         super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
     }
 
-    protected void tryAbsorbLava(Level pLevel, BlockPos pPos) {
+    protected void tryAbsorbLava(World pLevel, BlockPos pPos) {
         if (this.removeLavaBreadthFirstSearch(pLevel, pPos)) {
             pLevel.setBlock(pPos, NDUBlocks.WET_LAVA_SPONGE.get().defaultBlockState(), 3);
             pLevel.levelEvent(2001, pPos, Block.getId(Blocks.LAVA.defaultBlockState()));
@@ -46,7 +43,7 @@ public class LavaSpongeBlock extends Block {
 
     }
 
-    private boolean removeLavaBreadthFirstSearch(Level pLevel, BlockPos pPos) {
+    private boolean removeLavaBreadthFirstSearch(World pLevel, BlockPos pPos) {
         Queue<Tuple<BlockPos, Integer>> queue = Lists.newLinkedList();
         queue.add(new Tuple<>(pPos, 0));
         int i = 0;
@@ -62,20 +59,20 @@ public class LavaSpongeBlock extends Block {
                 FluidState fluidstate = pLevel.getFluidState(blockpos1);
                 Material material = blockstate.getMaterial();
                 if (fluidstate.is(FluidTags.LAVA)) {
-                    if (blockstate.getBlock() instanceof BucketPickup && !((BucketPickup)blockstate.getBlock()).pickupBlock(pLevel, blockpos1, blockstate).isEmpty()) {
+                    if (blockstate.getBlock() instanceof IBucketPickupHandler && ((IBucketPickupHandler)blockstate.getBlock()).takeLiquid(pLevel, blockpos1, blockstate) != Fluids.EMPTY) {
                         ++i;
                         if (j < 6) {
                             queue.add(new Tuple<>(blockpos1, j + 1));
                         }
-                    } else if (blockstate.getBlock() instanceof LiquidBlock) {
+                    } else if (blockstate.getBlock() instanceof FlowingFluidBlock) {
                         pLevel.setBlock(blockpos1, Blocks.AIR.defaultBlockState(), 3);
                         ++i;
                         if (j < 6) {
                             queue.add(new Tuple<>(blockpos1, j + 1));
                         }
                     } else if (material == Material.WATER_PLANT || material == Material.REPLACEABLE_WATER_PLANT) {
-                        BlockEntity blockentity = blockstate.hasBlockEntity() ? pLevel.getBlockEntity(blockpos1) : null;
-                        dropResources(blockstate, pLevel, blockpos1, blockentity);
+                        TileEntity tileentity = blockstate.hasTileEntity() ? pLevel.getBlockEntity(blockpos1) : null;
+                        dropResources(blockstate, pLevel, blockpos1, tileentity);
                         pLevel.setBlock(blockpos1, Blocks.AIR.defaultBlockState(), 3);
                         ++i;
                         if (j < 6) {

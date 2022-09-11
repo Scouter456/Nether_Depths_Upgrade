@@ -1,32 +1,33 @@
 package com.scouter.netherdepthsupgrade.blocks;
 
-import com.mojang.logging.LogUtils;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import org.slf4j.Logger;
+import net.minecraft.util.Direction;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
+import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.MODID;
+
 public class WetLavaSpongeBlock extends Block {
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
     public WetLavaSpongeBlock(Properties p_58222_) {
         super(p_58222_);
     }
 
-    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+    public void onPlace(BlockState pState, World pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
         if (pLevel.getBlockState(pPos.above()).getFluidState().is(FluidTags.WATER)) {
             pLevel.setBlock(pPos, NDUBlocks.LAVA_SPONGE.get().defaultBlockState(), 3);
             pLevel.levelEvent(2009, pPos, 0);
-            pLevel.playSound((Player)null, pPos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 1.0F, (1.0F + pLevel.getRandom().nextFloat() * 0.2F) * 0.7F);
+            pLevel.playSound((PlayerEntity) null, pPos, SoundEvents.LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, (1.0F + pLevel.getRandom().nextFloat() * 0.2F) * 0.7F);
         }
 
     }
@@ -34,7 +35,7 @@ public class WetLavaSpongeBlock extends Block {
     /**
      * Called periodically clientside on blocks near the player to show effects (like furnace fire particles).
      */
-    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRand) {
+    public void animateTick(BlockState pState, World pLevel, BlockPos pPos, Random pRand) {
         Direction direction = Direction.getRandom(pRand);
         if (direction != Direction.UP) {
             BlockPos blockpos = pPos.relative(direction);

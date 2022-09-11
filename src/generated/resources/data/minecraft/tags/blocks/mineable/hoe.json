@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "netherdepthsupgrade:warped_kelp_block",
-    "netherdepthsupgrade:lava_sponge",
-    "netherdepthsupgrade:wet_lava_sponge"
+    "netherdepthsupgrade:warped_kelp_block"
   ]
 }

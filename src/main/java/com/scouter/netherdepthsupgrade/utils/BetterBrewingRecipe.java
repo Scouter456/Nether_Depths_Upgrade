@@ -1,10 +1,10 @@
 package com.scouter.netherdepthsupgrade.utils;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
 
 // BetterBrewingRecipe Class by CAS-ual-TY from https://github.com/CAS-ual-TY/Extra-Potions (GPL-3.0 License)
@@ -37,7 +37,7 @@ public class BetterBrewingRecipe implements IBrewingRecipe {
         }
 
         ItemStack itemStack = new ItemStack(input.getItem());
-        itemStack.setTag(new CompoundTag());
+        itemStack.setTag(new CompoundNBT());
         PotionUtils.setPotion(itemStack, this.output);
         return itemStack;
     }

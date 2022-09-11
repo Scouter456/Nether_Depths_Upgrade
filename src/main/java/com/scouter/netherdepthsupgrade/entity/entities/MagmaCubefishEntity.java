@@ -2,15 +2,15 @@ package com.scouter.netherdepthsupgrade.entity.entities;
 
 import com.scouter.netherdepthsupgrade.entity.AbstractLavaFish;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.IAnimationTickable;
 import software.bernie.geckolib3.core.PlayState;
@@ -22,7 +22,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class MagmaCubefishEntity extends AbstractLavaFish implements IAnimatable, IAnimationTickable {
     private AnimationFactory factory = new AnimationFactory(this);
-    public MagmaCubefishEntity(EntityType<? extends AbstractLavaFish> p_27461_, Level p_27462_) {
+    public MagmaCubefishEntity(EntityType<? extends AbstractLavaFish> p_27461_, World p_27462_) {
         super(p_27461_, p_27462_);
     }
 
@@ -39,10 +39,9 @@ public class MagmaCubefishEntity extends AbstractLavaFish implements IAnimatable
     }
 
 
-    public static AttributeSupplier setAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D)
-                //.add(Attributes.MOVEMENT_SPEED, 3.0D)
-                .build();
+    public static AttributeModifierMap.MutableAttribute setAttributes() {
+        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D);
+        //.add(Attributes.MOVEMENT_SPEED, 3.0D)
     }
     @Override
     protected SoundEvent getFlopSound() {

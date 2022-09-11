@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_nether",
-  "features": "netherdepthsupgrade:lava_sponge_feature_placed",
-  "step": "vegetal_decoration"
-}

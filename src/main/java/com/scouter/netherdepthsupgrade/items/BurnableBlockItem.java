@@ -2,23 +2,23 @@ package com.scouter.netherdepthsupgrade.items;
 
 
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeType;
 
 import javax.annotation.Nullable;
 
 public class BurnableBlockItem extends BlockItem {
-    public BurnableBlockItem(Block pBlock, Properties pProperties) {
+    private final int burntime;
+    public BurnableBlockItem(Block pBlock, Properties pProperties,int burn) {
         super(pBlock, pProperties);
+        this.burntime = burn;
     }
 
     @Override
-    public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType){
-        if(itemStack.is(NDUBlocks.WARPED_KELP_BLOCK.get().asItem())) {
-            return 6000;
-        }
-        return 0;
+    public int getBurnTime(ItemStack itemStack, @Nullable IRecipeType<?> recipeType)
+    {
+        return burntime;
     }
 }

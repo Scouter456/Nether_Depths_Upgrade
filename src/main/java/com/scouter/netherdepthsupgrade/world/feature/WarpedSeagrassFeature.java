@@ -1,23 +1,29 @@
 package com.scouter.netherdepthsupgrade.world.feature;
 
 import com.mojang.serialization.Codec;
-
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.blocks.TallLavaSeagrassBlock;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.state.properties.DoubleBlockHalf;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ISeedReader;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.ProbabilityConfig;
+import net.minecraft.world.server.ServerWorld;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public class WarpedSeagrassFeature extends Feature<ProbabilityFeatureConfiguration> {
-    public WarpedSeagrassFeature(Codec<ProbabilityFeatureConfiguration> p_66768_) {
+import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.MODID;
+
+public class WarpedSeagrassFeature extends Feature<ProbabilityConfig> {
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
+    public WarpedSeagrassFeature(Codec<ProbabilityConfig> p_66768_) {
         super(p_66768_);
     }
 
@@ -27,15 +33,21 @@ public class WarpedSeagrassFeature extends Feature<ProbabilityFeatureConfigurati
      * that they can safely generate into.
      * @param pContext A context object with a reference to the level and the position the feature is being placed at
      */
-    public boolean place(FeaturePlaceContext<ProbabilityFeatureConfiguration> p_160318_) {
+    @Override
+    public boolean place(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, ProbabilityConfig config) {
+        List<Integer> list = new ArrayList<>();
+        list.clear();
+        for(int l = -29; l < 11;l++){
+            list.add(l);
+        }
         boolean flag = false;
-        RandomSource random = p_160318_.random();
-        WorldGenLevel worldgenlevel = p_160318_.level();
-        BlockPos blockpos = p_160318_.origin();
-        ProbabilityFeatureConfiguration probabilityfeatureconfiguration = p_160318_.config();
+        ISeedReader worldgenlevel = reader;
+        Random random = reader.getRandom();
+        BlockPos blockpos = pos;
+        ProbabilityConfig probabilityfeatureconfiguration = config;
         int i = random.nextInt(8) - random.nextInt(8);
         int j = random.nextInt(8) - random.nextInt(8);
-        int k = 30 + random.nextInt(-29,10);
+        int k = 30 + list.get(rand.nextInt(40));
         BlockPos blockpos1 = new BlockPos(blockpos.getX() + i, k, blockpos.getZ() + j);
         if (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA)) {
             boolean flag1 = random.nextDouble() < (double)probabilityfeatureconfiguration.probability;

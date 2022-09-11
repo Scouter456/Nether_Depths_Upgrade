@@ -1,18 +1,20 @@
 package com.scouter.netherdepthsupgrade.entity.ai;
 
-import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.entity.AbstractLavaFish;
-import net.minecraft.core.BlockPos;
+import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.util.DefaultRandomPos;
-import net.minecraft.world.phys.Vec3;
-import org.slf4j.Logger;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 
-public class FishSwimGoal extends RandomStrollGoal {
-    private static final Logger LOGGER = LogUtils.getLogger();
+import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.MODID;
+
+public class FishSwimGoal extends RandomWalkingGoal {
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
 
     public FishSwimGoal(AbstractLavaFish p_27505_) {
         super(p_27505_, 1.0D, 40);
@@ -24,7 +26,7 @@ public class FishSwimGoal extends RandomStrollGoal {
      */
     @Override
     public boolean canUse() {
-        if (!this.mob.isInLava() && !this.mob.isInWater() || this.mob.isPassenger() || mob.getTarget() != null || !this.mob.isInWater() && !this.mob.isInLava()) {
+        if (!this.mob.isInLava() || this.mob.isPassenger() || mob.getTarget() != null) {
             return false;
         } else {
             if (!this.forceTrigger) {
@@ -34,14 +36,13 @@ public class FishSwimGoal extends RandomStrollGoal {
                 }
             }
 
-            Vec3 vector3d = this.getPosition();
+            Vector3d vector3d = this.getPosition();
             if (vector3d == null) {
                 return false;
             } else {
                 this.wantedX = vector3d.x;
                 this.wantedY = vector3d.y;
                 this.wantedZ = vector3d.z;
-
                 this.forceTrigger = false;
                 return true;
             }
@@ -50,10 +51,11 @@ public class FishSwimGoal extends RandomStrollGoal {
 
     @Nullable
     @Override
-    protected Vec3 getPosition() {
-        Vec3 vector3d = DefaultRandomPos.getPos(this.mob, 10, 7);
-        for (int i = 0; vector3d != null && !this.mob.level.getFluidState(new BlockPos(vector3d)).is(FluidTags.LAVA) && i++ < 10; vector3d = DefaultRandomPos.getPos(this.mob, 10, 7)) {
+    protected Vector3d getPosition() {
+        Vector3d vector3d = RandomPositionGenerator.getPos(this.mob, 10, 7);
+        for (int i = 0; vector3d != null && !this.mob.level.getFluidState(new BlockPos(vector3d)).is(FluidTags.LAVA) && i++ < 10; vector3d = RandomPositionGenerator.getPos(this.mob, 10, 7)) {
         }
         return vector3d;
+
     }
 }

@@ -23,7 +23,10 @@
           },
           // The actual block to place if the above conditions return true
           "output_state": {
-            "Name": "minecraft:lava"
+            "Name": "minecraft:lava",
+            "Properties": {
+              "level": "0"
+            }
           }
         }
       ]

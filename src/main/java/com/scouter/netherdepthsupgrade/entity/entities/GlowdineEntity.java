@@ -4,12 +4,13 @@ import com.scouter.netherdepthsupgrade.entity.AbstractLavaSchoolingFish;
 import com.scouter.netherdepthsupgrade.entity.ai.LavaFishJumpGoal;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.particle.NDUParticle;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import com.scouter.netherdepthsupgrade.sounds.NDUSounds;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.IAnimationTickable;
 import software.bernie.geckolib3.core.PlayState;
@@ -22,13 +23,8 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 public class GlowdineEntity extends AbstractLavaSchoolingFish implements IAnimatable, IAnimationTickable {
     private AnimationFactory factory = new AnimationFactory(this);
 
-    public GlowdineEntity(EntityType<? extends AbstractLavaSchoolingFish> p_27523_, Level p_27524_) {
+    public GlowdineEntity(EntityType<? extends AbstractLavaSchoolingFish> p_27523_, World p_27524_) {
         super(p_27523_, p_27524_);
-    }
-
-    public void aiStep() {
-        super.aiStep();
-        this.level.addParticle(NDUParticle.GLOWDINE_PARTICLE.get(), this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
     }
 
     protected void registerGoals() {
@@ -36,24 +32,29 @@ public class GlowdineEntity extends AbstractLavaSchoolingFish implements IAnimat
         this.goalSelector.addGoal(1, new LavaFishJumpGoal(this,4));
     }
 
+    public void aiStep() {
+        super.aiStep();
+        this.level.addParticle(NDUParticle.GLOWDINE_PARTICLE.get(), this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
+    }
+
     public ItemStack getBucketItemStack() {
         return new ItemStack(NDUItems.GLOWDINE_BUCKET.get());
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.GLOW_SQUID_AMBIENT;
+        return NDUSounds.GLOWDINE_AMBIENT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.GLOW_SQUID_DEATH;
+        return NDUSounds.GLOWDINE_DEATH.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return SoundEvents.GLOW_SQUID_HURT;
+        return NDUSounds.GLOWDINE_HURT.get();
     }
 
     protected SoundEvent getFlopSound() {
-        return SoundEvents.GLOW_SQUID_SQUIRT;
+        return NDUSounds.GLOWDINE_SQUIRT.get();
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
@@ -82,5 +83,4 @@ public class GlowdineEntity extends AbstractLavaSchoolingFish implements IAnimat
     public int getMaxSchoolSize() {
         return 20;
     }
-
 }

@@ -1,26 +1,30 @@
 package com.scouter.netherdepthsupgrade.world.feature;
 
-import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
-
 import com.scouter.netherdepthsupgrade.blocks.LavaKelpBlock;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import org.slf4j.Logger;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ISeedReader;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.server.ServerWorld;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
-public class WarpedKelpFeature extends Feature<NoneFeatureConfiguration> {
-    private static final Logger LOGGER = LogUtils.getLogger();
+import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.MODID;
 
-    public WarpedKelpFeature(Codec<NoneFeatureConfiguration> p_66219_) {
+public class WarpedKelpFeature extends Feature<NoFeatureConfig> {
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
+
+    public WarpedKelpFeature(Codec<NoFeatureConfig> p_66219_) {
         super(p_66219_);
     }
 
@@ -30,14 +34,19 @@ public class WarpedKelpFeature extends Feature<NoneFeatureConfiguration> {
      * that they can safely generate into.
      * @param pContext A context object with a reference to the level and the position the feature is being placed at
      */
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> p_159956_) {
-
+    @Override
+    public boolean place(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+        List<Integer> list = new ArrayList<>();
+        list.clear();
+        for(int l = -29; l < 11;l++){
+            list.add(l);
+        }
         int i = 0;
-        WorldGenLevel worldgenlevel = p_159956_.level();
-        BlockPos blockpos = p_159956_.origin();
-        RandomSource random = p_159956_.random();
+        ISeedReader worldgenlevel = reader;
+        BlockPos blockpos = pos;
+        Random random = reader.getRandom();
         //LOGGER.info("placing" + worldgenlevel);
-        int j = 30 + random.nextInt(-29,10);
+        int j = 30 + list.get(rand.nextInt(40));
         //LOGGER.info("j" + j);
         BlockPos blockpos1 = new BlockPos(blockpos.getX(), j, blockpos.getZ());
         if (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA)) {

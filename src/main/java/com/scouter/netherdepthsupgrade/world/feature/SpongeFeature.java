@@ -1,26 +1,30 @@
 package com.scouter.netherdepthsupgrade.world.feature;
 
-import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.material.Fluids;
-import org.slf4j.Logger;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ISeedReader;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.server.ServerWorld;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.MODID;
 
-public class SpongeFeature extends Feature<NoneFeatureConfiguration> {
-    private static final Logger LOGGER = LogUtils.getLogger();
 
-    public SpongeFeature(Codec<NoneFeatureConfiguration> p_66219_) {
+public class SpongeFeature extends Feature<NoFeatureConfig> {
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
+
+    public SpongeFeature(Codec<NoFeatureConfig> p_66219_) {
         super(p_66219_);
     }
 
@@ -31,19 +35,24 @@ public class SpongeFeature extends Feature<NoneFeatureConfiguration> {
      *
      * @param pContext A context object with a reference to the level and the position the feature is being placed at
      */
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> p_159956_) {
-        WorldGenLevel worldgenlevel = p_159956_.level();
-        BlockPos blockpos = p_159956_.origin();
-        RandomSource random = p_159956_.random();
-        int t = 30 + random.nextInt(-29, 0);
+    @Override
+    public boolean place(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+        List<Integer> list = new ArrayList<>();
+        for(int l = -29; l < 1;l++){
+            list.add(l);
+        }
+        ISeedReader worldgenlevel = reader;
+        BlockPos blockpos = pos;
+        Random random = reader.getRandom();
+        int t = 30 + list.get(rand.nextInt(30));
         BlockPos blockpos1 = new BlockPos(blockpos.getX(), t, blockpos.getZ());
         BlockState block = NDUBlocks.WET_LAVA_SPONGE.get().defaultBlockState();
 
         if (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA)) {
-            while (worldgenlevel.getFluidState(blockpos1).is(Fluids.LAVA)) {
+            while (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA)) {
                 blockpos1 = blockpos1.below();
             }
-            int radius = random.nextInt(3, 6);
+            int radius = random.nextInt( 6) + 3;
             radius += 0.5D;
             double radiusSq = radius * radius;
             int ceilRadius = (int) Math.ceil(radius);
@@ -55,28 +64,28 @@ public class SpongeFeature extends Feature<NoneFeatureConfiguration> {
                         if (dSq > radiusSq) {
                             continue;
                         }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(x, y, z))).is(Fluids.LAVA)) {
+                        if (worldgenlevel.getBlockState((blockpos1.offset(x, y, z))).is(Blocks.LAVA)) {
                             worldgenlevel.setBlock(blockpos1.offset(x, y, z), block, 3);
                         }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(-x, y, z))).is(Fluids.LAVA)) {
+                        if (worldgenlevel.getBlockState((blockpos1.offset(-x, y, z))).is(Blocks.LAVA)) {
                             worldgenlevel.setBlock(blockpos1.offset(-x, y, z), block, 3);
                         }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(x, -y, z))).is(Fluids.LAVA)) {
+                        if (worldgenlevel.getBlockState((blockpos1.offset(x, -y, z))).is(Blocks.LAVA)) {
                             worldgenlevel.setBlock(blockpos1.offset(x, -y, z), block, 3);
                         }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(x, y, -z))).is(Fluids.LAVA)) {
+                        if (worldgenlevel.getBlockState((blockpos1.offset(x, y, -z))).is(Blocks.LAVA)) {
                             worldgenlevel.setBlock(blockpos1.offset(x, y, -z), block, 3);
                         }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(-x, -y, z))).is(Fluids.LAVA)) {
+                        if (worldgenlevel.getBlockState((blockpos1.offset(-x, -y, z))).is(Blocks.LAVA)) {
                             worldgenlevel.setBlock(blockpos1.offset(-x, -y, z), block, 3);
                         }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(x, -y, -z))).is(Fluids.LAVA)) {
+                        if (worldgenlevel.getBlockState((blockpos1.offset(x, -y, -z))).is(Blocks.LAVA)) {
                             worldgenlevel.setBlock(blockpos1.offset(x, -y, -z), block, 3);
                         }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(-x, y, -z))).is(Fluids.LAVA)) {
+                        if (worldgenlevel.getBlockState((blockpos1.offset(-x, y, -z))).is(Blocks.LAVA)) {
                             worldgenlevel.setBlock(blockpos1.offset(-x, y, -z), block, 3);
                         }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(-x, -y, -z))).is(Fluids.LAVA)) {
+                        if (worldgenlevel.getBlockState((blockpos1.offset(-x, -y, -z))).is(Blocks.LAVA)) {
                             worldgenlevel.setBlock(blockpos1.offset(-x, -y, -z), block, 3);
                         }
 

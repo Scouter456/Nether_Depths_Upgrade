@@ -1,40 +1,35 @@
 package com.scouter.netherdepthsupgrade.items;
 
-import net.minecraft.core.NonNullList;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
+import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.*;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 
 public class SoulSuckerArmorItem extends ArmorItem {
-    public SoulSuckerArmorItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
+    public SoulSuckerArmorItem(IArmorMaterial pMaterial, EquipmentSlotType pSlot, Properties pProperties) {
         super(pMaterial, pSlot, pProperties);
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, Level level, Player player){
-        if(player.getInventory().getArmor(0).is(NDUItems.SOUL_SUCKER_BOOTS.get())){
-            if(level.getBlockState(player.getOnPos()).is(Blocks.SOUL_SAND)){
-                level.setBlock(player.getOnPos(), Blocks.SOUL_SOIL.defaultBlockState(), 3);
+    public void onArmorTick(ItemStack stack, World level, PlayerEntity player){
+        if(player.inventory.getArmor(0).equals(NDUItems.SOUL_SUCKER_BOOTS.get())){
+            if(level.getBlockState(player.blockPosition()).is(Blocks.SOUL_SAND)){
+                level.setBlock(player.blockPosition(), Blocks.SOUL_SOIL.defaultBlockState(), 3);
             }
         }
     }
 
     @Override
-    public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
+    public void onCraftedBy(ItemStack pStack, World pLevel, PlayerEntity pPlayer) {
         pStack.enchant(Enchantments.SOUL_SPEED, 3);
     }
 
     @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
-        if (allowedIn(tab)) {
+    public void fillItemCategory(ItemGroup tab, NonNullList<ItemStack> list) {
+        if (allowdedIn(tab)) {
             ItemStack istack = new ItemStack(this);
             switch (this.getSlot()) {
                 case HEAD:

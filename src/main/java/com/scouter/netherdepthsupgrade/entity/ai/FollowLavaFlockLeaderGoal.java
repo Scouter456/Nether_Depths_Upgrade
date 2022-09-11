@@ -2,7 +2,7 @@ package com.scouter.netherdepthsupgrade.entity.ai;
 
 import com.mojang.datafixers.DataFixUtils;
 import com.scouter.netherdepthsupgrade.entity.AbstractLavaSchoolingFish;
-import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.Goal;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -19,7 +19,7 @@ public class FollowLavaFlockLeaderGoal extends Goal {
     }
 
     protected int nextStartTick(AbstractLavaSchoolingFish pTaskOwner) {
-        return reducedTickDelay(200 + pTaskOwner.getRandom().nextInt(200) % 20);
+        return 200 + pTaskOwner.getRandom().nextInt(200) % 20;
     }
 
     /**
@@ -74,7 +74,7 @@ public class FollowLavaFlockLeaderGoal extends Goal {
      */
     public void tick() {
         if (--this.timeToRecalcPath <= 0) {
-            this.timeToRecalcPath = this.adjustedTickDelay(10);
+            this.timeToRecalcPath = 10;
             this.mob.pathToLeader();
         }
     }

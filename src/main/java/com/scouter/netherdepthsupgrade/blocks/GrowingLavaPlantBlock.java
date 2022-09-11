@@ -1,17 +1,16 @@
 package com.scouter.netherdepthsupgrade.blocks;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -29,37 +28,38 @@ public abstract class GrowingLavaPlantBlock extends Block {
     }
 
     @Nullable
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+    public BlockState getStateForPlacement(BlockItemUseContext pContext) {
         BlockState blockstate = pContext.getLevel().getBlockState(pContext.getClickedPos().relative(this.growthDirection));
         return !blockstate.is(this.getHeadBlock()) && !blockstate.is(this.getBodyBlock()) ? this.getStateForPlacement(pContext.getLevel()) : this.getBodyBlock().defaultBlockState();
     }
 
-    public BlockState getStateForPlacement(LevelAccessor pLevel) {
+    public BlockState getStateForPlacement(IWorld pLevel) {
         return this.defaultBlockState();
     }
 
-    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+    public boolean canSurvive(BlockState pState, IWorldReader pLevel, BlockPos pPos) {
         BlockPos blockpos = pPos.relative(this.growthDirection.getOpposite());
         BlockState blockstate = pLevel.getBlockState(blockpos);
-        if (!this.canAttachTo(blockstate)) {
+        Block block = blockstate.getBlock();
+        if (!this.canAttachToBlock(block)) {
             return false;
         } else {
-            return blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.isFaceSturdy(pLevel, blockpos, this.growthDirection);
+            return block == this.getHeadBlock() || block == this.getBodyBlock() || blockstate.isFaceSturdy(pLevel, blockpos, this.growthDirection);
         }
     }
 
-    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRand) {
+    public void tick(BlockState pState, ServerWorld pLevel, BlockPos pPos, Random pRand) {
         if (!pState.canSurvive(pLevel, pPos)) {
             pLevel.destroyBlock(pPos, true);
         }
 
     }
 
-    protected boolean canAttachTo(BlockState pState) {
+    protected boolean canAttachToBlock(Block p_230333_1_) {
         return true;
     }
 
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    public VoxelShape getShape(BlockState pState, IBlockReader pLevel, BlockPos pPos, ISelectionContext pContext) {
         return this.shape;
     }
 

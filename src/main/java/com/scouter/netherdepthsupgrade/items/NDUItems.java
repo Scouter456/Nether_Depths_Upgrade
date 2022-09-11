@@ -5,18 +5,14 @@ import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.setup.Registration;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.Fluids;
+import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-import org.checkerframework.checker.units.qual.A;
 
 
 
@@ -28,14 +24,14 @@ public class NDUItems {
     public static final RegistryObject<Item> WET_LAVA_SPONGE = fromBlock(NDUBlocks.WET_LAVA_SPONGE);
     public static final RegistryObject<Item> WARPED_KELP = fromBlockFireRes(NDUBlocks.WARPED_KELP);
     public static final RegistryObject<Item> WARPED_SEAGRASS = fromBlockFireRes(NDUBlocks.WARPED_SEAGRASS);
-    public static final RegistryObject<Item> WARPED_KELP_BLOCK = fromBlockFireResFuel(NDUBlocks.WARPED_KELP_BLOCK);
+    public static final RegistryObject<Item> WARPED_KELP_BLOCK = fromBlockFireResFuel(NDUBlocks.WARPED_KELP_BLOCK, 6000);
 
     //ITEM
     public static final RegistryObject<Item> SOUL_SUCKER_LEATHER = ITEMS.register("soul_sucker_leather", () -> new Item(Registration.defaultBuilder().fireResistant()));
 
 
     //ARMOR
-    public static final RegistryObject<ArmorItem> SOUL_SUCKER_BOOTS = ITEMS.register("soul_sucker_boots", () -> new SoulSuckerArmorItem(NDUMaterialInit.SOUL_SUCKER, EquipmentSlot.FEET, Registration.defaultBuilder().fireResistant()));
+    public static final RegistryObject<ArmorItem> SOUL_SUCKER_BOOTS = ITEMS.register("soul_sucker_boots", () -> new SoulSuckerArmorItem(NDUMaterialInit.SOUL_SUCKER, EquipmentSlotType.FEET, Registration.defaultBuilder().fireResistant()));
 
 
     //FISH
@@ -61,7 +57,7 @@ public class NDUItems {
     public static final RegistryObject<Item> LAVA_PUFFERFISH_BUCKET = ITEMS.register("lava_pufferfish_bucket", () -> new FishBucketItem(NDUEntity.LAVA_PUFFERFISH, Fluids.LAVA, (Registration.fishBuilder())));
     public static final RegistryObject<Item> OBSIDIANFISH_BUCKET = ITEMS.register("obsidianfish_bucket", () -> new FishBucketItem(NDUEntity.OBSIDIAN_FISH, Fluids.LAVA, (Registration.fishBuilder())));
     public static final RegistryObject<Item> SEARING_COD_BUCKET = ITEMS.register("searing_cod_bucket", () -> new FishBucketItem(NDUEntity.SEARING_COD, Fluids.LAVA, (Registration.fishBuilder())));
-    public static final RegistryObject<Item> BONEFISH_BUCKET = ITEMS.register("bonefish_bucket", () -> new FishBucketItem(NDUEntity.BONEFISH, Fluids.LAVA, (Registration.fishBuilder())));
+    public static final RegistryObject<Item> BONEFISH_BUCKET = ITEMS.register("bonefish_bucket", () -> new FishBucketItem(NDUEntity.BONEFISH,  Fluids.LAVA, (Registration.fishBuilder())));
     public static final RegistryObject<Item> WITHER_BONEFISH_BUCKET = ITEMS.register("wither_bonefish_bucket", () -> new FishBucketItem(NDUEntity.WITHER_BONEFISH, Fluids.LAVA, (Registration.fishBuilder())));
     public static final RegistryObject<Item> BLAZEFISH_BUCKET = ITEMS.register("blazefish_bucket", () -> new FishBucketItem(NDUEntity.BLAZEFISH, Fluids.LAVA, (Registration.fishBuilder())));
     public static final RegistryObject<Item> MAGMACUBEFISH_BUCKET = ITEMS.register("magmacubefish_bucket", () -> new FishBucketItem(NDUEntity.MAGMACUBEFISH, Fluids.LAVA, (Registration.fishBuilder())));
@@ -98,14 +94,14 @@ public class NDUItems {
             0x796152, 0xcc8654, Registration.fishBuilder()));
 
 
-    public static CreativeModeTab creativeTab = new CreativeModeTab("netherdepthsupgrade") {
+    public static ItemGroup creativeTab = new ItemGroup("netherdepthsupgrade") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(WARPED_KELP.get());
         }
     };
 
-    public static CreativeModeTab creativeTabFish = new CreativeModeTab("netherdepthsupgrade_fish") {
+    public static ItemGroup creativeTabFish = new ItemGroup("netherdepthsupgrade_fish") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(SEARING_COD.get());
@@ -120,8 +116,8 @@ public class NDUItems {
         return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), Registration.defaultBuilder().fireResistant()));
     }
 
-    public static <B extends Block> RegistryObject<Item> fromBlockFireResFuel(RegistryObject<B> block) {
-        return ITEMS.register(block.getId().getPath(), () -> new BurnableBlockItem(block.get(), Registration.defaultBuilder().fireResistant()));
+    public static <B extends Block> RegistryObject<Item> fromBlockFireResFuel(RegistryObject<B> block, int burntime) {
+        return ITEMS.register(block.getId().getPath(), () -> new BurnableBlockItem(block.get(), Registration.defaultBuilder().fireResistant(), burntime));
     }
 
 }

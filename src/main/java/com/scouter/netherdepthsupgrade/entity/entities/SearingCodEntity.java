@@ -2,19 +2,18 @@ package com.scouter.netherdepthsupgrade.entity.entities;
 
 
 import com.scouter.netherdepthsupgrade.entity.AbstractLavaSchoolingFish;
-import com.scouter.netherdepthsupgrade.entity.ai.FollowLavaFlockLeaderGoal;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.World;
 
 public class SearingCodEntity extends AbstractLavaSchoolingFish {
 
-    public SearingCodEntity(EntityType<? extends AbstractLavaSchoolingFish> p_27523_, Level p_27524_) {
+    public SearingCodEntity(EntityType<? extends AbstractLavaSchoolingFish> p_27523_, World p_27524_) {
         super(p_27523_, p_27524_);
     }
     public void tick() {

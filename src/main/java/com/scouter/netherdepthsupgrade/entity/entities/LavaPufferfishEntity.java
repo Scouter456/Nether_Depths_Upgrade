@@ -4,47 +4,45 @@ package com.scouter.netherdepthsupgrade.entity.entities;
 import com.scouter.netherdepthsupgrade.entity.AbstractLavaFish;
 import com.scouter.netherdepthsupgrade.entity.NDUMobType;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.Pufferfish;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.passive.fish.PufferfishEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.play.server.SChangeGameStatePacket;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 public class LavaPufferfishEntity extends AbstractLavaFish {
-    private static final EntityDataAccessor<Integer> PUFF_STATE = SynchedEntityData.defineId(LavaPufferfishEntity.class, EntityDataSerializers.INT);
+    private static final DataParameter<Integer> PUFF_STATE = EntityDataManager.defineId(LavaPufferfishEntity.class, DataSerializers.INT);
     int inflateCounter;
     int deflateTimer;
-    private static final Predicate<LivingEntity> SCARY_MOB = (p_29634_) -> {
-        if (p_29634_ instanceof Player && ((Player)p_29634_).isCreative()) {
+    private static final Predicate<LivingEntity> NO_SPECTATORS_AND_NO_WATER_MOB = (p_29634_) -> {
+        if (p_29634_ instanceof PlayerEntity && ((PlayerEntity)p_29634_).isCreative()) {
             return false;
         } else {
-            return p_29634_.getType() == EntityType.AXOLOTL || p_29634_.getMobType() != NDUMobType.LAVA;
+            return p_29634_.getMobType() != NDUMobType.LAVA;
         }
     };
-    static final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(SCARY_MOB);
+    //static final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(SCARY_MOB);
     public static final int STATE_SMALL = 0;
     public static final int STATE_MID = 1;
     public static final int STATE_FULL = 2;
 
-    public LavaPufferfishEntity(EntityType<? extends LavaPufferfishEntity> p_29602_, Level p_29603_) {
+    public LavaPufferfishEntity(EntityType<? extends LavaPufferfishEntity> p_29602_, World p_29603_) {
         super(p_29602_, p_29603_);
-        this.refreshDimensions();
     }
 
     protected void defineSynchedData() {
@@ -60,7 +58,7 @@ public class LavaPufferfishEntity extends AbstractLavaFish {
         this.entityData.set(PUFF_STATE, p_29619_);
     }
 
-    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
+    public void onSyncedDataUpdated(DataParameter<?> pKey) {
         if (PUFF_STATE.equals(pKey)) {
             this.refreshDimensions();
         }
@@ -68,15 +66,20 @@ public class LavaPufferfishEntity extends AbstractLavaFish {
         super.onSyncedDataUpdated(pKey);
     }
 
-    public void addAdditionalSaveData(CompoundTag pCompound) {
+    public void addAdditionalSaveData(CompoundNBT pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("PuffState", this.getPuffState());
+    }
+
+    @Override
+    public boolean fireImmune() {
+        return true;
     }
 
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
-    public void readAdditionalSaveData(CompoundTag pCompound) {
+    public void readAdditionalSaveData(CompoundNBT pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.setPuffState(Math.min(pCompound.getInt("PuffState"), 2));
     }
@@ -84,6 +87,7 @@ public class LavaPufferfishEntity extends AbstractLavaFish {
     public ItemStack getBucketItemStack() {
         return new ItemStack(NDUItems.LAVA_PUFFERFISH_BUCKET.get());
     }
+
 
     protected void registerGoals() {
         super.registerGoals();
@@ -128,21 +132,19 @@ public class LavaPufferfishEntity extends AbstractLavaFish {
     public void aiStep() {
         super.aiStep();
         if (this.isAlive() && this.getPuffState() > 0) {
-            for(Mob mob : this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(0.3D), (p_149013_) -> {
-                return targetingConditions.test(this, p_149013_);
-            })) {
-                if (mob.isAlive()) {
-                    this.touch(mob);
+            for (MobEntity mobentity : this.level.getEntitiesOfClass(MobEntity.class, this.getBoundingBox().inflate(0.3D), NO_SPECTATORS_AND_NO_WATER_MOB)) {
+                if (mobentity.isAlive()) {
+                    this.touch(mobentity);
                 }
             }
         }
 
     }
 
-    private void touch(Mob p_29606_) {
+    private void touch(MobEntity pMob) {
         int i = this.getPuffState();
-        if (p_29606_.hurt(DamageSource.mobAttack(this), (float)(1 + i))) {
-            p_29606_.addEffect(new MobEffectInstance(MobEffects.WITHER, 60 * i, 0), this);
+        if (pMob.hurt(DamageSource.mobAttack(this), (float) (1 + i))) {
+            pMob.addEffect(new EffectInstance(Effects.WITHER, 60 * i, 0));
             this.playSound(SoundEvents.PUFFER_FISH_STING, 1.0F, 1.0F);
         }
 
@@ -151,14 +153,14 @@ public class LavaPufferfishEntity extends AbstractLavaFish {
     /**
      * Called by a player entity when they collide with an entity
      */
-    public void playerTouch(Player pEntity) {
+    public void playerTouch(PlayerEntity pEntity) {
         int i = this.getPuffState();
-        if (pEntity instanceof ServerPlayer && i > 0 && pEntity.hurt(DamageSource.mobAttack(this), (float)(1 + i))) {
+        if (pEntity instanceof ServerPlayerEntity && i > 0 && pEntity.hurt(DamageSource.mobAttack(this), (float) (1 + i))) {
             if (!this.isSilent()) {
-                ((ServerPlayer)pEntity).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0F));
+                ((ServerPlayerEntity) pEntity).connection.send(new SChangeGameStatePacket(SChangeGameStatePacket.PUFFER_FISH_STING, 0.0F));
             }
 
-            pEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 60 * i, 0), this);
+            pEntity.addEffect(new EffectInstance(Effects.WITHER, 60 * i, 0));
         }
 
     }
@@ -179,12 +181,12 @@ public class LavaPufferfishEntity extends AbstractLavaFish {
         return SoundEvents.PUFFER_FISH_FLOP;
     }
 
-    public EntityDimensions getDimensions(Pose pPose) {
+    public EntitySize getDimensions(Pose pPose) {
         return super.getDimensions(pPose).scale(getScale(this.getPuffState()));
     }
 
     private static float getScale(int p_29639_) {
-        switch(p_29639_) {
+        switch (p_29639_) {
             case 0:
                 return 0.5F;
             case 1:
@@ -206,9 +208,7 @@ public class LavaPufferfishEntity extends AbstractLavaFish {
          * method as well.
          */
         public boolean canUse() {
-            List<LivingEntity> list = this.fish.level.getEntitiesOfClass(LivingEntity.class, this.fish.getBoundingBox().inflate(2.0D), (p_149015_) -> {
-                return LavaPufferfishEntity.targetingConditions.test(this.fish, p_149015_);
-            });
+            List<LivingEntity> list = this.fish.level.getEntitiesOfClass(LivingEntity.class, this.fish.getBoundingBox().inflate(2.0D), LavaPufferfishEntity.NO_SPECTATORS_AND_NO_WATER_MOB);
             return !list.isEmpty();
         }
 

@@ -3,12 +3,12 @@ package com.scouter.netherdepthsupgrade.entity.entities;
 
 import com.scouter.netherdepthsupgrade.entity.AbstractLavaSchoolingFish;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.IAnimationTickable;
 import software.bernie.geckolib3.core.PlayState;
@@ -20,7 +20,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class BonefishEntity extends AbstractLavaSchoolingFish implements IAnimatable, IAnimationTickable {
     private AnimationFactory factory = new AnimationFactory(this);
-    public BonefishEntity(EntityType<? extends AbstractLavaSchoolingFish> p_27461_, Level p_27462_) {
+    public BonefishEntity(EntityType<? extends AbstractLavaSchoolingFish> p_27461_, World p_27462_) {
         super(p_27461_, p_27462_);
     }
 

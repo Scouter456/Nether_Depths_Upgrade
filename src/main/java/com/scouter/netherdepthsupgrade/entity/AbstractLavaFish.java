@@ -1,59 +1,58 @@
 package com.scouter.netherdepthsupgrade.entity;
 
-import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.entity.ai.FishSwimGoal;
 import com.scouter.netherdepthsupgrade.entity.ai.LavaBoundPathNavigation;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.controller.MovementController;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.PanicGoal;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
-import org.slf4j.Logger;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public abstract class AbstractLavaFish extends LavaAnimal implements BucketableLava {
-    private static final Logger LOGGER = LogUtils.getLogger();
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(AbstractLavaFish.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> JUMPING = SynchedEntityData.defineId(AbstractLavaFish.class, EntityDataSerializers.BOOLEAN);
+import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.MODID;
 
+public abstract class AbstractLavaFish extends LavaAnimal {
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
+    private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.defineId(AbstractLavaFish.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> JUMPING = EntityDataManager.defineId(AbstractLavaFish.class, DataSerializers.BOOLEAN);
     @Nullable
     public FishSwimGoal fishSwimGoal;
 
-    public AbstractLavaFish(EntityType<? extends AbstractLavaFish> p_27461_, Level p_27462_) {
+
+    public AbstractLavaFish(EntityType<? extends AbstractLavaFish> p_27461_, World p_27462_) {
         super(p_27461_, p_27462_);
         this.moveControl = new FishMoveControl(this);
     }
 
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
+    protected float getStandingEyeHeight(Pose pPose, EntitySize pSize) {
         return pSize.height * 0.65F;
     }
 
-    public static AttributeSupplier setAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D)
-                //.add(Attributes.MOVEMENT_SPEED, 3.0D)
-                .build();
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D);
     }
 
     public boolean requiresCustomPersistence() {
@@ -80,7 +79,6 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
     public boolean fromBucket() {
         return this.entityData.get(FROM_BUCKET);
     }
-
     public void setFromBucket(boolean p_27498_) {
         this.entityData.set(FROM_BUCKET, p_27498_);
     }
@@ -90,7 +88,8 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
     public boolean getIsJumping(){
         return this.entityData.get(JUMPING).booleanValue();
     }
-    public void addAdditionalSaveData(CompoundTag pCompound) {
+
+    public void addAdditionalSaveData(CompoundNBT pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("FromBucket", this.fromBucket());
         pCompound.putBoolean("isJumping", this.getIsJumping());
@@ -99,27 +98,28 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
-    public void readAdditionalSaveData(CompoundTag pCompound) {
+    public void readAdditionalSaveData(CompoundNBT pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.setFromBucket(pCompound.getBoolean("FromBucket"));
         setIsJumping(pCompound.getBoolean("isJumping"));
     }
 
+
     protected void registerGoals() {
         super.registerGoals();
         this.fishSwimGoal = new FishSwimGoal(this);
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, PlayerEntity.class, 8.0F, 1.6D, 1.4D, EntityPredicates.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new FishSwimGoal(this));
         this.fishSwimGoal.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
-    protected PathNavigation createNavigation(Level pLevel) {
+    protected PathNavigator createNavigation(World pLevel) {
         return new LavaBoundPathNavigation(this, pLevel);
    }
 
     @Override
-    public void travel(Vec3 pTravelVector) {
+    public void travel(Vector3d pTravelVector) {
         if (this.isEffectiveAi() && this.isInLava()) {
             this.moveRelative(0.01F, pTravelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -150,27 +150,43 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
         super.aiStep();
     }
 
-    protected InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        return BucketableLava.bucketMobPickup(pPlayer, pHand, this).orElse(super.mobInteract(pPlayer, pHand));
-    }
+    protected ActionResultType mobInteract(PlayerEntity pPlayer, Hand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        if (itemstack.getItem() == Items.LAVA_BUCKET && this.isAlive()) {
+            this.playSound(SoundEvents.BUCKET_FILL_FISH, 1.0F, 1.0F);
+            itemstack.shrink(1);
+            ItemStack itemstack1 = this.getBucketItemStack();
+            this.saveToBucketTag(itemstack1);
+            if (!this.level.isClientSide) {
+                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity)pPlayer, itemstack1);
+            }
 
+            if (itemstack.isEmpty()) {
+                pPlayer.setItemInHand(pHand, itemstack1);
+            } else if (!pPlayer.inventory.add(itemstack1)) {
+                pPlayer.drop(itemstack1, false);
+            }
+
+            this.remove();
+            return ActionResultType.sidedSuccess(this.level.isClientSide);
+        } else {
+            return super.mobInteract(pPlayer, pHand);
+        }
+    }
     @Override
     public boolean fireImmune() {
         return true;
     }
 
-    @Override
-    public void saveToBucketTag(ItemStack p_27494_) {
-        BucketableLava.saveDefaultDataToBucketTag(this, p_27494_);
+
+    protected void saveToBucketTag(ItemStack pBucketStack) {
+        if (this.hasCustomName()) {
+            pBucketStack.setHoverName(this.getCustomName());
+        }
+
     }
 
-    public void loadFromBucketTag(CompoundTag p_148708_) {
-        BucketableLava.loadDefaultDataFromBucketTag(this, p_148708_);
-    }
-
-    public SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_FILL_FISH;
-    }
+    public abstract ItemStack getBucketItemStack();
 
     protected boolean canRandomSwim() {
         return true;
@@ -185,10 +201,10 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
     }
 
-    static class FishMoveControl extends MoveControl {
-        private final PathfinderMob fish;
+    static class FishMoveControl extends MovementController {
+        private final AbstractLavaFish fish;
 
-        FishMoveControl(PathfinderMob p_27501_) {
+        FishMoveControl(AbstractLavaFish p_27501_) {
             super(p_27501_);
             this.fish = p_27501_;
         }
@@ -199,10 +215,10 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
                 this.fish.setDeltaMovement(this.fish.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
             }
 
-            //LOGGER.info("Operation " + (this.operation == MoveControl.Operation.MOVE_TO));
-            if (this.operation == Operation.MOVE_TO && !this.fish.getNavigation().isDone()) {
+
+            if (this.operation == MovementController.Action.MOVE_TO && !this.fish.getNavigation().isDone()) {
                 float f = (float)(this.speedModifier * this.fish.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                this.fish.setSpeed(Mth.lerp(0.125F, this.fish.getSpeed(), f));
+                this.fish.setSpeed(MathHelper.lerp(0.125F, this.fish.getSpeed(), f));
                 double d0 = this.wantedX - this.fish.getX();
                 double d1 = this.wantedY - this.fish.getY();
                 double d2 = this.wantedZ - this.fish.getZ();
@@ -212,9 +228,9 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
                 }
 
                 if (d0 != 0.0D || d2 != 0.0D) {
-                    float f1 = (float)(Mth.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
-                    this.fish.setYRot(this.rotlerp(this.fish.getYRot(), f1, 90.0F));
-                    this.fish.yBodyRot = this.fish.getYRot();
+                    float f1 = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
+                    this.fish.yRot = this.rotlerp(this.fish.yRot, f1, 90.0F);
+                    this.fish.yBodyRot = this.fish.yRot;
                 }
 
             } else {

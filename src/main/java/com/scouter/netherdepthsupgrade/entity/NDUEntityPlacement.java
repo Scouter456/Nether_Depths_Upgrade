@@ -1,19 +1,19 @@
 package com.scouter.netherdepthsupgrade.entity;
 
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.world.gen.Heightmap;
 
 public class NDUEntityPlacement {
     public  static void entityPlacement() {
-        SpawnPlacements.register(NDUEntity.OBSIDIAN_FISH.get(), SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
-        SpawnPlacements.register(NDUEntity.SEARING_COD.get(), SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
-        SpawnPlacements.register(NDUEntity.BLAZEFISH.get(), SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
-        SpawnPlacements.register(NDUEntity.SOULSUCKER.get(), SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
-        SpawnPlacements.register(NDUEntity.WITHER_BONEFISH.get(), SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
-        SpawnPlacements.register(NDUEntity.GLOWDINE.get(), SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
-        SpawnPlacements.register(NDUEntity.MAGMACUBEFISH.get(), SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
-        SpawnPlacements.register(NDUEntity.BONEFISH.get(), SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
-        SpawnPlacements.register(NDUEntity.LAVA_PUFFERFISH.get(), SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
+        EntitySpawnPlacementRegistry.register(NDUEntity.OBSIDIAN_FISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
+        EntitySpawnPlacementRegistry.register(NDUEntity.SEARING_COD.get(), EntitySpawnPlacementRegistry.PlacementType.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
+        EntitySpawnPlacementRegistry.register(NDUEntity.BLAZEFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
+        EntitySpawnPlacementRegistry.register(NDUEntity.SOULSUCKER.get(), EntitySpawnPlacementRegistry.PlacementType.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
+        EntitySpawnPlacementRegistry.register(NDUEntity.WITHER_BONEFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
+        EntitySpawnPlacementRegistry.register(NDUEntity.GLOWDINE.get(), EntitySpawnPlacementRegistry.PlacementType.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
+        EntitySpawnPlacementRegistry.register(NDUEntity.MAGMACUBEFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
+        EntitySpawnPlacementRegistry.register(NDUEntity.BONEFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
+        EntitySpawnPlacementRegistry.register(NDUEntity.LAVA_PUFFERFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_LAVA, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
 
     }
 }

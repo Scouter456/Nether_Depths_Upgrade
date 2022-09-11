@@ -2,8 +2,8 @@ package com.scouter.netherdepthsupgrade.client.renderer;
 
 
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 
 public class RenderLayerRegistration {
     public static void init() {
@@ -14,9 +14,9 @@ public class RenderLayerRegistration {
         RenderType solid = RenderType.solid();
 
 
-        ItemBlockRenderTypes.setRenderLayer(NDUBlocks.WARPED_KELP.get(), cutout);
-        ItemBlockRenderTypes.setRenderLayer(NDUBlocks.WARPED_KELP_PLANT.get(), cutout);
-        ItemBlockRenderTypes.setRenderLayer(NDUBlocks.WARPED_SEAGRASS.get(), cutout);
-        ItemBlockRenderTypes.setRenderLayer(NDUBlocks.TALL_WARPED_SEAGRASS.get(), cutout);
+        RenderTypeLookup.setRenderLayer(NDUBlocks.WARPED_KELP.get(), cutout);
+        RenderTypeLookup.setRenderLayer(NDUBlocks.WARPED_KELP_PLANT.get(), cutout);
+        RenderTypeLookup.setRenderLayer(NDUBlocks.WARPED_SEAGRASS.get(), cutout);
+        RenderTypeLookup.setRenderLayer(NDUBlocks.TALL_WARPED_SEAGRASS.get(), cutout);
     }
 }
