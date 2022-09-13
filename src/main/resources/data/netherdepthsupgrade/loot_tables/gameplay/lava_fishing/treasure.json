@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:obsidian"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:redstone"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ore"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ore"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal"
+        }
+      ]
+    }
+  ]
+}

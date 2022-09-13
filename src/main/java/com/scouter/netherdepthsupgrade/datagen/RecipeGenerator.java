@@ -31,6 +31,17 @@ public class RecipeGenerator extends RecipeProvider {
                         .pattern("LLL")
                 .unlockedBy("has_soul_sucker_leather", has(NDUItems.SOUL_SUCKER_LEATHER.get()))
                 .save(consumer);
+        ShapedRecipeBuilder.shaped(NDUItems.LAVA_FISHING_ROD.get())
+                .define('b', Items.BLAZE_ROD)
+                .define('n', Items.NETHERITE_SCRAP)
+                .define('c', Items.CHAIN)
+                .pattern(" nb")
+                .pattern("nbc")
+                .pattern("b c")
+                .unlockedBy("has_blaze_rod", has(Items.BLAZE_ROD))
+                .unlockedBy("has_netherite_scrap", has(Items.NETHERITE_SCRAP))
+                .unlockedBy("has_chain", has(Items.CHAIN))
+                .save(consumer);
 
         nineBlockStorageRecipes(consumer, NDUItems.WARPED_KELP.get(),NDUItems.WARPED_KELP_BLOCK.get());
         //simpleCookingRecipe(consumer, "smelting", RecipeSerializer.SMELTING_RECIPE, 100, NDUItems.CUT_ONION.get(), NDUItems.COOKED_CUT_ONION.get(), 0.50F);

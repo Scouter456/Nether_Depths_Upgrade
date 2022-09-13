@@ -98,6 +98,10 @@ public class NDUItems {
             0x796152, 0xcc8654, Registration.fishBuilder()));
 
 
+    //FISHINGROD
+    public static final RegistryObject<Item> LAVA_FISHING_ROD = ITEMS.register("lava_fishing_rod", () -> new LavaFishingRodItem(Registration.defaultBuilder().fireResistant().defaultDurability(256)));
+
+
     public static CreativeModeTab creativeTab = new CreativeModeTab("netherdepthsupgrade") {
         @Override
         public ItemStack makeIcon() {

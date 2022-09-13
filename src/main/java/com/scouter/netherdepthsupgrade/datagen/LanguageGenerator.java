@@ -40,6 +40,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(NDUItems.MAGMACUBEFISH_SPAWN_EGG, "Magma Cube fish Spawn Egg");
         addItem(NDUItems.GLOWDINE_SPAWN_EGG, "Glowdine Spawn Egg");
         addItem(NDUItems.SOULSUCKER_SPAWN_EGG, "Soul Sucker Spawn Egg");
+        addItem(NDUItems.LAVA_FISHING_ROD, "Lava Fishing Rod");
         //POTIONS
         addPotion(NDUPotions.LAVA_VISION, "Potion of Lava Vision");
         addPotion(NDUPotions.LONG_LAVA_VISION, "Potion of Lava Vision");
@@ -54,6 +55,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(NDUEntity.MAGMACUBEFISH, "Magma Cube fish");
         addEntityType(NDUEntity.GLOWDINE, "Glowdine");
         addEntityType(NDUEntity.SOULSUCKER, "Soul Sucker");
+        addEntityType(NDUEntity.LAVA_BOBBER, "Lava Bobber");
 
         addItem(NDUItems.LAVA_PUFFERFISH_BUCKET, "Bucket of Lava Pufferfish");
         addItem(NDUItems.LAVA_PUFFERFISH, "Lava Pufferfish");

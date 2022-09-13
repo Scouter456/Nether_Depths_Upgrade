@@ -8,13 +8,12 @@ import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.particle.GlowdineParticle;
 import com.scouter.netherdepthsupgrade.particle.NDUParticle;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
-import com.scouter.netherdepthsupgrade.utils.BetterBrewingRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,11 +26,15 @@ public class ModSetup {
     public static void init(FMLCommonSetupEvent event){
         event.enqueueWork(() -> {
             NDUEntityPlacement.entityPlacement();
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(
-                    Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH.get(), NDUPotions.LAVA_VISION.get()));
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(
-                    NDUPotions.LAVA_VISION.get(), Items.REDSTONE, NDUPotions.LONG_LAVA_VISION.get()));
+       //     BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(
+       //             Ingredient.of((ItemLike) Potions.AWKWARD), NDUItems.LAVA_PUFFERFISH.get(), NDUPotions.LAVA_VISION.get()));
+       //     BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(
+        //            NDUPotions.LAVA_VISION.get(), Items.REDSTONE, NDUPotions.LONG_LAVA_VISION.get()));
+            PotionBrewing.addMix(Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH.get(), NDUPotions.LAVA_VISION.get());
+            PotionBrewing.addMix(NDUPotions.LAVA_VISION.get(), Items.REDSTONE, NDUPotions.LONG_LAVA_VISION.get());
         });
+
+
     }
 
     public static void setup(){
