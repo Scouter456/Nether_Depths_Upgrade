@@ -48,6 +48,8 @@ public class ForgeEvents {
                     speed = 1.25F;
                 }else if(level == 2){
                     speed = 1.35F;
+                }else if(level == 3){
+                    speed = 1.35F;
                 }
                 event.player.setDeltaMovement(event.player.getDeltaMovement().multiply(speed, 0.8F, speed));
                 Vec3 vec33 = event.player.getFluidFallingAdjustedMovement(d0, flag, event.player.getDeltaMovement());

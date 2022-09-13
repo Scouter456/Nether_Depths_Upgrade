@@ -24,8 +24,8 @@ public class NDUItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, NetherDepthsUpgrade.MODID);
 
     //From Blocks
-    public static final RegistryObject<Item> LAVA_SPONGE = fromBlock(NDUBlocks.LAVA_SPONGE);
-    public static final RegistryObject<Item> WET_LAVA_SPONGE = fromBlock(NDUBlocks.WET_LAVA_SPONGE);
+    public static final RegistryObject<Item> LAVA_SPONGE = fromBlockFireRes(NDUBlocks.LAVA_SPONGE);
+    public static final RegistryObject<Item> WET_LAVA_SPONGE = fromBlockFireRes(NDUBlocks.WET_LAVA_SPONGE);
     public static final RegistryObject<Item> WARPED_KELP = fromBlockFireRes(NDUBlocks.WARPED_KELP);
     public static final RegistryObject<Item> WARPED_SEAGRASS = fromBlockFireRes(NDUBlocks.WARPED_SEAGRASS);
     public static final RegistryObject<Item> WARPED_KELP_BLOCK = fromBlockFireResFuel(NDUBlocks.WARPED_KELP_BLOCK);
