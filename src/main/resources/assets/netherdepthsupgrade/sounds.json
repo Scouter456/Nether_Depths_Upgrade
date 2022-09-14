@@ -1,0 +1,8 @@
+{
+  "entity.netherdepthsupgrade.glowdine.ambient": { "subtitle": "subtitles.netherdepthsupgrade.entity.glowdine.ambient", "sounds": [ "netherdepthsupgrade:glow_squid/ambient1","netherdepthsupgrade:glow_squid/ambient2","netherdepthsupgrade:glow_squid/ambient3","netherdepthsupgrade:glow_squid/ambient4","netherdepthsupgrade:glow_squid/ambient5" ] },
+  "entity.netherdepthsupgrade.glowdine.death": { "subtitle": "subtitles.netherdepthsupgrade.entity.glowdine.death", "sounds": [ "netherdepthsupgrade:glow_squid/death1","netherdepthsupgrade:glow_squid/death2","netherdepthsupgrade:glow_squid/death3"] },
+  "entity.netherdepthsupgrade.glowdine.hurt": { "subtitle": "subtitles.netherdepthsupgrade.entity.glowdine.hurt", "sounds": [ "netherdepthsupgrade:glow_squid/hurt1","netherdepthsupgrade:glow_squid/hurt2","netherdepthsupgrade:glow_squid/hurt3"] },
+  "entity.netherdepthsupgrade.glowdine.squirt": { "subtitle": "subtitles.netherdepthsupgrade.entity.glowdine.squirt", "sounds": [ "netherdepthsupgrade:glow_squid/squirt1","netherdepthsupgrade:glow_squid/squirt2","netherdepthsupgrade:glow_squid/squirt3" ] }
+
+
+}

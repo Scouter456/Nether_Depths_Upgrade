@@ -1,0 +1,6 @@
+{
+  "parent": "netherdepthsupgrade:item/lava_fishing_rod",
+  "textures": {
+    "layer0": "netherdepthsupgrade:item/lava_fishing_rod_cast"
+  }
+}

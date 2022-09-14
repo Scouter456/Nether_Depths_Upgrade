@@ -87,7 +87,7 @@ public abstract class LavaAnimal extends CreatureEntity {
     }
 
     public static boolean checkSurfaceLavaAnimalSpawnRules(EntityType<? extends LavaAnimal> fish, IWorld pLevel, SpawnReason pSpawnType, BlockPos pPos, Random pRandom) {
-        LOGGER.info("trying to spawn " + fish);
+ //       LOGGER.info("trying to spawn " + fish);
  //       LOGGER.info("pos " + pPos);
         int i = 40;
         int j = i - 30;

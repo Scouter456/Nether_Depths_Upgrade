@@ -5,6 +5,7 @@ import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.client.renderer.RenderLayerRegistration;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.entity.renderer.*;
+import com.scouter.netherdepthsupgrade.items.NDUItemProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -26,6 +27,8 @@ public class ClientSetup {
         RenderingRegistry.registerEntityRenderingHandler(NDUEntity.MAGMACUBEFISH.get(), MagmaCubefishrenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(NDUEntity.GLOWDINE.get(), GlowdineRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(NDUEntity.SOULSUCKER.get(), SoulSuckerRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(NDUEntity.LAVA_BOBBER.get(), LavaFishingBobberRenderer::new);
+        NDUItemProperties.addItemProperties();
     }
 
 }
