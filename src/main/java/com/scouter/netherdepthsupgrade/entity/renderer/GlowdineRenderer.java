@@ -31,7 +31,7 @@ public class GlowdineRenderer extends GeoEntityRenderer<GlowdineEntity> {
         super.applyRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
         float f = 4.3F * Mth.sin(0.6F * ageInTicks);
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(f));
-        if (!entityLiving.isInLava()) {
+        if (!entityLiving.isInLava() && !entityLiving.getIsJumping()) {
             matrixStackIn.translate((double) 0.1F, (double) 0.1F, (double) -0.1F);
             matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
         }
