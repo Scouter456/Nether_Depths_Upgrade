@@ -11,6 +11,7 @@ import com.scouter.netherdepthsupgrade.potion.NDUPotions;
 import com.scouter.netherdepthsupgrade.utils.BetterBrewingRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -27,10 +28,13 @@ public class ModSetup {
     public static void init(FMLCommonSetupEvent event){
         event.enqueueWork(() -> {
             NDUEntityPlacement.entityPlacement();
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(
-                    Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH.get(), NDUPotions.LAVA_VISION.get()));
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(
-                    NDUPotions.LAVA_VISION.get(), Items.REDSTONE, NDUPotions.LONG_LAVA_VISION.get()));
+  //          BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(
+  //                  Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH.get(), NDUPotions.LAVA_VISION.get()));
+  //          BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(
+  //                  NDUPotions.LAVA_VISION.get(), Items.REDSTONE, NDUPotions.LONG_LAVA_VISION.get()));
+
+            PotionBrewing.addMix(Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH.get(), NDUPotions.LAVA_VISION.get());
+            PotionBrewing.addMix(NDUPotions.LAVA_VISION.get(), Items.REDSTONE, NDUPotions.LONG_LAVA_VISION.get());
         });
     }
 

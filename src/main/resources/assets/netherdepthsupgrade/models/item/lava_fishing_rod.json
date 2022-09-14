@@ -1,0 +1,14 @@
+{
+  "parent": "item/handheld_rod",
+  "textures": {
+    "layer0": "netherdepthsupgrade:item/lava_fishing_rod"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "cast": 1
+      },
+      "model": "netherdepthsupgrade:item/lava_fishing_rod_cast"
+    }
+  ]
+}
