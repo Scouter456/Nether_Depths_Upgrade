@@ -6,9 +6,14 @@ import com.scouter.netherdepthsupgrade.client.renderer.RenderLayerRegistration;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.entity.renderer.*;
 import com.scouter.netherdepthsupgrade.items.NDUItemProperties;
+import com.scouter.netherdepthsupgrade.particle.GlowdineParticle;
+import com.scouter.netherdepthsupgrade.particle.NDUParticle;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -31,5 +36,9 @@ public class ClientSetup {
         NDUItemProperties.addItemProperties();
     }
 
+    @SubscribeEvent
+    public static void registerParticleTypes(ParticleFactoryRegisterEvent event){
+        Minecraft.getInstance().particleEngine.register(NDUParticle.GLOWDINE_PARTICLE.get(), GlowdineParticle.GlowdineProvider::new);
+    }
 }
 

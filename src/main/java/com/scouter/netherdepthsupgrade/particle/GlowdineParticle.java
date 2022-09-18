@@ -9,7 +9,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
 
-@OnlyIn(Dist.CLIENT)
 public class GlowdineParticle extends TextureSheetParticle {
     static final Random RANDOM = new Random();
     private final SpriteSet sprites;
@@ -47,7 +46,6 @@ public class GlowdineParticle extends TextureSheetParticle {
         this.setSpriteFromAge(this.sprites);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class ElectricSparkProvider implements ParticleProvider<SimpleParticleType> {
         private final double SPEED_FACTOR = 0.25D;
         private final SpriteSet sprite;
@@ -67,7 +65,6 @@ public class GlowdineParticle extends TextureSheetParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class GlowdineProvider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;
 
@@ -94,7 +91,6 @@ public class GlowdineParticle extends TextureSheetParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class ScrapeProvider implements ParticleProvider<SimpleParticleType> {
         private final double SPEED_FACTOR = 0.01D;
         private final SpriteSet sprite;
@@ -119,7 +115,6 @@ public class GlowdineParticle extends TextureSheetParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class WaxOffProvider implements ParticleProvider<SimpleParticleType> {
         private final double SPEED_FACTOR = 0.01D;
         private final SpriteSet sprite;
@@ -139,7 +134,6 @@ public class GlowdineParticle extends TextureSheetParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class WaxOnProvider implements ParticleProvider<SimpleParticleType> {
         private final double SPEED_FACTOR = 0.01D;
         private final SpriteSet sprite;

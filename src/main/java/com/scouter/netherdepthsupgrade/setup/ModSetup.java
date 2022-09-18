@@ -56,10 +56,7 @@ public class ModSetup {
         event.put(NDUEntity.SOULSUCKER.get(), SoulSuckerEntity.setAttributes());
     }
 
-    @SubscribeEvent
-    public static void registerParticleTypes(ParticleFactoryRegisterEvent event){
-        Minecraft.getInstance().particleEngine.register(NDUParticle.GLOWDINE_PARTICLE.get(), GlowdineParticle.GlowdineProvider::new);
-    }
+
 
 
 }

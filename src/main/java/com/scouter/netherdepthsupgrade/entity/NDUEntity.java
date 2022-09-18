@@ -68,8 +68,11 @@ public class NDUEntity {
                     .build(prefix("soulsucker").toString()));
 
     public static final RegistryObject<EntityType<LavaFishingBobberEntity>> LAVA_BOBBER = ENTITY_TYPES.register("lava_fishing_bobber",
-            () -> EntityType.Builder.<LavaFishingBobberEntity>of(LavaFishingBobberEntity::new, MobCategory.MISC)
-                    .fireImmune().noSave().noSummon().sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(5)
+            () -> EntityType.Builder.<LavaFishingBobberEntity>createNothing(MobCategory.MISC)
+                    .fireImmune().noSave().noSummon().sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(5)
+                    .setCustomClientFactory(LavaFishingBobberEntity::new)
                     .build(prefix("lava_fishing_bobber").toString()));
 
 }
