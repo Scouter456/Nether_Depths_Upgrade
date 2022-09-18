@@ -25,6 +25,7 @@ import net.minecraft.loot.LootParameters;
 import net.minecraft.loot.LootTable;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -39,6 +40,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nonnull;
@@ -48,7 +51,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class LavaFishingBobberEntity extends FishingBobberEntity {
+public class LavaFishingBobberEntity extends FishingBobberEntity implements IEntityAdditionalSpawnData {
     private static final DataParameter<Integer> DATA_HOOKED_ENTITY = EntityDataManager.defineId(LavaFishingBobberEntity.class, DataSerializers.INT);
     private static final DataParameter<Boolean> DATA_BITING = EntityDataManager.defineId(LavaFishingBobberEntity.class, DataSerializers.BOOLEAN);
 
@@ -69,8 +72,8 @@ public class LavaFishingBobberEntity extends FishingBobberEntity {
     private LavaFishingBobberEntityState currentState = LavaFishingBobberEntityState.FLYING;
 
 
-    public LavaFishingBobberEntity(EntityType<? extends FishingBobberEntity> p_150141_, World level) {
-        super(Minecraft.getInstance().player, level,0,0);
+    public LavaFishingBobberEntity(FMLPlayMessages.SpawnEntity spawnPacket, World level) {
+        super(level.getPlayerByUUID(spawnPacket.getAdditionalData().readUUID()), level,0,0);
         this.luck = 0;
         this.lureSpeed = 0;
     }
@@ -485,6 +488,19 @@ public class LavaFishingBobberEntity extends FishingBobberEntity {
             Vector3d vec3 = (new Vector3d(entity.getX() - this.getX(), entity.getY() - this.getY(), entity.getZ() - this.getZ())).scale(0.1D);
             entityPulled.setDeltaMovement(entityPulled.getDeltaMovement().add(vec3));
         }
+    }
+
+    @Override
+    public void writeSpawnData(PacketBuffer buffer) {
+        PlayerEntity player = this.getPlayerOwner();
+        if (player != null) {
+            buffer.writeUUID(player.getUUID());
+        }
+    }
+
+    @Override
+    public void readSpawnData(PacketBuffer additionalData) {
+
     }
 
 

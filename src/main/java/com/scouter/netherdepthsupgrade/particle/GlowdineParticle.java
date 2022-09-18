@@ -9,7 +9,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
 
-@OnlyIn(Dist.CLIENT)
 public class GlowdineParticle extends SpriteTexturedParticle {
     static final Random RANDOM = new Random();
     private final IAnimatedSprite sprites;
@@ -47,7 +46,6 @@ public class GlowdineParticle extends SpriteTexturedParticle {
         this.setSpriteFromAge(this.sprites);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class ElectricSparkProvider implements IParticleFactory<BasicParticleType> {
         private final double SPEED_FACTOR = 0.25D;
         private final IAnimatedSprite sprite;
@@ -67,7 +65,6 @@ public class GlowdineParticle extends SpriteTexturedParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class GlowdineProvider implements IParticleFactory<BasicParticleType> {
         private final IAnimatedSprite sprite;
 
@@ -94,7 +91,6 @@ public class GlowdineParticle extends SpriteTexturedParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class ScrapeProvider implements IParticleFactory<BasicParticleType> {
         private final double SPEED_FACTOR = 0.01D;
         private final IAnimatedSprite sprite;
@@ -119,7 +115,6 @@ public class GlowdineParticle extends SpriteTexturedParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class WaxOffProvider implements IParticleFactory<BasicParticleType> {
         private final double SPEED_FACTOR = 0.01D;
         private final IAnimatedSprite sprite;
@@ -139,7 +134,6 @@ public class GlowdineParticle extends SpriteTexturedParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class WaxOnProvider implements IParticleFactory<BasicParticleType> {
         private final double SPEED_FACTOR = 0.01D;
         private final IAnimatedSprite sprite;

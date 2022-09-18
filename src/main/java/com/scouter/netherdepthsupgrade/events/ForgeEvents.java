@@ -37,7 +37,6 @@ import static com.scouter.netherdepthsupgrade.setup.ModSetup.STRUCTURE_FISH;
 
 @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeEvents {
-    final static Minecraft minecraft = Minecraft.getInstance();
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
 

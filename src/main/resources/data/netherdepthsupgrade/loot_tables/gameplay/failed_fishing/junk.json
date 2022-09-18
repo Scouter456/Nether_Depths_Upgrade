@@ -8,7 +8,7 @@
         {
           "type": "minecraft:item",
           "weight": 17,
-          "name": "minecraft:seeds"
+          "name": "minecraft:wheat_seeds"
         },
         {
           "type": "minecraft:item",
