@@ -26,7 +26,6 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = NetherDepthsUpgrade.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeEvents {
-    final static Minecraft minecraft = Minecraft.getInstance();
     private static final Logger LOGGER = LogUtils.getLogger();
 
     @SubscribeEvent

@@ -16,6 +16,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
@@ -37,8 +38,14 @@ public class NetherDepthsUpgrade
         IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
         modbus.addListener(ModSetup::init);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modbus.addListener(ClientSetup::init));
-        MinecraftForge.EVENT_BUS.register(ClientEvents.class);
+        if (FMLEnvironment.dist == Dist.CLIENT)
+        {
+            MinecraftForge.EVENT_BUS.register(ClientEvents.class);
+            // static method with no client-only classes in method signature
+        }
         MinecraftForge.EVENT_BUS.register(ForgeEvents.class);
+
+
         //forgeBus.addListener(EventPriority.HIGH, NDUGeneration::generateFeatures);
         GeckoLib.initialize();
 

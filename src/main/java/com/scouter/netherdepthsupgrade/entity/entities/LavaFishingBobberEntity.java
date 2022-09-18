@@ -4,10 +4,10 @@ import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.items.LavaFishingRodItem;
 import com.scouter.netherdepthsupgrade.loot.NDULootTables;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -38,7 +38,9 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PlayMessages;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,7 +49,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class LavaFishingBobberEntity extends FishingHook {
+public class LavaFishingBobberEntity extends FishingHook implements IEntityAdditionalSpawnData {
     private static final EntityDataAccessor<Integer> DATA_HOOKED_ENTITY = SynchedEntityData.defineId(LavaFishingBobberEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_BITING = SynchedEntityData.defineId(LavaFishingBobberEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -68,8 +70,8 @@ public class LavaFishingBobberEntity extends FishingHook {
     private LavaFishingBobberEntityState currentState = LavaFishingBobberEntityState.FLYING;
 
 
-    public LavaFishingBobberEntity(EntityType<? extends FishingHook> p_150141_, Level level) {
-        super(Minecraft.getInstance().player, level,0,0);
+    public LavaFishingBobberEntity(PlayMessages.SpawnEntity spawnPacket, Level level) {
+        super(level.getPlayerByUUID(spawnPacket.getAdditionalData().readUUID()), level,0,0);
         this.luck = 0;
         this.lureSpeed = 0;
     }
@@ -391,6 +393,8 @@ public class LavaFishingBobberEntity extends FishingHook {
                         loottable = Objects.requireNonNull(this.level.getServer()).getLootTables().get(NDULootTables.LAVA_FISHING);
                     }
 
+                }else {
+                    loottable = Objects.requireNonNull(this.level.getServer()).getLootTables().get(NDULootTables.FAILED_FISHING);
                 }
                 if(loottable == null && event != null){
                     this.discard();
@@ -477,6 +481,18 @@ public class LavaFishingBobberEntity extends FishingHook {
             Vec3 vec3 = (new Vec3(entity.getX() - this.getX(), entity.getY() - this.getY(), entity.getZ() - this.getZ())).scale(0.1D);
             entityPulled.setDeltaMovement(entityPulled.getDeltaMovement().add(vec3));
         }
+    }
+
+    @Override
+    public void writeSpawnData(FriendlyByteBuf buffer) {
+        Player player = this.getPlayerOwner();
+        if (player != null) {
+            buffer.writeUUID(player.getUUID());
+        }
+    }
+
+    @Override
+    public void readSpawnData(FriendlyByteBuf additionalData) {
     }
 
 

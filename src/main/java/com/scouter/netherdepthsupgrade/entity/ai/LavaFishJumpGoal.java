@@ -88,6 +88,7 @@ public class LavaFishJumpGoal extends JumpGoal {
      * Keep ticking a continuous task that has already been started
      */
     public void tick() {
+
         boolean flag = this.breached;
         if (!flag) {
             FluidState fluidstate = this.lavaAnimal.level.getFluidState(this.lavaAnimal.blockPosition());

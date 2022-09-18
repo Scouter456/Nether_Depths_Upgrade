@@ -1,7 +1,7 @@
 modLoader="javafml" #mandatory
 loaderVersion="[40,)"
 license="MIT"
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
+issueTrackerURL="https://github.com/Scouter456/Nether_Depths_Upgrade/issues"
 [[mods]]
 modId="netherdepthsupgrade" #mandatory
 version="${file.jarVersion}" #mandatory
