@@ -28,11 +28,11 @@ public class ClientEvents {
     public static void renderBlockOverlayEvent(RenderBlockOverlayEvent event) {
         // Remove fire overlay from players when they have the lava vision enchantment
         if (event.getPlayer().hasEffect(MobEffects.LAVA_VISION.get())) {
-            if (event.getPlayer().isInLava()) {
+            //if (event.getPlayer().isInLava()) {
                 if (event.getBlockForOverlay() == Blocks.FIRE.defaultBlockState()) {
                     event.setCanceled(true);
                 }
-            }
+            //}
         }
     }
 

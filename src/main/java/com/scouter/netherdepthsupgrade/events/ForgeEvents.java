@@ -50,14 +50,7 @@ public class ForgeEvents {
         if (EnchantmentHelper.getEnchantments(event.player.getItemBySlot(EquipmentSlotType.FEET)).containsKey(NDUEnchantments.HELL_STRIDER.get())) {
             double level = EnchantmentHelper.getEnchantments(event.player.getItemBySlot(EquipmentSlotType.FEET)).get(NDUEnchantments.HELL_STRIDER.get());
             if (event.player.isInLava()) {
-                float speed = 0;
-                if(level == 1){
-                    speed = 1.25F;
-                }else if(level == 2){
-                    speed = 1.35F;
-                }else if(level == 3){
-                    speed = 1.35F;
-                }
+                float speed = (float) (1.15 + (0.1 * level));
                 event.player.setDeltaMovement(event.player.getDeltaMovement().multiply(speed, 0.8F, speed));
                 Vector3d vec33 = event.player.getFluidFallingAdjustedMovement(d0, flag, event.player.getDeltaMovement());
                 event.player.setDeltaMovement(vec33);

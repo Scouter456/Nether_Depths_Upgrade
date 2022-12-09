@@ -87,15 +87,9 @@ public abstract class LavaAnimal extends CreatureEntity {
     }
 
     public static boolean checkSurfaceLavaAnimalSpawnRules(EntityType<? extends LavaAnimal> fish, IWorld pLevel, SpawnReason pSpawnType, BlockPos pPos, Random pRandom) {
- //       LOGGER.info("trying to spawn " + fish);
- //       LOGGER.info("pos " + pPos);
         int i = 40;
         int j = i - 30;
- //      LOGGER.info("can spawn? " + (pPos.getY() >= j && pPos.getY() <= i && (pSpawnType == SpawnReason.SPAWNER || pLevel.getBlockState(pPos.below()).is(Blocks.LAVA) && pLevel.getBlockState(pPos.above()).is(Blocks.LAVA))));
- //      LOGGER.info("why not? y>? " + (pPos.getY() >= j));
- //      LOGGER.info("why not? y<? " + (pPos.getY() <= i));
- //      LOGGER.info("Fluid above?  " + pLevel.getBlockState(pPos.above()).is(Blocks.LAVA));
- //      LOGGER.info("Fluid below?  " + pLevel.getBlockState(pPos.below()).is(Blocks.LAVA));
+
         if(fish == NDUEntity.BLAZEFISH.get()){
             return (pLevel.getFluidState(pPos).is(FluidTags.LAVA));
         }
