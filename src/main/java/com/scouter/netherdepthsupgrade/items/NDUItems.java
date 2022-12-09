@@ -29,7 +29,7 @@ public class NDUItems {
     public static final RegistryObject<Item> WARPED_KELP = fromBlockFireRes(NDUBlocks.WARPED_KELP);
     public static final RegistryObject<Item> WARPED_SEAGRASS = fromBlockFireRes(NDUBlocks.WARPED_SEAGRASS);
     public static final RegistryObject<Item> WARPED_KELP_BLOCK = fromBlockFireResFuel(NDUBlocks.WARPED_KELP_BLOCK);
-
+    public static final RegistryObject<Item> LAVA_GLASS = fromBlockFireResFuel(NDUBlocks.LAVA_GLASS);
     //ITEM
     public static final RegistryObject<Item> SOUL_SUCKER_LEATHER = ITEMS.register("soul_sucker_leather", () -> new Item(Registration.defaultBuilder().fireResistant()));
 

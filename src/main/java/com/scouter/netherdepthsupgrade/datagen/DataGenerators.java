@@ -38,6 +38,7 @@ public class DataGenerators {
         BlockTagsGenerator blockTags = new BlockTagsGenerator(generator, helper);
         Set<BlockStateGenerator> set = Sets.newHashSet();
         Consumer<BlockStateGenerator> consumer = set::add;
+        generator.addProvider(new NDUBiomeTagsProvider(generator, helper));
         generator.addProvider(new EntityTags(generator, helper));
         generator.addProvider(new RecipeGenerator(generator));
         generator.addProvider(new BlockstateGenerator(generator, helper));

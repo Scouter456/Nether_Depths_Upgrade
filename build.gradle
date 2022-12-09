@@ -19,7 +19,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 
-version = '1.2-1.18.2'
+version = '1.2.1-1.18.2'
 group = 'com.scouter.netherdepthsupgrade' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'netherdepthsupgrade'
 

@@ -45,4 +45,25 @@ public class NDUTags {
 
         }
     }
+
+    public static class Biomes {
+        public static final TagKey<Biome> IS_LAVA_PUFFERFISH_BIOME = tag("is_lava_pufferfish_biome");
+        public static final TagKey<Biome> IS_WITHER_BONEFISH_BIOME = tag("is_wither_bonefish_biome");
+        public static final TagKey<Biome> IS_BONEFISH_BIOME = tag("is_bonefish_biome");
+        public static final TagKey<Biome> IS_GLOWDINE_BIOME = tag("is_glowdine_biome");
+        public static final TagKey<Biome> IS_MAGMACUBEFISH_BIOME = tag("is_magmacubefish_biome");
+        public static final TagKey<Biome> IS_SOULSUCKER_BIOME = tag("is_soulsucker_biome");
+        public static final TagKey<Biome> IS_BLAZEFISH_BIOME = tag("is_blazefish_biome");
+        public static final TagKey<Biome> IS_SEARING_COD_BIOME = tag("is_searing_cod_biome");
+        public static final TagKey<Biome> IS_OBSIDIANFISH_BIOME = tag("is_obsidianfish_biome");
+
+        private static TagKey<Biome> tag(String name){
+            return TagKey.create(Registry.BIOME_REGISTRY, prefix(name));
+
+        }
+        private static TagKey<Biome> forgeTag(String name){
+            return TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("forge", name));
+
+        }
+    }
 }

@@ -53,7 +53,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         toBlock(NDUBlocks.LAVA_SPONGE.get());
         toBlock(NDUBlocks.WET_LAVA_SPONGE.get());
         toBlock(NDUBlocks.WARPED_KELP_BLOCK.get());
-
+        toBlock(NDUBlocks.LAVA_GLASS.get());
     }
     private void toBlock(Block b) {
         toBlockModel(b, b.getRegistryName().getPath());
