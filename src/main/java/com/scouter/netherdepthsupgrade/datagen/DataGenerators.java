@@ -29,21 +29,21 @@ public class DataGenerators {
 
     private static void registerClientProviders(DataGenerator generator, GatherDataEvent evt) {
         ExistingFileHelper helper = evt.getExistingFileHelper();
-        generator.addProvider(true, new LootGenerator(generator));
-        generator.addProvider(true,new BlockTagsGenerator(generator, helper));
+        //generator.addProvider(true, new LootGenerator(generator));
+       // generator.addProvider(true,new BlockTagsGenerator(generator, helper));
     }
 
     private static void registerServerProviders(DataGenerator generator, GatherDataEvent evt) {
         ExistingFileHelper helper = evt.getExistingFileHelper();
-        BlockTagsGenerator blockTags = new BlockTagsGenerator(generator, helper);
+        //BlockTagsGenerator blockTags = new BlockTagsGenerator(generator, helper);
         Set<BlockStateGenerator> set = Sets.newHashSet();
         Consumer<BlockStateGenerator> consumer = set::add;
-        generator.addProvider(true,new NDUBiomeTagsProvider(generator, helper));
-        generator.addProvider(true,new EntityTags(generator, helper));
-        generator.addProvider(true,new RecipeGenerator(generator));
+        //generator.addProvider(true,new NDUBiomeTagsProvider(generator, helper));
+        //generator.addProvider(true,new EntityTags(generator, helper));
+        //generator.addProvider(true,new RecipeGenerator(generator));
         generator.addProvider(true,new BlockstateGenerator(generator, helper));
         generator.addProvider(true,new SoundsGenerator(generator, helper));
-        generator.addProvider(true,new ItemTagsGenerator(generator, blockTags, helper));
+        //generator.addProvider(true,new ItemTagsGenerator(generator, blockTags, helper));
         generator.addProvider(true,new ItemModelGenerator(generator, helper));
         generator.addProvider(true,new LanguageGenerator(generator));
         //generator.addProvider(new AdvancementGenerator(generator, helper));

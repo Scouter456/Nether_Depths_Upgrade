@@ -101,30 +101,16 @@ public class NDUItems {
     public static final RegistryObject<Item> LAVA_FISHING_ROD = ITEMS.register("lava_fishing_rod", () -> new LavaFishingRodItem(Registration.defaultBuilder().fireResistant().defaultDurability(256)));
 
 
-    public static CreativeModeTab creativeTab = new CreativeModeTab("netherdepthsupgrade") {
-        @Override
-        public ItemStack makeIcon() {
-            return new ItemStack(WARPED_KELP.get());
-        }
-    };
-
-    public static CreativeModeTab creativeTabFish = new CreativeModeTab("netherdepthsupgrade_fish") {
-        @Override
-        public ItemStack makeIcon() {
-            return new ItemStack(SEARING_COD.get());
-        }
-    };
-
     public static <B extends Block> RegistryObject<Item> fromBlock(RegistryObject<B> block) {
         return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), Registration.defaultBuilder()));
     }
 
     public static <B extends Block> RegistryObject<Item> fromBlockFireRes(RegistryObject<B> block) {
-        return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), Registration.defaultBuilder().fireResistant()));
+        return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), Registration.defaultBuilder()));
     }
 
     public static <B extends Block> RegistryObject<Item> fromBlockFireResFuel(RegistryObject<B> block) {
-        return ITEMS.register(block.getId().getPath(), () -> new BurnableBlockItem(block.get(), Registration.defaultBuilder().fireResistant()));
+        return ITEMS.register(block.getId().getPath(), () -> new BurnableBlockItem(block.get(), Registration.defaultBuilder()));
     }
 
 }

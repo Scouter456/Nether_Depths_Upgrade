@@ -5,20 +5,20 @@ import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.events.ClientEvents;
 import com.scouter.netherdepthsupgrade.events.ForgeEvents;
+import com.scouter.netherdepthsupgrade.events.ModEvents;
 import com.scouter.netherdepthsupgrade.setup.ClientSetup;
 import com.scouter.netherdepthsupgrade.setup.ModSetup;
 import com.scouter.netherdepthsupgrade.setup.Registration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
-import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib.GeckoLib;
 
 import java.util.Locale;
 
@@ -45,7 +45,7 @@ public class NetherDepthsUpgrade
         }
         MinecraftForge.EVENT_BUS.register(ForgeEvents.class);
 
-
+        modbus.addListener(ModEvents::registerCreativeTabs);
         //forgeBus.addListener(EventPriority.HIGH, NDUGeneration::generateFeatures);
         GeckoLib.initialize();
 

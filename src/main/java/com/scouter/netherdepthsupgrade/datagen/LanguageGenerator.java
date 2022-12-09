@@ -82,8 +82,8 @@ public class LanguageGenerator extends LanguageProvider {
         addEffect(MobEffects.LAVA_VISION, "Lava Vision");
 
         //TABS
-        addTabName(NDUItems.creativeTab, "Nether Depths Upgrade");
-        addTabName(NDUItems.creativeTabFish, "Nether Depths Upgrade Fish");
+        //addTabName(NDUItems.creativeTab, "Nether Depths Upgrade");
+        //addTabName(NDUItems.creativeTabFish, "Nether Depths Upgrade Fish");
     }
 
     @Override

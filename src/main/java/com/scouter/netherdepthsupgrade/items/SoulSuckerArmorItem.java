@@ -31,7 +31,7 @@ public class SoulSuckerArmorItem extends ArmorItem {
     public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
         pStack.enchant(Enchantments.SOUL_SPEED, 3);
     }
-
+/*
     @Override
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
         if (allowedIn(tab)) {
@@ -51,4 +51,5 @@ public class SoulSuckerArmorItem extends ArmorItem {
             list.add(istack);
         }
     }
+  */
 }

@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*package com.scouter.netherdepthsupgrade.datagen;
 
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import net.minecraft.data.DataGenerator;
@@ -17,7 +17,7 @@ public class RecipeGenerator extends RecipeProvider {
     }
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         ShapelessRecipeBuilder.shapeless(NDUItems.SOUL_SUCKER_LEATHER.get(), 3)
                 .requires(Items.SHEARS)
                 .requires(NDUItems.SOULSUCKER.get())
@@ -38,3 +38,4 @@ public class RecipeGenerator extends RecipeProvider {
 
     }
 }
+*/

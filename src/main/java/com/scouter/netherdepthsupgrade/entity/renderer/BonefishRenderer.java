@@ -1,9 +1,7 @@
 package com.scouter.netherdepthsupgrade.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
-
+import com.mojang.math.Axis;
 import com.scouter.netherdepthsupgrade.entity.entities.BonefishEntity;
 import com.scouter.netherdepthsupgrade.entity.model.BonefishModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -11,7 +9,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class BonefishRenderer extends GeoEntityRenderer<BonefishEntity> {
     public BonefishRenderer(EntityRendererProvider.Context renderManager) {
@@ -20,8 +19,7 @@ public class BonefishRenderer extends GeoEntityRenderer<BonefishEntity> {
     }
 
     @Override
-    public RenderType getRenderType(BonefishEntity animatable, float partialTicks, PoseStack stack, MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int PackedLightIn, ResourceLocation textureLocation){
-        //stack.scale(2f,2f,2f);
+    public RenderType getRenderType(BonefishEntity animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
         return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
     }
 
@@ -30,11 +28,12 @@ public class BonefishRenderer extends GeoEntityRenderer<BonefishEntity> {
                                   float partialTicks) {
         super.applyRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
         float f = 4.3F * Mth.sin(0.6F * ageInTicks);
-        matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(f));
+        matrixStackIn.mulPose(Axis.YP.rotationDegrees(f));
         if (!entityLiving.isInLava()) {
             matrixStackIn.translate((double) 0.1F, (double) 0.1F, (double) -0.1F);
-            matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
+            matrixStackIn.mulPose(Axis.ZP.rotationDegrees(90.0F));
         }
-
     }
+
+
 }

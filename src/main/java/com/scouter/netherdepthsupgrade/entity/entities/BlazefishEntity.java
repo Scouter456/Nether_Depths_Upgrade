@@ -12,21 +12,22 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.IAnimationTickable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class BlazefishEntity extends AbstractLavaFish implements IAnimatable, IAnimationTickable {
-    private AnimationFactory factory = new AnimationFactory(this);
+public class BlazefishEntity extends AbstractLavaFish implements GeoEntity {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
     public BlazefishEntity(EntityType<? extends AbstractLavaFish> p_27461_, Level p_27462_) {
         super(p_27461_, p_27462_);
     }
-
+    public static final RawAnimation MOVING_BLAZEFISH = RawAnimation.begin().thenLoop("blazefish.moving");
     protected SoundEvent getAmbientSound() {
         return SoundEvents.BLAZE_AMBIENT;
     }
@@ -59,24 +60,15 @@ public class BlazefishEntity extends AbstractLavaFish implements IAnimatable, IA
     public void tick() {
         super.tick();
     }
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("blazefish.moving", true));
-        return PlayState.CONTINUE;
+
+
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "blazefish.moving", 0, state -> state.setAndContinue(MOVING_BLAZEFISH)));
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        AnimationController<BlazefishEntity> controller = new AnimationController<>(this, "controller",0, this::predicate);
-        data.addAnimationController(controller);
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
-    }
-
-    @Override
-    public int tickTimer() {
-        return tickCount;
-    }
 }

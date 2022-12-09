@@ -4,6 +4,7 @@ import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -24,13 +25,14 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels(){
-        for (Item i : Registry.ITEM) {
+        /*
+        for (Item i : Registries.ITEM) {
             if (i instanceof SpawnEggItem && ForgeRegistries.ITEMS.getKey(i).getNamespace().equals(NetherDepthsUpgrade.MODID)) {
                 getBuilder(ForgeRegistries.ITEMS.getKey(i).getPath())
                         .parent(getExistingFile(new ResourceLocation("item/template_spawn_egg")));
             }
         }
-
+*/
         singleTex(NDUItems.LAVA_PUFFERFISH_BUCKET);
         singleTex(NDUItems.LAVA_PUFFERFISH);
         singleTex(NDUItems.OBSIDIANFISH);

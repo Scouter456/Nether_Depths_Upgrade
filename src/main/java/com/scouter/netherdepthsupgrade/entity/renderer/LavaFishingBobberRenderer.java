@@ -2,9 +2,7 @@ package com.scouter.netherdepthsupgrade.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.scouter.netherdepthsupgrade.entity.entities.LavaFishingBobberEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -19,8 +17,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 
 public class LavaFishingBobberRenderer extends EntityRenderer<LavaFishingBobberEntity> {
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation("textures/entity/fishing_hook.png");
@@ -38,7 +36,7 @@ public class LavaFishingBobberRenderer extends EntityRenderer<LavaFishingBobberE
             pMatrixStack.pushPose();
             pMatrixStack.scale(0.5F, 0.5F, 0.5F);
             pMatrixStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
-            pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
+            pMatrixStack.mulPose(Axis.YP.rotationDegrees(180.0F));
             PoseStack.Pose posestack$pose = pMatrixStack.last();
             Matrix4f matrix4f = posestack$pose.pose();
             Matrix3f matrix3f = posestack$pose.normal();

@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*package com.scouter.netherdepthsupgrade.datagen;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.utils.NDUTags;
@@ -18,3 +18,4 @@ public class NDUBiomeTagsProvider extends BiomeTagsProvider {
 
     }
 }
+*/
