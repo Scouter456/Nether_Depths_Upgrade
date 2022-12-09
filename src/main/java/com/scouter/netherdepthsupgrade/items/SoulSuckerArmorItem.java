@@ -1,7 +1,6 @@
 package com.scouter.netherdepthsupgrade.items;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
@@ -11,7 +10,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
 
 public class SoulSuckerArmorItem extends ArmorItem {
     public SoulSuckerArmorItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {

@@ -31,6 +31,7 @@ public class ItemModelGenerator extends ItemModelProvider {
             }
         }
 
+
         singleTex(NDUItems.LAVA_PUFFERFISH_BUCKET);
         singleTex(NDUItems.LAVA_PUFFERFISH);
         singleTex(NDUItems.OBSIDIANFISH);

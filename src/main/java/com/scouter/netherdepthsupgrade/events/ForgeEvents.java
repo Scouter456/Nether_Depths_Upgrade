@@ -14,6 +14,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
@@ -22,6 +23,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = NetherDepthsUpgrade.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -38,16 +40,12 @@ public class ForgeEvents {
         if (EnchantmentHelper.getEnchantments(event.player.getItemBySlot(EquipmentSlot.FEET)).containsKey(NDUEnchantments.HELL_STRIDER.get())) {
             double level = EnchantmentHelper.getEnchantments(event.player.getItemBySlot(EquipmentSlot.FEET)).get(NDUEnchantments.HELL_STRIDER.get());
             if (event.player.isInLava()) {
-                float speed = 0;
-                if(level == 1){
-                    speed = 1.25F;
-                }else if(level == 2){
-                    speed = 1.35F;
-                }else if(level == 3){
-                    speed = 1.35F;
-                }
+                float speed = (float) (1.15 + (0.1 * level));
+                //LOGGER.info("player " + event.player.getScoreboardName());
                 event.player.setDeltaMovement(event.player.getDeltaMovement().multiply(speed, 0.8F, speed));
+                //LOGGER.info("vec " + event.player.getDeltaMovement());
                 Vec3 vec33 = event.player.getFluidFallingAdjustedMovement(d0, flag, event.player.getDeltaMovement());
+                //LOGGER.info("vec3 " + vec33);
                 event.player.setDeltaMovement(vec33);
             }
             //event.player.makeStuckInBlock(Blocks.LAVA.defaultBlockState(), new Vec3(1.5D * level, 2.5D, 1.5D * level));
@@ -111,5 +109,6 @@ public class ForgeEvents {
         event.setCanceled(true);
         event.damageRodBy(event.getRodDamage());
     }
+    
 }
 

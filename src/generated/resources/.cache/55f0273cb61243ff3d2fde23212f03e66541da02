@@ -1,3 +1,7 @@
-// 1.19.2	2022-09-07T20:16:25.6598267	Tags for minecraft:worldgen/biome
+// 1.19.2	2022-12-09T20:10:25.624998	Tags for minecraft:worldgen/biome
+38a094e9c208485dd5edf0819b1e449a6d546137 data/netherdepthsupgrade/tags/worldgen/biome/is_glowdine_biome.json
 1aab15c53ba40daa027418cedea329f452731904 data/netherdepthsupgrade/tags/worldgen/biome/is_lava_pufferfish_biome.json
+04ac0a28392a7ff31602fa82ebe378e64220b060 data/netherdepthsupgrade/tags/worldgen/biome/is_magmacubefish_biome.json
+04ac0a28392a7ff31602fa82ebe378e64220b060 data/netherdepthsupgrade/tags/worldgen/biome/is_obsidianfish_biome.json
+15343ca7e7931ca3b093f52c77b5d7fae920fed9 data/netherdepthsupgrade/tags/worldgen/biome/is_soulsucker_biome.json
 047a89238067cf0bb6e04e779e34dbdda9eaf439 data/netherdepthsupgrade/tags/worldgen/biome/is_wither_bonefish_biome.json

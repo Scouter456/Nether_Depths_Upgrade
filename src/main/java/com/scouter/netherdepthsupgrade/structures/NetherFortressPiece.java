@@ -79,10 +79,6 @@ public class NetherFortressPiece extends Structure {
         // Returning an empty optional tells the game to skip this spot as it will not generate the structure.
         int y = rand.nextInt(15,30);
         BlockPos centerPos = new BlockPos(context.chunkPos().getMinBlockX(), y, context.chunkPos().getMinBlockZ());
-       // if(!isFeatureChunk(context, centerPos)) {
-       //     return Optional.empty();
-       // }
-
 
         // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
         BlockPos blockpos = context.chunkPos().getMiddleBlockPosition(0);
