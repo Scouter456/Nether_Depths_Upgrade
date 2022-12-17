@@ -29,24 +29,4 @@ public class SoulSuckerArmorItem extends ArmorItem {
     public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
         pStack.enchant(Enchantments.SOUL_SPEED, 3);
     }
-
-    @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
-        if (allowedIn(tab)) {
-            ItemStack istack = new ItemStack(this);
-            switch (this.getSlot()) {
-                case HEAD:
-                    break;
-                case CHEST:
-                case LEGS:
-                    break;
-                case FEET:
-                    istack.enchant(Enchantments.SOUL_SPEED, 3);
-                    break;
-                default:
-                    break;
-            }
-            list.add(istack);
-        }
-    }
 }

@@ -3,12 +3,15 @@ package com.scouter.netherdepthsupgrade.world.feature;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class NDUFeatures {
 
@@ -24,7 +27,7 @@ public class NDUFeatures {
     public static final Feature<NoneFeatureConfiguration> LAVA_SPONGE = register(LAVA_SPONGE_FEATURE_NAME,new SpongeFeature(NoneFeatureConfiguration.CODEC));
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String key, F value) {
-        return Registry.register(Registry.FEATURE, key, value);
+        return Registry.register(BuiltInRegistries.FEATURE, prefix(key), value);
     }
 
     public static void FEATURES(){

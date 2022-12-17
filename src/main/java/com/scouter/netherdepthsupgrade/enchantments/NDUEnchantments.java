@@ -2,6 +2,7 @@ package com.scouter.netherdepthsupgrade.enchantments;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ public class NDUEnchantments {
     public static final Enchantment HELL_STRIDER = registerEnchantments("hell_strider",  new HellStriderEnchantment(Enchantment.Rarity.RARE, ARMOR_SLOTS));
 
     public static Enchantment registerEnchantments(String name, Enchantment enchantment){
-        return Registry.register(Registry.ENCHANTMENT, prefix(name), enchantment);
+        return Registry.register(BuiltInRegistries.ENCHANTMENT, prefix(name), enchantment);
     }
     public static void ENCHANTMENTS()
     {

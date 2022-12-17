@@ -25,14 +25,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.IAnimationTickable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -40,11 +38,12 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
 
-public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, IAnimationTickable {
+public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
     private static final EntityDataAccessor<BlockPos> SOULSAND_POS = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.BLOCK_POS);
     private static final EntityDataAccessor<Integer> SEEK_SOULSAND_TIMER = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COOLDOWN_TTIMER = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.INT);
-    private AnimationFactory factory = new AnimationFactory(this);
+    public static final RawAnimation MOVING_SOULSUCKER = RawAnimation.begin().thenLoop("soulsucker.moving");
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final Logger LOGGER = LogUtils.getLogger();
     public int suckTimer = 0;
     @Nullable
@@ -87,7 +86,7 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD;
+        return SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD.value();
     }
 
     protected SoundEvent getDeathSound() {
@@ -102,25 +101,13 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
         return SoundEvents.SOUL_SAND_FALL;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("soulsucker.moving", true));
-        return PlayState.CONTINUE;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "soulsucker.moving", 0,state -> state.setAndContinue(MOVING_SOULSUCKER)));
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        AnimationController<SoulSuckerEntity> controller = new AnimationController<>(this, "controller", 0, this::predicate);
-        data.addAnimationController(controller);
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
-    }
-
-    @Override
-    public int tickTimer() {
-        return tickCount;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
 

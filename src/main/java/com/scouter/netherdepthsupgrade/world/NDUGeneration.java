@@ -3,26 +3,37 @@ package com.scouter.netherdepthsupgrade.world;
 import com.scouter.netherdepthsupgrade.entity.LavaAnimal;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.util.NDUTags;
-import com.scouter.netherdepthsupgrade.world.feature.NDUConfiguredFeatures;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 
-public class NDUGeneration {
+import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
+public class NDUGeneration {
+    private static final String WARPED_SEAGRASS_SIMPLE_FEATURE_NAME_PLACED = "warped_seagrass_simple_feature_placed";
+    private static final String WARPED_KELP_FEATURE_NAME_PLACED = "warped_kelp_feature_placed";
+    private static final String WARPED_SEAGRASS_SHORT_FEATURE_NAME_PLACED = "warped_seagrass_short_feature_placed";
+    private static final String WARPED_SEAGRASS_SLIGHTLY_LESS_SHORT_FEATURE_NAME_PLACED = "warped_seagrass_slightly_less_short_feature_placed";
+    private static final String WARPED_SEAGRASS_MID_FEATURE_NAME_PLACED = "warped_seagrass_mid_feature_placed";
+    private static final String WARPED_SEAGRASS_TALL_FEATURE_NAME_PLACED = "warped_seagrass_tall_feature_placed";
+    private static final String VENT_FEATURE_NAME_PLACED = "vent_feature_placed";
+    private static final String LAVA_SPONGE_FEATURE_NAME_PLACED = "lava_sponge_feature_placed";
     public static void generateFeatures() {
-        BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(), GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.WARPED_KELP_PLACED.unwrapKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(), GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.WARPED_SEAGRASS_SIMPLE_PLACED.unwrapKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(), GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.WARPED_SEAGRASS_SLIGHTLY_LESS_SHORT_PLACED.unwrapKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(), GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.WARPED_SEAGRASS_SHORT_PLACED.unwrapKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(), GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.WARPED_SEAGRASS_MID_PLACED.unwrapKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(), GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.WARPED_SEAGRASS_TALL_PLACED.unwrapKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(), GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.VENT_PLACED.unwrapKey().get());
-        BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(), GenerationStep.Decoration.VEGETAL_DECORATION, NDUConfiguredFeatures.LAVA_SPONGE_PLACED.unwrapKey().get());
-        }
+        addPlacedFeature(WARPED_SEAGRASS_SIMPLE_FEATURE_NAME_PLACED);
+        addPlacedFeature(WARPED_KELP_FEATURE_NAME_PLACED);
+        addPlacedFeature(WARPED_SEAGRASS_SHORT_FEATURE_NAME_PLACED);
+        addPlacedFeature(WARPED_SEAGRASS_SLIGHTLY_LESS_SHORT_FEATURE_NAME_PLACED);
+        addPlacedFeature(WARPED_SEAGRASS_MID_FEATURE_NAME_PLACED);
+        addPlacedFeature(WARPED_SEAGRASS_TALL_FEATURE_NAME_PLACED);
+        addPlacedFeature(VENT_FEATURE_NAME_PLACED);
+        addPlacedFeature(LAVA_SPONGE_FEATURE_NAME_PLACED);
+       }
 
     public static void spawnCreatures() {
         BiomeModifications.addSpawn(BiomeSelectors.foundInTheNether(), MobCategory.WATER_AMBIENT, NDUEntity.BONEFISH, 8,1,5);
@@ -43,6 +54,11 @@ public class NDUGeneration {
         SpawnPlacements.register(NDUEntity.MAGMACUBEFISH, SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
         SpawnPlacements.register(NDUEntity.BONEFISH, SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
         SpawnPlacements.register(NDUEntity.LAVA_PUFFERFISH, SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
+
+    }
+
+    public static void addPlacedFeature(String name){
+        BiomeModifications.create(prefix(name)).add(ModificationPhase.ADDITIONS, BiomeSelectors.foundInTheNether(), context -> context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ResourceKey.create(Registries.PLACED_FEATURE, prefix(name))));
 
     }
 }

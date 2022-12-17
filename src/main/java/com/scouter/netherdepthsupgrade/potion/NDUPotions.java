@@ -4,6 +4,7 @@ package com.scouter.netherdepthsupgrade.potion;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.effect.MobEffects;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.Potion;
@@ -18,7 +19,7 @@ public class NDUPotions {
     public static final Potion LONG_LAVA_VISION = registerPotion("long_lava_vision", new Potion("lava_vision", new MobEffectInstance(MobEffects.LAVA_VISION, 9600)));
 
     public static Potion registerPotion(String name, Potion effect){
-        return Registry.register(Registry.POTION, prefix(name), effect);
+        return Registry.register(BuiltInRegistries.POTION, prefix(name), effect);
     }
     public static void POTIONS()
     {

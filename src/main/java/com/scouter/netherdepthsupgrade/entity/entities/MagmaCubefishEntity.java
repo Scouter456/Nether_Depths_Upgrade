@@ -11,17 +11,16 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.IAnimationTickable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MagmaCubefishEntity extends AbstractLavaFish implements IAnimatable, IAnimationTickable {
-    private AnimationFactory factory = new AnimationFactory(this);
+public class MagmaCubefishEntity extends AbstractLavaFish implements GeoEntity {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    public static final RawAnimation MOVING_MAGMACUBEFISH = RawAnimation.begin().thenLoop("magmacubefish.moving");
     public MagmaCubefishEntity(EntityType<? extends AbstractLavaFish> p_27461_, Level p_27462_) {
         super(p_27461_, p_27462_);
     }
@@ -41,7 +40,7 @@ public class MagmaCubefishEntity extends AbstractLavaFish implements IAnimatable
 
     public static AttributeSupplier.Builder setAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D);
-                //.add(Attributes.MOVEMENT_SPEED, 3.0D)
+        //.add(Attributes.MOVEMENT_SPEED, 3.0D)
     }
     @Override
     protected SoundEvent getFlopSound() {
@@ -57,24 +56,12 @@ public class MagmaCubefishEntity extends AbstractLavaFish implements IAnimatable
     public void tick() {
         super.tick();
     }
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("magmacubefish.moving", true));
-        return PlayState.CONTINUE;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "magmacubefish.moving", 0, state -> state.setAndContinue(MOVING_MAGMACUBEFISH)));
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        AnimationController<MagmaCubefishEntity> controller = new AnimationController<>(this, "controller",0, this::predicate);
-        data.addAnimationController(controller);
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
-    }
-
-    @Override
-    public int tickTimer() {
-        return tickCount;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 }

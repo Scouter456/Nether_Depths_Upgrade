@@ -9,21 +9,19 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.IAnimationTickable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class BonefishEntity extends AbstractLavaSchoolingFish implements IAnimatable, IAnimationTickable {
-    private AnimationFactory factory = new AnimationFactory(this);
+public class BonefishEntity extends AbstractLavaSchoolingFish implements GeoEntity {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public BonefishEntity(EntityType<? extends AbstractLavaSchoolingFish> p_27461_, Level p_27462_) {
         super(p_27461_, p_27462_);
     }
-
+    public static final RawAnimation MOVING_BONEFISH = RawAnimation.begin().thenLoop("bonefish.moving");
     protected SoundEvent getAmbientSound() {
         return SoundEvents.SKELETON_AMBIENT;
     }
@@ -51,27 +49,14 @@ public class BonefishEntity extends AbstractLavaSchoolingFish implements IAnimat
         super.tick();
         this.removeAllEffects();
     }
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("bonefish.moving", true));
-        return PlayState.CONTINUE;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "bonefish.moving", 0, state -> state.setAndContinue(MOVING_BONEFISH)));
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        AnimationController<BonefishEntity> controller = new AnimationController<>(this, "controller",0, this::predicate);
-        data.addAnimationController(controller);
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
-    }
-
-    @Override
-    public int tickTimer() {
-        return tickCount;
-    }
-
     @Override
     public int getMaxSchoolSize() {
         return 6;
