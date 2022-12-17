@@ -1,14 +1,23 @@
 package com.scouter.netherdepthsupgrade.particle;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
-import net.minecraft.core.particles.ParticleType;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class NDUParticle {
-    public static final DeferredRegister<ParticleType<?>> PARTICLE = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, NetherDepthsUpgrade.MODID);
-    public static final RegistryObject<SimpleParticleType> GLOWDINE_PARTICLE = PARTICLE.register("glowdine_particle" , () -> new SimpleParticleType(true));
+    public static final Logger LOGGER = LoggerFactory.getLogger("netherdepthsupgrade");
+    public static final SimpleParticleType GLOWDINE_PARTICLE = FabricParticleTypes.simple();
+
+
+    public static void PARTICLE(){
+        Registry.register(Registry.PARTICLE_TYPE, prefix("glowdine_particle"), GLOWDINE_PARTICLE);
+
+        LOGGER.info("Registering Particles for " + NetherDepthsUpgrade.MODID);
+    }
 
 }

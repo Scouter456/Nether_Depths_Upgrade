@@ -9,5 +9,5 @@ public class NDUMaterialInit {
     private NDUMaterialInit(){
 
     }
-    protected static final ArmorMaterial SOUL_SUCKER = new NDUArmorMaterial(15, new int[] { 700, 800, 1200, 100},   new int[]{1, 2, 3, 1}, 1, 1, NetherDepthsUpgrade.MODID + ":soul_sucker", SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(NDUItems.SOUL_SUCKER_LEATHER.get()));
+    protected static final ArmorMaterial SOUL_SUCKER = new NDUArmorMaterial(15, new int[] { 700, 800, 1200, 100},   new int[]{1, 2, 3, 1}, 1, 1, NetherDepthsUpgrade.MODID + ":soul_sucker", SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(NDUItems.SOUL_SUCKER_LEATHER));
 }

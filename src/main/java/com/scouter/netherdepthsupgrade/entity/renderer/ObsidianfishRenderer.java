@@ -21,7 +21,7 @@ public class ObsidianfishRenderer extends GeoEntityRenderer<ObsidianfishEntity> 
     @Override
     public RenderType getRenderType(ObsidianfishEntity animatable, float partialTicks, PoseStack stack, MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int PackedLightIn, ResourceLocation textureLocation){
         //stack.scale(2f,2f,2f);
-        return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
+        return RenderType.entityCutoutNoCull(getTextureResource(animatable));
     }
 
     @Override

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "netherdepthsupgrade",
+  "version": "${version}",
+
+  "name": "Nether Depths Upgrade",
+  "description": "This is a mod that gives the lava depths in the nether a little upgrade",
+  "authors": [
+    "Scouter"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Scouter456/Nether_Depths_Upgrade",
+    "sources": "https://github.com/Scouter456/Nether_Depths_Upgrade"
+  },
+
+  "license": "MIT",
+  "icon": "assets/netherdepthsupgrade/soulsucker_logo.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.scouter.netherdepthsupgrade.NetherDepthsUpgrade"
+    ],
+    "client": [
+      "com.scouter.netherdepthsupgrade.setup.ClientSetup"
+    ]
+  },
+  "mixins": [
+    "netherdepthsupgrade.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric-api": "*",
+    "minecraft": "~1.19",
+    "java": ">=17",
+    "geckolib3": ">=3.1.20"
+  }
+}

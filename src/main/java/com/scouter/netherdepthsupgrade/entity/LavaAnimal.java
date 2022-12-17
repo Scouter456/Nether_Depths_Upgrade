@@ -16,11 +16,12 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Random;
 
 public abstract class LavaAnimal extends PathfinderMob {
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LoggerFactory.getLogger("netherdepthsupgrade");
     protected LavaAnimal(EntityType<? extends LavaAnimal> p_30341_, Level p_30342_) {
         super(p_30341_, p_30342_);
         this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
@@ -82,9 +83,13 @@ public abstract class LavaAnimal extends PathfinderMob {
         return false;
     }
 
-    public static boolean checkSurfaceLavaAnimalSpawnRules(EntityType<? extends LavaAnimal> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource randomSource) {
+    public static boolean checkSurfaceLavaAnimalSpawnRules(EntityType<? extends LavaAnimal> fish, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
+        //LOGGER.info("trying to spawn " + fish);
         int i = 40;
         int j = i - 30;
+        if(fish == NDUEntity.BLAZEFISH){
+            return (level.getFluidState(pos).is(FluidTags.LAVA));
+        }
         return pos.getY() >= j && pos.getY() <= i && (spawnType == MobSpawnType.SPAWNER || level.getFluidState(pos.below()).is(FluidTags.LAVA) && level.getBlockState(pos.above()).is(Blocks.LAVA));
     }
 }

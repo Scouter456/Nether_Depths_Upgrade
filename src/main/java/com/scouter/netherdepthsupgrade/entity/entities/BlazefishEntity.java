@@ -40,10 +40,9 @@ public class BlazefishEntity extends AbstractLavaFish implements IAnimatable, IA
     }
 
 
-    public static AttributeSupplier setAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D)
+    public static AttributeSupplier.Builder setAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D);
                 //.add(Attributes.MOVEMENT_SPEED, 3.0D)
-                .build();
     }
     @Override
     protected SoundEvent getFlopSound() {
@@ -52,7 +51,7 @@ public class BlazefishEntity extends AbstractLavaFish implements IAnimatable, IA
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(NDUItems.BLAZEFISH_BUCKET.get());
+        return new ItemStack(NDUItems.BLAZEFISH_BUCKET);
     }
 
     @Override

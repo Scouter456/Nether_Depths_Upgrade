@@ -38,12 +38,12 @@
   // What mobs can spawn over time in the structure.
   // Make sure you add the mob to the right category (monster, creature, etc)
   "spawn_overrides": {
-    "water_ambient": {
+    "ambient": {
       "bounding_box": "full",
       "spawns": [
         {
           "type": "netherdepthsupgrade:blazefish",
-          "weight": 10,
+          "weight": 15,
           "minCount": 3,
           "maxCount": 4
         }

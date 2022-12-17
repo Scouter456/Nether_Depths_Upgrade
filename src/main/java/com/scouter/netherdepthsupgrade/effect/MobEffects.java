@@ -1,13 +1,25 @@
 package com.scouter.netherdepthsupgrade.effect;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
+import net.minecraft.core.Registry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class MobEffects {
-    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, NetherDepthsUpgrade.MODID);
-    public static final RegistryObject<MobEffect> LAVA_VISION = MOB_EFFECTS.register("lava_vision", () -> new LavaVisionEffect(MobEffectCategory.BENEFICIAL, 0xf4d919));
+    public static final Logger LOGGER = LoggerFactory.getLogger("netherdepthsupgrade");
+    public static MobEffect LAVA_VISION;
+    //public static final MobEffect LAVA_VISION = registerEffect("lava_vision", new LavaVisionEffect(MobEffectCategory.BENEFICIAL, 0xf4d919));
+
+    public static MobEffect registerEffect(String name, MobEffect effect){
+        return Registry.register(Registry.MOB_EFFECT, prefix(name), effect);
+    }
+    public static void MOBEFFECTS()
+    {
+        LAVA_VISION = registerEffect("lava_vision", new LavaVisionEffect(MobEffectCategory.BENEFICIAL, 0xf4d919));
+        LOGGER.info("Registering Effects for " + NetherDepthsUpgrade.MODID);
+    }
 }

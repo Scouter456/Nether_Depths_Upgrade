@@ -40,7 +40,7 @@ public class LavaSpongeBlock extends Block {
 
     protected void tryAbsorbLava(Level pLevel, BlockPos pPos) {
         if (this.removeLavaBreadthFirstSearch(pLevel, pPos)) {
-            pLevel.setBlock(pPos, NDUBlocks.WET_LAVA_SPONGE.get().defaultBlockState(), 3);
+            pLevel.setBlock(pPos, NDUBlocks.WET_LAVA_SPONGE.defaultBlockState(), 3);
             pLevel.levelEvent(2001, pPos, Block.getId(Blocks.LAVA.defaultBlockState()));
         }
 

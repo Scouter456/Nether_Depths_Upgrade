@@ -19,9 +19,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
-public class LavaSeagrassBlock extends BushBlock implements BonemealableBlock, LiquidBlockContainer, net.minecraftforge.common.IForgeShearable {
+public class LavaSeagrassBlock extends BushBlock implements BonemealableBlock, LiquidBlockContainer {
     protected static final float AABB_OFFSET = 6.0F;
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D);
 
@@ -74,7 +73,7 @@ public class LavaSeagrassBlock extends BushBlock implements BonemealableBlock, L
     }
 
     public void performBonemeal(ServerLevel p_154498_, RandomSource p_154499_, BlockPos p_154500_, BlockState p_154501_) {
-        BlockState blockstate = NDUBlocks.TALL_WARPED_SEAGRASS.get().defaultBlockState();
+        BlockState blockstate = NDUBlocks.TALL_WARPED_SEAGRASS.defaultBlockState();
         BlockState blockstate1 = blockstate.setValue(TallSeagrassBlock.HALF, DoubleBlockHalf.UPPER);
         BlockPos blockpos = p_154500_.above();
         if (p_154498_.getBlockState(blockpos).is(Blocks.LAVA)) {

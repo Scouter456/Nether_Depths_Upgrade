@@ -17,7 +17,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class LavaKelpBlock extends GrowingLavaPlantHeadBlock implements LiquidBlockContainer {
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 9.0D, 16.0D);
@@ -32,7 +31,7 @@ public class LavaKelpBlock extends GrowingLavaPlantHeadBlock implements LiquidBl
     }
 
     protected Block getBodyBlock() {
-        return NDUBlocks.WARPED_KELP_PLANT.get();
+        return NDUBlocks.WARPED_KELP_PLANT;
     }
 
     protected boolean canAttachTo(BlockState pState) {

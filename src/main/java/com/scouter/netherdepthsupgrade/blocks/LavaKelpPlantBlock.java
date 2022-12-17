@@ -17,7 +17,7 @@ public class LavaKelpPlantBlock extends GrowingLavaPlantBodyBlock implements Liq
     }
 
     protected GrowingLavaPlantHeadBlock getHeadBlock() {
-        return (GrowingLavaPlantHeadBlock) NDUBlocks.WARPED_KELP.get();
+        return (GrowingLavaPlantHeadBlock) NDUBlocks.WARPED_KELP;
     }
 
     public FluidState getFluidState(BlockState pState) {

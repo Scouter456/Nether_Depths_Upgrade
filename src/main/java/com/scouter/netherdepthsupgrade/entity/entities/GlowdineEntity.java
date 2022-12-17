@@ -4,6 +4,7 @@ import com.scouter.netherdepthsupgrade.entity.AbstractLavaSchoolingFish;
 import com.scouter.netherdepthsupgrade.entity.ai.LavaFishJumpGoal;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.particle.NDUParticle;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -26,18 +27,18 @@ public class GlowdineEntity extends AbstractLavaSchoolingFish implements IAnimat
         super(p_27523_, p_27524_);
     }
 
-    public void aiStep() {
-        super.aiStep();
-        this.level.addParticle(NDUParticle.GLOWDINE_PARTICLE.get(), this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
-    }
-
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new LavaFishJumpGoal(this,4));
     }
 
+    public void aiStep() {
+        super.aiStep();
+        this.level.addParticle(NDUParticle.GLOWDINE_PARTICLE, this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
+    }
+
     public ItemStack getBucketItemStack() {
-        return new ItemStack(NDUItems.GLOWDINE_BUCKET.get());
+        return new ItemStack(NDUItems.GLOWDINE_BUCKET);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -82,5 +83,4 @@ public class GlowdineEntity extends AbstractLavaSchoolingFish implements IAnimat
     public int getMaxSchoolSize() {
         return 20;
     }
-
 }

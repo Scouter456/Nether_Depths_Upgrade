@@ -1,0 +1,60 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "netherdepthsupgrade:lava_fishing_rod"
+    ]
+  },
+  "criteria": {
+    "has_blaze_rod": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:blaze_rod"
+            ]
+          }
+        ]
+      }
+    },
+    "has_netherite_scrap": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:netherite_scrap"
+            ]
+          }
+        ]
+      }
+    },
+    "has_chain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:chain"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "netherdepthsupgrade:lava_fishing_rod"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_blaze_rod",
+      "has_netherite_scrap",
+      "has_chain",
+      "has_the_recipe"
+    ]
+  ]
+}

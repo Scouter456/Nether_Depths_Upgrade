@@ -3,7 +3,6 @@ package com.scouter.netherdepthsupgrade.entity.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
-
 import com.scouter.netherdepthsupgrade.entity.entities.WitherBonefishEntity;
 import com.scouter.netherdepthsupgrade.entity.model.WitherBonefishModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -22,7 +21,7 @@ public class WitherBonefishRenderer extends GeoEntityRenderer<WitherBonefishEnti
     @Override
     public RenderType getRenderType(WitherBonefishEntity animatable, float partialTicks, PoseStack stack, MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int PackedLightIn, ResourceLocation textureLocation){
         //stack.scale(2f,2f,2f);
-        return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
+        return RenderType.entityCutoutNoCull(getTextureResource(animatable));
     }
 
     @Override

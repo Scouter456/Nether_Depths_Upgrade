@@ -44,7 +44,7 @@ public class TallLavaSeagrassBlock extends DoublePlantBlock implements LiquidBlo
     }
 
     public ItemStack getCloneItemStack(BlockGetter p_154749_, BlockPos p_154750_, BlockState p_154751_) {
-        return new ItemStack(NDUBlocks.WARPED_SEAGRASS.get());
+        return new ItemStack(NDUBlocks.WARPED_SEAGRASS);
     }
 
     @Nullable

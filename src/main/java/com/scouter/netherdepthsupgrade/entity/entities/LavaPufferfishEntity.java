@@ -18,7 +18,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.Pufferfish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -82,7 +81,7 @@ public class LavaPufferfishEntity extends AbstractLavaFish {
     }
 
     public ItemStack getBucketItemStack() {
-        return new ItemStack(NDUItems.LAVA_PUFFERFISH_BUCKET.get());
+        return new ItemStack(NDUItems.LAVA_PUFFERFISH_BUCKET);
     }
 
     protected void registerGoals() {

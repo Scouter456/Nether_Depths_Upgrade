@@ -1,7 +1,6 @@
 package com.scouter.netherdepthsupgrade.world.feature;
 
 import com.mojang.serialization.Codec;
-
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.blocks.TallLavaSeagrassBlock;
 import net.minecraft.core.BlockPos;
@@ -13,8 +12,6 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
-
-import java.util.Random;
 
 public class WarpedSeagrassFeature extends Feature<ProbabilityFeatureConfiguration> {
     public WarpedSeagrassFeature(Codec<ProbabilityFeatureConfiguration> p_66768_) {
@@ -39,7 +36,7 @@ public class WarpedSeagrassFeature extends Feature<ProbabilityFeatureConfigurati
         BlockPos blockpos1 = new BlockPos(blockpos.getX() + i, k, blockpos.getZ() + j);
         if (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA)) {
             boolean flag1 = random.nextDouble() < (double)probabilityfeatureconfiguration.probability;
-            BlockState blockstate = flag1 ? NDUBlocks.TALL_WARPED_SEAGRASS.get().defaultBlockState() : NDUBlocks.WARPED_SEAGRASS.get().defaultBlockState();
+            BlockState blockstate = flag1 ? NDUBlocks.TALL_WARPED_SEAGRASS.defaultBlockState() : NDUBlocks.WARPED_SEAGRASS.defaultBlockState();
             if (blockstate.canSurvive(worldgenlevel, blockpos1)) {
                 if (flag1) {
                     BlockState blockstate1 = blockstate.setValue(TallLavaSeagrassBlock.HALF, DoubleBlockHalf.UPPER);

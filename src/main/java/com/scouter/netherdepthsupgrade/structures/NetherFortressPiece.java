@@ -43,13 +43,13 @@ public class NetherFortressPiece extends Structure {
     private final int maxDistanceFromCenter;
 
 
-    public NetherFortressPiece(Structure.StructureSettings config,
-                         Holder<StructureTemplatePool> startPool,
-                         Optional<ResourceLocation> startJigsawName,
-                         int size,
-                         HeightProvider startHeight,
-                         Optional<Heightmap.Types> projectStartToHeightmap,
-                         int maxDistanceFromCenter)
+    public NetherFortressPiece(StructureSettings config,
+                               Holder<StructureTemplatePool> startPool,
+                               Optional<ResourceLocation> startJigsawName,
+                               int size,
+                               HeightProvider startHeight,
+                               Optional<Heightmap.Types> projectStartToHeightmap,
+                               int maxDistanceFromCenter)
     {
         super(config);
         this.startPool = startPool;
@@ -74,7 +74,7 @@ public class NetherFortressPiece extends Structure {
    //     return !context.chunkGenerator().findNearestMapStructure( BuiltinStructureSets.NETHER_COMPLEXES, pos, 10);
     //}
     @Override
-    public Optional<Structure.GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
+    public Optional<GenerationStub> findGenerationPoint(GenerationContext context) {
         // Check if the spot is valid for our structure. This is just as another method for cleanness.
         // Returning an empty optional tells the game to skip this spot as it will not generate the structure.
         int y = rand.nextInt(15,30);
@@ -104,7 +104,7 @@ public class NetherFortressPiece extends Structure {
         // Since we are going to have heightmap/terrain height spawning set to true further down, this will make it so we spawn 60 blocks above terrain.
         // If we wanted to spawn on ocean floor, we would set heightmap/terrain height spawning to false and the grab the y value of the terrain with OCEAN_FLOOR_WG heightmap.
 
-        Optional<Structure.GenerationStub> structurePiecesGenerator =
+        Optional<GenerationStub> structurePiecesGenerator =
                 JigsawPlacement.addPieces(
                         context, // Used for JigsawPlacement to get all the proper behaviors done.
                         this.startPool, // The starting pool to use to create the structure layout from
@@ -139,7 +139,7 @@ public class NetherFortressPiece extends Structure {
 
     @Override
     public StructureType<?> type() {
-        return NDUStructures.NETHER_FORTRESS_PIECE.get(); // Helps the game know how to turn this structure back to json to save to chunks
+        return NDUStructures.NETHER_FORTRESS_PIECE; // Helps the game know how to turn this structure back to json to save to chunks
     }
 }
 

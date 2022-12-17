@@ -40,11 +40,10 @@ public class ObsidianfishEntity extends AbstractLavaSchoolingFish implements IAn
     }
 
 
-    public static AttributeSupplier setAttributes() {
+    public static AttributeSupplier.Builder setAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D)
-                .add(Attributes.ARMOR, 5.0D)
+                .add(Attributes.ARMOR, 5.0D);
                 //.add(Attributes.MOVEMENT_SPEED, 3.0D)
-                .build();
     }
     @Override
     protected SoundEvent getFlopSound() {
@@ -53,7 +52,7 @@ public class ObsidianfishEntity extends AbstractLavaSchoolingFish implements IAn
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(NDUItems.OBSIDIANFISH_BUCKET.get());
+        return new ItemStack(NDUItems.OBSIDIANFISH_BUCKET);
     }
 
     @Override

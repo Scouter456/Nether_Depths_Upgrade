@@ -39,10 +39,9 @@ public class MagmaCubefishEntity extends AbstractLavaFish implements IAnimatable
     }
 
 
-    public static AttributeSupplier setAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D)
+    public static AttributeSupplier.Builder setAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D);
                 //.add(Attributes.MOVEMENT_SPEED, 3.0D)
-                .build();
     }
     @Override
     protected SoundEvent getFlopSound() {
@@ -51,7 +50,7 @@ public class MagmaCubefishEntity extends AbstractLavaFish implements IAnimatable
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(NDUItems.MAGMACUBEFISH_BUCKET.get());
+        return new ItemStack(NDUItems.MAGMACUBEFISH_BUCKET);
     }
 
     @Override

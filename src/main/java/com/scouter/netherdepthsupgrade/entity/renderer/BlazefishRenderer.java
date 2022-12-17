@@ -21,7 +21,7 @@ public class BlazefishRenderer extends GeoEntityRenderer<BlazefishEntity> {
     @Override
     public RenderType getRenderType(BlazefishEntity animatable, float partialTicks, PoseStack stack, MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int PackedLightIn, ResourceLocation textureLocation){
         //stack.scale(2f,2f,2f);
-        return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
+        return RenderType.entityCutoutNoCull(getTextureResource(animatable));
     }
 
     @Override

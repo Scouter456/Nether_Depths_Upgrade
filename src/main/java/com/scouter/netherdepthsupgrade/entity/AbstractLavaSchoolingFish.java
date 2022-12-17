@@ -18,13 +18,14 @@ public abstract class AbstractLavaSchoolingFish extends AbstractLavaFish {
     private AbstractLavaSchoolingFish leader;
     private int schoolSize = 1;
 
+
     public AbstractLavaSchoolingFish(EntityType<? extends AbstractLavaSchoolingFish> p_27523_, Level p_27524_) {
         super(p_27523_, p_27524_);
     }
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(5, new FollowLavaFlockLeaderGoal(this));
+        this.goalSelector.addGoal(4, new FollowLavaFlockLeaderGoal(this));
     }
 
     /**

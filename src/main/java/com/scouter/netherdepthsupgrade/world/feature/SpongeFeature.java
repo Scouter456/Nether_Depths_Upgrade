@@ -14,8 +14,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.level.material.Fluids;
 import org.slf4j.Logger;
 
-import java.util.Random;
-
 
 public class SpongeFeature extends Feature<NoneFeatureConfiguration> {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -37,7 +35,7 @@ public class SpongeFeature extends Feature<NoneFeatureConfiguration> {
         RandomSource random = p_159956_.random();
         int t = 30 + random.nextInt(-29, 0);
         BlockPos blockpos1 = new BlockPos(blockpos.getX(), t, blockpos.getZ());
-        BlockState block = NDUBlocks.WET_LAVA_SPONGE.get().defaultBlockState();
+        BlockState block = NDUBlocks.WET_LAVA_SPONGE.defaultBlockState();
 
         if (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA)) {
             while (worldgenlevel.getFluidState(blockpos1).is(Fluids.LAVA)) {

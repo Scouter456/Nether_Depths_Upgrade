@@ -1,51 +1,63 @@
 package com.scouter.netherdepthsupgrade.setup;
 
-import com.mojang.logging.LogUtils;
-
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.effect.MobEffects;
 import com.scouter.netherdepthsupgrade.enchantments.NDUEnchantments;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
+import com.scouter.netherdepthsupgrade.entity.entities.*;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.particle.NDUParticle;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
 import com.scouter.netherdepthsupgrade.structures.NDUStructures;
+import com.scouter.netherdepthsupgrade.world.NDUGeneration;
 import com.scouter.netherdepthsupgrade.world.feature.NDUConfiguredFeatures;
 import com.scouter.netherdepthsupgrade.world.feature.NDUFeatures;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
-import static com.scouter.netherdepthsupgrade.items.NDUItems.creativeTab;
-import static com.scouter.netherdepthsupgrade.items.NDUItems.creativeTabFish;
-
+import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class Registration {
-    private static final Logger LOGGER = LogUtils.getLogger();
+
     public static void init(){
-
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        NDUBlocks.BLOCKS.register(bus);
-        NDUEntity.ENTITY_TYPES.register(bus);
-        MobEffects.MOB_EFFECTS.register(bus);
-        NDUItems.ITEMS.register(bus);
-        NDUStructures.STRUCTURES.register(bus);
-        NDUParticle.PARTICLE.register(bus);
-        NDUEnchantments.ENCHANTMENT.register(bus);
-        NDUPotions.POTIONS.register(bus);
-        NDUConfiguredFeatures.CONFIGURED_FEATURES.register(bus);
-        NDUConfiguredFeatures.PLACED_FEATURES.register(bus);
-        NDUFeatures.FEATURES.register(bus);
-
-
+        NDUItems.ITEMS();
+        NDUBlocks.BLOCKS();
+        NDUEntity.ENTITY_TYPES();
+        MobEffects.MOBEFFECTS();
+        NDUPotions.POTIONS();
+        NDUEnchantments.ENCHANTMENTS();
+        NDUParticle.PARTICLE();
+        NDUFeatures.FEATURES();
+        NDUConfiguredFeatures.CONFIGURED_FEATURES();
+        NDUStructures.STRUCTURES();
+        registerAttributes();
+        registerFuels();
+        NDUGeneration.generateFeatures();
+        NDUGeneration.spawnCreatures();
     }
 
-    public static final Item.Properties defaultBuilder() {
-        return new Item.Properties().tab(creativeTab);
+
+    public static void registerAttributes(){
+        FabricDefaultAttributeRegistry.register(NDUEntity.LAVA_PUFFERFISH, LavaPufferfishEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(NDUEntity.OBSIDIAN_FISH, ObsidianfishEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(NDUEntity.SEARING_COD, SearingCodEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(NDUEntity.BONEFISH, BonefishEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(NDUEntity.WITHER_BONEFISH, WitherBonefishEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(NDUEntity.BLAZEFISH, BlazefishEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(NDUEntity.MAGMACUBEFISH, MagmaCubefishEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(NDUEntity.GLOWDINE, GlowdineEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(NDUEntity.SOULSUCKER, SoulSuckerEntity.setAttributes());
     }
-    public static final Item.Properties fishBuilder() {return new Item.Properties().tab(creativeTabFish);}
 
+    private static void registerFuels(){
+        FuelRegistry registry = FuelRegistry.INSTANCE;
 
+        registry.add(NDUBlocks.WARPED_KELP_BLOCK, 6000);
+    }
+
+    public static final CreativeModeTab defaultBuilder = FabricItemGroupBuilder.build(prefix("netherdepthsupgrade"), () -> new ItemStack(NDUItems.SOUL_SUCKER_LEATHER));
+    public static final CreativeModeTab fishBuilder = FabricItemGroupBuilder.build(prefix("netherdepthsupgrade_fish"), () -> new ItemStack(NDUItems.SEARING_COD));
 }

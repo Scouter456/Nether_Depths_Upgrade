@@ -20,7 +20,7 @@ public class MagmaCubefishrenderer extends GeoEntityRenderer<MagmaCubefishEntity
     @Override
     public RenderType getRenderType(MagmaCubefishEntity animatable, float partialTicks, PoseStack stack, MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int PackedLightIn, ResourceLocation textureLocation){
         //stack.scale(2f,2f,2f);
-        return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
+        return RenderType.entityCutoutNoCull(getTextureResource(animatable));
     }
 
     @Override

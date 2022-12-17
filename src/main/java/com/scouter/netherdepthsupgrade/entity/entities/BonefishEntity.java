@@ -43,7 +43,7 @@ public class BonefishEntity extends AbstractLavaSchoolingFish implements IAnimat
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(NDUItems.BONEFISH_BUCKET.get());
+        return new ItemStack(NDUItems.BONEFISH_BUCKET);
     }
 
     @Override

@@ -15,15 +15,15 @@ public class SoulSuckerArmorItem extends ArmorItem {
     public SoulSuckerArmorItem(ArmorMaterial pMaterial, EquipmentSlot pSlot, Properties pProperties) {
         super(pMaterial, pSlot, pProperties);
     }
-
+    /*
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player){
-        if(player.getInventory().getArmor(0).is(NDUItems.SOUL_SUCKER_BOOTS.get())){
+        if(player.getInventory().getArmor(0).is(NDUItems.SOUL_SUCKER_BOOT)){
             if(level.getBlockState(player.getOnPos()).is(Blocks.SOUL_SAND)){
                 level.setBlock(player.getOnPos(), Blocks.SOUL_SOIL.defaultBlockState(), 3);
             }
         }
-    }
+    }*/
 
     @Override
     public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {

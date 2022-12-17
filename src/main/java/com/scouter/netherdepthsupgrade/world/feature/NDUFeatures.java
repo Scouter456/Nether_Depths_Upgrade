@@ -2,25 +2,32 @@ package com.scouter.netherdepthsupgrade.world.feature;
 
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
+import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.feature.Feature;
-
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NDUFeatures {
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, NetherDepthsUpgrade.MODID);
 
+    public static final Logger LOGGER = LoggerFactory.getLogger("netherdepthsupgrade");
     private static final String WARPED_KELP_FEATURE_NAME = "warped_kelp_feature";
     private static final String WARPED_SEAGRASS_FEATURE_NAME = "warped_seagrass_feature";
     private static final String VENT_FEATURE_NAME = "vent_feature";
     private static final String LAVA_SPONGE_FEATURE_NAME = "lava_sponge_feature";
-    public static final RegistryObject<Feature<NoneFeatureConfiguration>> WARPED_KELP = FEATURES.register(WARPED_KELP_FEATURE_NAME, () -> new WarpedKelpFeature(NoneFeatureConfiguration.CODEC));
+    public static final Feature<NoneFeatureConfiguration> WARPED_KELP = register(WARPED_KELP_FEATURE_NAME, new WarpedKelpFeature(NoneFeatureConfiguration.CODEC));
 
-    public static final RegistryObject<Feature<ProbabilityFeatureConfiguration>> WARPED_SEAGRASS = FEATURES.register(WARPED_SEAGRASS_FEATURE_NAME, () -> new WarpedSeagrassFeature(ProbabilityFeatureConfiguration.CODEC));
-    public static final RegistryObject<Feature<NoneFeatureConfiguration>> VENT = FEATURES.register(VENT_FEATURE_NAME, () -> new VentFeature(NoneFeatureConfiguration.CODEC));
-    public static final RegistryObject<Feature<NoneFeatureConfiguration>> LAVA_SPONGE = FEATURES.register(LAVA_SPONGE_FEATURE_NAME, () -> new SpongeFeature(NoneFeatureConfiguration.CODEC));
+    public static final Feature<ProbabilityFeatureConfiguration> WARPED_SEAGRASS = register(WARPED_SEAGRASS_FEATURE_NAME,  new WarpedSeagrassFeature(ProbabilityFeatureConfiguration.CODEC));
+    public static final Feature<NoneFeatureConfiguration> VENT = register(VENT_FEATURE_NAME,  new VentFeature(NoneFeatureConfiguration.CODEC));
+    public static final Feature<NoneFeatureConfiguration> LAVA_SPONGE = register(LAVA_SPONGE_FEATURE_NAME,new SpongeFeature(NoneFeatureConfiguration.CODEC));
 
+    private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String key, F value) {
+        return Registry.register(Registry.FEATURE, key, value);
+    }
+
+    public static void FEATURES(){
+        LOGGER.info("Registering Features for " + NetherDepthsUpgrade.MODID);
+    }
 }

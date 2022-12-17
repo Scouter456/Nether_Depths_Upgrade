@@ -14,7 +14,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public abstract class GrowingLavaPlantBlock extends Block {
     protected final Direction growthDirection;

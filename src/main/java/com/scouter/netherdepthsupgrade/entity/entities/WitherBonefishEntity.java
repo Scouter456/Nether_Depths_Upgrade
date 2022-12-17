@@ -42,7 +42,7 @@ public class WitherBonefishEntity extends AbstractLavaSchoolingFish implements I
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(NDUItems.WITHER_BONEFISH_BUCKET.get());
+        return new ItemStack(NDUItems.WITHER_BONEFISH_BUCKET);
     }
 
     @Override

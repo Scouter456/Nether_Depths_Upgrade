@@ -16,8 +16,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.Random;
-
 public abstract class GrowingLavaPlantHeadBlock extends GrowingLavaPlantBlock implements BonemealableBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_25;
     public static final int MAX_AGE = 25;
@@ -44,11 +42,10 @@ public abstract class GrowingLavaPlantHeadBlock extends GrowingLavaPlantBlock im
      * Performs a random tick on a block.
      */
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        if (pState.getValue(AGE) < 25 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos.relative(this.growthDirection), pLevel.getBlockState(pPos.relative(this.growthDirection)),pRandom.nextDouble() < this.growPerTickProbability)) {
+        if (pState.getValue(AGE) < 25 && pRandom.nextDouble() < this.growPerTickProbability) {
             BlockPos blockpos = pPos.relative(this.growthDirection);
             if (this.canGrowInto(pLevel.getBlockState(blockpos))) {
                 pLevel.setBlockAndUpdate(blockpos, this.getGrowIntoState(pState, pLevel.random));
-                net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, blockpos, pLevel.getBlockState(blockpos));
             }
         }
 

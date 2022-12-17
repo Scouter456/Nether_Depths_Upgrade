@@ -2,7 +2,6 @@ package com.scouter.netherdepthsupgrade.world.feature;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
-
 import com.scouter.netherdepthsupgrade.blocks.LavaKelpBlock;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import net.minecraft.core.BlockPos;
@@ -14,8 +13,6 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.slf4j.Logger;
-
-import java.util.Random;
 
 public class WarpedKelpFeature extends Feature<NoneFeatureConfiguration> {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -41,8 +38,8 @@ public class WarpedKelpFeature extends Feature<NoneFeatureConfiguration> {
         //LOGGER.info("j" + j);
         BlockPos blockpos1 = new BlockPos(blockpos.getX(), j, blockpos.getZ());
         if (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA)) {
-            BlockState blockstate = NDUBlocks.WARPED_KELP.get().defaultBlockState();
-            BlockState blockstate1 = NDUBlocks.WARPED_KELP_PLANT.get().defaultBlockState();
+            BlockState blockstate = NDUBlocks.WARPED_KELP.defaultBlockState();
+            BlockState blockstate1 = NDUBlocks.WARPED_KELP_PLANT.defaultBlockState();
             int k = 1 + random.nextInt(10);
 
             for(int l = 0; l <= k; ++l) {
@@ -55,7 +52,7 @@ public class WarpedKelpFeature extends Feature<NoneFeatureConfiguration> {
                     }
                 } else if (l > 0) {
                     BlockPos blockpos2 = blockpos1.below();
-                    if (blockstate.canSurvive(worldgenlevel, blockpos2) && !worldgenlevel.getBlockState(blockpos2.below()).is(NDUBlocks.WARPED_KELP.get())) {
+                    if (blockstate.canSurvive(worldgenlevel, blockpos2) && !worldgenlevel.getBlockState(blockpos2.below()).is(NDUBlocks.WARPED_KELP)) {
                         worldgenlevel.setBlock(blockpos2, blockstate.setValue(LavaKelpBlock.AGE, Integer.valueOf(random.nextInt(4) + 20)), 2);
                         ++i;
                     }

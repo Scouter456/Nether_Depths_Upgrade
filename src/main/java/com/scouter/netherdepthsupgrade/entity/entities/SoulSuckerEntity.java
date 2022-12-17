@@ -83,7 +83,7 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
 
 
     public ItemStack getBucketItemStack() {
-        return new ItemStack(NDUItems.SOULSUCKER_BUCKET.get());
+        return new ItemStack(NDUItems.SOULSUCKER_BUCKET);
     }
 
     protected SoundEvent getAmbientSound() {
