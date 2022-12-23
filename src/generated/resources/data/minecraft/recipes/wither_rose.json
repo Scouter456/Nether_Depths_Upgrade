@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "netherdepthsupgrade:wither_bonefish"
+    },
+    {
+      "item": "netherdepthsupgrade:wither_bonefish"
+    },
+    {
+      "item": "netherdepthsupgrade:wither_bonefish"
+    },
+    {
+      "item": "netherdepthsupgrade:wither_bonefish"
+    },
+    {
+      "item": "netherdepthsupgrade:wither_bonefish"
+    },
+    {
+      "item": "netherdepthsupgrade:wither_bonefish"
+    },
+    {
+      "item": "netherdepthsupgrade:wither_bonefish"
+    },
+    {
+      "item": "netherdepthsupgrade:wither_bonefish"
+    },
+    {
+      "item": "minecraft:red_tulip"
+    }
+  ],
+  "result": {
+    "item": "minecraft:wither_rose"
+  }
+}

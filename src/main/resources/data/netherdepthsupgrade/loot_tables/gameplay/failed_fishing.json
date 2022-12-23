@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 10,
+          "quality": -2,
+          "name": "netherdepthsupgrade:gameplay/failed_fishing/junk"
+        }
+      ]
+    }
+  ]
+}

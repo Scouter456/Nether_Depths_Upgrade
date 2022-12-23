@@ -1,0 +1,48 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "modid": "farmersdelight",
+              "type": "forge:mod_loaded"
+            },
+            {
+              "item": "netherdepthsupgrade:soulsucker_slice",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:baked_soulsucker_stew",
+              "type": "forge:item_exists"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "farmersdelight:cooking",
+        "ingredients": [
+          {
+            "item": "netherdepthsupgrade:soulsucker_slice"
+          },
+          {
+            "item": "minecraft:potato"
+          },
+          {
+            "tag": "forge:eggs"
+          },
+          {
+            "tag": "forge:crops/tomato"
+          }
+        ],
+        "result": {
+          "item": "netherdepthsupgrade:baked_soulsucker_stew"
+        },
+        "experience": 0.35,
+        "cookingtime": 200
+      }
+    }
+  ]
+}

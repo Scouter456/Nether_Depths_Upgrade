@@ -25,6 +25,7 @@ public class NDUTags {
     }
 
     public static class Items {
+        public static final TagKey<Item> NETHER_SALAD_FOODS = tag("nether_salad_foods");
         private static TagKey<Item> tag(String name){
             return ItemTags.create(prefix(name));
 

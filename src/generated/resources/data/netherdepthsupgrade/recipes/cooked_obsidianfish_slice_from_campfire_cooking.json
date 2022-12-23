@@ -1,0 +1,35 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "modid": "farmersdelight",
+              "type": "forge:mod_loaded"
+            },
+            {
+              "item": "netherdepthsupgrade:obsidianfish_slice",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:cooked_obsidianfish_slice",
+              "type": "forge:item_exists"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:campfire_cooking",
+        "ingredient": {
+          "item": "netherdepthsupgrade:obsidianfish_slice"
+        },
+        "result": "netherdepthsupgrade:cooked_obsidianfish_slice",
+        "experience": 0.35,
+        "cookingtime": 600
+      }
+    }
+  ]
+}

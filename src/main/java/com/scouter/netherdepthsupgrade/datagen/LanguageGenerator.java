@@ -11,6 +11,7 @@ import com.scouter.netherdepthsupgrade.potion.NDUPotions;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.common.data.LanguageProvider;
 import org.slf4j.Logger;
 
@@ -86,6 +87,9 @@ public class LanguageGenerator extends LanguageProvider {
         //TABS
         addTabName(NDUItems.creativeTab, "Nether Depths Upgrade");
         addTabName(NDUItems.creativeTabFish, "Nether Depths Upgrade Fish");
+
+        //Enchantment description
+        addEnchantDescription("As you glide through the molten rock, you feel a surge of speed and power coursing through your veins, allowing you to swim through lava with ease and grace.", NDUEnchantments.HELL_STRIDER.get());
     }
 
     @Override
@@ -103,6 +107,9 @@ public class LanguageGenerator extends LanguageProvider {
 
     public void addPotion(Supplier<? extends Potion> key, String name) {
         add(key.get(), name);
+    }
+    public void addEnchantDescription(String description, Enchantment enchantment){
+        add(enchantment.getDescriptionId() + ".desc", description);
     }
 
     public void add(Potion key, String name) {

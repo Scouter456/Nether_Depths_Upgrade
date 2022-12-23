@@ -62,8 +62,4 @@ public class NDUFoods {
             .effect( () ->new MobEffectInstance(MobEffects.WEAKNESS, 1000, 0), 0.7F)
             .effect( () ->new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 800, 1), 0.5F)
             .build();
-
-
-
-
 }

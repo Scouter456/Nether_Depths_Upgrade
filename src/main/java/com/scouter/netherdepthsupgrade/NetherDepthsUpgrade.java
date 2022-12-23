@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.events.ClientEvents;
 import com.scouter.netherdepthsupgrade.events.ForgeEvents;
+import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
 import com.scouter.netherdepthsupgrade.setup.ClientSetup;
 import com.scouter.netherdepthsupgrade.setup.ModSetup;
 import com.scouter.netherdepthsupgrade.setup.Registration;
@@ -39,10 +40,11 @@ public class NetherDepthsUpgrade
 {
     public static final String MODID = "netherdepthsupgrade";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public NetherDepthsUpgrade()
     {
+        ModChecker.setupModCompat();
         Registration.init();
         ModSetup.setup();
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;

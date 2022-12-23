@@ -5,6 +5,7 @@ import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.entity.NDUEntityPlacement;
 import com.scouter.netherdepthsupgrade.entity.entities.*;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
+import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
 import com.scouter.netherdepthsupgrade.particle.GlowdineParticle;
 import com.scouter.netherdepthsupgrade.particle.NDUParticle;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
@@ -32,6 +33,8 @@ public class ModSetup {
         //            NDUPotions.LAVA_VISION.get(), Items.REDSTONE, NDUPotions.LONG_LAVA_VISION.get()));
             PotionBrewing.addMix(Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH.get(), NDUPotions.LAVA_VISION.get());
             PotionBrewing.addMix(NDUPotions.LAVA_VISION.get(), Items.REDSTONE, NDUPotions.LONG_LAVA_VISION.get());
+
+
         });
 
 
