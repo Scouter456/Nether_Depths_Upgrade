@@ -13,9 +13,10 @@ public class ModChecker {
 
 
     public static boolean farmersDelightPresent = false;
+    public static boolean infernalExpansionPresent = false;
 
-
-    public static void setupModCompat(){
+    public static boolean biomesYoullGoPresent = false;
+    public static void setupModCompatPreInit(){
         String modid = "";
 
         try{
@@ -23,13 +24,30 @@ public class ModChecker {
             modid = "farmersdelight";
             loadModCompat(modid, () -> FarmersDelightCompat.setupCompat());
 
+            modid = "infernalexp";
+            loadModCompat(modid, () -> InfernalExpansionCompat.setupCompatPreInit());
+
+            modid = "byg";
+            loadModCompat(modid, () -> BiomesYoullGoCompat.setupCompatPreInit());
         }
         catch (Throwable e) {
-            printErrorToLogs("classloading " + modid + " and so, mod compat done afterwards broke");
+            printErrorToLogs("classloading " + modid + " pre init, mod compat done afterwards broke");
             e.printStackTrace();
         }
     }
+    public static void setupModCompatCommonSetup(){
+        String modid = "";
 
+        try{
+            modid = "infernalexp";
+            loadModCompat(modid, () -> InfernalExpansionCompat.setupCompatCommonSetup());
+        }
+        catch (Throwable e) {
+            printErrorToLogs("classloading " + modid + " common setup, mod compat done afterwards broke");
+            e.printStackTrace();
+        }
+
+    }
     private static void loadModCompat(String modid, Runnable runnable){
         try{
             if(ModList.get().isLoaded(modid)){
@@ -48,7 +66,7 @@ public class ModChecker {
         NetherDepthsUpgrade.LOGGER.error("""
 		  ------------------------------------------------NOTICE-------------------------------------------------------------------------
 		  
-		  ERROR: Something broke when trying to add mod compatibility with %s. Please let The Netherdepthsupgrade developer know about this!
+		  ERROR: Something broke when trying to add mod compatibility with %s. Please let The Nether Depths Upgrade developer know about this!
 		  
 		  ------------------------------------------------NOTICE-------------------------------------------------------------------------
 		""".formatted(currentModID));
