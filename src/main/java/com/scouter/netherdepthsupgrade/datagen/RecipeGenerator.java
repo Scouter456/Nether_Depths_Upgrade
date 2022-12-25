@@ -24,6 +24,7 @@ import vectorwing.farmersdelight.data.builder.CuttingBoardRecipeBuilder;
 import java.util.function.Consumer;
 
 import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
+import static net.minecraft.advancements.critereon.InventoryChangeTrigger.TriggerInstance.hasItems;
 
 public class RecipeGenerator extends RecipeProvider implements IConditionBuilder {
     public RecipeGenerator(DataGenerator pGenerator) {
@@ -39,7 +40,10 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
                 .requires(NDUItems.SOULSUCKER.get())
                 .unlockedBy("has_soul_sucker", has(NDUItems.SOULSUCKER.get()))
                 .save(consumer);
-
+        ShapelessRecipeBuilder.shapeless(Items.BONE_MEAL, 3)
+                .requires(NDUItems.BONEFISH.get())
+                .unlockedBy("has_bonefish", has(NDUItems.BONEFISH.get()))
+                .save(consumer);
         ShapelessRecipeBuilder.shapeless(Items.BLAZE_POWDER, 2)
                 .requires(NDUItems.BLAZEFISH.get())
                 .unlockedBy("has_blazefish", has(NDUItems.BLAZEFISH.get()))
@@ -85,8 +89,182 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
                 .requires(NDUTags.Items.NETHER_SALAD_FOODS)
                 .requires(NDUTags.Items.NETHER_SALAD_FOODS)
                 .requires(Items.BOWL)
-                .unlockedBy("has_bowl", InventoryChangeTrigger.TriggerInstance.hasItems(Items.BOWL))
+                .unlockedBy("has_bowl", hasItems(Items.BOWL))
                 , "food/nether_salad", consumer, modLoaded("farmersdelight"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.BLAZEFISH_ROLL.get())
+                .requires(FarmersDelightCompat.BLAZEFISH_SLICE.get(), 2)
+                .requires(ModItems.COOKED_RICE.get())
+                .unlockedBy("has_blazefish_slice", hasItems(FarmersDelightCompat.BLAZEFISH_SLICE.get()))
+                , "food/blazefish_roll", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cooked_rice"),
+                itemExists(NetherDepthsUpgrade.MODID, "blazefish_slice"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.SEARING_COD_ROLL.get())
+                        .requires(FarmersDelightCompat.SEARING_COD_SLICE.get(), 2)
+                        .requires(ModItems.COOKED_RICE.get())
+                        .unlockedBy("has_searing_cod_slice", hasItems(FarmersDelightCompat.SEARING_COD_SLICE.get()))
+                , "food/searing_cod_roll", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cooked_rice"),
+                itemExists(NetherDepthsUpgrade.MODID, "searing_cod_slice"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.OBSIDIANFISH_ROLL.get())
+                        .requires(FarmersDelightCompat.OBSIDIANFISH_SLICE.get(), 2)
+                        .requires(ModItems.COOKED_RICE.get())
+                        .unlockedBy("has_obsidianfish_slice", hasItems(FarmersDelightCompat.OBSIDIANFISH_SLICE.get()))
+                , "food/obsidianfish_roll", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cooked_rice"),
+                itemExists(NetherDepthsUpgrade.MODID, "obsidianfish_slice"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.GLOWDINE_ROLL.get())
+                        .requires(FarmersDelightCompat.GLOWDINE_SLICE.get(), 2)
+                        .requires(ModItems.COOKED_RICE.get())
+                        .unlockedBy("has_glowdine_slice", hasItems(FarmersDelightCompat.GLOWDINE_SLICE.get()))
+                , "food/glowdine_roll", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cooked_rice"),
+                itemExists(NetherDepthsUpgrade.MODID, "glowdine_slice"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.LAVA_PUFFERFISH_ROLL.get())
+                        .requires(FarmersDelightCompat.LAVA_PUFFERFISH_SLICE.get(), 2)
+                        .requires(ModItems.COOKED_RICE.get())
+                        .unlockedBy("has_lava_pufferfish_slice", hasItems(FarmersDelightCompat.LAVA_PUFFERFISH_SLICE.get()))
+                , "food/lava_pufferfish_roll", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cooked_rice"),
+                itemExists(NetherDepthsUpgrade.MODID, "lava_pufferfish_slice"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.SOULSUCKER_ROLL.get())
+                        .requires(FarmersDelightCompat.SOULSUCKER_SLICE.get(), 2)
+                        .requires(ModItems.COOKED_RICE.get())
+                        .unlockedBy("has_soulsucker_slice", hasItems(FarmersDelightCompat.SOULSUCKER_SLICE.get()))
+                , "food/soulsucker_roll", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cooked_rice"),
+                itemExists(NetherDepthsUpgrade.MODID, "soulsucker_slice"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.MAGMA_CUBE_FISH_ROLL.get())
+                        .requires(FarmersDelightCompat.MAGMACUBEFISH_SLICE.get(), 2)
+                        .requires(ModItems.COOKED_RICE.get())
+                        .unlockedBy("has_magmacubefish_slice", hasItems(FarmersDelightCompat.MAGMACUBEFISH_SLICE.get()))
+                , "food/magmacubefish_roll", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cooked_rice"),
+                itemExists(NetherDepthsUpgrade.MODID, "magmacubefish_slice"));
+
+        wrap(ShapedRecipeBuilder.shaped(FarmersDelightCompat.WARPED_KELP_ROLL.get(), 1)
+                .pattern("RXR")
+                .pattern("###")
+                .define('#', NDUItems.WARPED_KELP.get())
+                .define('R', ModItems.COOKED_RICE.get())
+                .define('X', Items.CARROT)
+                .unlockedBy("has_warped_kelp",InventoryChangeTrigger.TriggerInstance.hasItems(NDUItems.WARPED_KELP.get())),
+                "food/warped_kelp_roll", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cooked_rice"),
+                itemExists(NetherDepthsUpgrade.MODID, "warped_kelp"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.GRILLED_BLAZEFISH.get())
+                .requires(FarmersDelightCompat.BLAZEFISH_SLICE.get())
+                .requires(Items.SWEET_BERRIES)
+                .requires(Items.BOWL)
+                .requires(ForgeTags.CROPS_CABBAGE)
+                .requires(ForgeTags.CROPS_ONION)
+                .unlockedBy("has_blazefish",InventoryChangeTrigger.TriggerInstance.hasItems(NDUItems.BLAZEFISH.get()))
+        , "food/grilled_blazefish", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cabbage"),
+                itemExists("farmersdelight", "onion"),
+                itemExists(NetherDepthsUpgrade.MODID, "blazefish_slice"),
+                itemExists(NetherDepthsUpgrade.MODID, "grilled_blazefish"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.GRILLED_GLOWDINE.get())
+                        .requires(FarmersDelightCompat.COOKED_GLOWDINE_SLICE.get())
+                        .requires(Items.SWEET_BERRIES)
+                        .requires(Items.BOWL)
+                        .requires(ForgeTags.CROPS_CABBAGE)
+                        .requires(ForgeTags.CROPS_ONION)
+                        .unlockedBy("has_glowdine",InventoryChangeTrigger.TriggerInstance.hasItems(NDUItems.GLOWDINE.get()))
+                , "food/grilled_glowdine", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cabbage"),
+                itemExists("farmersdelight", "onion"),
+                itemExists(NetherDepthsUpgrade.MODID, "cooked_glowdine_slice"),
+                itemExists(NetherDepthsUpgrade.MODID, "grilled_glowdine"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.GRILLED_LAVA_PUFFERFISH.get())
+                        .requires(FarmersDelightCompat.COOKED_LAVA_PUFFERFISH_SLICE.get())
+                        .requires(Items.SWEET_BERRIES)
+                        .requires(Items.BOWL)
+                        .requires(ForgeTags.CROPS_CABBAGE)
+                        .requires(ForgeTags.CROPS_ONION)
+                        .unlockedBy("has_lava_pufferfish",InventoryChangeTrigger.TriggerInstance.hasItems(NDUItems.LAVA_PUFFERFISH.get()))
+                , "food/grilled_lava_pufferfish", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cabbage"),
+                itemExists("farmersdelight", "onion"),
+                itemExists(NetherDepthsUpgrade.MODID, "cooked_lava_pufferfish_slice"),
+                itemExists(NetherDepthsUpgrade.MODID, "grilled_lava_pufferfish"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.GRILLED_OBSIDIANFISH.get())
+                        .requires(FarmersDelightCompat.COOKED_OBSIDIANFISH_SLICE.get())
+                        .requires(Items.SWEET_BERRIES)
+                        .requires(Items.BOWL)
+                        .requires(ForgeTags.CROPS_CABBAGE)
+                        .requires(ForgeTags.CROPS_ONION)
+                        .unlockedBy("has_obsidianfish",InventoryChangeTrigger.TriggerInstance.hasItems(NDUItems.OBSIDIANFISH.get()))
+                , "food/grilled_obsidianfishh", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cabbage"),
+                itemExists("farmersdelight", "onion"),
+                itemExists(NetherDepthsUpgrade.MODID, "cooked_obsidianfish_slice"),
+                itemExists(NetherDepthsUpgrade.MODID, "grilled_obsidianfish"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.GRILLED_SOULSUCKER.get())
+                        .requires(FarmersDelightCompat.COOKED_SOULSUCKER_SLICE.get())
+                        .requires(Items.SWEET_BERRIES)
+                        .requires(Items.BOWL)
+                        .requires(ForgeTags.CROPS_CABBAGE)
+                        .requires(ForgeTags.CROPS_ONION)
+                        .unlockedBy("has_soulsucker",InventoryChangeTrigger.TriggerInstance.hasItems(NDUItems.SOULSUCKER.get()))
+                , "food/grilled_soulsucker", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cabbage"),
+                itemExists("farmersdelight", "onion"),
+                itemExists(NetherDepthsUpgrade.MODID, "cooked_soulsucker_slice"),
+                itemExists(NetherDepthsUpgrade.MODID, "grilled_soulsucker"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.GRILLED_SEARING_COD.get())
+                        .requires(FarmersDelightCompat.SEARING_COD_SLICE.get())
+                        .requires(Items.SWEET_BERRIES)
+                        .requires(Items.BOWL)
+                        .requires(ForgeTags.CROPS_CABBAGE)
+                        .requires(ForgeTags.CROPS_ONION)
+                        .unlockedBy("has_searing_cod",InventoryChangeTrigger.TriggerInstance.hasItems(NDUItems.SEARING_COD.get()))
+                , "food/grilled_searing_cod", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cabbage"),
+                itemExists("farmersdelight", "onion"),
+                itemExists(NetherDepthsUpgrade.MODID, "searing_cod_slice"),
+                itemExists(NetherDepthsUpgrade.MODID, "grilled_searing_cod"));
+
+        wrap(ShapelessRecipeBuilder.shapeless(FarmersDelightCompat.GRILLED_MAGMA_CUBE_FISH.get())
+                        .requires(FarmersDelightCompat.COOKED_MAGMACUBEFISH_SLICE.get())
+                        .requires(Items.SWEET_BERRIES)
+                        .requires(Items.BOWL)
+                        .requires(ForgeTags.CROPS_CABBAGE)
+                        .requires(ForgeTags.CROPS_ONION)
+                        .unlockedBy("has_magmacubefish",InventoryChangeTrigger.TriggerInstance.hasItems(NDUItems.MAGMACUBEFISH.get()))
+                , "food/grilled_magmacubefish", consumer,
+                modLoaded("farmersdelight"),
+                itemExists("farmersdelight", "cabbage"),
+                itemExists("farmersdelight", "onion"),
+                itemExists(NetherDepthsUpgrade.MODID, "cooked_magmacubefish_slice"),
+                itemExists(NetherDepthsUpgrade.MODID, "grilled_magmacubefish"));
+
     }
 
     private void cookMeals(Consumer<FinishedRecipe> consumer) {
@@ -160,6 +338,10 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
                 .addResult(Items.BONE_MEAL)
                 , "cutting/glowdine", consumer, modLoaded("farmersdelight"), itemExists(NetherDepthsUpgrade.MODID, "glowdine_slice"));
 
+        wrap(CuttingBoardRecipeBuilder.cuttingRecipe(Ingredient.of(FarmersDelightCompat.WARPED_KELP_ROLL.get()), Ingredient.of(ForgeTags.TOOLS_KNIVES), FarmersDelightCompat.WARPED_KELP_ROLL_SLICE.get(), 3),
+        "cutting/warped_kelp_roll_slice", consumer,
+                modLoaded("farmersdelight"),
+                itemExists(NetherDepthsUpgrade.MODID, "warped_kelp_roll"));
     }
     private void smeltingRecipes(Consumer<FinishedRecipe> consumer) {
         foodSmeltingRecipes("cooked_soulsucker_slice", FarmersDelightCompat.SOULSUCKER_SLICE.get(), FarmersDelightCompat.COOKED_SOULSUCKER_SLICE.get(), 0.35F, consumer);
@@ -173,15 +355,15 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
         String namePrefix = new ResourceLocation(FarmersDelight.MODID, name).toString();
         wrap(SimpleCookingRecipeBuilder.smelting(Ingredient.of(ingredient),
                         result, experience, 200)
-                .unlockedBy(name, InventoryChangeTrigger.TriggerInstance.hasItems(ingredient))
+                .unlockedBy(name, hasItems(ingredient))
                 ,name, consumer, modLoaded("farmersdelight"), itemExists(NetherDepthsUpgrade.MODID, ingredient.toString()) , itemExists(NetherDepthsUpgrade.MODID, result.toString()));
         wrap(SimpleCookingRecipeBuilder.cooking(Ingredient.of(ingredient),
                         result, experience, 600, RecipeSerializer.CAMPFIRE_COOKING_RECIPE)
-                .unlockedBy(name, InventoryChangeTrigger.TriggerInstance.hasItems(ingredient))
+                .unlockedBy(name, hasItems(ingredient))
                 ,name + "_from_campfire_cooking", consumer, modLoaded("farmersdelight"), itemExists(NetherDepthsUpgrade.MODID, ingredient.toString()) , itemExists(NetherDepthsUpgrade.MODID, result.toString()));
         wrap(SimpleCookingRecipeBuilder.cooking(Ingredient.of(ingredient),
                         result, experience, 100, RecipeSerializer.SMOKING_RECIPE)
-                .unlockedBy(name, InventoryChangeTrigger.TriggerInstance.hasItems(ingredient))
+                .unlockedBy(name, hasItems(ingredient))
                 ,name + "_from_smoking", consumer, modLoaded("farmersdelight"), itemExists(NetherDepthsUpgrade.MODID, ingredient.toString()) , itemExists(NetherDepthsUpgrade.MODID, result.toString()));
     }
     private void wrap(CuttingBoardRecipeBuilder builder, String name, Consumer<FinishedRecipe> consumer, ICondition... conds) {
