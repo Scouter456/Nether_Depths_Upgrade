@@ -4,6 +4,7 @@ package com.scouter.netherdepthsupgrade.items;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
+import com.scouter.netherdepthsupgrade.modcompat.InfernalExpansionCompat;
 import com.scouter.netherdepthsupgrade.setup.Registration;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
@@ -24,6 +25,7 @@ public class NDUItems {
     public static final RegistryObject<Item> WET_LAVA_SPONGE = fromBlockFireRes(NDUBlocks.WET_LAVA_SPONGE);
     public static final RegistryObject<Item> WARPED_KELP = fromBlockFireRes(NDUBlocks.WARPED_KELP);
     public static final RegistryObject<Item> WARPED_SEAGRASS = fromBlockFireRes(NDUBlocks.WARPED_SEAGRASS);
+
     public static final RegistryObject<Item> WARPED_KELP_BLOCK = fromBlockFireResFuel(NDUBlocks.WARPED_KELP_BLOCK);
 
     //ITEM
@@ -50,7 +52,7 @@ public class NDUItems {
     public static final RegistryObject<Item> MAGMACUBEFISH = ITEMS.register("magmacubefish", () -> new Item(Registration.fishBuilder().fireResistant()
             .food(NDUFoods.MAGMACUBEFISH)));
     public static final RegistryObject<Item> GLOWDINE = ITEMS.register("glowdine", () -> new Item(Registration.fishBuilder().fireResistant()
-            .food(NDUFoods.GLOWDINE)));
+            .food(InfernalExpansionCompat.getGlowdineFood().get())));
     public static final RegistryObject<Item> SOULSUCKER = ITEMS.register("soulsucker", () -> new Item(Registration.fishBuilder().fireResistant()));
 
     //FISH_BUCKET

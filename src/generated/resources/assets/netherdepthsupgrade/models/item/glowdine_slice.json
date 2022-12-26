@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "netherdepthsupgrade:item/farmersdelight_compat_food/glowdine_slice"
+  }
+}

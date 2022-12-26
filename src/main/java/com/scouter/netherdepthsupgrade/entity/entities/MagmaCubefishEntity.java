@@ -54,10 +54,6 @@ public class MagmaCubefishEntity extends AbstractLavaFish implements IAnimatable
         return new ItemStack(NDUItems.MAGMACUBEFISH_BUCKET.get());
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-    }
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("magmacubefish.moving", true));
         return PlayState.CONTINUE;

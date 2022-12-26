@@ -16,13 +16,6 @@ public class BlockTagsGenerator extends BlockTagsProvider {
     protected void addTags(){
         tag(BlockTags.MINEABLE_WITH_HOE)
                 .add(NDUBlocks.WARPED_KELP_BLOCK.get());
-
-        //tag(BlockTags.MINEABLE_WITH_PICKAXE)
-        //        .add(NDUBlocks.ORETEST.get());
-
-        //Add a tag for minimum requirement of tool for block
-        //tag(BlockTags.NEEDS_IRON_TOOL)
-        //        .add(NDUBlocks.ORETEST.get());
     }
 
 

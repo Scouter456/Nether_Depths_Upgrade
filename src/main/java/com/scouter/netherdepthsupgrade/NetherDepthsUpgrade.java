@@ -5,13 +5,13 @@ import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.events.ClientEvents;
 import com.scouter.netherdepthsupgrade.events.ForgeEvents;
+import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
 import com.scouter.netherdepthsupgrade.setup.ClientSetup;
 import com.scouter.netherdepthsupgrade.setup.ModSetup;
 import com.scouter.netherdepthsupgrade.setup.Registration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -28,10 +28,11 @@ public class NetherDepthsUpgrade
 {
     public static final String MODID = "netherdepthsupgrade";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public NetherDepthsUpgrade()
     {
+        ModChecker.setupModCompatPreInit();
         Registration.init();
         ModSetup.setup();
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
@@ -46,7 +47,6 @@ public class NetherDepthsUpgrade
         MinecraftForge.EVENT_BUS.register(ForgeEvents.class);
 
 
-        //forgeBus.addListener(EventPriority.HIGH, NDUGeneration::generateFeatures);
         GeckoLib.initialize();
 
     }

@@ -55,10 +55,6 @@ public class BlazefishEntity extends AbstractLavaFish implements IAnimatable, IA
         return new ItemStack(NDUItems.BLAZEFISH_BUCKET.get());
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-    }
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("blazefish.moving", true));
         return PlayState.CONTINUE;

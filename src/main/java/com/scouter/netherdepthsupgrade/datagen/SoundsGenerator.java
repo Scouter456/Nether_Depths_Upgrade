@@ -14,15 +14,8 @@ public class SoundsGenerator extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
-        /*this.add(MFSounds.MUSHROOM_WALK.get(), SoundDefinition.definition()
-                .subtitle("walking_mushroom.walk")
-                .with(SoundDefinitionsProvider
-                        .sound(prefix( "mushroom_walk"))
-                        .volume(0.5d)
-                        .attenuationDistance(17)));
-*/
-        //this.add(MFSounds.MUSHROOM_WALK.get(), SoundDefinition.definition().with(SoundDefinitionsProvider.sound(prefix("mushroom_walk")).attenuationDistance(16)));
-    }
+
+         }
 
     @Override
     public String getName()

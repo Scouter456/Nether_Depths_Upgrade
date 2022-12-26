@@ -1,18 +1,13 @@
 package com.scouter.netherdepthsupgrade.entity;
 
 
-import com.mojang.authlib.GameProfile;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.entity.entities.*;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.UUID;
 
 import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 

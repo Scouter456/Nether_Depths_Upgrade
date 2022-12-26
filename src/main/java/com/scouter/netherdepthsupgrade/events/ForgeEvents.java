@@ -5,25 +5,30 @@ import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.enchantments.NDUEnchantments;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.animal.FrogVariant;
+import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = NetherDepthsUpgrade.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -41,14 +46,10 @@ public class ForgeEvents {
             double level = EnchantmentHelper.getEnchantments(event.player.getItemBySlot(EquipmentSlot.FEET)).get(NDUEnchantments.HELL_STRIDER.get());
             if (event.player.isInLava()) {
                 float speed = (float) (1.15 + (0.1 * level));
-                //LOGGER.info("player " + event.player.getScoreboardName());
                 event.player.setDeltaMovement(event.player.getDeltaMovement().multiply(speed, 0.8F, speed));
-                //LOGGER.info("vec " + event.player.getDeltaMovement());
                 Vec3 vec33 = event.player.getFluidFallingAdjustedMovement(d0, flag, event.player.getDeltaMovement());
-                //LOGGER.info("vec3 " + vec33);
                 event.player.setDeltaMovement(vec33);
             }
-            //event.player.makeStuckInBlock(Blocks.LAVA.defaultBlockState(), new Vec3(1.5D * level, 2.5D, 1.5D * level));
         }
     }
 
@@ -109,6 +110,36 @@ public class ForgeEvents {
         event.setCanceled(true);
         event.damageRodBy(event.getRodDamage());
     }
-    
+
+    @SubscribeEvent
+    public static void frogFeed(PlayerInteractEvent.EntityInteract event){
+        if(event.getLevel() instanceof ClientLevel || !(event.getTarget() instanceof Frog) || !(event.getEntity() instanceof Player)){
+            return;
+        }
+        Frog frog = (Frog) event.getTarget();
+        Player player = event.getEntity();
+        Level level = event.getLevel();
+        ItemStack itemStack_ochre = new ItemStack(Items.OCHRE_FROGLIGHT);
+        ItemStack itemStack_pearlescent = new ItemStack(Items.PEARLESCENT_FROGLIGHT);
+        ItemStack itemStack_verdant = new ItemStack(Items.VERDANT_FROGLIGHT);
+        ItemEntity itemEntity_ochre = new ItemEntity(level, frog.getX(), frog.getY(), frog.getZ(), itemStack_ochre);
+        ItemEntity itemEntity_pearlescent = new ItemEntity(level, frog.getX(), frog.getY(), frog.getZ(), itemStack_pearlescent);
+        ItemEntity itemEntity_verdant = new ItemEntity(level, frog.getX(), frog.getY(), frog.getZ(), itemStack_verdant);
+        ItemStack itemInHand = player.getItemInHand(InteractionHand.MAIN_HAND);
+
+        if(itemInHand.getItem() == NDUItems.MAGMACUBEFISH.get().asItem()){
+            if(frog.getVariant() == FrogVariant.COLD){
+                level.addFreshEntity(itemEntity_verdant);
+            }
+            if(frog.getVariant() == FrogVariant.TEMPERATE){
+                level.addFreshEntity(itemEntity_ochre);
+            }
+            if(frog.getVariant() == FrogVariant.WARM){
+                level.addFreshEntity(itemEntity_pearlescent);
+            }
+            level.playSound(null, frog.blockPosition(), SoundEvents.FROG_EAT, SoundSource.NEUTRAL, 1,1);
+            itemInHand.setCount(itemInHand.getCount() -1 );
+        }
+    }
 }
 

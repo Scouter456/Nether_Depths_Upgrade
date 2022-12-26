@@ -1,0 +1,6 @@
+{
+  "type": "netherdepthsupgrade:warped_seagrass_feature",
+  "config": {
+    "probability": 0.3
+  }
+}

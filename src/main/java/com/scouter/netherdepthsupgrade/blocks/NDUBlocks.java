@@ -24,4 +24,5 @@ public class NDUBlocks {
     public static final RegistryObject<Block> WARPED_SEAGRASS = BLOCKS.register("warped_seagrass", () -> new LavaSeagrassBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS).noOcclusion()));
     public static final RegistryObject<Block> TALL_WARPED_SEAGRASS = BLOCKS.register("tall_warped_seagrass", () -> new TallLavaSeagrassBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS).noOcclusion()));
     public static final RegistryObject<Block> WARPED_KELP_BLOCK = BLOCKS.register("warped_kelp_block", () -> new Block(BlockBehaviour.Properties.of(Material.REPLACEABLE_WATER_PLANT, MaterialColor.COLOR_GREEN).strength(0.5F, 2.5F).sound(SoundType.WET_GRASS)));
+
 }

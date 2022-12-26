@@ -14,8 +14,6 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 
-import java.util.Random;
-
 public class WarpedSeagrassFeature extends Feature<ProbabilityFeatureConfiguration> {
     public WarpedSeagrassFeature(Codec<ProbabilityFeatureConfiguration> p_66768_) {
         super(p_66768_);

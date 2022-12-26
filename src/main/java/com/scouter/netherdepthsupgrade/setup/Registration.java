@@ -7,6 +7,8 @@ import com.scouter.netherdepthsupgrade.effect.MobEffects;
 import com.scouter.netherdepthsupgrade.enchantments.NDUEnchantments;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
+import com.scouter.netherdepthsupgrade.modcompat.FarmersDelightCompat;
+import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
 import com.scouter.netherdepthsupgrade.particle.NDUParticle;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
 import com.scouter.netherdepthsupgrade.structures.NDUStructures;
@@ -39,6 +41,11 @@ public class Registration {
         NDUConfiguredFeatures.PLACED_FEATURES.register(bus);
         NDUFeatures.FEATURES.register(bus);
 
+
+        if(ModChecker.farmersDelightPresent){
+            FarmersDelightCompat.ITEMS_FARMERS_DELIGHT.register(bus);
+            FarmersDelightCompat.BLOCKS_FARMERS_DELIGHT.register(bus);
+        }
 
     }
 

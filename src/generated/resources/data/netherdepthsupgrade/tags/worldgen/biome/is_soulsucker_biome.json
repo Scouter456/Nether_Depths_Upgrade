@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:soul_sand_valley",
+    {
+      "id": "byg:warped_desert",
+      "required": false
+    },
+    {
+      "id": "byg:wailing_garth",
+      "required": false
+    },
+    {
+      "id": "gardens_of_the_dead:soulblight_forest",
+      "required": false
+    }
+  ]
+}

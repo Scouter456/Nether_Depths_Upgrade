@@ -1,0 +1,43 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "modid": "farmersdelight",
+              "type": "forge:mod_loaded"
+            },
+            {
+              "item": "farmersdelight:cooked_rice",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:searing_cod_slice",
+              "type": "forge:item_exists"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "netherdepthsupgrade:searing_cod_slice"
+          },
+          {
+            "item": "netherdepthsupgrade:searing_cod_slice"
+          },
+          {
+            "item": "farmersdelight:cooked_rice"
+          }
+        ],
+        "result": {
+          "item": "netherdepthsupgrade:searing_cod_roll"
+        }
+      }
+    }
+  ]
+}

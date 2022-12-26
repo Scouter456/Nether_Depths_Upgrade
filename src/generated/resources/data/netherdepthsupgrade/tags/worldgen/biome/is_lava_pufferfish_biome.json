@@ -1,6 +1,15 @@
 {
+  "replace": false,
   "values": [
     "minecraft:crimson_forest",
-    "minecraft:warped_forest"
+    "minecraft:warped_forest",
+    {
+      "id": "byg:crimson_gardens",
+      "required": false
+    },
+    {
+      "id": "byg:sythian_torrids",
+      "required": false
+    }
   ]
 }

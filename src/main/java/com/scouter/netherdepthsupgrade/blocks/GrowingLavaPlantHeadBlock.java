@@ -16,8 +16,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.Random;
-
 public abstract class GrowingLavaPlantHeadBlock extends GrowingLavaPlantBlock implements BonemealableBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_25;
     public static final int MAX_AGE = 25;

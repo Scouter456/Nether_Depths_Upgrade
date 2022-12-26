@@ -17,8 +17,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.slf4j.Logger;
 
-import java.util.Random;
-
 public abstract class LavaAnimal extends PathfinderMob {
     private static final Logger LOGGER = LogUtils.getLogger();
     protected LavaAnimal(EntityType<? extends LavaAnimal> p_30341_, Level p_30342_) {

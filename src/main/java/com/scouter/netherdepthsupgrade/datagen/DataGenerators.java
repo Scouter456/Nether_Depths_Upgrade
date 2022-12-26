@@ -3,7 +3,6 @@ package com.scouter.netherdepthsupgrade.datagen;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
-import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.world.feature.NDUConfiguredFeatures;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -60,8 +59,7 @@ public class DataGenerators {
         generator.addProvider(true,new SoundsGenerator(generator, helper));
         generator.addProvider(true,new ItemTagsGenerator(generator, blockTags, helper));
         generator.addProvider(true,new ItemModelGenerator(generator, helper));
-        //generator.addProvider(true,new LanguageGenerator(generator));
-        //generator.addProvider(new AdvancementGenerator(generator, helper));
+
 
         final RegistryAccess registries = RegistryAccess.builtinCopy();
         final RegistryOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, registries);

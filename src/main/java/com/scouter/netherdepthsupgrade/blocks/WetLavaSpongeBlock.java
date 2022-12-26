@@ -14,8 +14,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
 
-import java.util.Random;
-
 public class WetLavaSpongeBlock extends Block {
     private static final Logger LOGGER = LogUtils.getLogger();
     public WetLavaSpongeBlock(Properties p_58222_) {

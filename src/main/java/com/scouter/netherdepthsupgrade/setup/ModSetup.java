@@ -5,6 +5,7 @@ import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.entity.NDUEntityPlacement;
 import com.scouter.netherdepthsupgrade.entity.entities.*;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
+import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
@@ -21,6 +22,7 @@ public class ModSetup {
 
     public static void init(FMLCommonSetupEvent event){
         event.enqueueWork(() -> {
+            ModChecker.setupModCompatCommonSetup();
             NDUEntityPlacement.entityPlacement();
 
             PotionBrewing.addMix(Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH.get(), NDUPotions.LAVA_VISION.get());

@@ -3,11 +3,15 @@ buildscript {
         // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://maven.parchmentmc.org'}
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public' }
+
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath 'org.parchmentmc:librarian:1.+'
+        classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
+
     }
 }
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
@@ -17,8 +21,10 @@ plugins {
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
+apply plugin: 'org.spongepowered.mixin'
 
-version = '1.2.1-1.19.2'
+
+version = '2.0.0-1.19.2'
 group = 'com.scouter.netherdepthsupgrade' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'netherdepthsupgrade'
 
@@ -155,6 +161,9 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
+
+    maven {url 'https://www.cursemaven.com'}
+
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
     // flatDir {
     //     dir 'libs'
@@ -165,12 +174,18 @@ dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.19.2-43.1.16'
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.19')
+    minecraft 'net.minecraftforge:forge:1.19.2-43.2.1'
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.39')
     compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}"))
     compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}"))
     runtimeOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}"))
 
+
+    implementation fg.deobf("curse.maven:farmersdelight-398521:3999157")
+    compileOnly fg.deobf("curse.maven:farmersdelight-398521:3999157")
+
+    implementation fg.deobf("curse.maven:infernalexp-395078:4002091")
+    compileOnly fg.deobf("curse.maven:infernalexp-395078:4002091")
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency

@@ -1,0 +1,47 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "modid": "farmersdelight",
+              "type": "forge:mod_loaded"
+            },
+            {
+              "item": "farmersdelight:cooked_rice",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:warped_kelp",
+              "type": "forge:item_exists"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "RXR",
+          "###"
+        ],
+        "key": {
+          "#": {
+            "item": "netherdepthsupgrade:warped_kelp"
+          },
+          "R": {
+            "item": "farmersdelight:cooked_rice"
+          },
+          "X": {
+            "item": "minecraft:carrot"
+          }
+        },
+        "result": {
+          "item": "netherdepthsupgrade:warped_kelp_roll"
+        }
+      }
+    }
+  ]
+}
