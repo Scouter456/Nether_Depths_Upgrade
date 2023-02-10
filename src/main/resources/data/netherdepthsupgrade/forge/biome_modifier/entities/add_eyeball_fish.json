@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#netherdepthsupgrade:is_eyeball_fish_biome",
+  "spawners": {
+    "type": "netherdepthsupgrade:eyeball_fish",
+    "weight": 3,
+    "minCount": 2,
+    "maxCount": 4,
+    "category": "water_ambient"
+  }
+}

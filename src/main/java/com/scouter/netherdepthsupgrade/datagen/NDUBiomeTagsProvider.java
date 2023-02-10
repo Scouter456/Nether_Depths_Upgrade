@@ -4,7 +4,10 @@ import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.utils.NDUTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BiomeTagsProvider;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class NDUBiomeTagsProvider extends BiomeTagsProvider {
@@ -19,7 +22,5 @@ public class NDUBiomeTagsProvider extends BiomeTagsProvider {
         tag(NDUTags.Biomes.IS_MAGMACUBEFISH_BIOME).add(Biomes.BASALT_DELTAS);
         tag(NDUTags.Biomes.IS_SOULSUCKER_BIOME).add(Biomes.SOUL_SAND_VALLEY);
         tag(NDUTags.Biomes.IS_OBSIDIANFISH_BIOME).add(Biomes.BASALT_DELTAS);
-
-
     }
 }

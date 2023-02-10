@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "netherdepthsupgrade:warped_kelp",
+    "netherdepthsupgrade:warped_seagrass",
+    "minecraft:crimson_fungus",
+    "minecraft:warped_fungus"
+  ]
+}

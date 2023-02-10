@@ -29,7 +29,6 @@ public class NetherDepthsUpgrade
     public static final String MODID = "netherdepthsupgrade";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public NetherDepthsUpgrade()
     {
         ModChecker.setupModCompatPreInit();

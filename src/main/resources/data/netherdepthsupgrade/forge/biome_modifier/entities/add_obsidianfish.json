@@ -1,6 +1,6 @@
 {
   "type": "forge:add_spawns",
-  "biomes": "minecraft:basalt_deltas",
+  "biomes": "#netherdepthsupgrade:is_obsidianfish_biome",
   "spawners": {
     "type": "netherdepthsupgrade:obsidianfish",
     "weight": 15,

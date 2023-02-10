@@ -61,6 +61,16 @@ public class NDUEntity {
                     .sized(0.6F, 0.6F).clientTrackingRange(4)
                     .build(prefix("soulsucker").toString()));
 
+    public static final RegistryObject<EntityType<FortressGrouperEntity>> FORTRESS_GROUPER = ENTITY_TYPES.register("fortressgrouper",
+            () -> EntityType.Builder.of(FortressGrouperEntity::new, MobCategory.WATER_AMBIENT)
+                    .sized(2F, 1.6F).clientTrackingRange(4)
+                    .build(prefix("fortressgrouper").toString()));
+
+    public static final RegistryObject<EntityType<EyeballfishEntity>> EYEBALL_FISH = ENTITY_TYPES.register("eyeball_fish",
+            () -> EntityType.Builder.of(EyeballfishEntity::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.7F, 0.7F).clientTrackingRange(4)
+                    .build(prefix("eyeball_fish").toString()));
+
     public static final RegistryObject<EntityType<LavaFishingBobberEntity>> LAVA_BOBBER = ENTITY_TYPES.register("lava_fishing_bobber",
             () -> EntityType.Builder.<LavaFishingBobberEntity>createNothing(MobCategory.MISC)
                     .fireImmune().noSave().noSummon().sized(0.25F, 0.25F)

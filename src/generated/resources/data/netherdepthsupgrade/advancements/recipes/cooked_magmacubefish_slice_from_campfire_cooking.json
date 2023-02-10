@@ -1,0 +1,59 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "modid": "farmersdelight",
+              "type": "forge:mod_loaded"
+            },
+            {
+              "item": "netherdepthsupgrade:magmacubefish_slice",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:cooked_magmacubefish_slice",
+              "type": "forge:item_exists"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:cooked_magmacubefish_slice_from_campfire_cooking"
+          ]
+        },
+        "criteria": {
+          "cooked_magmacubefish_slice": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "netherdepthsupgrade:magmacubefish_slice"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "netherdepthsupgrade:cooked_magmacubefish_slice_from_campfire_cooking"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "cooked_magmacubefish_slice",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

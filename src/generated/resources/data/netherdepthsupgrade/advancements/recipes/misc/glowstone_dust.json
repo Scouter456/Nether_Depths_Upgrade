@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "netherdepthsupgrade:glowstone_dust"
+    ]
+  },
+  "criteria": {
+    "has_glowdine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "netherdepthsupgrade:glowdine"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "netherdepthsupgrade:glowstone_dust"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_glowdine",
+      "has_the_recipe"
+    ]
+  ]
+}

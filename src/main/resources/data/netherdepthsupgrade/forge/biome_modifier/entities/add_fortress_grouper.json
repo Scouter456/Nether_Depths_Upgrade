@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#netherdepthsupgrade:is_fortress_grouper_biome",
+  "spawners": {
+    "type": "netherdepthsupgrade:fortressgrouper",
+    "weight": 3,
+    "minCount": 1,
+    "maxCount": 2,
+    "category": "water_ambient"
+  }
+}

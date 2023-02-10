@@ -22,7 +22,9 @@ import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -39,6 +41,8 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, IAnimationTickable {
     private static final EntityDataAccessor<BlockPos> SOULSAND_POS = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.BLOCK_POS);
@@ -307,6 +311,14 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
                 ServerLevel serverlevel = (ServerLevel) this.mob.level;
                 this.mob.getNavigation().stop();
                 BlockPos blockpos = this.mob.blockPosition();
+
+               //List<BlockState> blockStateList = serverlevel.getBlockStatesIfLoaded(this.mob.getBoundingBox().inflate(5)).filter((state) -> {
+               //    return state.is(Blocks.SOUL_SAND);
+               //}).collect(Collectors.toList());
+               //BlockPos.betweenClosedStream(aabb).filter(blockPos -> serverlevel.getBlockState(blockPos).is(Blocks.SOUL_SAND) && serverlevel.getBlockState(blockPos.above()).is(Blocks.LAVA) && !this.mob.level.getFluidState(blockPos.below()).is(Fluids.LAVA))
+               //        .forEach(blockPos -> {soulSandList.add(blockPos.immutable());});
+
+
                 for (int x = -5; x < 5; x++) {
                     for (int y = 0; y < 10; y++) {
                         for (int z = -5; z < 5; z++) {
@@ -321,6 +333,7 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
                         }
                     }
                 }
+
 
                 if (soulSandList.size() > 0) {
 
@@ -341,6 +354,7 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
             this.mob.setSeekSoulSandTimer(500);
             this.mob.setCooldownTimer(this.mob.getSeekSoulSandTimer());
             this.mob.fishSwimGoal.trigger();
+            soulSandList.clear();
             suckCounter = 0;
             counter = 0;
             i = 0;
