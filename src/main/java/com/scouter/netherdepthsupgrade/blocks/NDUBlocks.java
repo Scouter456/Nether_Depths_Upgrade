@@ -3,7 +3,7 @@ package com.scouter.netherdepthsupgrade.blocks;
 import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HalfTransparentBlock;
+import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -25,5 +25,8 @@ public class NDUBlocks {
     public static final RegistryObject<Block> WARPED_SEAGRASS = BLOCKS.register("warped_seagrass", () -> new LavaSeagrassBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS).noOcclusion()));
     public static final RegistryObject<Block> TALL_WARPED_SEAGRASS = BLOCKS.register("tall_warped_seagrass", () -> new TallLavaSeagrassBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_WATER_PLANT).noCollission().instabreak().sound(SoundType.WET_GRASS).noOcclusion()));
     public static final RegistryObject<Block> WARPED_KELP_BLOCK = BLOCKS.register("warped_kelp_block", () -> new Block(BlockBehaviour.Properties.of(Material.REPLACEABLE_WATER_PLANT, MaterialColor.COLOR_GREEN).strength(0.5F, 2.5F).sound(SoundType.WET_GRASS)));
-    //public static final RegistryObject<Block> LAVA_GLASS = BLOCKS.register("lava_glass", () -> new LavaGlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(0.6F).sound(SoundType.GLASS).noOcclusion()));
+
+    public static final RegistryObject<Block> WARPED_KELP_CARPET_BLOCK = BLOCKS.register("warped_kelp_carpet_block", () -> new CarpetBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_WATER_PLANT, MaterialColor.COLOR_GREEN).strength(0.1F).sound(SoundType.WET_GRASS)));
+
+    public static final RegistryObject<Block> LAVA_GLASS = BLOCKS.register("lava_glass", () -> new LavaGlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(0.6F).sound(SoundType.GLASS).noOcclusion()));
 }

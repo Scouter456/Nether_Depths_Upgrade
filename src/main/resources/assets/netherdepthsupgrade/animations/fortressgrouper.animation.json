@@ -1,0 +1,41 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"fortressgrouper.moving": {
+			"loop": true,
+			"bones": {
+				"Tail": {
+					"rotation": {
+						"vector": [0, "math.sin(query.anim_time*200)*5", 0]
+					}
+				},
+				"Tail_middle": {
+					"rotation": {
+						"vector": [0, "math.sin(query.anim_time*200)*5", 0]
+					}
+				},
+				"Tail_fin": {
+					"rotation": {
+						"vector": [0, "math.sin(query.anim_time*200)*10", 0]
+					}
+				},
+				"Left_fin": {
+					"rotation": {
+						"vector": [0, 0, "(math.sin(query.anim_time*250)*6)+(math.cos(query.anim_time*250)*3)"]
+					}
+				},
+				"Right_fin": {
+					"rotation": {
+						"vector": [0, 0, "-((math.sin(query.anim_time*250)*6)+(math.cos(query.anim_time*250)*3))"]
+					}
+				},
+				"Dorsal_fin": {
+					"rotation": {
+						"vector": [0, 0, "math.sin(query.anim_time*200)*3"]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

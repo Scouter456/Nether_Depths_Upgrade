@@ -1,0 +1,16 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"netherurchin.moving": {
+			"loop": true,
+			"bones": {
+				"NetherUrchin": {
+					"position": {
+						"vector": [0, "math.sin(query.anim_time*100)*0.08", 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

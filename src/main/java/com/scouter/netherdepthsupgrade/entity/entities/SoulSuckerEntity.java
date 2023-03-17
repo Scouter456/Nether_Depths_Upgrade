@@ -402,9 +402,9 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
                     this.mob.getNavigation().moveTo(soulSandList.get(i).getX(), soulSandList.get(i).getY() + 0.5, soulSandList.get(i).getZ(), 1.0F);
 
                 } else {
-                    BlockPos blockPos = new BlockPos(this.mob.blockPosition().getX() + rand.nextInt(-5, 5), this.mob.blockPosition().getY() + +rand.nextInt(0, 3), this.mob.blockPosition().getZ() + +rand.nextInt(-5, 5));
+                    BlockPos blockPos = new BlockPos(this.mob.blockPosition().getX() + rand.nextInt(-5, 5), this.mob.blockPosition().getY() + rand.nextInt(0, 3), this.mob.blockPosition().getZ() + rand.nextInt(-5, 5));
                     if (this.mob.level.getFluidState(blockPos).is(Fluids.LAVA)) {
-                        this.mob.getNavigation().moveTo(this.mob.blockPosition().getX() + rand.nextInt(-5, 5), this.mob.blockPosition().getY() + +rand.nextInt(0, 3), this.mob.blockPosition().getZ() + +rand.nextInt(-5, 5), 1.0F);
+                        this.mob.getNavigation().moveTo(this.mob.blockPosition().getX() + rand.nextInt(-5, 5), this.mob.blockPosition().getY() + rand.nextInt(0, 3), this.mob.blockPosition().getZ() + rand.nextInt(-5, 5), 1.0F);
                     }
                     this.mob.setSeekSoulSandTimer(500);
                     this.stop();

@@ -1,15 +1,9 @@
 package com.scouter.netherdepthsupgrade.entity.entities;
 
-import com.scouter.netherdepthsupgrade.entity.AbstractLavaFish;
 import com.scouter.netherdepthsupgrade.entity.AbstractLavaSchoolingFish;
-import com.scouter.netherdepthsupgrade.entity.ai.FollowLavaFlockLeaderGoal;
 import com.scouter.netherdepthsupgrade.entity.ai.LavaFishJumpGoal;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.particle.NDUParticle;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;

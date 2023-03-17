@@ -1,0 +1,81 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "modid": "farmersdelight",
+              "type": "forge:mod_loaded"
+            },
+            {
+              "item": "farmersdelight:cooked_rice",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:warped_kelp_roll_slice",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:lava_pufferfish_roll",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:searing_cod_roll",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:magmacubefish_roll",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:glowdine_roll",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:soulsucker_roll",
+              "type": "forge:item_exists"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "netherdepthsupgrade:warped_kelp_roll_slice"
+          },
+          {
+            "item": "netherdepthsupgrade:warped_kelp_roll_slice"
+          },
+          {
+            "item": "netherdepthsupgrade:warped_kelp_roll_slice"
+          },
+          {
+            "item": "netherdepthsupgrade:lava_pufferfish_roll"
+          },
+          {
+            "item": "netherdepthsupgrade:searing_cod_roll"
+          },
+          {
+            "item": "netherdepthsupgrade:magmacubefish_roll"
+          },
+          {
+            "item": "netherdepthsupgrade:glowdine_roll"
+          },
+          {
+            "item": "minecraft:bowl"
+          },
+          {
+            "item": "netherdepthsupgrade:soulsucker_roll"
+          }
+        ],
+        "result": {
+          "item": "netherdepthsupgrade:nether_rice_roll_medley_block"
+        }
+      }
+    }
+  ]
+}

@@ -3,7 +3,6 @@ package com.scouter.netherdepthsupgrade.items;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class NDUMaterialInit {

@@ -2,18 +2,35 @@ package com.scouter.netherdepthsupgrade.modcompat;
 
 import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
+import com.scouter.netherdepthsupgrade.items.NDUDescriptionBlockItem;
 import com.scouter.netherdepthsupgrade.items.NDUDescriptionItem;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
-import vectorwing.farmersdelight.common.FoodValues;
+import vectorwing.farmersdelight.common.block.FeastBlock;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class FarmersDelightCompat {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -31,6 +48,8 @@ public class FarmersDelightCompat {
 
 
     public static final DeferredRegister<Item> ITEMS_FARMERS_DELIGHT = DeferredRegister.create(ForgeRegistries.ITEMS, NetherDepthsUpgrade.MODID);
+    public static final DeferredRegister<Block> BLOCKS_FARMERS_DELIGHT = DeferredRegister.create(ForgeRegistries.BLOCKS, NetherDepthsUpgrade.MODID);
+
     //SLICES
     public static final RegistryObject<Item> LAVA_PUFFERFISH_SLICE = ITEMS_FARMERS_DELIGHT.register("lava_pufferfish_slice", () -> new NDUDescriptionItem(foodBuilder().fireResistant().food(FarmersDelightCompatFoods.LAVA_PUFFERFISH_SLICE)
             , new TranslatableComponent("item.netherdepthsupgrade.lava_pufferfish_slice.flavor_text").withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.ITALIC)));
@@ -158,11 +177,58 @@ public class FarmersDelightCompat {
     public static final RegistryObject<Item> BAKED_SOULSUCKER_STEW = ITEMS_FARMERS_DELIGHT.register("baked_soulsucker_stew", () -> new NDUDescriptionItem(foodBuilder().fireResistant().food(FarmersDelightCompatFoods.BAKED_SOULSUCKER_STEW)
             , new TranslatableComponent("item.netherdepthsupgrade.baked_soulsucker_stew.flavor_text").withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.ITALIC)));
 
+    //BLOCKS
+    public static final RegistryObject<Block> NETHER_RICE_ROLL_MEDLEY_BLOCK = BLOCKS_FARMERS_DELIGHT.register("nether_rice_roll_medley_block", () -> new NetherRiceRollMedleyBlock(Block.Properties.copy(Blocks.CAKE)));
+
+    //BLOCKITEM
+    public static final RegistryObject<Item> NETHER_RICE_ROLL_MEDLEY_BLOCKITEM = fromBlockFireRes(NETHER_RICE_ROLL_MEDLEY_BLOCK);
+
+    public static <B extends Block> RegistryObject<Item> fromBlockFireRes(RegistryObject<B> block) {
+        return ITEMS_FARMERS_DELIGHT.register(block.getId().getPath(), () -> new NDUDescriptionBlockItem(block.get(), foodBuilder().fireResistant()
+                , new TranslatableComponent("item.netherdepthsupgrade.nether_rice_roll_medley_block.flavor_text").withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.ITALIC)));
+
+    }
 
     public static CreativeModeTab creativeTabFood = new CreativeModeTab("netherdepthsupgrade_food") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(SOULSUCKER_SLICE.get());
+            return new ItemStack(NETHER_RICE_ROLL_MEDLEY_BLOCKITEM.get());
         }
     };
+
+    static class NetherRiceRollMedleyBlock extends FeastBlock{
+        public static final IntegerProperty ROLL_SERVINGS = IntegerProperty.create("servings", 0, 8);
+        protected static final VoxelShape PLATE_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 2.0, 15.0);
+        protected static final VoxelShape FOOD_SHAPE;
+        public final List<Supplier<Item>> riceRollServings;
+
+        public NetherRiceRollMedleyBlock(Properties properties) {
+            super(properties, FarmersDelightCompat.SOULSUCKER_ROLL, true);
+            this.riceRollServings = Arrays.asList(FarmersDelightCompat.GLOWDINE_ROLL, FarmersDelightCompat.LAVA_PUFFERFISH_ROLL, FarmersDelightCompat.SEARING_COD_ROLL, FarmersDelightCompat.SOULSUCKER_ROLL, FarmersDelightCompat.MAGMA_CUBE_FISH_ROLL, FarmersDelightCompat.WARPED_KELP_ROLL_SLICE, FarmersDelightCompat.WARPED_KELP_ROLL_SLICE, FarmersDelightCompat.WARPED_KELP_ROLL_SLICE);
+        }
+
+        public IntegerProperty getServingsProperty() {
+            return ROLL_SERVINGS;
+        }
+
+        public int getMaxServings() {
+            return 8;
+        }
+
+        public ItemStack getServingItem(BlockState state) {
+            return new ItemStack((ItemLike)((Supplier)this.riceRollServings.get((Integer)state.getValue(this.getServingsProperty()) - 1)).get());
+        }
+
+        public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return (Integer)state.getValue(this.getServingsProperty()) == 0 ? PLATE_SHAPE : FOOD_SHAPE;
+        }
+
+        protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+            builder.add(new Property[]{FACING, ROLL_SERVINGS});
+        }
+
+        static {
+            FOOD_SHAPE = Shapes.joinUnoptimized(PLATE_SHAPE, Block.box(2.0, 2.0, 2.0, 14.0, 4.0, 14.0), BooleanOp.OR);
+        }
+    }
 }

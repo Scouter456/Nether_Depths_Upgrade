@@ -32,6 +32,8 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(NDUBlocks.WARPED_KELP, "Warped Kelp");
         addBlock(NDUBlocks.WARPED_SEAGRASS, "Warped Seagrass");
         addBlock(NDUBlocks.WARPED_KELP_BLOCK, "Warped Kelp Block");
+        addBlock(NDUBlocks.WARPED_KELP_CARPET_BLOCK, "Warped Kelp Carpet");
+        addBlock(NDUBlocks.LAVA_GLASS, "Lava Glass");
         //EGGS
         addItem(NDUItems.LAVA_PUFFERFISH_SPAWN_EGG, "Lava Pufferfish Spawn Egg");
         addItem(NDUItems.OBSIDIANFISH_SPAWN_EGG, "Obsidianfish Spawn Egg");
@@ -42,7 +44,11 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(NDUItems.MAGMACUBEFISH_SPAWN_EGG, "Magma Cube fish Spawn Egg");
         addItem(NDUItems.GLOWDINE_SPAWN_EGG, "Glowdine Spawn Egg");
         addItem(NDUItems.SOULSUCKER_SPAWN_EGG, "Soul Sucker Spawn Egg");
+        addItem(NDUItems.FORTRESS_GROUPER_SPAWN_EGG, "Fortress Grouper Spawn Egg");
+        addItem(NDUItems.NETHER_URCHIN_SPAWN_EGG, "Nether Urchin Spawn Egg");
+        addItem(NDUItems.EYEBALL_FISH_SPAWN_EGG, "Eyeball Fish Spawn Egg");
         addItem(NDUItems.LAVA_FISHING_ROD, "Lava Fishing Rod");
+
         //POTIONS
         addPotion(NDUPotions.LAVA_VISION, "Potion of Lava Vision");
         addPotion(NDUPotions.LONG_LAVA_VISION, "Potion of Lava Vision");
@@ -57,6 +63,8 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(NDUEntity.MAGMACUBEFISH, "Magma Cube fish");
         addEntityType(NDUEntity.GLOWDINE, "Glowdine");
         addEntityType(NDUEntity.SOULSUCKER, "Soul Sucker");
+        addEntityType(NDUEntity.FORTRESS_GROUPER, "Fortress Grouper");
+        addEntityType(NDUEntity.NETHER_URCHIN, "Nether Urchin");
         addEntityType(NDUEntity.LAVA_BOBBER, "Lava Bobber");
 
         addItem(NDUItems.LAVA_PUFFERFISH_BUCKET, "Bucket of Lava Pufferfish");
@@ -77,6 +85,12 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(NDUItems.GLOWDINE, "Glowdine");
         addItem(NDUItems.SOULSUCKER_BUCKET, "Bucket of Soul Sucker");
         addItem(NDUItems.SOULSUCKER, "Soul Sucker");
+        addItem(NDUItems.NETHER_URCHIN_BUCKET, "Bucket of Nether Urchin");
+        addItem(NDUItems.NETHER_URCHIN, "Nether Urchin");
+        addItem(NDUItems.FORTRESS_GROUPER_BUCKET, "Bucket of Fortress Grouper");
+        addItem(NDUItems.FORTRESS_GROUPER, "Fortress Grouper");
+        addItem(NDUItems.EYEBALL_FISH_BUCKET, "Bucket of Eyeball Fish");
+        addItem(NDUItems.EYEBALL_FISH, "Eyeball Fish");
         addItem(NDUItems.SOUL_SUCKER_BOOTS, "Soul Sucker Boots");
         addItem(NDUItems.SOUL_SUCKER_LEATHER, "Soul Sucker Leather");
 
@@ -116,7 +130,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(FarmersDelightCompat.OBSIDIANFISH_ROLL, "Obsidianfish Roll");
         addItem(FarmersDelightCompat.WARPED_KELP_ROLL_SLICE, "Warped Kelp Roll Slice");
         addItem(FarmersDelightCompat.WARPED_KELP_ROLL, "Warped Kelp Roll");
-
+        addItem(FarmersDelightCompat.NETHER_RICE_ROLL_MEDLEY_BLOCKITEM, "Nether Rice Roll Medley");
 
 
 
@@ -169,6 +183,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("item.netherdepthsupgrade.grilled_lava_pufferfish.flavor_text", "Indulge in the fiery flavor of grilled lava pufferfish, infused with sweet berries, crunchy cabbage, and savory onions, and gain the power of lava vision with every bite.");
         add("item.netherdepthsupgrade.warped_kelp_roll_slice.flavor_text", "Sliced from the popular warped kelp roll, this bite-sized piece packs a punch of flavor, with a hint of the bizarre and unexpected. Enjoy the combination of creamy rice, and crisp carrots, all wrapped up in a delicate warped kelp wrapper.");
         add("item.netherdepthsupgrade.warped_kelp_roll.flavor_text", "Indulge in the savory and slightly bizarre flavors of the signature warped kelp roll, made with tender strands of kelp, fluffy cooked rice, and crunchy carrots, all wrapped up in a perfectly crispy warped kelp wrapper.");
+        add("item.netherdepthsupgrade.nether_rice_roll_medley_block.flavor_text", "The nether rice roll medley is a true feast for the senses. Featuring a combination of warped kelp roll, magma cube fish roll, soulsucker roll, searing cod roll, lava pufferfish roll and glowdine roll, this block is sure to satisfy even the most adventurous palate.");
 
         add("item.netherdepthsupgrade.descriptionitem.hover_info", "Press shift for more info!");
     }

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.scouter.netherdepthsupgrade.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "LavaFluidMixin"
+  ],
+  "client": [
+
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

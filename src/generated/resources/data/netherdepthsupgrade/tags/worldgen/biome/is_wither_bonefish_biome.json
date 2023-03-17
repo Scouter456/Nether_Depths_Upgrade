@@ -2,6 +2,14 @@
   "replace": false,
   "values": [
     "minecraft:crimson_forest",
-    "minecraft:soul_sand_valley"
+    "minecraft:soul_sand_valley",
+    {
+      "id": "byg:subzero_hypogeal",
+      "required": false
+    },
+    {
+      "id": "gardens_of_the_dead:whistling_woods",
+      "required": false
+    }
   ]
 }

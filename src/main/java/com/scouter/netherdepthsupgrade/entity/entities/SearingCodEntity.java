@@ -2,7 +2,6 @@ package com.scouter.netherdepthsupgrade.entity.entities;
 
 
 import com.scouter.netherdepthsupgrade.entity.AbstractLavaSchoolingFish;
-import com.scouter.netherdepthsupgrade.entity.ai.FollowLavaFlockLeaderGoal;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;

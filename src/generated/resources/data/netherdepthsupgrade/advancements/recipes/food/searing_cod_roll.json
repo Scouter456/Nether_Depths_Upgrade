@@ -1,0 +1,59 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "modid": "farmersdelight",
+              "type": "forge:mod_loaded"
+            },
+            {
+              "item": "farmersdelight:cooked_rice",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:searing_cod_slice",
+              "type": "forge:item_exists"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:food/searing_cod_roll"
+          ]
+        },
+        "criteria": {
+          "has_searing_cod_slice": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "netherdepthsupgrade:searing_cod_slice"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "netherdepthsupgrade:food/searing_cod_roll"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_searing_cod_slice",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "modid": "farmersdelight",
+              "type": "forge:mod_loaded"
+            },
+            {
+              "item": "farmersdelight:cabbage",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "farmersdelight:onion",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:cooked_soulsucker_slice",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:grilled_soulsucker",
+              "type": "forge:item_exists"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:food/grilled_soulsucker"
+          ]
+        },
+        "criteria": {
+          "has_soulsucker": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "netherdepthsupgrade:soulsucker"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "netherdepthsupgrade:food/grilled_soulsucker"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_soulsucker",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -6,14 +6,10 @@ import com.scouter.netherdepthsupgrade.entity.NDUEntityPlacement;
 import com.scouter.netherdepthsupgrade.entity.entities.*;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
-import com.scouter.netherdepthsupgrade.particle.GlowdineParticle;
-import com.scouter.netherdepthsupgrade.particle.NDUParticle;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -26,6 +22,7 @@ public class ModSetup {
 
     public static void init(FMLCommonSetupEvent event){
         event.enqueueWork(() -> {
+            ModChecker.setupModCompatCommonSetup();
             NDUEntityPlacement.entityPlacement();
        //     BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(
        //             Ingredient.of((ItemLike) Potions.AWKWARD), NDUItems.LAVA_PUFFERFISH.get(), NDUPotions.LAVA_VISION.get()));
@@ -33,8 +30,6 @@ public class ModSetup {
         //            NDUPotions.LAVA_VISION.get(), Items.REDSTONE, NDUPotions.LONG_LAVA_VISION.get()));
             PotionBrewing.addMix(Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH.get(), NDUPotions.LAVA_VISION.get());
             PotionBrewing.addMix(NDUPotions.LAVA_VISION.get(), Items.REDSTONE, NDUPotions.LONG_LAVA_VISION.get());
-
-
         });
 
 
@@ -57,6 +52,9 @@ public class ModSetup {
         event.put(NDUEntity.MAGMACUBEFISH.get(), MagmaCubefishEntity.setAttributes());
         event.put(NDUEntity.GLOWDINE.get(), GlowdineEntity.setAttributes());
         event.put(NDUEntity.SOULSUCKER.get(), SoulSuckerEntity.setAttributes());
+        event.put(NDUEntity.FORTRESS_GROUPER.get(), FortressGrouperEntity.setAttributes());
+        event.put(NDUEntity.NETHER_URCHIN.get(),NetherUrchinEntity.setAttributes());
+        event.put(NDUEntity.EYEBALL_FISH.get(),EyeballfishEntity.setAttributes());
     }
 
 

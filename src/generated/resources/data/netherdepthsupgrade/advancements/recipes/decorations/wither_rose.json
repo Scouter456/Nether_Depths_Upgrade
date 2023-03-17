@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:wither_rose"
+      "netherdepthsupgrade:wither_rose"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:wither_rose"
+        "recipe": "netherdepthsupgrade:wither_rose"
       }
     }
   },

@@ -1,0 +1,51 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [22, 16],
+	"textures": {
+		"4": "netherdepthsupgrade:block/farmersdelight_compat/nether_rice_roll_medley",
+		"tray_top": "farmersdelight:block/tray_top",
+		"tray_bottom": "farmersdelight:block/tray_bottom",
+		"particle": "netherdepthsupgrade:block/farmersdelight_compat/nether_rice_roll_medley"
+	},
+	"elements": [
+		{
+			"name": "tray",
+			"from": [1, 0, 1],
+			"to": [15, 2, 15],
+			"faces": {
+				"north": {"uv": [1, 11, 15, 13], "texture": "#tray_bottom"},
+				"east": {"uv": [1, 11, 15, 13], "texture": "#tray_bottom"},
+				"south": {"uv": [1, 11, 15, 13], "texture": "#tray_bottom"},
+				"west": {"uv": [1, 11, 15, 13], "texture": "#tray_bottom"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#tray_top"},
+				"down": {"uv": [1, 1, 15, 15], "texture": "#tray_top"}
+			}
+		},
+		{
+			"name": "lava_pufferfish roll 1",
+			"from": [2, 2, 9],
+			"to": [4, 4, 14],
+			"faces": {
+				"north": {"uv": [10.90909, 14, 12.36364, 16], "texture": "#4"},
+				"east": {"uv": [12.36364, 9, 16, 11], "texture": "#4"},
+				"south": {"uv": [10.90909, 14, 12.36364, 16], "texture": "#4"},
+				"west": {"uv": [12.36364, 9, 16, 11], "texture": "#4"},
+				"up": {"uv": [10.90909, 9, 12.36364, 14], "texture": "#4"},
+				"down": {"uv": [10.90909, 9, 12.36364, 14], "texture": "#4"}
+			}
+		},
+		{
+			"name": "glowdine roll 2",
+			"from": [5, 2, 9],
+			"to": [7, 4, 14],
+			"faces": {
+				"north": {"uv": [5.09091, 14, 6.54545, 16], "texture": "#4"},
+				"east": {"uv": [6.54545, 9, 10.18182, 11], "texture": "#4"},
+				"south": {"uv": [5.09091, 14, 6.54545, 16], "texture": "#4"},
+				"west": {"uv": [6.54545, 9, 10.18182, 11], "texture": "#4"},
+				"up": {"uv": [5.09091, 9, 6.54545, 14], "texture": "#4"},
+				"down": {"uv": [5.09091, 9, 6.54545, 14], "texture": "#4"}
+			}
+		}
+	]
+}

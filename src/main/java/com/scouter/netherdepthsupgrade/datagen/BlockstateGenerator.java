@@ -38,7 +38,8 @@ public class BlockstateGenerator extends BlockStateProvider {
     protected void registerStatesAndModels(){
         simpleBlock(NDUBlocks.LAVA_SPONGE.get());
         simpleBlock(NDUBlocks.WET_LAVA_SPONGE.get());
-        //simpleBlock(NDUBlocks.LAVA_GLASS.get());
+
+        simpleBlock(NDUBlocks.LAVA_GLASS.get());
         //horizontalBlock(NDUBlocks.NIGHTMARE.get(), models().orientableVertical(NDUBlocks.NIGHTMARE.getId().getPath(), prefix("block/nightmare_side"), prefix("block/nightmare_fron")));
     }
 

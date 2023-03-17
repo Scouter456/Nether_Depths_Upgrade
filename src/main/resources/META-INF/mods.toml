@@ -17,7 +17,7 @@ This is a mod that gives the lava depths in the nether a little upgrade
 [[dependencies.geckolib]]
 modId="geckolib3"
 mandatory=true
-versionRange="[3.0.26,)"
+versionRange="[3.0.57,)"
 ordering="BEFORE"
 side="BOTH"
 [[dependencies.netherdepthsupgrade]]

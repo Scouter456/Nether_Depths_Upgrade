@@ -1,0 +1,67 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "modid": "farmersdelight",
+              "type": "forge:mod_loaded"
+            },
+            {
+              "item": "farmersdelight:cabbage",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "farmersdelight:onion",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:searing_cod_slice",
+              "type": "forge:item_exists"
+            },
+            {
+              "item": "netherdepthsupgrade:grilled_searing_cod",
+              "type": "forge:item_exists"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:food/grilled_searing_cod"
+          ]
+        },
+        "criteria": {
+          "has_searing_cod": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "netherdepthsupgrade:searing_cod"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "netherdepthsupgrade:food/grilled_searing_cod"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_searing_cod",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

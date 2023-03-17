@@ -62,4 +62,16 @@ public class NDUFoods {
             .effect( () ->new MobEffectInstance(MobEffects.WEAKNESS, 1000, 0), 0.7F)
             .effect( () ->new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 800, 1), 0.5F)
             .build();
+
+    public static final FoodProperties FORTRESS_GROUPER = new FoodProperties.Builder()
+            .nutrition(1)
+            .saturationMod(1.2F)
+            .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 400, 0), 0.8F)
+            .build();
+
+    public static final FoodProperties NETHER_URCHIN = new FoodProperties.Builder()
+            .nutrition(1)
+            .saturationMod(1.2F)
+            .effect(() -> new MobEffectInstance(MobEffects.HEALTH_BOOST, 400, 0), 0.8F)
+            .build();
 }

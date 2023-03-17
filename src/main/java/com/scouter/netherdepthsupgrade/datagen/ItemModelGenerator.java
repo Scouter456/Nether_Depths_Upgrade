@@ -49,12 +49,18 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(NDUItems.SOULSUCKER_BUCKET);
         singleTex(NDUItems.SOULSUCKER);
         singleTex(NDUItems.SOUL_SUCKER_LEATHER);
-
+        singleTex(NDUItems.FORTRESS_GROUPER);
+        singleTex(NDUItems.FORTRESS_GROUPER_BUCKET);
+        singleTex(NDUItems.NETHER_URCHIN);
+        singleTex(NDUItems.NETHER_URCHIN_BUCKET);
+        singleTex(NDUItems.EYEBALL_FISH);
+        singleTex(NDUItems.EYEBALL_FISH_BUCKET);
 
         toBlock(NDUBlocks.LAVA_SPONGE.get());
         toBlock(NDUBlocks.WET_LAVA_SPONGE.get());
         toBlock(NDUBlocks.WARPED_KELP_BLOCK.get());
-        //toBlock(NDUBlocks.LAVA_GLASS.get());
+        toBlock(NDUBlocks.WARPED_KELP_CARPET_BLOCK.get());
+        toBlock(NDUBlocks.LAVA_GLASS.get());
 
         singleTexFood(FarmersDelightCompat.BAKED_BLAZEFISH_STEW);
         singleTexFood(FarmersDelightCompat.BAKED_GLOWDINE_STEW);
@@ -91,6 +97,8 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTexFood(FarmersDelightCompat.GRILLED_SOULSUCKER);
         singleTexFood(FarmersDelightCompat.WARPED_KELP_ROLL_SLICE);
         singleTexFood(FarmersDelightCompat.WARPED_KELP_ROLL);
+        singleTexFood(FarmersDelightCompat.NETHER_RICE_ROLL_MEDLEY_BLOCKITEM);
+
     }
     private void toBlock(Block b) {
         toBlockModel(b, b.getRegistryName().getPath());

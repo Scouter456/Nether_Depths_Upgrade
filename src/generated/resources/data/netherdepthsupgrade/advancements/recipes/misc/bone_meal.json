@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:blaze_powder"
+      "netherdepthsupgrade:bone_meal"
     ]
   },
   "criteria": {
-    "has_blazefish": {
+    "has_bonefish": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "netherdepthsupgrade:blazefish"
+              "netherdepthsupgrade:bonefish"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:blaze_powder"
+        "recipe": "netherdepthsupgrade:bone_meal"
       }
     }
   },
   "requirements": [
     [
-      "has_blazefish",
+      "has_bonefish",
       "has_the_recipe"
     ]
   ]

@@ -1,13 +1,11 @@
 package com.scouter.netherdepthsupgrade.datagen;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
-import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.utils.NDUTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class NDUBiomeTagsProvider extends BiomeTagsProvider {
@@ -20,7 +18,8 @@ public class NDUBiomeTagsProvider extends BiomeTagsProvider {
                 .addOptional(new ResourceLocation("byg", "crimson_gardens"))
                 .addOptional(new ResourceLocation("byg", "sythian_torrids"));
         tag(NDUTags.Biomes.IS_WITHER_BONEFISH_BIOME).add(Biomes.CRIMSON_FOREST).add(Biomes.SOUL_SAND_VALLEY)
-                .addOptional(new ResourceLocation("byg", "subzero_hypogeal"));
+                .addOptional(new ResourceLocation("byg", "subzero_hypogeal"))
+                .addOptional(new ResourceLocation("gardens_of_the_dead", "whistling_woods"));
         tag(NDUTags.Biomes.IS_GLOWDINE_BIOME)
                 .add(Biomes.BASALT_DELTAS)
                 .add(Biomes.SOUL_SAND_VALLEY)
@@ -32,7 +31,8 @@ public class NDUBiomeTagsProvider extends BiomeTagsProvider {
                 .addOptional(new ResourceLocation("byg", "magma_wastes"));
         tag(NDUTags.Biomes.IS_SOULSUCKER_BIOME).add(Biomes.SOUL_SAND_VALLEY)
                 .addOptional(new ResourceLocation("byg", "warped_desert"))
-                .addOptional(new ResourceLocation("byg", "wailing_garth"));
+                .addOptional(new ResourceLocation("byg", "wailing_garth"))
+                .addOptional(new ResourceLocation("gardens_of_the_dead", "soulblight_forest"));
         tag(NDUTags.Biomes.IS_OBSIDIANFISH_BIOME).add(Biomes.BASALT_DELTAS)
                 .addOptional(new ResourceLocation("byg", "brimstone_caverns"));
     }
