@@ -14,7 +14,7 @@
               "add": false
             }
           ],
-          "name": "netherdepthsupgrade:nether_urchin"
+          "name": "netherdepthsupgrade:eyeball_fish"
         }
       ]
     },
@@ -24,13 +24,20 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:crimson_fungus"
+          "name": "netherdepthsupgrade:eyeball"
+        }
+      ],
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": 2.0,
+          "add": false
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.05
+          "chance": 0.15
         }
       ]
     }

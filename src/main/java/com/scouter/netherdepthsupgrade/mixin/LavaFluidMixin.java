@@ -25,18 +25,11 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(LiquidBlockRenderer.class)
 public class LavaFluidMixin {
-    //Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;
 
         @Inject(method = "shouldRenderFace(Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/material/FluidState;)Z", at = @At("RETURN"))
-        private static boolean renderFace(BlockAndTintGetter level, BlockPos pos, FluidState fluidState, BlockState blockState, Direction side, FluidState neighborFluid, CallbackInfoReturnable ci) {
-            return !LiquidBlockRenderer.isFaceOccludedBySelf(level, pos, blockState, side) && !LiquidBlockRenderer.isNeighborSameFluid(fluidState, neighborFluid) && !level.getBlockState(pos.relative(side)).is(NDUBlocks.LAVA_GLASS.get()) && level.getBlockState(pos).getFluidState().is(FluidTags.LAVA) || !LiquidBlockRenderer.isFaceOccludedBySelf(level, pos, blockState, side) && !LiquidBlockRenderer.isNeighborSameFluid(fluidState, neighborFluid) && !level.getBlockState(pos).getFluidState().is(FluidTags.LAVA);
+        private static boolean netherdepthsupgrade$renderFace(BlockAndTintGetter level, BlockPos pos, FluidState fluidState, BlockState blockState, Direction side, FluidState neighborFluid, CallbackInfoReturnable ci) {
+            return !LiquidBlockRenderer.isFaceOccludedBySelf(level, pos, blockState, side) && !LiquidBlockRenderer.isNeighborSameFluid(fluidState, neighborFluid) && !level.getBlockState(pos.relative(side)).is(NDUBlocks.LAVA_GLASS.get()) && level.getBlockState(pos).getFluidState().is(FluidTags.LAVA) ||
+                    !LiquidBlockRenderer.isFaceOccludedBySelf(level, pos, blockState, side) && !LiquidBlockRenderer.isNeighborSameFluid(fluidState, neighborFluid) && !level.getBlockState(pos).getFluidState().is(FluidTags.LAVA);
         }
-        //if (fluidstate.getType().isSame(flowingFluid)) {
-        //    return false;
-        //} else if (pSide == Direction.UP) {
-        //    return true;
-        //} else {
-        //    return blockstate.getMaterial() == Material.ICE ? false : blockstate.isFaceSturdy(pLevel, pNeighborPos, pSide);
-        //}}
 }
 

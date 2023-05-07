@@ -29,9 +29,4 @@ public class LavaGlassBlock extends HalfTransparentBlock {
     public boolean propagatesSkylightDown(BlockState pState, BlockGetter pReader, BlockPos pPos) {
         return true;
     }
-
-    public boolean skipRendering(BlockState pState, BlockState pAdjacentBlockState, Direction pSide) {
-        return pAdjacentBlockState.is(Blocks.LAVA) ? true : super.skipRendering(pState, pAdjacentBlockState, pSide);
-    }
-
 }

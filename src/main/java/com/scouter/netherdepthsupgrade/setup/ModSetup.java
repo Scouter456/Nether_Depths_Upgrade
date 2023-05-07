@@ -53,7 +53,6 @@ public class ModSetup {
         event.put(NDUEntity.GLOWDINE.get(), GlowdineEntity.setAttributes());
         event.put(NDUEntity.SOULSUCKER.get(), SoulSuckerEntity.setAttributes());
         event.put(NDUEntity.FORTRESS_GROUPER.get(), FortressGrouperEntity.setAttributes());
-        event.put(NDUEntity.NETHER_URCHIN.get(),NetherUrchinEntity.setAttributes());
         event.put(NDUEntity.EYEBALL_FISH.get(),EyeballfishEntity.setAttributes());
     }
 

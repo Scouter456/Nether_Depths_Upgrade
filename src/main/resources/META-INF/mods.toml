@@ -8,11 +8,13 @@ version="${file.jarVersion}" #mandatory
 displayName="Nether Depths Upgrade"
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+displayURL="https://github.com/Scouter456/Oceans_Delight"
+
 logoFile="soulsucker_logo.png" #optional
 credits=""
 authors="Scouter456"
 description='''
-This is a mod that gives the lava depths in the nether a little upgrade
+This is a mod that gives the lava depths in the nether a little upgrade, credits for the fortress grouper and textures go to Crydigo
 '''
 [[dependencies.geckolib]]
 modId="geckolib3"

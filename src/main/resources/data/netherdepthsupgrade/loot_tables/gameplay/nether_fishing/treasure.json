@@ -51,7 +51,7 @@
               "treasure": true
             }
           ],
-          "name": "minecraft:fishing_rod"
+          "name": "netherdepthsupgrade:lava_fishing_rod"
         },
         {
           "type": "minecraft:item",

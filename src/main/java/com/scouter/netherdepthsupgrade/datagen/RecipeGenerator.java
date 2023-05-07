@@ -44,6 +44,10 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
                 .requires(NDUItems.BONEFISH.get())
                 .unlockedBy("has_bonefish", has(NDUItems.BONEFISH.get()))
                 .save(consumer,prefix(Items.BONE_MEAL.getDescriptionId().replaceAll("item.minecraft.", "")));
+        ShapelessRecipeBuilder.shapeless(Items.OBSIDIAN, 1)
+                .requires(NDUItems.OBSIDIANFISH.get())
+                .unlockedBy("has_obsidianfish", has(NDUItems.OBSIDIANFISH.get()))
+                .save(consumer,prefix(Items.OBSIDIAN.getDescriptionId().replaceAll("block.minecraft.", "")));
         ShapelessRecipeBuilder.shapeless(Items.BLAZE_POWDER, 2)
                 .requires(NDUItems.BLAZEFISH.get())
                 .unlockedBy("has_blazefish", has(NDUItems.BLAZEFISH.get()))
@@ -75,11 +79,24 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
                 .unlockedBy("has_netherite_scrap", has(Items.NETHERITE_SCRAP))
                 .unlockedBy("has_chain", has(Items.CHAIN))
                 .save(consumer,  prefix(NDUItems.LAVA_FISHING_ROD.get().getDescriptionId().replaceAll("item.netherdepthsupgrade.", "")));
+
         ShapedRecipeBuilder.shaped(NDUItems.WARPED_KELP_CARPET_BLOCK.get(), 3)
                 .define('c', NDUItems.WARPED_KELP_BLOCK.get())
                 .pattern("ccc")
                 .unlockedBy("has_warped_kelp_block", has(NDUItems.WARPED_KELP_BLOCK.get()))
                 .save(consumer,  prefix(NDUItems.WARPED_KELP_CARPET_BLOCK.get().getDescriptionId().replaceAll("block.netherdepthsupgrade.", "")));
+
+        ShapedRecipeBuilder.shaped(NDUItems.LAVA_GLASS.get(), 32)
+                .define('c', NDUItems.FORTRESS_GROUPER_PLATE.get())
+                .define('e', NDUItems.EYEBALL_FISH_EYE.get())
+                .define('g', Items.GLASS)
+                .pattern("ece")
+                .pattern("cgc")
+                .pattern("ece")
+                .unlockedBy("has_fortress_grouper_plate", has(NDUItems.FORTRESS_GROUPER_PLATE.get()))
+                .unlockedBy("has_eyeball_fish_eye", has(NDUItems.EYEBALL_FISH_EYE.get()))
+                .unlockedBy("has_glass", has(Items.GLASS))
+                .save(consumer,  prefix(NDUItems.LAVA_GLASS.get().getDescriptionId().replaceAll("block.netherdepthsupgrade.", "")));
 
         nineBlockStorageRecipes(consumer, NDUItems.WARPED_KELP.get(),NDUItems.WARPED_KELP_BLOCK.get());
         //simpleCookingRecipe(consumer, "smelting", RecipeSerializer.SMELTING_RECIPE, 100, NDUItems.CUT_ONION.get(), NDUItems.COOKED_CUT_ONION.get(), 0.50F);

@@ -34,6 +34,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(NDUBlocks.WARPED_KELP_BLOCK, "Warped Kelp Block");
         addBlock(NDUBlocks.WARPED_KELP_CARPET_BLOCK, "Warped Kelp Carpet");
         addBlock(NDUBlocks.LAVA_GLASS, "Lava Glass");
+
         //EGGS
         addItem(NDUItems.LAVA_PUFFERFISH_SPAWN_EGG, "Lava Pufferfish Spawn Egg");
         addItem(NDUItems.OBSIDIANFISH_SPAWN_EGG, "Obsidianfish Spawn Egg");
@@ -45,14 +46,13 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(NDUItems.GLOWDINE_SPAWN_EGG, "Glowdine Spawn Egg");
         addItem(NDUItems.SOULSUCKER_SPAWN_EGG, "Soul Sucker Spawn Egg");
         addItem(NDUItems.FORTRESS_GROUPER_SPAWN_EGG, "Fortress Grouper Spawn Egg");
-        addItem(NDUItems.NETHER_URCHIN_SPAWN_EGG, "Nether Urchin Spawn Egg");
         addItem(NDUItems.EYEBALL_FISH_SPAWN_EGG, "Eyeball Fish Spawn Egg");
         addItem(NDUItems.LAVA_FISHING_ROD, "Lava Fishing Rod");
 
         //POTIONS
         addPotion(NDUPotions.LAVA_VISION, "Potion of Lava Vision");
         addPotion(NDUPotions.LONG_LAVA_VISION, "Potion of Lava Vision");
-
+        addTippedArrow(NDUPotions.LAVA_VISION, "Lava Vision");
         //ENTITIES
         addEntityType(NDUEntity.LAVA_PUFFERFISH, "Lava Pufferfish");
         addEntityType(NDUEntity.OBSIDIAN_FISH, "Obsidianfish");
@@ -64,7 +64,7 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(NDUEntity.GLOWDINE, "Glowdine");
         addEntityType(NDUEntity.SOULSUCKER, "Soul Sucker");
         addEntityType(NDUEntity.FORTRESS_GROUPER, "Fortress Grouper");
-        addEntityType(NDUEntity.NETHER_URCHIN, "Nether Urchin");
+        //addEntityType(NDUEntity.NETHER_URCHIN, "Nether Urchin");
         addEntityType(NDUEntity.LAVA_BOBBER, "Lava Bobber");
 
         addItem(NDUItems.LAVA_PUFFERFISH_BUCKET, "Bucket of Lava Pufferfish");
@@ -85,12 +85,12 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(NDUItems.GLOWDINE, "Glowdine");
         addItem(NDUItems.SOULSUCKER_BUCKET, "Bucket of Soul Sucker");
         addItem(NDUItems.SOULSUCKER, "Soul Sucker");
-        addItem(NDUItems.NETHER_URCHIN_BUCKET, "Bucket of Nether Urchin");
-        addItem(NDUItems.NETHER_URCHIN, "Nether Urchin");
         addItem(NDUItems.FORTRESS_GROUPER_BUCKET, "Bucket of Fortress Grouper");
         addItem(NDUItems.FORTRESS_GROUPER, "Fortress Grouper");
+        addItem(NDUItems.FORTRESS_GROUPER_PLATE, "Fortress Grouper Plate");
         addItem(NDUItems.EYEBALL_FISH_BUCKET, "Bucket of Eyeball Fish");
         addItem(NDUItems.EYEBALL_FISH, "Eyeball Fish");
+        addItem(NDUItems.EYEBALL_FISH_EYE, "Eyeball Fish Eye");
         addItem(NDUItems.SOUL_SUCKER_BOOTS, "Soul Sucker Boots");
         addItem(NDUItems.SOUL_SUCKER_LEATHER, "Soul Sucker Leather");
 
@@ -212,5 +212,12 @@ public class LanguageGenerator extends LanguageProvider {
         add("item.minecraft.potion.effect." + key.getRegistryName().getPath(), name);
         add("item.minecraft.splash_potion.effect." + key.getRegistryName().getPath(), "Splash " + name);
         add("item.minecraft.lingering_potion.effect." + key.getRegistryName().getPath(), "Lingering " + name);
+    }
+
+    public void addTippedArrow(Supplier<? extends Potion> key, String name) {
+        addTippedArrow(key.get(), name);
+    }
+    private void addTippedArrow(Potion key, String name) {
+        add("item.minecraft.tipped_arrow.effect." + key.getRegistryName().getPath(), "Arrow of " + name);
     }
 }

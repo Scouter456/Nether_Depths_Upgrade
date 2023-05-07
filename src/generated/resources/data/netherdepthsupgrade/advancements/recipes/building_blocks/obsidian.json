@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "netherdepthsupgrade:obsidian"
+    ]
+  },
+  "criteria": {
+    "has_obsidianfish": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "netherdepthsupgrade:obsidianfish"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "netherdepthsupgrade:obsidian"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_obsidianfish",
+      "has_the_recipe"
+    ]
+  ]
+}

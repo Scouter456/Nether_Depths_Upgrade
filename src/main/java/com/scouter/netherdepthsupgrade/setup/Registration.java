@@ -3,6 +3,7 @@ package com.scouter.netherdepthsupgrade.setup;
 import com.mojang.logging.LogUtils;
 
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
+import com.scouter.netherdepthsupgrade.config.NetherDepthsUpgradeConfig;
 import com.scouter.netherdepthsupgrade.effect.MobEffects;
 import com.scouter.netherdepthsupgrade.enchantments.NDUEnchantments;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
@@ -16,6 +17,8 @@ import com.scouter.netherdepthsupgrade.world.feature.NDUConfiguredFeatures;
 import com.scouter.netherdepthsupgrade.world.feature.NDUFeatures;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
@@ -28,6 +31,7 @@ public class Registration {
     public static void init(){
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, NetherDepthsUpgradeConfig.CONFIG_BUILDER);
 
         NDUBlocks.BLOCKS.register(bus);
         NDUEntity.ENTITY_TYPES.register(bus);

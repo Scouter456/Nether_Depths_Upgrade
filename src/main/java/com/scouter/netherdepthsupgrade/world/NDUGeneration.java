@@ -4,6 +4,7 @@ import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
 import com.scouter.netherdepthsupgrade.world.feature.NDUConfiguredFeatures;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -47,11 +48,17 @@ public class NDUGeneration {
             if (event.getName().equals(new ResourceLocation("minecraft", "basalt_deltas"))) {
                 base.add(new MobSpawnSettings.SpawnerData(NDUEntity.OBSIDIAN_FISH.get(), 15, 1, 5));
                 base.add(new MobSpawnSettings.SpawnerData(NDUEntity.MAGMACUBEFISH.get(), 10, 2, 4));
+                base.add(new MobSpawnSettings.SpawnerData(NDUEntity.FORTRESS_GROUPER.get(), 6, 1, 2));
             }
 
             if (event.getName().equals(new ResourceLocation("minecraft", "crimson_forest"))) {
                 base.add(new MobSpawnSettings.SpawnerData(NDUEntity.LAVA_PUFFERFISH.get(), 15, 1, 5));
                 base.add(new MobSpawnSettings.SpawnerData(NDUEntity.WITHER_BONEFISH.get(), 3, 1, 3));
+                base.add(new MobSpawnSettings.SpawnerData(NDUEntity.EYEBALL_FISH.get(), 6, 2, 4));
+            }
+
+            if(event.getName().equals(BiomeTags.HAS_NETHER_FORTRESS)){
+                base.add(new MobSpawnSettings.SpawnerData(NDUEntity.FORTRESS_GROUPER.get(), 2, 1, 2));
             }
 
             if (event.getName().equals(new ResourceLocation("minecraft", "warped_forest"))) {
@@ -78,10 +85,12 @@ public class NDUGeneration {
 
                 if(event.getName().equals(new ResourceLocation("byg", "wailing_garth"))){
                     base.add(new MobSpawnSettings.SpawnerData(NDUEntity.SOULSUCKER.get(), 5, 1, 2));
+                    base.add(new MobSpawnSettings.SpawnerData(NDUEntity.EYEBALL_FISH.get(), 4, 1, 2));
                 }
 
                 if(event.getName().equals(new ResourceLocation("byg", "brimstone_caverns"))){
                     base.add(new MobSpawnSettings.SpawnerData(NDUEntity.OBSIDIAN_FISH.get(), 7, 1, 5));
+                    base.add(new MobSpawnSettings.SpawnerData(NDUEntity.FORTRESS_GROUPER.get(), 4, 1, 2));
                 }
 
                 if(event.getName().equals(new ResourceLocation("byg", "embur_bog"))){

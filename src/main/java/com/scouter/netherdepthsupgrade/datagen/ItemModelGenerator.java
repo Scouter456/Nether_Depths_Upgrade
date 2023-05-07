@@ -51,10 +51,10 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTex(NDUItems.SOUL_SUCKER_LEATHER);
         singleTex(NDUItems.FORTRESS_GROUPER);
         singleTex(NDUItems.FORTRESS_GROUPER_BUCKET);
-        singleTex(NDUItems.NETHER_URCHIN);
-        singleTex(NDUItems.NETHER_URCHIN_BUCKET);
         singleTex(NDUItems.EYEBALL_FISH);
         singleTex(NDUItems.EYEBALL_FISH_BUCKET);
+        singleTex(NDUItems.FORTRESS_GROUPER_PLATE);
+        singleTex(NDUItems.EYEBALL_FISH_EYE);
 
         toBlock(NDUBlocks.LAVA_SPONGE.get());
         toBlock(NDUBlocks.WET_LAVA_SPONGE.get());

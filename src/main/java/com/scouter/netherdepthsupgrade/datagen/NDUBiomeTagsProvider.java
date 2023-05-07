@@ -5,6 +5,7 @@ import com.scouter.netherdepthsupgrade.utils.NDUTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -35,5 +36,13 @@ public class NDUBiomeTagsProvider extends BiomeTagsProvider {
                 .addOptional(new ResourceLocation("gardens_of_the_dead", "soulblight_forest"));
         tag(NDUTags.Biomes.IS_OBSIDIANFISH_BIOME).add(Biomes.BASALT_DELTAS)
                 .addOptional(new ResourceLocation("byg", "brimstone_caverns"));
+
+        tag(NDUTags.Biomes.IS_FORTRESS_GROUPER_BIOME).add(Biomes.BASALT_DELTAS)
+                .addTag(BiomeTags.HAS_NETHER_FORTRESS)
+                .addOptional(new ResourceLocation("byg", "brimstone_caverns"));
+
+        tag(NDUTags.Biomes.IS_EYEBALL_FISH_BIOME).add(Biomes.CRIMSON_FOREST)
+                .addOptional(new ResourceLocation("byg", "wailing_garth"));
+
     }
 }

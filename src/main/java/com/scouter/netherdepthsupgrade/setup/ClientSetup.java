@@ -33,8 +33,6 @@ public class ClientSetup {
         EntityRenderers.register(NDUEntity.GLOWDINE.get(), GlowdineRenderer::new);
         EntityRenderers.register(NDUEntity.SOULSUCKER.get(), SoulSuckerRenderer::new);
         EntityRenderers.register(NDUEntity.FORTRESS_GROUPER.get(), FortressGrouperRenderer::new);
-        EntityRenderers.register(NDUEntity.NETHER_URCHIN.get(), NetherUrchinRenderer::new);
-        EntityRenderers.register(NDUEntity.SOULSUCKER.get(), SoulSuckerRenderer::new);
         EntityRenderers.register(NDUEntity.EYEBALL_FISH.get(), EyeballfishRenderer::new);
         EntityRenderers.register(NDUEntity.LAVA_BOBBER.get(), LavaFishingBobberRenderer::new);
         NDUItemProperties.addItemProperties();

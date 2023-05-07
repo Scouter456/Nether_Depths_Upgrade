@@ -57,7 +57,8 @@ public class NDUTags {
         public static final TagKey<Biome> IS_BLAZEFISH_BIOME = tag("is_blazefish_biome");
         public static final TagKey<Biome> IS_SEARING_COD_BIOME = tag("is_searing_cod_biome");
         public static final TagKey<Biome> IS_OBSIDIANFISH_BIOME = tag("is_obsidianfish_biome");
-
+        public static final TagKey<Biome> IS_FORTRESS_GROUPER_BIOME = tag("is_fortress_grouper_biome");
+        public static final TagKey<Biome> IS_EYEBALL_FISH_BIOME = tag("is_eyeball_fish_biome");
         private static TagKey<Biome> tag(String name){
             return TagKey.create(Registry.BIOME_REGISTRY, prefix(name));
 

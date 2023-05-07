@@ -63,16 +63,12 @@ public class NDUEntity {
     //todo change these later!!!
     public static final RegistryObject<EntityType<FortressGrouperEntity>> FORTRESS_GROUPER = ENTITY_TYPES.register("fortressgrouper",
             () -> EntityType.Builder.of(FortressGrouperEntity::new, MobCategory.WATER_AMBIENT)
-                    .sized(2F, 1.6F).clientTrackingRange(4).noSummon()
+                    .sized(2F, 1.6F).clientTrackingRange(4)
                     .build(prefix("fortressgrouper").toString()));
 
-    public static final RegistryObject<EntityType<NetherUrchinEntity>> NETHER_URCHIN = ENTITY_TYPES.register("nether_urchin",
-            () -> EntityType.Builder.of(NetherUrchinEntity::new, MobCategory.WATER_AMBIENT)
-                    .sized(0.7F, 0.7F).clientTrackingRange(4).noSummon()
-                    .build(prefix("nether_urchin").toString()));
     public static final RegistryObject<EntityType<EyeballfishEntity>> EYEBALL_FISH = ENTITY_TYPES.register("eyeball_fish",
             () -> EntityType.Builder.of(EyeballfishEntity::new, MobCategory.WATER_AMBIENT)
-                    .sized(0.7F, 0.7F).clientTrackingRange(4).noSummon()
+                    .sized(0.7F, 0.7F).clientTrackingRange(4)
                     .build(prefix("eyeball_fish").toString()));
     public static final RegistryObject<EntityType<LavaFishingBobberEntity>> LAVA_BOBBER = ENTITY_TYPES.register("lava_fishing_bobber",
             () -> EntityType.Builder.<LavaFishingBobberEntity>createNothing(MobCategory.MISC)

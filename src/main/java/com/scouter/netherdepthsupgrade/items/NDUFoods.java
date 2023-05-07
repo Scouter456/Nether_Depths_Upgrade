@@ -69,9 +69,11 @@ public class NDUFoods {
             .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 400, 0), 0.8F)
             .build();
 
-    public static final FoodProperties NETHER_URCHIN = new FoodProperties.Builder()
+    public static final FoodProperties EYEBALL_FISH = new FoodProperties.Builder()
             .nutrition(1)
             .saturationMod(1.2F)
-            .effect(() -> new MobEffectInstance(MobEffects.HEALTH_BOOST, 400, 0), 0.8F)
+            .effect(() -> new MobEffectInstance(MobEffects.NIGHT_VISION, 400, 0), 0.8F)
+            .effect(() -> new MobEffectInstance(com.scouter.netherdepthsupgrade.effect.MobEffects.LAVA_VISION.get(), 400, 0), 0.8F)
+
             .build();
 }
