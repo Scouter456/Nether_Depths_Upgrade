@@ -1,0 +1,35 @@
+{
+
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:cooked_obsidianfish_slice_from_smoking"
+          ]
+        },
+        "criteria": {
+          "cooked_obsidianfish_slice": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "netherdepthsupgrade:obsidianfish_slice"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "netherdepthsupgrade:cooked_obsidianfish_slice_from_smoking"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "cooked_obsidianfish_slice",
+            "has_the_recipe"
+          ]
+        ]
+      }

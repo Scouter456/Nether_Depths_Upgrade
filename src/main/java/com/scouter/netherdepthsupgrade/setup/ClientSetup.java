@@ -2,6 +2,7 @@ package com.scouter.netherdepthsupgrade.setup;
 
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
+import com.scouter.netherdepthsupgrade.entity.entities.EyeballfishEntity;
 import com.scouter.netherdepthsupgrade.entity.renderer.*;
 import com.scouter.netherdepthsupgrade.items.NDUItemProperties;
 import com.scouter.netherdepthsupgrade.particle.GlowdineParticle;
@@ -25,6 +26,8 @@ public class ClientSetup implements ClientModInitializer {
         EntityRendererRegistry.register(NDUEntity.SEARING_COD, SearingCodRenderer::new);
         EntityRendererRegistry.register(NDUEntity.SOULSUCKER, SoulSuckerRenderer::new);
         EntityRendererRegistry.register(NDUEntity.BLAZEFISH, BlazefishRenderer::new);
+        EntityRendererRegistry.register(NDUEntity.FORTRESS_GROUPER, FortressGrouperRenderer::new);
+        EntityRendererRegistry.register(NDUEntity.EYEBALL_FISH, EyeballfishRenderer::new);
         EntityRendererRegistry.register(NDUEntity.LAVA_BOBBER, LavaFishingBobberRenderer::new);
         RenderLayerRegistration();
         NDUItemProperties.addItemProperties();
@@ -42,7 +45,7 @@ public class ClientSetup implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(NDUBlocks.WARPED_KELP_PLANT, cutout);
         BlockRenderLayerMap.INSTANCE.putBlock(NDUBlocks.WARPED_SEAGRASS, cutout);
         BlockRenderLayerMap.INSTANCE.putBlock(NDUBlocks.TALL_WARPED_SEAGRASS, cutout);
-
+        BlockRenderLayerMap.INSTANCE.putBlock(NDUBlocks.LAVA_GLASS, translucent);
         particleRegistration();
     }
 

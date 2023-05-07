@@ -1,0 +1,35 @@
+{
+
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:cooked_magmacubefish_slice_from_campfire_cooking"
+          ]
+        },
+        "criteria": {
+          "cooked_magmacubefish_slice": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "netherdepthsupgrade:magmacubefish_slice"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "netherdepthsupgrade:cooked_magmacubefish_slice_from_campfire_cooking"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "cooked_magmacubefish_slice",
+            "has_the_recipe"
+          ]
+        ]
+      }

@@ -7,7 +7,6 @@ import com.scouter.netherdepthsupgrade.setup.Registration;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
@@ -30,9 +29,15 @@ public class NDUItems {
     public static final Item WARPED_KELP = registerBlockItem(NDUBlocks.WARPED_KELP);
     public static final Item WARPED_SEAGRASS = registerBlockItem(NDUBlocks.WARPED_SEAGRASS);
     public static final Item WARPED_KELP_BLOCK = registerBlockItem(NDUBlocks.WARPED_KELP_BLOCK);
+    public static final Item WARPED_KELP_BLOCK_CARPET = registerBlockItem(NDUBlocks.WARPED_KELP_CARPET_BLOCK);
+    public static final Item LAVA_GLASS = registerBlockItem(NDUBlocks.LAVA_GLASS);
 
     //ITEMS
     public static final Item SOUL_SUCKER_LEATHER = registerItem("soul_sucker_leather", new Item(new FabricItemSettings().fireproof().group(Registration.defaultBuilder)));
+
+    public static final Item FORTRESS_GROUPER_PLATE = registerItem("fortress_grouper_plate", new Item(new FabricItemSettings().fireproof().group(Registration.defaultBuilder)));
+    public static final Item EYEBALL_FISH_EYE = registerItem("eyeball", new Item(new FabricItemSettings().fireproof().group(Registration.defaultBuilder)));
+
 
     public static final Item SOUL_SUCKER_BOOTS = registerItem("soul_sucker_boots", new SoulSuckerArmorItem(NDUMaterialInit.SOUL_SUCKER, EquipmentSlot.FEET, new FabricItemSettings().fireproof().group(Registration.defaultBuilder)));
 
@@ -124,6 +129,43 @@ public class NDUItems {
             0x796152, 0xcc8654,
             new FabricItemSettings().group(Registration.fishBuilder)));
 
+    ////FISH
+    public static final Item FORTRESS_GROUPER = registerItem("fortress_grouper", new Item(new FabricItemSettings().fireproof().group(Registration.fishBuilder).food(NDUFoods.FORTRESS_GROUPER)));
+
+    //FISH_BUCKET
+    public static final Item FORTRESS_GROUPER_BUCKET = registerItem("fortress_grouper_bucket",  new FishBucketItem(NDUEntity.FORTRESS_GROUPER, Fluids.LAVA,
+            new FabricItemSettings().group(Registration.fishBuilder)));
+
+    //Spawn Eggs
+    public static final Item FORTRESS_GROUPER_SPAWN_EGG = registerItem("fortress_grouper_spawn_egg", new SpawnEggItem(NDUEntity.FORTRESS_GROUPER,
+            0x38181e, 0xf09418,
+            new FabricItemSettings().group(Registration.fishBuilder)));
+
+    //FISH
+    //public static final Item NETHER_URCHIN = registerItem("nether_urchin", () -> new Item(Registration.fishBuilder().fireResistant()
+    //        .food(NDUFoods.FORTRESS_GROUPER)));
+    //
+    ////FISH_BUCKET
+    //public static final Item NETHER_URCHIN_BUCKET = registerItem("nether_urchin_bucket", () -> new FishBucketItem(NDUEntity.NETHER_URCHIN, Fluids.LAVA, (Registration.fishBuilder())));
+    //
+    ////Spawn Eggs
+    //public static final Item NETHER_URCHIN_SPAWN_EGG = registerItem("nether_urchin_spawn_egg", () -> new ForgeSpawnEggItem(NDUEntity.NETHER_URCHIN,
+    //        0x5a0000, 0x7b0000, Registration.fishBuilder()));
+
+
+    //FISH
+    public static final Item EYEBALL_FISH = registerItem("eyeball_fish", new Item(new FabricItemSettings().fireproof().group(Registration.fishBuilder)
+            .food(NDUFoods.EYEBALL_FISH)));
+
+    //FISH_BUCKET
+    public static final Item EYEBALL_FISH_BUCKET = registerItem("eyeball_fish_bucket", new FishBucketItem(NDUEntity.EYEBALL_FISH, Fluids.LAVA, (new FabricItemSettings().group(Registration.fishBuilder))));
+
+    //Spawn Eggs
+    public static final Item EYEBALL_FISH_SPAWN_EGG = registerItem("eyeball_fish_spawn_egg", new SpawnEggItem(NDUEntity.EYEBALL_FISH,
+            0x8a1010, 0xf0d57b,
+            new FabricItemSettings().group(Registration.fishBuilder)));
+    
+    
     public static final Item LAVA_FISHING_ROD = registerItem("lava_fishing_rod", new LavaFishingRodItem(new FabricItemSettings().fireproof().group(Registration.defaultBuilder).fireResistant().defaultDurability(256)));
 
     private static Item registerItem(String name, Item item) {

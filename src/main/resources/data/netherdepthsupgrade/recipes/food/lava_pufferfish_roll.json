@@ -1,0 +1,28 @@
+{
+
+
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "netherdepthsupgrade:lava_pufferfish_slice"
+          },
+          {
+            "item": "netherdepthsupgrade:lava_pufferfish_slice"
+          },
+          {
+            "item": "farmersdelight:cooked_rice"
+          }
+        ],
+        "result": {
+          "item": "netherdepthsupgrade:lava_pufferfish_roll"
+        },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelight"
+      ]
+    }
+  ]
+      }
+

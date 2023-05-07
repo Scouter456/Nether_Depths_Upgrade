@@ -33,6 +33,9 @@ public class NDUGeneration {
         BiomeModifications.addSpawn(BiomeSelectors.tag(NDUTags.Biomes.IS_MAGMACUBEFISH_BIOME), MobCategory.WATER_AMBIENT, NDUEntity.MAGMACUBEFISH, 10,2,4);
         BiomeModifications.addSpawn(BiomeSelectors.tag(NDUTags.Biomes.IS_LAVA_PUFFERFISH_BIOME), MobCategory.WATER_AMBIENT, NDUEntity.LAVA_PUFFERFISH, 15,1,5);
         BiomeModifications.addSpawn(BiomeSelectors.tag(NDUTags.Biomes.IS_GLOWDINE_BIOME), MobCategory.WATER_AMBIENT, NDUEntity.GLOWDINE, 8,4,6);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(NDUTags.Biomes.IS_FORTRESS_GROUPER_BIOME), MobCategory.WATER_AMBIENT, NDUEntity.FORTRESS_GROUPER, 3,1,2);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(NDUTags.Biomes.IS_EYEBALL_FISH_BIOME), MobCategory.WATER_AMBIENT, NDUEntity.EYEBALL_FISH, 3,2,4);
+
 
         SpawnPlacements.register(NDUEntity.OBSIDIAN_FISH, SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
         SpawnPlacements.register(NDUEntity.SEARING_COD, SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
@@ -43,7 +46,8 @@ public class NDUGeneration {
         SpawnPlacements.register(NDUEntity.MAGMACUBEFISH, SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
         SpawnPlacements.register(NDUEntity.BONEFISH, SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
         SpawnPlacements.register(NDUEntity.LAVA_PUFFERFISH, SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
-
+        SpawnPlacements.register(NDUEntity.FORTRESS_GROUPER, SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
+        SpawnPlacements.register(NDUEntity.EYEBALL_FISH, SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LavaAnimal::checkSurfaceLavaAnimalSpawnRules);
     }
 }
 

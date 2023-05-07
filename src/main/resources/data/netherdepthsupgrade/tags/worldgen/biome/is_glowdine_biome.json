@@ -3,6 +3,18 @@
   "values": [
     "minecraft:basalt_deltas",
     "minecraft:soul_sand_valley",
-    "minecraft:nether_wastes"
+    "minecraft:nether_wastes",
+    {
+      "id": "infernalexp:glowstone_canyon",
+      "required": false
+    },
+    {
+      "id": "byg:glowstone_gardens",
+      "required": false
+    },
+    {
+      "id": "betternether:crimson_glowing_woods",
+      "required": false
+    }
   ]
 }

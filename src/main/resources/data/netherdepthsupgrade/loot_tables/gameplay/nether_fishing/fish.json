@@ -43,6 +43,16 @@
           "type": "minecraft:item",
           "weight": 1,
           "name": "netherdepthsupgrade:soulsucker"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "netherdepthsupgrade:eyeball_fish"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "netherdepthsupgrade:fortress_grouper"
         }
       ]
     }

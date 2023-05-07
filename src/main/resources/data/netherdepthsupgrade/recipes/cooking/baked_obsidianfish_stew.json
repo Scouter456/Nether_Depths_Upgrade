@@ -1,0 +1,31 @@
+{
+        "type": "farmersdelight:cooking",
+        "ingredients": [
+          {
+            "item": "netherdepthsupgrade:obsidianfish_slice"
+          },
+          {
+            "item": "minecraft:potato"
+          },
+          {
+            "tag": "c:eggs"
+          },
+          {
+            "tag": "c:crops/tomato"
+          }
+        ],
+        "result": {
+          "item": "netherdepthsupgrade:baked_obsidianfish_stew"
+        },
+        "experience": 0.35,
+        "cookingtime": 200,
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelight"
+      ]
+    }
+  ]
+      }
+

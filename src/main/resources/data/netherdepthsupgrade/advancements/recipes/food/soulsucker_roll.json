@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "netherdepthsupgrade:food/soulsucker_roll"
+    ]
+  },
+  "criteria": {
+    "has_soulsucker_slice": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "netherdepthsupgrade:soulsucker_slice"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "netherdepthsupgrade:food/soulsucker_roll"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_soulsucker_slice",
+      "has_the_recipe"
+    ]
+  ]
+}

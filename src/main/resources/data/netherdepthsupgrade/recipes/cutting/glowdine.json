@@ -1,0 +1,30 @@
+{
+
+
+        "type": "farmersdelight:cutting",
+        "ingredients": [
+          {
+            "item": "netherdepthsupgrade:glowdine"
+          }
+        ],
+        "tool": {
+          "tag": "c:tools/knives"
+        },
+        "result": [
+          {
+            "item": "netherdepthsupgrade:glowdine_slice",
+            "count": 2
+          },
+          {
+            "item": "minecraft:bone_meal"
+          }
+        ],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelight"
+      ]
+    }
+  ]
+      }

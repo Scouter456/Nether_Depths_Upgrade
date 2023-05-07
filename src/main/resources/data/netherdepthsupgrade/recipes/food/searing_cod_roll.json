@@ -1,0 +1,29 @@
+
+{
+
+
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "netherdepthsupgrade:searing_cod_slice"
+          },
+          {
+            "item": "netherdepthsupgrade:searing_cod_slice"
+          },
+          {
+            "item": "farmersdelight:cooked_rice"
+          }
+        ],
+        "result": {
+          "item": "netherdepthsupgrade:searing_cod_roll"
+        },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelight"
+      ]
+    }
+  ]
+      }
+

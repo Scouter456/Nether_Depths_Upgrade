@@ -1,0 +1,28 @@
+{
+
+
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "netherdepthsupgrade:magmacubefish_slice"
+          },
+          {
+            "item": "netherdepthsupgrade:magmacubefish_slice"
+          },
+          {
+            "item": "farmersdelight:cooked_rice"
+          }
+        ],
+        "result": {
+          "item": "netherdepthsupgrade:magmacubefish_roll"
+        },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelight"
+      ]
+    }
+  ]
+      }
+

@@ -6,7 +6,9 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.core.Registry;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import org.slf4j.Logger;
@@ -24,7 +26,9 @@ public class NDUBlocks {
     public static final Block TALL_WARPED_SEAGRASS = registerBlock("tall_warped_seagrass", new TallLavaSeagrassBlock(FabricBlockSettings.of(Material.REPLACEABLE_WATER_PLANT).noCollision().breakInstantly().sounds(SoundType.WET_GRASS).nonOpaque()), Registration.defaultBuilder);
 
     public static final Block WARPED_KELP_BLOCK = registerBlock("warped_kelp_block", new Block(FabricBlockSettings.of(Material.REPLACEABLE_WATER_PLANT, MaterialColor.COLOR_GREEN).strength(0.5F, 2.5F).sounds(SoundType.WET_GRASS)), Registration.defaultBuilder);
+    public static final Block WARPED_KELP_CARPET_BLOCK = registerBlock("warped_kelp_carpet_block", new CarpetBlock(FabricBlockSettings.of(Material.REPLACEABLE_WATER_PLANT, MaterialColor.COLOR_GREEN).strength(0.1F).sounds(SoundType.WET_GRASS)), Registration.defaultBuilder);
 
+    public static final Block LAVA_GLASS = registerBlock("lava_glass", new LavaGlassBlock(FabricBlockSettings.of(Material.GLASS).strength(0.6F).sound(SoundType.GLASS).noOcclusion()), Registration.defaultBuilder);
 
     private static Block registerBlock(String name, Block block, CreativeModeTab group){
         return Registry.register(Registry.BLOCK, prefix(name), block);

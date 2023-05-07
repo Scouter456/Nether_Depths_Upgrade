@@ -1,0 +1,35 @@
+{
+
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:food/grilled_magmacubefish"
+          ]
+        },
+        "criteria": {
+          "has_magmacubefish": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "netherdepthsupgrade:magmacubefish"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "netherdepthsupgrade:food/grilled_magmacubefish"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_magmacubefish",
+            "has_the_recipe"
+          ]
+        ]
+      }

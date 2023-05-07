@@ -1,0 +1,33 @@
+{
+
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "netherdepthsupgrade:cooked_lava_pufferfish_slice"
+          },
+          {
+            "item": "minecraft:sweet_berries"
+          },
+          {
+            "item": "minecraft:bowl"
+          },
+          {
+            "tag": "c:crops/cabbage"
+          },
+          {
+            "tag": "c:crops/onion"
+          }
+        ],
+        "result": {
+          "item": "netherdepthsupgrade:grilled_lava_pufferfish"
+        },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelight"
+      ]
+    }
+  ]
+      }
+

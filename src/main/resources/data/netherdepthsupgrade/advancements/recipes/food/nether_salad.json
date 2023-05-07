@@ -1,0 +1,34 @@
+{
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:food/nether_salad"
+          ]
+        },
+        "criteria": {
+          "has_bowl": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "minecraft:bowl"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "netherdepthsupgrade:food/nether_salad"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_bowl",
+            "has_the_recipe"
+          ]
+        ]
+      }

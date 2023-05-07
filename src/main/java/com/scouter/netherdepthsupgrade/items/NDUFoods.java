@@ -4,6 +4,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 
+import java.util.Optional;
+import java.util.function.Supplier;
+
 public class NDUFoods {
     public static final FoodProperties LAVA_PUFFERFISH = new FoodProperties.Builder()
             .nutrition(1)
@@ -62,4 +65,17 @@ public class NDUFoods {
             .effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 800, 1), 0.5F)
             .build();
 
+    public static final FoodProperties FORTRESS_GROUPER = new FoodProperties.Builder()
+            .nutrition(1)
+            .saturationMod(1.2F)
+            .effect( new MobEffectInstance(MobEffects.ABSORPTION, 400, 0), 0.8F)
+            .build();
+
+    public static final FoodProperties EYEBALL_FISH = new FoodProperties.Builder()
+            .nutrition(1)
+            .saturationMod(1.2F)
+            //.effect(new MobEffectInstance(Optional.of(com.scouter.netherdepthsupgrade.effect.MobEffects.LAVA_VISION).get(), 400, 0), 0.8F)
+            .effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 400, 0), 0.8F)
+
+            .build();
 }

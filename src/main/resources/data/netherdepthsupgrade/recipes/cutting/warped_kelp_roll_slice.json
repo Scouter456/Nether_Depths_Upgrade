@@ -1,0 +1,27 @@
+{
+
+        "type": "farmersdelight:cutting",
+        "ingredients": [
+          {
+            "item": "netherdepthsupgrade:warped_kelp_roll"
+          }
+        ],
+        "tool": {
+          "tag": "c:tools/knives"
+        },
+        "result": [
+          {
+            "item": "netherdepthsupgrade:warped_kelp_roll_slice",
+            "count": 3
+          }
+        ],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelight"
+      ]
+    }
+  ]
+      }
+

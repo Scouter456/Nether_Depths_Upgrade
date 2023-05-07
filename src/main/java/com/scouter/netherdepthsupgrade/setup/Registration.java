@@ -37,6 +37,7 @@ public class Registration {
         registerFuels();
         NDUGeneration.generateFeatures();
         NDUGeneration.spawnCreatures();
+
     }
 
 
@@ -50,6 +51,8 @@ public class Registration {
         FabricDefaultAttributeRegistry.register(NDUEntity.MAGMACUBEFISH, MagmaCubefishEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(NDUEntity.GLOWDINE, GlowdineEntity.setAttributes());
         FabricDefaultAttributeRegistry.register(NDUEntity.SOULSUCKER, SoulSuckerEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(NDUEntity.FORTRESS_GROUPER, FortressGrouperEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(NDUEntity.EYEBALL_FISH, EyeballfishEntity.setAttributes());
     }
 
     private static void registerFuels(){
@@ -60,4 +63,6 @@ public class Registration {
 
     public static final CreativeModeTab defaultBuilder = FabricItemGroupBuilder.build(prefix("netherdepthsupgrade"), () -> new ItemStack(NDUItems.SOUL_SUCKER_LEATHER));
     public static final CreativeModeTab fishBuilder = FabricItemGroupBuilder.build(prefix("netherdepthsupgrade_fish"), () -> new ItemStack(NDUItems.SEARING_COD));
+
+
 }

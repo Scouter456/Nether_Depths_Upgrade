@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "netherdepthsupgrade:blazefish"
+    }
+  ],
+  "result": {
+    "item": "minecraft:blaze_powder",
+    "count": 2
+  }
+}

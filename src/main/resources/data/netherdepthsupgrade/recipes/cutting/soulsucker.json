@@ -1,0 +1,31 @@
+{
+
+
+        "type": "farmersdelight:cutting",
+        "ingredients": [
+          {
+            "item": "netherdepthsupgrade:soulsucker"
+          }
+        ],
+        "tool": {
+          "tag": "c:tools/knives"
+        },
+        "result": [
+          {
+            "item": "netherdepthsupgrade:soulsucker_slice",
+            "count": 2
+          },
+          {
+            "item": "minecraft:bone_meal"
+          }
+        ],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelight"
+      ]
+    }
+  ]
+      }
+

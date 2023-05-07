@@ -1,3 +1,7 @@
 accessWidener	v1	named
 
 accessible class net/minecraft/client/renderer/FogRenderer$FogData
+accessible method net/minecraft/client/renderer/block/LiquidBlockRenderer isFaceOccludedBySelf (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Z # isFaceOccludedBySelf
+accessible method net/minecraft/client/renderer/block/LiquidBlockRenderer isNeighborSameFluid (Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/material/FluidState;)Z # isNeighborSameFluid
+accessible method net/minecraft/client/renderer/block/LiquidBlockRenderer isFaceOccludedByNeighbor (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;FLnet/minecraft/world/level/block/state/BlockState;)Z
+accessible method net/minecraft/client/renderer/block/LiquidBlockRenderer isFaceOccludedByState (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/Direction;FLnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z

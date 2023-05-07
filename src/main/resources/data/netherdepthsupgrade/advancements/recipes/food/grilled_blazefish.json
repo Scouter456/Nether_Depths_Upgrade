@@ -1,0 +1,34 @@
+{
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:food/grilled_blazefish"
+          ]
+        },
+        "criteria": {
+          "has_blazefish": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "netherdepthsupgrade:blazefish"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "netherdepthsupgrade:food/grilled_blazefish"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_blazefish",
+            "has_the_recipe"
+          ]
+        ]
+      }

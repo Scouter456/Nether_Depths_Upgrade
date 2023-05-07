@@ -1,0 +1,45 @@
+{
+
+
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "netherdepthsupgrade:warped_kelp_roll_slice"
+          },
+          {
+            "item": "netherdepthsupgrade:warped_kelp_roll_slice"
+          },
+          {
+            "item": "netherdepthsupgrade:warped_kelp_roll_slice"
+          },
+          {
+            "item": "netherdepthsupgrade:lava_pufferfish_roll"
+          },
+          {
+            "item": "netherdepthsupgrade:searing_cod_roll"
+          },
+          {
+            "item": "netherdepthsupgrade:magmacubefish_roll"
+          },
+          {
+            "item": "netherdepthsupgrade:glowdine_roll"
+          },
+          {
+            "item": "minecraft:bowl"
+          },
+          {
+            "item": "netherdepthsupgrade:soulsucker_roll"
+          }
+        ],
+        "result": {
+          "item": "netherdepthsupgrade:nether_rice_roll_medley_block"
+        },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelight"
+      ]
+    }
+  ]
+      }

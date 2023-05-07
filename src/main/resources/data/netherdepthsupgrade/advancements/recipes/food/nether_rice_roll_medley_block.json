@@ -1,0 +1,59 @@
+{
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:food/nether_rice_roll_medley_block"
+          ]
+        },
+        "criteria": {
+          "has_rice_roll": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "netherdepthsupgrade:warped_kelp_roll_slice"
+                  ]
+                },
+                {
+                  "items": [
+                    "netherdepthsupgrade:lava_pufferfish_roll"
+                  ]
+                },
+                {
+                  "items": [
+                    "netherdepthsupgrade:searing_cod_roll"
+                  ]
+                },
+                {
+                  "items": [
+                    "netherdepthsupgrade:magmacubefish_roll"
+                  ]
+                },
+                {
+                  "items": [
+                    "netherdepthsupgrade:glowdine_roll"
+                  ]
+                },
+                {
+                  "items": [
+                    "netherdepthsupgrade:soulsucker_roll"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "netherdepthsupgrade:food/nether_rice_roll_medley_block"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_rice_roll",
+            "has_the_recipe"
+          ]
+        ]
+      }

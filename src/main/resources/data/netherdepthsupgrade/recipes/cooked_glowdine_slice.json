@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "netherdepthsupgrade:glowdine_slice"
+  },
+  "result": "netherdepthsupgrade:cooked_glowdine_slice",
+  "experience": 0.35,
+  "cookingtime": 200,
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelight"
+      ]
+    }
+  ]
+}
+

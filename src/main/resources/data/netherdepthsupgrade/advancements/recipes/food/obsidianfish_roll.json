@@ -1,0 +1,34 @@
+{
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:food/obsidianfish_roll"
+          ]
+        },
+        "criteria": {
+          "has_obsidianfish_slice": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "netherdepthsupgrade:obsidianfish_slice"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "netherdepthsupgrade:food/obsidianfish_roll"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_obsidianfish_slice",
+            "has_the_recipe"
+          ]
+        ]
+      }

@@ -1,0 +1,34 @@
+{
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:food/lava_pufferfish_roll"
+          ]
+        },
+        "criteria": {
+          "has_lava_pufferfish_slice": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "netherdepthsupgrade:lava_pufferfish_slice"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "netherdepthsupgrade:food/lava_pufferfish_roll"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_lava_pufferfish_slice",
+            "has_the_recipe"
+          ]
+        ]
+      }

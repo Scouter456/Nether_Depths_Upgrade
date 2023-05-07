@@ -67,6 +67,17 @@ public class NDUEntity {
                     .trackRangeChunks(4)
                     .build());
 
+    public static final EntityType<FortressGrouperEntity> FORTRESS_GROUPER = Registry.register(Registry.ENTITY_TYPE, prefix("fortressgrouper"),
+            FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, FortressGrouperEntity::new)
+                    .dimensions(EntityDimensions.fixed(2F, 1.6F))
+                    .trackRangeChunks(4)
+                    .build());
+
+    public static final EntityType<EyeballfishEntity> EYEBALL_FISH = Registry.register(Registry.ENTITY_TYPE, prefix("eyeball_fish"),
+            FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, EyeballfishEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.7F, 0.7F))
+                    .trackRangeChunks(4)
+                    .build());
     public static final EntityType<LavaFishingBobberEntity> LAVA_BOBBER = Registry.register(Registry.ENTITY_TYPE, prefix("lava_fishing_bobber"),
             FabricEntityTypeBuilder.<LavaFishingBobberEntity>create(MobCategory.WATER_AMBIENT, LavaFishingBobberEntity::new)
                     .disableSaving().disableSummon()

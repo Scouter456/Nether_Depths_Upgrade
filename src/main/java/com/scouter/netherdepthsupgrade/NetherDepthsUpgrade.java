@@ -1,10 +1,13 @@
 package com.scouter.netherdepthsupgrade;
 
 import com.scouter.netherdepthsupgrade.items.NDUItems;
+import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
 import com.scouter.netherdepthsupgrade.setup.ClientSetup;
 import com.scouter.netherdepthsupgrade.setup.Registration;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
@@ -27,11 +30,13 @@ public class NetherDepthsUpgrade implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
+
 		Registration.init();
 		ClientSetup.init();
 		registerBrewingRecipes();
 		GeckoLib.initialize();
-
+		ModChecker.setupModCompatPreInit();
+		
 	}
 	public static void registerBrewingRecipes(){
 		PotionBrewing.addMix(Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH, NDUPotions.LAVA_VISION);
@@ -41,4 +46,6 @@ public class NetherDepthsUpgrade implements ModInitializer {
 	public static ResourceLocation prefix(String name) {
 		return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
 	}
+
+
 }
