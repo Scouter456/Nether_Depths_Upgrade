@@ -4,37 +4,34 @@ import com.scouter.netherdepthsupgrade.entity.AbstractLavaSchoolingFish;
 import com.scouter.netherdepthsupgrade.entity.ai.LavaFishJumpGoal;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.particle.NDUParticle;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.IAnimationTickable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class GlowdineEntity extends AbstractLavaSchoolingFish implements IAnimatable, IAnimationTickable {
-    private AnimationFactory factory = new AnimationFactory(this);
-
+public class GlowdineEntity extends AbstractLavaSchoolingFish implements GeoEntity {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    public static final RawAnimation MOVING_GLOWDINE = RawAnimation.begin().thenLoop("glowdine.moving");
     public GlowdineEntity(EntityType<? extends AbstractLavaSchoolingFish> p_27523_, Level p_27524_) {
         super(p_27523_, p_27524_);
+    }
+
+    public void aiStep() {
+        super.aiStep();
+        this.level().addParticle(NDUParticle.GLOWDINE_PARTICLE, this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
     }
 
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new LavaFishJumpGoal(this,4));
-    }
-
-    public void aiStep() {
-        super.aiStep();
-        this.level.addParticle(NDUParticle.GLOWDINE_PARTICLE, this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
     }
 
     public ItemStack getBucketItemStack() {
@@ -57,25 +54,13 @@ public class GlowdineEntity extends AbstractLavaSchoolingFish implements IAnimat
         return SoundEvents.GLOW_SQUID_SQUIRT;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("glowdine.moving", true));
-        return PlayState.CONTINUE;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "glowdine.moving", 0, state -> state.setAndContinue(MOVING_GLOWDINE)));
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        AnimationController<GlowdineEntity> controller = new AnimationController<>(this, "controller",0, this::predicate);
-        data.addAnimationController(controller);
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
-    }
-
-    @Override
-    public int tickTimer() {
-        return tickCount;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
 
@@ -83,4 +68,5 @@ public class GlowdineEntity extends AbstractLavaSchoolingFish implements IAnimat
     public int getMaxSchoolSize() {
         return 20;
     }
+
 }

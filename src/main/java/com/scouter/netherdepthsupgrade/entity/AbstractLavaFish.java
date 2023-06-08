@@ -3,7 +3,6 @@ package com.scouter.netherdepthsupgrade.entity;
 import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.entity.ai.FishSwimGoal;
 import com.scouter.netherdepthsupgrade.entity.ai.LavaBoundPathNavigation;
-import com.scouter.netherdepthsupgrade.entity.entities.GlowdineEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,7 +14,6 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -38,9 +36,9 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(AbstractLavaFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> JUMPING = SynchedEntityData.defineId(AbstractLavaFish.class, EntityDataSerializers.BOOLEAN);
+
     @Nullable
     public FishSwimGoal fishSwimGoal;
-
 
     public AbstractLavaFish(EntityType<? extends AbstractLavaFish> p_27461_, Level p_27462_) {
         super(p_27461_, p_27462_);
@@ -51,9 +49,10 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
         return pSize.height * 0.65F;
     }
 
-    public static AttributeSupplier.Builder setAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D);
+    public static AttributeSupplier setAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D)
                 //.add(Attributes.MOVEMENT_SPEED, 3.0D)
+                .build();
     }
 
     public boolean requiresCustomPersistence() {
@@ -80,6 +79,7 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
     public boolean fromBucket() {
         return this.entityData.get(FROM_BUCKET);
     }
+
     public void setFromBucket(boolean p_27498_) {
         this.entityData.set(FROM_BUCKET, p_27498_);
     }
@@ -89,7 +89,6 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
     public boolean getIsJumping(){
         return this.entityData.get(JUMPING).booleanValue();
     }
-
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("FromBucket", this.fromBucket());
@@ -105,7 +104,6 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
         setIsJumping(pCompound.getBoolean("isJumping"));
     }
 
-
     protected void registerGoals() {
         super.registerGoals();
         this.fishSwimGoal = new FishSwimGoal(this);
@@ -117,7 +115,7 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
 
     protected PathNavigation createNavigation(Level pLevel) {
         return new LavaBoundPathNavigation(this, pLevel);
-    }
+   }
 
     @Override
     public void travel(Vec3 pTravelVector) {
@@ -139,11 +137,11 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
      */
     public void aiStep() {
         if(this.isInWater()){
-            this.hurt(DamageSource.LAVA, 4.0F);
+            this.hurt(this.damageSources().lava(), 4.0F);
         }
-        if (!this.isInLava() && this.onGround && this.verticalCollision) {
+        if (!this.isInLava() && this.onGround() && this.verticalCollision) {
             this.setDeltaMovement(this.getDeltaMovement().add((double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), (double)0.4F, (double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
-            this.onGround = false;
+            this.setOnGround(false);
             this.hasImpulse = true;
             this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
         }

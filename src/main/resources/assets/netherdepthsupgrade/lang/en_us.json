@@ -138,7 +138,7 @@
   "item.netherdepthsupgrade.wither_bonefish": "Wither Bonefish",
   "item.netherdepthsupgrade.wither_bonefish_bucket": "Bucket of Wither Bonefish",
   "item.netherdepthsupgrade.wither_bonefish_spawn_egg": "Wither Bonefish Spawn Egg",
-  "itemGroup.netherdepthsupgrade.netherdepthsupgrade": "Nether Depths Upgrade",
-  "itemGroup.netherdepthsupgrade.netherdepthsupgrade_fish": "Nether Depths Upgrade Fish",
-  "itemGroup.netherdepthsupgrade.netherdepthsupgrade_food": "Nether Depths Upgrade Food"
+  "itemGroup.netherdepthsupgrade": "Nether Depths Upgrade",
+  "itemGroup.netherdepthsupgrade_fish": "Nether Depths Upgrade Fish",
+  "itemGroup.netherdepthsupgrade_food": "Nether Depths Upgrade Food"
 }

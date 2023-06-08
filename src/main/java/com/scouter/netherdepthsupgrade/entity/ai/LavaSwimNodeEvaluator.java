@@ -71,6 +71,9 @@ public class LavaSwimNodeEvaluator extends NodeEvaluator {
         return i;
     }
 
+
+
+
     protected boolean isNodeValid(@Nullable Node p_192962_) {
         return p_192962_ != null && !p_192962_.closed;
     }
@@ -107,23 +110,25 @@ public class LavaSwimNodeEvaluator extends NodeEvaluator {
         });
     }
 
-    /**
-     * Returns the node type at the specified postion taking the block below into account
-     */
+    @Override
     public BlockPathTypes getBlockPathType(BlockGetter pLevel, int pX, int pY, int pZ) {
-        return this.getBlockPathType(pLevel, pX, pY, pZ, this.mob, this.entityWidth, this.entityHeight, this.entityDepth, this.canOpenDoors(), this.canPassDoors());
+        return this.getBlockPathType(pLevel, pX, pY, pZ, this.mob);
     }
+
 
     /**
      * Returns the significant (e.g LAVA if the entity were half in lava) node type at the location taking the
      * surroundings and the entity size in account
      */
-    public BlockPathTypes getBlockPathType(BlockGetter pBlockaccess, int pX, int pY, int pZ, Mob pEntityliving, int pXSize, int pYSize, int pZSize, boolean pCanBreakDoors, boolean pCanEnterDoors) {
+
+
+
+    public BlockPathTypes getBlockPathType(BlockGetter pBlockaccess, int pX, int pY, int pZ, Mob pEntityliving) {
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
-        for(int i = pX; i < pX + pXSize; ++i) {
-            for(int j = pY; j < pY + pYSize; ++j) {
-                for(int k = pZ; k < pZ + pZSize; ++k) {
+        for(int i = pX; i < pX + this.entityWidth; ++i) {
+            for(int j = pY; j < pY + this.entityHeight; ++j) {
+                for(int k = pZ; k < pZ + this.entityDepth; ++k) {
                     FluidState fluidstate = pBlockaccess.getFluidState(blockpos$mutableblockpos.set(i, j, k));
                     BlockState blockstate = pBlockaccess.getBlockState(blockpos$mutableblockpos.set(i, j, k));
                     if (fluidstate.isEmpty() && blockstate.isPathfindable(pBlockaccess, blockpos$mutableblockpos.below(), PathComputationType.WATER) && blockstate.isAir()) {

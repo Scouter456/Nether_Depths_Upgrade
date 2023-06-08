@@ -4,7 +4,6 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
@@ -16,12 +15,9 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Random;
 
 public abstract class LavaAnimal extends PathfinderMob {
-    public static final Logger LOGGER = LoggerFactory.getLogger("netherdepthsupgrade");
+    private static final Logger LOGGER = LogUtils.getLogger();
     protected LavaAnimal(EntityType<? extends LavaAnimal> p_30341_, Level p_30342_) {
         super(p_30341_, p_30342_);
         this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
@@ -49,8 +45,9 @@ public abstract class LavaAnimal extends PathfinderMob {
     /**
      * Get the experience points the entity currently has.
      */
-    protected int getExperienceReward(Player pPlayer) {
-        return 1 + this.level.random.nextInt(3);
+
+    public int getExperienceReward() {
+        return 1 + this.level().random.nextInt(3);
     }
 
     protected void handleAirSupply(int p_30344_) {
@@ -58,7 +55,7 @@ public abstract class LavaAnimal extends PathfinderMob {
             this.setAirSupply(p_30344_ - 1);
             if (this.getAirSupply() == -20) {
                 this.setAirSupply(0);
-                this.hurt(DamageSource.DROWN, 2.0F);
+                this.hurt(this.damageSources().drown(), 2.0F);
             }
         } else {
             this.setAirSupply(300);
@@ -83,13 +80,9 @@ public abstract class LavaAnimal extends PathfinderMob {
         return false;
     }
 
-    public static boolean checkSurfaceLavaAnimalSpawnRules(EntityType<? extends LavaAnimal> fish, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
-        //LOGGER.info("trying to spawn " + fish);
+    public static boolean checkSurfaceLavaAnimalSpawnRules(EntityType<? extends LavaAnimal> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource randomSource) {
         int i = 40;
         int j = i - 30;
-        if(fish == NDUEntity.BLAZEFISH){
-            return (level.getFluidState(pos).is(FluidTags.LAVA));
-        }
         return pos.getY() >= j && pos.getY() <= i && (spawnType == MobSpawnType.SPAWNER || level.getFluidState(pos.below()).is(FluidTags.LAVA) && level.getBlockState(pos.above()).is(Blocks.LAVA));
     }
 }

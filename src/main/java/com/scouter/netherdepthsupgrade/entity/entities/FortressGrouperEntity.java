@@ -20,33 +20,33 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.IAnimationTickable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 import java.util.List;
 
-public class FortressGrouperEntity extends AbstractLavaFish implements IAnimatable, IAnimationTickable {
+public class FortressGrouperEntity extends AbstractLavaFish implements GeoEntity {
 
-    private AnimationFactory factory = new AnimationFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public static final Logger LOGGER = LogUtils.getLogger();
+
+    public static final RawAnimation MOVING_FORTRESS_GROUPER = RawAnimation.begin().thenLoop("fortressgrouper.moving");
     public FortressGrouperEntity(EntityType<? extends AbstractLavaFish> entityType, Level level) {
         super(entityType, level);
     }
 
-    public static AttributeSupplier.Builder setAttributes() {
+    public static AttributeSupplier setAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.ARMOR, 10.0D)
-                .add(Attributes.ATTACK_DAMAGE, 10.0D);
+                .add(Attributes.ATTACK_DAMAGE, 10.0D)
 
                 //.add(Attributes.MOVEMENT_SPEED, 3.0D)
-
+                .build();
     }
 
     @Override
@@ -78,30 +78,21 @@ public class FortressGrouperEntity extends AbstractLavaFish implements IAnimatab
         }
 
     }
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("fortressgrouper.moving", true));
-        return PlayState.CONTINUE;
+
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "fortressgrouper.moving", 0, state -> state.setAndContinue(MOVING_FORTRESS_GROUPER)));
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        AnimationController<FortressGrouperEntity> controller = new AnimationController<>(this, "controller",0, this::predicate);
-        data.addAnimationController(controller);
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
+
+
 
     @Override
     public boolean isPushable() {
         return false;
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
-    }
-
-    @Override
-    public int tickTimer() {
-        return tickCount;
     }
 
     protected SoundEvent getAmbientSound() {
@@ -203,6 +194,27 @@ public class FortressGrouperEntity extends AbstractLavaFish implements IAnimatab
                     }
                 }
             }
+           // for(LivingEntity entity : this.entityList){
+           //     double d0 = this.mob.getX();
+           //     double d1 = this.mob.getY();
+           //     double d2 = this.mob.getZ();
+//
+           //     double d3 = entity.getX();
+           //     double d4 = entity.getY();
+           //     double d5 = entity.getZ();
+//
+           //     double moveX = d0 - d3;
+           //     double moveY = d1 - d4;
+           //     double moveZ = d2 - d5;
+           //     Vec3 vec3 = new Vec3(moveX, moveY, moveZ);
+           //     entity.setDeltaMovement(vec3.scale(0.5));
+           //     entity.hurtMarked = true;
+           //     if (entity != null) {
+           //         if (this.mob.getBoundingBox().inflate(2).intersects(entity.getBoundingBox())) {
+           //             this.mob.doHurtTarget(entity);
+           //         }
+           //     }
+           // }
         }
     }
 

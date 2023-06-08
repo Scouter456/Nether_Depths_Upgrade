@@ -6,15 +6,13 @@ import com.scouter.netherdepthsupgrade.potion.NDUPotions;
 import com.scouter.netherdepthsupgrade.setup.ClientSetup;
 import com.scouter.netherdepthsupgrade.setup.Registration;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib.GeckoLib;
 
 import java.util.Locale;
 

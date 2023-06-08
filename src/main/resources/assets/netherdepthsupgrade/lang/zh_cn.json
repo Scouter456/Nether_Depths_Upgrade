@@ -52,6 +52,6 @@
   "item.netherdepthsupgrade.wither_bonefish": "凋零鱼",
   "item.netherdepthsupgrade.wither_bonefish_bucket": "凋零鱼桶",
   "item.netherdepthsupgrade.wither_bonefish_spawn_egg": "凋零鱼刷怪蛋",
-  "itemGroup.netherdepthsupgrade.netherdepthsupgrade.netherdepthsupgrade": "更好的下界岩浆海",
-  "itemGroup.netherdepthsupgrade.netherdepthsupgrade.netherdepthsupgrade_fish": "更好的下界岩浆海鱼"
+  "itemGroup.netherdepthsupgrade": "更好的下界岩浆海",
+  "itemGroup.netherdepthsupgrade_fish": "更好的下界岩浆海鱼"
 }

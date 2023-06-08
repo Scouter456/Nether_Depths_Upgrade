@@ -1,6 +1,5 @@
 package com.scouter.netherdepthsupgrade.mixin;
 
-import com.mojang.math.Vector3d;
 import com.scouter.netherdepthsupgrade.enchantments.NDUEnchantments;
 import com.scouter.netherdepthsupgrade.util.VectorUtil;
 import net.minecraft.world.entity.Entity;

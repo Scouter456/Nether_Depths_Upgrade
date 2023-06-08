@@ -1,6 +1,5 @@
 package com.scouter.netherdepthsupgrade.entity.ai;
 
-import com.scouter.netherdepthsupgrade.entity.AbstractLavaFish;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -18,7 +17,6 @@ public class LavaBoundPathNavigation extends PathNavigation {
     }
 
     protected PathFinder createPathFinder(int p_26598_) {
-        this.allowBreaching = this.mob instanceof AbstractLavaFish;
         this.nodeEvaluator = new LavaSwimNodeEvaluator(this.allowBreaching);
         return new PathFinder(this.nodeEvaluator, p_26598_);
     }

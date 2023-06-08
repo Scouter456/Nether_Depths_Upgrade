@@ -32,18 +32,18 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.layered() {
 		officialMojangMappings()
-		parchment("org.parchmentmc.data:parchment-1.19.2:2022.09.18@zip")
+		parchment("org.parchmentmc.data:parchment-1.19.3:2023.03.12@zip")
 	}
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	modImplementation 'software.bernie.geckolib:geckolib-fabric-1.19:3.1.38'
-	modCompileOnlyApi "curse.maven:jei-238222:3944625"
-	modRuntimeOnly "curse.maven:jei-238222:3944625"
-
-	modImplementation "curse.maven:farmersdelight-482834:4111426"
+	modImplementation 'software.bernie.geckolib:geckolib-fabric-1.20:4.2'
+	//modCompileOnlyApi "curse.maven:jei-238222:3944625"
+	//modRuntimeOnly "curse.maven:jei-238222:3944625"
+//
+	//modImplementation "curse.maven:farmersdelight-482834:4111426"
 	//modRuntimeOnly "curse.maven:farmersdelight-482834:4111426"
 }
 

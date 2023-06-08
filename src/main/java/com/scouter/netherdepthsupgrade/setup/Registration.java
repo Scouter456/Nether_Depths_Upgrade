@@ -1,6 +1,7 @@
 package com.scouter.netherdepthsupgrade.setup;
 
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
+import com.scouter.netherdepthsupgrade.creativetabs.NDUTabs;
 import com.scouter.netherdepthsupgrade.effect.MobEffects;
 import com.scouter.netherdepthsupgrade.enchantments.NDUEnchantments;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
@@ -12,19 +13,16 @@ import com.scouter.netherdepthsupgrade.structures.NDUStructures;
 import com.scouter.netherdepthsupgrade.world.NDUGeneration;
 import com.scouter.netherdepthsupgrade.world.feature.NDUConfiguredFeatures;
 import com.scouter.netherdepthsupgrade.world.feature.NDUFeatures;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-
-import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class Registration {
 
     public static void init(){
         NDUItems.ITEMS();
+        NDUItems.registerItems();
         NDUBlocks.BLOCKS();
+        NDUTabs.TABS();
         NDUEntity.ENTITY_TYPES();
         MobEffects.MOBEFFECTS();
         NDUPotions.POTIONS();
@@ -61,8 +59,8 @@ public class Registration {
         registry.add(NDUBlocks.WARPED_KELP_BLOCK, 6000);
     }
 
-    public static final CreativeModeTab defaultBuilder = FabricItemGroupBuilder.build(prefix("netherdepthsupgrade"), () -> new ItemStack(NDUItems.SOUL_SUCKER_LEATHER));
-    public static final CreativeModeTab fishBuilder = FabricItemGroupBuilder.build(prefix("netherdepthsupgrade_fish"), () -> new ItemStack(NDUItems.SEARING_COD));
+   // public static final CreativeModeTab defaultBuilder = FabricItemGroupBuilder.build(prefix("netherdepthsupgrade"), () -> new ItemStack(NDUItems.SOUL_SUCKER_LEATHER));
+   // public static final CreativeModeTab fishBuilder = FabricItemGroupBuilder.build(prefix("netherdepthsupgrade_fish"), () -> new ItemStack(NDUItems.SEARING_COD));
 
 
 }

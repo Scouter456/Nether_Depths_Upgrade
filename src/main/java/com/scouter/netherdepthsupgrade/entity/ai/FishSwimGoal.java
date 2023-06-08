@@ -24,7 +24,7 @@ public class FishSwimGoal extends RandomStrollGoal {
      */
     @Override
     public boolean canUse() {
-        if (!this.mob.isInLava() || this.mob.isPassenger() || mob.getTarget() != null) {
+        if (!this.mob.isInLava() && !this.mob.isInWater() || this.mob.isPassenger() || mob.getTarget() != null || !this.mob.isInWater() && !this.mob.isInLava()) {
             return false;
         } else {
             if (!this.forceTrigger) {
@@ -52,7 +52,7 @@ public class FishSwimGoal extends RandomStrollGoal {
     @Override
     protected Vec3 getPosition() {
         Vec3 vector3d = DefaultRandomPos.getPos(this.mob, 10, 7);
-        for (int i = 0; vector3d != null && !this.mob.level.getFluidState(new BlockPos(vector3d)).is(FluidTags.LAVA) && i++ < 10; vector3d = DefaultRandomPos.getPos(this.mob, 10, 7)) {
+        for (int i = 0; vector3d != null && !this.mob.level().getFluidState(BlockPos.containing(vector3d)).is(FluidTags.LAVA) && i++ < 10; vector3d = DefaultRandomPos.getPos(this.mob, 10, 7)) {
         }
         return vector3d;
     }

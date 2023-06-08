@@ -3,9 +3,14 @@ package com.scouter.netherdepthsupgrade.world.feature;
 import com.google.common.collect.ImmutableList;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
+import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
 import net.minecraft.core.*;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -24,24 +29,29 @@ import java.util.Random;
 public class NDUConfiguredFeatures {
     public static final Logger LOGGER = LoggerFactory.getLogger("netherdepthsupgrade");
 
-    private static final String WARPED_SEAGRASS_SIMPLE_FEATURE_NAME = "warped_seagrass_simple_feature";
-    private static final String WARPED_KELP_FEATURE_NAME = "warped_kelp_feature";
-    private static final String WARPED_SEAGRASS_SHORT_FEATURE_NAME = "warped_seagrass_short_feature";
-    private static final String WARPED_SEAGRASS_SLIGHTLY_LESS_SHORT_FEATURE_NAME = "warped_seagrass_slightly_less_short_feature";
-    private static final String WARPED_SEAGRASS_MID_FEATURE_NAME = "warped_seagrass_mid_feature";
-    private static final String WARPED_SEAGRASS_TALL_FEATURE_NAME = "warped_seagrass_tall_feature";
-    private static final String VENT_FEATURE_NAME = "vent_feature";
-    private static final String LAVA_SPONGE_FEATURE_NAME = "lava_sponge_feature";
-    private static final String WARPED_SEAGRASS_SIMPLE_FEATURE_NAME_PLACED = "warped_seagrass_simple_feature_placed";
-    private static final String WARPED_KELP_FEATURE_NAME_PLACED = "warped_kelp_feature_placed";
-    private static final String WARPED_SEAGRASS_SHORT_FEATURE_NAME_PLACED = "warped_seagrass_short_feature_placed";
-    private static final String WARPED_SEAGRASS_SLIGHTLY_LESS_SHORT_FEATURE_NAME_PLACED = "warped_seagrass_slightly_less_short_feature_placed";
-    private static final String WARPED_SEAGRASS_MID_FEATURE_NAME_PLACED = "warped_seagrass_mid_feature_placed";
-    private static final String WARPED_SEAGRASS_TALL_FEATURE_NAME_PLACED = "warped_seagrass_tall_feature_placed";
-    private static final String VENT_FEATURE_NAME_PLACED = "vent_feature_placed";
-    private static final String LAVA_SPONGE_FEATURE_NAME_PLACED = "lava_sponge_feature_placed";
+    private static final ResourceKey<ConfiguredFeature<?, ?>> WARPED_SEAGRASS_SIMPLE_FEATURE_NAME = registerKey("warped_seagrass_simple_feature");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> WARPED_KELP_FEATURE_NAME = registerKey("warped_kelp_feature");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> WARPED_SEAGRASS_SHORT_FEATURE_NAME = registerKey("warped_seagrass_short_feature");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> WARPED_SEAGRASS_SLIGHTLY_LESS_SHORT_FEATURE_NAME = registerKey("warped_seagrass_slightly_less_short_feature");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> WARPED_SEAGRASS_MID_FEATURE_NAME = registerKey("warped_seagrass_mid_feature");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> WARPED_SEAGRASS_TALL_FEATURE_NAME = registerKey("warped_seagrass_tall_feature");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> VENT_FEATURE_NAME = registerKey("vent_feature");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> LAVA_SPONGE_FEATURE_NAME = registerKey("lava_sponge_feature");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> WARPED_SEAGRASS_SIMPLE_FEATURE_NAME_PLACED = registerKey("warped_seagrass_simple_feature_placed");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> WARPED_KELP_FEATURE_NAME_PLACED = registerKey("warped_kelp_feature_placed");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> WARPED_SEAGRASS_SHORT_FEATURE_NAME_PLACED = registerKey("warped_seagrass_short_feature_placed");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> WARPED_SEAGRASS_SLIGHTLY_LESS_SHORT_FEATURE_NAME_PLACED = registerKey("warped_seagrass_slightly_less_short_feature_placed");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> WARPED_SEAGRASS_MID_FEATURE_NAME_PLACED = registerKey("warped_seagrass_mid_feature_placed");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> WARPED_SEAGRASS_TALL_FEATURE_NAME_PLACED = registerKey("warped_seagrass_tall_feature_placed");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> VENT_FEATURE_NAME_PLACED = registerKey("vent_feature_placed");
+    private static final ResourceKey<ConfiguredFeature<?, ?>> LAVA_SPONGE_FEATURE_NAME_PLACED = registerKey("lava_sponge_feature_placed");
     private static Random rand = new Random();
+    
+    public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(NetherDepthsUpgrade.MODID, name));
+    }
 
+    /*
     public static final Holder<ConfiguredFeature<SimpleBlockConfiguration, ?>> CONFIGURED_WARPED_SEAGRASS_SIMPLE = FeatureUtils.register(WARPED_SEAGRASS_SIMPLE_FEATURE_NAME, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(NDUBlocks.WARPED_SEAGRASS)));
 
     public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> CONFIGURED_WARPED_KELP = FeatureUtils.register(WARPED_KELP_FEATURE_NAME, NDUFeatures.WARPED_KELP, new NoneFeatureConfiguration());
@@ -110,7 +120,7 @@ public class NDUConfiguredFeatures {
             PlacementUtils.HEIGHTMAP_TOP_SOLID,
             //CountPlacement.of(80),
             BiomeFilter.biome()));
-
+*/
     public static void CONFIGURED_FEATURES(){
         LOGGER.info("Registering ConfiguredFeatures for " + NetherDepthsUpgrade.MODID);
         LOGGER.info("Registering PlacedFeatures for " + NetherDepthsUpgrade.MODID);

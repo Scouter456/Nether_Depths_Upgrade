@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.modcompat;
+/*package com.scouter.netherdepthsupgrade.modcompat;
 
 import com.mojang.logging.LogUtils;
 import com.nhoryzon.mc.farmersdelight.block.FeastBlock;
@@ -233,3 +233,4 @@ public class FarmersDelightCompat {
         }
     }
 }
+*/

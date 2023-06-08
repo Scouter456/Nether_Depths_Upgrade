@@ -29,23 +29,23 @@ public abstract class FrogFeedMixin extends Animal {
         ItemStack itemStack_ochre = new ItemStack(Items.OCHRE_FROGLIGHT);
         ItemStack itemStack_pearlescent = new ItemStack(Items.PEARLESCENT_FROGLIGHT);
         ItemStack itemStack_verdant = new ItemStack(Items.VERDANT_FROGLIGHT);
-        ItemEntity itemEntity_ochre = new ItemEntity(level, frog.getX(), frog.getY(), frog.getZ(), itemStack_ochre);
-        ItemEntity itemEntity_pearlescent = new ItemEntity(level, frog.getX(), frog.getY(), frog.getZ(), itemStack_pearlescent);
-        ItemEntity itemEntity_verdant = new ItemEntity(level, frog.getX(), frog.getY(), frog.getZ(), itemStack_verdant);
+        ItemEntity itemEntity_ochre = new ItemEntity(level(), frog.getX(), frog.getY(), frog.getZ(), itemStack_ochre);
+        ItemEntity itemEntity_pearlescent = new ItemEntity(level(), frog.getX(), frog.getY(), frog.getZ(), itemStack_pearlescent);
+        ItemEntity itemEntity_verdant = new ItemEntity(level(), frog.getX(), frog.getY(), frog.getZ(), itemStack_verdant);
         ItemStack itemInHand = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
 
         if(itemInHand.getItem() == NDUItems.MAGMACUBEFISH){
             if(frog.getVariant() == FrogVariant.COLD){
-                level.addFreshEntity(itemEntity_verdant);
+                level().addFreshEntity(itemEntity_verdant);
             }
             if(frog.getVariant() == FrogVariant.TEMPERATE){
-                level.addFreshEntity(itemEntity_ochre);
+                level().addFreshEntity(itemEntity_ochre);
             }
             if(frog.getVariant() == FrogVariant.WARM){
-                level.addFreshEntity (itemEntity_pearlescent);
+                level().addFreshEntity (itemEntity_pearlescent);
             }
             if(!pPlayer.isCreative()) {
-                level.playSound(null, frog.blockPosition(), SoundEvents.FROG_EAT, SoundSource.NEUTRAL, 1, 1);
+                level().playSound(null, frog.blockPosition(), SoundEvents.FROG_EAT, SoundSource.NEUTRAL, 1, 1);
                 itemInHand.setCount(itemInHand.getCount() - 1);
             }
             return InteractionResult.SUCCESS;

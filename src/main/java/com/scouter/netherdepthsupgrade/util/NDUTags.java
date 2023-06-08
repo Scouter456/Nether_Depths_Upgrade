@@ -1,6 +1,7 @@
 package com.scouter.netherdepthsupgrade.util;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
@@ -22,11 +23,11 @@ public class NDUTags {
         public static final TagKey<Biome> IS_EYEBALL_FISH_BIOME = tag("is_eyeball_fish_biome");
 
         private static TagKey<Biome> tag(String name){
-            return TagKey.create(Registry.BIOME_REGISTRY, prefix(name));
+            return TagKey.create(Registries.BIOME, prefix(name));
 
         }
         private static TagKey<Biome> fabrictag(String name){
-            return TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("fabric", name));
+            return TagKey.create(Registries.BIOME, new ResourceLocation("fabric", name));
 
         }
     }

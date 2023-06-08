@@ -16,7 +16,6 @@ public class RandomLavaSwimmingGoal extends RandomStrollGoal {
 
     @Nullable
     protected Vec3 getPosition() {
-        LOGGER.info("pos " + MFBehaviorUtils.getRandomSwimmableLavaPos(this.mob, 10, 7));
         return MFBehaviorUtils.getRandomSwimmableLavaPos(this.mob, 10, 7);
     }
 }
