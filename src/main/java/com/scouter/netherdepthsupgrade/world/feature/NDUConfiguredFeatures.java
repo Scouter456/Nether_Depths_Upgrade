@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.world.feature;
+/*package com.scouter.netherdepthsupgrade.world.feature;
 
 import com.google.common.collect.ImmutableList;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
@@ -6,6 +6,7 @@ import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -26,8 +27,8 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 public class NDUConfiguredFeatures {
-    public static final DeferredRegister<ConfiguredFeature<?,?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, NetherDepthsUpgrade.MODID);
-    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, NetherDepthsUpgrade.MODID);
+    public static final DeferredRegister<ConfiguredFeature<?,?>> CONFIGURED_FEATURES = DeferredRegister.create(Registries.CONFIGURED_FEATURE, NetherDepthsUpgrade.MODID);
+    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registries.PLACED_FEATURE, NetherDepthsUpgrade.MODID);
     public static List<String> placedFeatureList = new ArrayList<>();
     public static List<String> configuredFeatureList = new ArrayList<>();
     private static final String WARPED_SEAGRASS_SIMPLE_FEATURE_NAME = "warped_seagrass_simple_feature";
@@ -127,3 +128,4 @@ public class NDUConfiguredFeatures {
         return CONFIGURED_FEATURES.register(name, feature);
     }
 }
+*/

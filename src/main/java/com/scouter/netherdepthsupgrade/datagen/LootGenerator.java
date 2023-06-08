@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*package com.scouter.netherdepthsupgrade.datagen;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
@@ -45,3 +45,4 @@ public class LootGenerator extends LootTableProvider {
         return "Nether Depths Upgrade loot tables";
     }
 }
+*/

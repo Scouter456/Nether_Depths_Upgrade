@@ -46,8 +46,9 @@ public abstract class LavaAnimal extends PathfinderMob {
     /**
      * Get the experience points the entity currently has.
      */
-    protected int getExperienceReward(Player pPlayer) {
-        return 1 + this.level.random.nextInt(3);
+
+    public int getExperienceReward() {
+        return 1 + this.level().random.nextInt(3);
     }
 
     protected void handleAirSupply(int p_30344_) {
@@ -55,7 +56,7 @@ public abstract class LavaAnimal extends PathfinderMob {
             this.setAirSupply(p_30344_ - 1);
             if (this.getAirSupply() == -20) {
                 this.setAirSupply(0);
-                this.hurt(DamageSource.DROWN, 2.0F);
+                this.hurt(this.damageSources().drown(), 2.0F);
             }
         } else {
             this.setAirSupply(300);

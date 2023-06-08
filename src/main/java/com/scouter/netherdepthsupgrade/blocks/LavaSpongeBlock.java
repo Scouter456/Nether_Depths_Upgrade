@@ -1,10 +1,7 @@
 package com.scouter.netherdepthsupgrade.blocks;
 
-import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Tuple;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -13,14 +10,11 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Material;
-
-import java.util.Queue;
 
 public class LavaSpongeBlock extends Block {
     public static final int MAX_DEPTH = 6;
     public static final int MAX_COUNT = 64;
-
+    private static final Direction[] ALL_DIRECTIONS = Direction.values();
     public LavaSpongeBlock(Properties p_56796_) {
         super(p_56796_);
     }
@@ -47,49 +41,41 @@ public class LavaSpongeBlock extends Block {
     }
 
     private boolean removeLavaBreadthFirstSearch(Level pLevel, BlockPos pPos) {
-        Queue<Tuple<BlockPos, Integer>> queue = Lists.newLinkedList();
-        queue.add(new Tuple<>(pPos, 0));
-        int i = 0;
+        BlockState spongeState = pLevel.getBlockState(pPos);
+        return BlockPos.breadthFirstTraversal(pPos, 6, 65, (p_277519_, p_277492_) -> {
+            for(Direction direction : ALL_DIRECTIONS) {
+                p_277492_.accept(p_277519_.relative(direction));
+            }
 
-        while(!queue.isEmpty()) {
-            Tuple<BlockPos, Integer> tuple = queue.poll();
-            BlockPos blockpos = tuple.getA();
-            int j = tuple.getB();
-
-            for(Direction direction : Direction.values()) {
-                BlockPos blockpos1 = blockpos.relative(direction);
-                BlockState blockstate = pLevel.getBlockState(blockpos1);
-                FluidState fluidstate = pLevel.getFluidState(blockpos1);
-                Material material = blockstate.getMaterial();
-                if (fluidstate.is(FluidTags.LAVA)) {
-                    if (blockstate.getBlock() instanceof BucketPickup && !((BucketPickup)blockstate.getBlock()).pickupBlock(pLevel, blockpos1, blockstate).isEmpty()) {
-                        ++i;
-                        if (j < 6) {
-                            queue.add(new Tuple<>(blockpos1, j + 1));
-                        }
-                    } else if (blockstate.getBlock() instanceof LiquidBlock) {
-                        pLevel.setBlock(blockpos1, Blocks.AIR.defaultBlockState(), 3);
-                        ++i;
-                        if (j < 6) {
-                            queue.add(new Tuple<>(blockpos1, j + 1));
-                        }
-                    } else if (material == Material.WATER_PLANT || material == Material.REPLACEABLE_WATER_PLANT) {
-                        BlockEntity blockentity = blockstate.hasBlockEntity() ? pLevel.getBlockEntity(blockpos1) : null;
-                        dropResources(blockstate, pLevel, blockpos1, blockentity);
-                        pLevel.setBlock(blockpos1, Blocks.AIR.defaultBlockState(), 3);
-                        ++i;
-                        if (j < 6) {
-                            queue.add(new Tuple<>(blockpos1, j + 1));
+        }, (p_279054_) -> {
+            if (p_279054_.equals(pPos)) {
+                return true;
+            } else {
+                BlockState blockstate = pLevel.getBlockState(p_279054_);
+                FluidState fluidstate = pLevel.getFluidState(p_279054_);
+                    Block block = blockstate.getBlock();
+                    if (block instanceof BucketPickup) {
+                        BucketPickup bucketpickup = (BucketPickup)block;
+                        if (!bucketpickup.pickupBlock(pLevel, p_279054_, blockstate).isEmpty()) {
+                            return true;
                         }
                     }
+
+                    if (blockstate.getBlock() instanceof LiquidBlock) {
+                        pLevel.setBlock(p_279054_, Blocks.AIR.defaultBlockState(), 3);
+                    } else {
+                        if (!blockstate.is(NDUBlocks.WARPED_SEAGRASS.get()) && !blockstate.is(NDUBlocks.TALL_WARPED_SEAGRASS.get()) && !blockstate.is(NDUBlocks.WARPED_KELP.get()) && !blockstate.is(NDUBlocks.WARPED_KELP_PLANT.get())) {
+                            return false;
+                        }
+
+                        BlockEntity blockentity = blockstate.hasBlockEntity() ? pLevel.getBlockEntity(p_279054_) : null;
+                        dropResources(blockstate, pLevel, p_279054_, blockentity);
+                        pLevel.setBlock(p_279054_, Blocks.AIR.defaultBlockState(), 3);
+                    }
+
+                    return true;
                 }
-            }
 
-            if (i > 64) {
-                break;
-            }
-        }
-
-        return i > 0;
+        }) > 1;
     }
 }

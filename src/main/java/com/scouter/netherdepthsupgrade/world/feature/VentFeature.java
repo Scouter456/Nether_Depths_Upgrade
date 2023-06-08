@@ -57,14 +57,14 @@ public class VentFeature extends Feature<NoneFeatureConfiguration> {
                             double k = (p) * Math.sin(a);
                             int randomNum = random.nextInt(0, 100);
                             if (randomNum < 80) {
-                                worldgenlevel.setBlock(blockpos1.offset(Math.round(x), y, Math.round(k)), block, 3);
+                                worldgenlevel.setBlock(blockpos1.offset((int) Math.round(x), y, (int) Math.round(k)), block, 3);
 
                             } else if (randomNum > 80 && randomNum < 90) {
-                                worldgenlevel.setBlock(blockpos1.offset(Math.round(x), y, Math.round(k)), block4, 3);
+                                worldgenlevel.setBlock(blockpos1.offset((int) Math.round(x), y, (int) Math.round(k)), block4, 3);
                             } else if (randomNum > 90 && randomNum < 98) {
-                                worldgenlevel.setBlock(blockpos1.offset(Math.round(x), y, Math.round(k)), block3, 3);
+                                worldgenlevel.setBlock(blockpos1.offset((int) Math.round(x), y, (int) Math.round(k)), block3, 3);
                             } else if (randomNum > 98 && randomNum < 100) {
-                                worldgenlevel.setBlock(blockpos1.offset(Math.round(x), y, Math.round(k)), block2, 3);
+                                worldgenlevel.setBlock(blockpos1.offset((int) Math.round(x), y, (int) Math.round(k)), block2, 3);
                             }
                         }
                     }

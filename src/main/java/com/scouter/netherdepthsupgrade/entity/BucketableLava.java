@@ -97,7 +97,7 @@ public interface BucketableLava {
             p_148831_.saveToBucketTag(itemstack1);
             ItemStack itemstack2 = ItemUtils.createFilledResult(itemstack, p_148829_, itemstack1, false);
             p_148829_.setItemInHand(p_148830_, itemstack2);
-            Level level = p_148831_.level;
+            Level level = p_148831_.level();
             if (!level.isClientSide) {
                 //TODO add custom lava advancement
                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer)p_148829_, itemstack1);

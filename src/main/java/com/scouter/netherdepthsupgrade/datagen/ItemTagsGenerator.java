@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*package com.scouter.netherdepthsupgrade.datagen;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import net.minecraft.data.DataGenerator;
@@ -31,4 +31,4 @@ public class ItemTagsGenerator extends ItemTagsProvider {
 
     @Override
     public String getName() { return "Nether Depths Upgrade Item Tags";}
-}
+}*/

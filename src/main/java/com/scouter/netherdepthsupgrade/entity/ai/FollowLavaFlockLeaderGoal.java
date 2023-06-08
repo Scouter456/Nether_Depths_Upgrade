@@ -39,7 +39,7 @@ public class FollowLavaFlockLeaderGoal extends Goal {
             Predicate<AbstractLavaSchoolingFish> predicate = (p_25258_) -> {
                 return p_25258_.canBeFollowed() || !p_25258_.isFollower();
             };
-            List<? extends AbstractLavaSchoolingFish> list = this.mob.level.getEntitiesOfClass(this.mob.getClass(), this.mob.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), predicate);
+            List<? extends AbstractLavaSchoolingFish> list = this.mob.level().getEntitiesOfClass(this.mob.getClass(), this.mob.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), predicate);
             AbstractLavaSchoolingFish abstractschoolingfish = DataFixUtils.orElse(list.stream().filter(AbstractLavaSchoolingFish::canBeFollowed).findAny(), this.mob);
             abstractschoolingfish.addFollowers(list.stream().filter((p_25255_) -> {
                 return !p_25255_.isFollower();

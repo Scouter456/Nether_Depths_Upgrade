@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*package com.scouter.netherdepthsupgrade.datagen;
 
 import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
@@ -80,4 +80,4 @@ public class BlockstateGenerator extends BlockStateProvider {
     public String getName() {
         return "Block States: " + NetherDepthsUpgrade.MODID;
     }
-}
+}*/

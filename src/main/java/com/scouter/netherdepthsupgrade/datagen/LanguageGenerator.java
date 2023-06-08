@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*package com.scouter.netherdepthsupgrade.datagen;
 
 import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
@@ -108,4 +108,4 @@ public class LanguageGenerator extends LanguageProvider {
         add("item.minecraft.splash_potion.effect." + regName, "Splash " + name);
         add("item.minecraft.lingering_potion.effect." + regName, "Lingering " + name);
     }
-}
+}*/

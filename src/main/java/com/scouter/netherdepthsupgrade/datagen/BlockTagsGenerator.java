@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*package com.scouter.netherdepthsupgrade.datagen;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
@@ -21,4 +21,4 @@ public class BlockTagsGenerator extends BlockTagsProvider {
 
     @Override
     public String getName() { return "Nether Depths Upgrade Tags";}
-}
+}*/

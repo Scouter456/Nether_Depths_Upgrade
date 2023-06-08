@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*ackage com.scouter.netherdepthsupgrade.datagen;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
@@ -81,4 +81,4 @@ public class ItemModelGenerator extends ItemModelProvider {
         }
         return builder;
     }
-}
+}*/

@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.integration.jei;
+/*package com.scouter.netherdepthsupgrade.integration.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -19,3 +19,4 @@ public class JEIntegrationPlugin implements IModPlugin {
         IModPlugin.super.registerRecipes(registration);
     }
 }
+*/

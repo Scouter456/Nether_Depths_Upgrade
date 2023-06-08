@@ -93,7 +93,7 @@ public class LavaPufferfishEntity extends AbstractLavaFish {
      * Called to update the entity's position/logic.
      */
     public void tick() {
-        if (!this.level.isClientSide && this.isAlive() && this.isEffectiveAi()) {
+        if (!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()) {
             if (this.inflateCounter > 0) {
                 if (this.getPuffState() == 0) {
                     this.playSound(SoundEvents.PUFFER_FISH_BLOW_UP, this.getSoundVolume(), this.getVoicePitch());
@@ -127,7 +127,7 @@ public class LavaPufferfishEntity extends AbstractLavaFish {
     public void aiStep() {
         super.aiStep();
         if (this.isAlive() && this.getPuffState() > 0) {
-            for(Mob mob : this.level.getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(0.3D), (p_149013_) -> {
+            for(Mob mob : this.level().getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(0.3D), (p_149013_) -> {
                 return targetingConditions.test(this, p_149013_);
             })) {
                 if (mob.isAlive()) {
@@ -140,7 +140,7 @@ public class LavaPufferfishEntity extends AbstractLavaFish {
 
     private void touch(Mob p_29606_) {
         int i = this.getPuffState();
-        if (p_29606_.hurt(DamageSource.mobAttack(this), (float)(1 + i))) {
+        if (p_29606_.hurt(this.damageSources().mobAttack(this), (float)(1 + i))) {
             p_29606_.addEffect(new MobEffectInstance(MobEffects.WITHER, 60 * i, 0), this);
             this.playSound(SoundEvents.PUFFER_FISH_STING, 1.0F, 1.0F);
         }
@@ -152,7 +152,7 @@ public class LavaPufferfishEntity extends AbstractLavaFish {
      */
     public void playerTouch(Player pEntity) {
         int i = this.getPuffState();
-        if (pEntity instanceof ServerPlayer && i > 0 && pEntity.hurt(DamageSource.mobAttack(this), (float)(1 + i))) {
+        if (pEntity instanceof ServerPlayer && i > 0 && pEntity.hurt(this.damageSources().mobAttack(this), (float)(1 + i))) {
             if (!this.isSilent()) {
                 ((ServerPlayer)pEntity).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0F));
             }
@@ -205,7 +205,7 @@ public class LavaPufferfishEntity extends AbstractLavaFish {
          * method as well.
          */
         public boolean canUse() {
-            List<LivingEntity> list = this.fish.level.getEntitiesOfClass(LivingEntity.class, this.fish.getBoundingBox().inflate(2.0D), (p_149015_) -> {
+            List<LivingEntity> list = this.fish.level().getEntitiesOfClass(LivingEntity.class, this.fish.getBoundingBox().inflate(2.0D), (p_149015_) -> {
                 return LavaPufferfishEntity.targetingConditions.test(this.fish, p_149015_);
             });
             return !list.isEmpty();

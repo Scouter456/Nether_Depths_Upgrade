@@ -13,38 +13,31 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.IAnimationTickable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class EyeballfishEntity extends AbstractLavaFish implements IAnimatable, IAnimationTickable {
+public class EyeballfishEntity extends AbstractLavaFish implements GeoEntity {
 
-    private AnimationFactory factory = new AnimationFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public EyeballfishEntity(EntityType<? extends AbstractLavaFish> entityType, Level level) {
         super(entityType, level);
     }
-
+    public static final RawAnimation MOVING_EYE_BALL_FISH= RawAnimation.begin().thenLoop("eyeball.move");
     public static AttributeSupplier setAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D)
                 .add(Attributes.MOVEMENT_SPEED, 1.0D)
                 .build();
     }
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("eyeball.move", true));
-        return PlayState.CONTINUE;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "eyeball.moving", 0, state -> state.setAndContinue(MOVING_EYE_BALL_FISH)));
     }
 
-    @Override
-    public void registerControllers(AnimationData data) {
-        AnimationController<EyeballfishEntity> controller = new AnimationController<>(this, "controller",0, this::predicate);
-        data.addAnimationController(controller);
-    }
+
 
     @Override
     public void travel(Vec3 pTravelVector) {
@@ -62,14 +55,10 @@ public class EyeballfishEntity extends AbstractLavaFish implements IAnimatable, 
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
-    @Override
-    public int tickTimer() {
-        return tickCount;
-    }
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.SLIME_SQUISH;

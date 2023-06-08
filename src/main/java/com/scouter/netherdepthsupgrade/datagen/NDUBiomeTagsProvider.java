@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*package com.scouter.netherdepthsupgrade.datagen;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.utils.NDUTags;
@@ -23,4 +23,4 @@ public class NDUBiomeTagsProvider extends BiomeTagsProvider {
         tag(NDUTags.Biomes.IS_SOULSUCKER_BIOME).add(Biomes.SOUL_SAND_VALLEY);
         tag(NDUTags.Biomes.IS_OBSIDIANFISH_BIOME).add(Biomes.BASALT_DELTAS);
     }
-}
+}*/

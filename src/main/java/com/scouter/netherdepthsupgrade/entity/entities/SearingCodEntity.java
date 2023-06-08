@@ -19,7 +19,7 @@ public class SearingCodEntity extends AbstractLavaSchoolingFish {
     public void tick() {
         super.tick();
         if(!this.isInLava()){
-            this.level.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY(1), this.getZ(), 0.0D, this.random.nextDouble() / 5.0D, 0.0D);
+            this.level().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY(1), this.getZ(), 0.0D, this.random.nextDouble() / 5.0D, 0.0D);
         }
     }
     public ItemStack getBucketItemStack() {

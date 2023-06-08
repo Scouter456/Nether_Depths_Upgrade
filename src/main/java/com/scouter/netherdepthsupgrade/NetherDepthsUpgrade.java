@@ -1,7 +1,5 @@
 package com.scouter.netherdepthsupgrade;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.events.ClientEvents;
 import com.scouter.netherdepthsupgrade.events.ForgeEvents;
@@ -18,7 +16,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
-import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib.GeckoLib;
 
 import java.util.Locale;
 

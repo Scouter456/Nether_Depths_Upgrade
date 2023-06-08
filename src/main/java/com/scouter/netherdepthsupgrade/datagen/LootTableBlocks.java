@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*package com.scouter.netherdepthsupgrade.datagen;
 
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
@@ -65,3 +65,4 @@ public class LootTableBlocks extends BlockLoot {
         return knownBlocks;
     }
 }
+*/

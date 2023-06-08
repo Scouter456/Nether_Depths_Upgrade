@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*package com.scouter.netherdepthsupgrade.datagen;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import net.minecraft.data.DataGenerator;
@@ -19,4 +19,4 @@ public class EntityTags extends EntityTypeTagsProvider {
     public String getName() {
         return "Entity type tags provider";
     }
-}
+}*/

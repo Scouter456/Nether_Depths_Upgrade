@@ -2,6 +2,7 @@ package com.scouter.netherdepthsupgrade.items;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -28,14 +29,15 @@ public class NDUArmorMaterial implements ArmorMaterial {
         this.repairMaterial = repairMaterial;
     }
 
+
     @Override
-    public int getDefenseForSlot(EquipmentSlot slot) {
-        return this.damageReduction[slot.getIndex()];
+    public int getDurabilityForType(ArmorItem.Type type) {
+        return this.damageReduction[type.getSlot().getIndex()];
     }
 
     @Override
-    public int getDurabilityForSlot(EquipmentSlot slot) {
-        return this.durability[slot.getIndex()];
+    public int getDefenseForType(ArmorItem.Type type) {
+        return this.durability[type.getSlot().getIndex()];
     }
 
     @Override

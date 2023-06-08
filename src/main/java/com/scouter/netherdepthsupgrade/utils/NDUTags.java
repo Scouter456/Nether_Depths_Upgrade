@@ -1,6 +1,8 @@
 package com.scouter.netherdepthsupgrade.utils;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -37,11 +39,11 @@ public class NDUTags {
 
     public static class EntityTypes {
         private static TagKey<EntityType<?>> tag(String name){
-            return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, prefix(name));
+            return TagKey.create(Registries.ENTITY_TYPE, prefix(name));
 
         }
         private static TagKey<EntityType<?>> forgeTag(String name){
-            return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation("forge", name));
+            return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("forge", name));
 
         }
     }
@@ -60,11 +62,11 @@ public class NDUTags {
         public static final TagKey<Biome> IS_EYEBALL_FISH_BIOME = tag("is_eyeball_fish_biome");
 
         private static TagKey<Biome> tag(String name){
-            return TagKey.create(Registry.BIOME_REGISTRY, prefix(name));
+            return TagKey.create(Registries.BIOME, prefix(name));
 
         }
         private static TagKey<Biome> forgeTag(String name){
-            return TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("forge", name));
+            return TagKey.create(Registries.BIOME, new ResourceLocation("forge", name));
 
         }
     }

@@ -46,11 +46,11 @@ public class LavaFishJumpGoal extends JumpGoal {
 
     private boolean lavaIsClear(BlockPos pPos, int pDx, int pDz, int pScale) {
         BlockPos blockpos = pPos.offset(pDx * pScale, 0, pDz * pScale);
-        return this.lavaAnimal.level.getFluidState(blockpos).is(FluidTags.LAVA) && !this.lavaAnimal.level.getBlockState(blockpos).getMaterial().blocksMotion();
+        return this.lavaAnimal.level().getFluidState(blockpos).is(FluidTags.LAVA) && !this.lavaAnimal.level().getBlockState(blockpos).blocksMotion();
     }
 
     private boolean surfaceIsClear(BlockPos pPos, int pDx, int pDz, int pScale) {
-        return this.lavaAnimal.level.getBlockState(pPos.offset(pDx * pScale, 1, pDz * pScale)).isAir() && this.lavaAnimal.level.getBlockState(pPos.offset(pDx * pScale, 2, pDz * pScale)).isAir();
+        return this.lavaAnimal.level().getBlockState(pPos.offset(pDx * pScale, 1, pDz * pScale)).isAir() && this.lavaAnimal.level().getBlockState(pPos.offset(pDx * pScale, 2, pDz * pScale)).isAir();
     }
 
     /**
@@ -58,7 +58,7 @@ public class LavaFishJumpGoal extends JumpGoal {
      */
     public boolean canContinueToUse() {
         double d0 = this.lavaAnimal.getDeltaMovement().y;
-        return (!(d0 * d0 < (double)0.03F) || this.lavaAnimal.getXRot() == 0.0F || !(Math.abs(this.lavaAnimal.getXRot()) < 10.0F) || !this.lavaAnimal.isInLava()) && !this.lavaAnimal.isOnGround();
+        return (!(d0 * d0 < (double)0.03F) || this.lavaAnimal.getXRot() == 0.0F || !(Math.abs(this.lavaAnimal.getXRot()) < 10.0F) || !this.lavaAnimal.isInLava()) && !this.lavaAnimal.onGround();
     }
 
     public boolean isInterruptable() {
@@ -91,7 +91,7 @@ public class LavaFishJumpGoal extends JumpGoal {
 
         boolean flag = this.breached;
         if (!flag) {
-            FluidState fluidstate = this.lavaAnimal.level.getFluidState(this.lavaAnimal.blockPosition());
+            FluidState fluidstate = this.lavaAnimal.level().getFluidState(this.lavaAnimal.blockPosition());
             this.breached = fluidstate.is(FluidTags.LAVA);
         }
 
@@ -101,7 +101,7 @@ public class LavaFishJumpGoal extends JumpGoal {
 
         Vec3 vec3 = this.lavaAnimal.getDeltaMovement();
         if (vec3.y * vec3.y < (double)0.03F && this.lavaAnimal.getXRot() != 0.0F) {
-            this.lavaAnimal.setXRot(Mth.rotlerp(this.lavaAnimal.getXRot(), 0.0F, 0.2F));
+            this.lavaAnimal.setXRot(Mth.rotLerp(this.lavaAnimal.getXRot(), 0.0F, 0.2F));
         } else if (vec3.length() > (double)1.0E-5F) {
             double d0 = vec3.horizontalDistance();
             double d1 = Math.atan2(-vec3.y, d0) * (double)(180F / (float)Math.PI);

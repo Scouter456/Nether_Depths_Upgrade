@@ -103,7 +103,7 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "condition": "minecraft:alternative",
+              "condition": "minecraft:any_of",
               "terms": [
                 {
                   "condition": "minecraft:location_check",
@@ -114,8 +114,8 @@
               ]
             }
           ],
-          "weight": 10,
-          "name": "minecraft:basalt"
+          "name": "minecraft:basalt",
+          "weight": 10
         },
         {
           "type": "minecraft:item",

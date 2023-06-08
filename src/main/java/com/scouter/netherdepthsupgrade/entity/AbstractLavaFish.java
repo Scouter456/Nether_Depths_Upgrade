@@ -138,11 +138,11 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
      */
     public void aiStep() {
         if(this.isInWater()){
-            this.hurt(DamageSource.LAVA, 4.0F);
+            this.hurt(this.damageSources().lava(), 4.0F);
         }
-        if (!this.isInLava() && this.onGround && this.verticalCollision) {
+        if (!this.isInLava() && this.onGround() && this.verticalCollision) {
             this.setDeltaMovement(this.getDeltaMovement().add((double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), (double)0.4F, (double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
-            this.onGround = false;
+            this.setOnGround(false);
             this.hasImpulse = true;
             this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
         }

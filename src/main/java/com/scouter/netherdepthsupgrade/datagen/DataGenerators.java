@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*package com.scouter.netherdepthsupgrade.datagen;
 
 import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
@@ -96,4 +96,4 @@ public class DataGenerators {
 
         return map;
     }
-}
+}*/

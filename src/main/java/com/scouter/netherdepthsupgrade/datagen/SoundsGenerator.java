@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*package com.scouter.netherdepthsupgrade.datagen;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -22,4 +22,4 @@ public class SoundsGenerator extends SoundDefinitionsProvider {
     {
         return "Nether Depths Upgrade Sound Generator";
     }
-}
+}*/

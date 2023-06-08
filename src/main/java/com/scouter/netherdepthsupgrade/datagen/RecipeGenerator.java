@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.datagen;
+/*package com.scouter.netherdepthsupgrade.datagen;
 
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import net.minecraft.data.DataGenerator;
@@ -33,4 +33,4 @@ public class RecipeGenerator extends RecipeProvider {
 
         nineBlockStorageRecipes(consumer, NDUItems.WARPED_KELP.get(),NDUItems.WARPED_KELP_BLOCK.get());
     }
-}
+}*/
