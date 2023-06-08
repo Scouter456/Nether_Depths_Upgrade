@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class LavaPufferfishRenderer extends MobRenderer<LavaPufferfishEntity, EntityModel<LavaPufferfishEntity>> {
-    private static final ResourceLocation PUFFER_LOCATION = prefix("textures/entity/fish/lava_pufferfish.png");
+    private static final ResourceLocation PUFFER_LOCATION = prefix("textures/entity/lava_pufferfish.png");
     private int puffStateO = 3;
     private final EntityModel<LavaPufferfishEntity> small;
     private final EntityModel<LavaPufferfishEntity> mid;

@@ -35,7 +35,7 @@ public class FortressGrouperEntity extends AbstractLavaFish implements GeoEntity
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final RawAnimation MOVING_FORTRESS_GROUPER = RawAnimation.begin().thenLoop("fortressgrouper.move");
+    public static final RawAnimation MOVING_FORTRESS_GROUPER = RawAnimation.begin().thenLoop("fortressgrouper.moving");
     public FortressGrouperEntity(EntityType<? extends AbstractLavaFish> entityType, Level level) {
         super(entityType, level);
     }

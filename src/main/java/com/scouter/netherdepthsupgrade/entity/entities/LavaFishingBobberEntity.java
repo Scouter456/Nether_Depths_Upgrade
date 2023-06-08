@@ -378,8 +378,6 @@ public class LavaFishingBobberEntity extends FishingHook implements IEntityAddit
                         .withParameter(LootContextParams.TOOL, p_37157_)
                         .withParameter(LootContextParams.THIS_ENTITY, this)
                         .withLuck((float)this.luck + player.getLuck())
-                        .withParameter(LootContextParams.KILLER_ENTITY, this.getOwner())
-                        .withParameter(LootContextParams.THIS_ENTITY, this)
                         .create(LootContextParamSets.FISHING);
 
 

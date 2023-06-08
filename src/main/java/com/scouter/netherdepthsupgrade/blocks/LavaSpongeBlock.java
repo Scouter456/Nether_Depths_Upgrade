@@ -15,6 +15,7 @@ public class LavaSpongeBlock extends Block {
     public static final int MAX_DEPTH = 6;
     public static final int MAX_COUNT = 64;
     private static final Direction[] ALL_DIRECTIONS = Direction.values();
+
     public LavaSpongeBlock(Properties p_56796_) {
         super(p_56796_);
     }
@@ -43,7 +44,7 @@ public class LavaSpongeBlock extends Block {
     private boolean removeLavaBreadthFirstSearch(Level pLevel, BlockPos pPos) {
         BlockState spongeState = pLevel.getBlockState(pPos);
         return BlockPos.breadthFirstTraversal(pPos, 6, 65, (p_277519_, p_277492_) -> {
-            for(Direction direction : ALL_DIRECTIONS) {
+            for (Direction direction : ALL_DIRECTIONS) {
                 p_277492_.accept(p_277519_.relative(direction));
             }
 
@@ -53,28 +54,29 @@ public class LavaSpongeBlock extends Block {
             } else {
                 BlockState blockstate = pLevel.getBlockState(p_279054_);
                 FluidState fluidstate = pLevel.getFluidState(p_279054_);
-                    Block block = blockstate.getBlock();
-                    if (block instanceof BucketPickup) {
-                        BucketPickup bucketpickup = (BucketPickup)block;
-                        if (!bucketpickup.pickupBlock(pLevel, p_279054_, blockstate).isEmpty()) {
-                            return true;
-                        }
+                Block block = blockstate.getBlock();
+                if (blockstate.is(Blocks.WATER)) return false;
+                if (block instanceof BucketPickup) {
+                    BucketPickup bucketpickup = (BucketPickup) block;
+                    if (!bucketpickup.pickupBlock(pLevel, p_279054_, blockstate).isEmpty()) {
+                        return true;
                     }
-
-                    if (blockstate.getBlock() instanceof LiquidBlock) {
-                        pLevel.setBlock(p_279054_, Blocks.AIR.defaultBlockState(), 3);
-                    } else {
-                        if (!blockstate.is(NDUBlocks.WARPED_SEAGRASS.get()) && !blockstate.is(NDUBlocks.TALL_WARPED_SEAGRASS.get()) && !blockstate.is(NDUBlocks.WARPED_KELP.get()) && !blockstate.is(NDUBlocks.WARPED_KELP_PLANT.get())) {
-                            return false;
-                        }
-
-                        BlockEntity blockentity = blockstate.hasBlockEntity() ? pLevel.getBlockEntity(p_279054_) : null;
-                        dropResources(blockstate, pLevel, p_279054_, blockentity);
-                        pLevel.setBlock(p_279054_, Blocks.AIR.defaultBlockState(), 3);
-                    }
-
-                    return true;
                 }
+
+                if (blockstate.getBlock() instanceof LiquidBlock) {
+                    pLevel.setBlock(p_279054_, Blocks.AIR.defaultBlockState(), 3);
+                } else {
+                    if (!blockstate.is(NDUBlocks.WARPED_SEAGRASS.get()) && !blockstate.is(NDUBlocks.TALL_WARPED_SEAGRASS.get()) && !blockstate.is(NDUBlocks.WARPED_KELP.get()) && !blockstate.is(NDUBlocks.WARPED_KELP_PLANT.get())) {
+                        return false;
+                    }
+
+                    BlockEntity blockentity = blockstate.hasBlockEntity() ? pLevel.getBlockEntity(p_279054_) : null;
+                    dropResources(blockstate, pLevel, p_279054_, blockentity);
+                    pLevel.setBlock(p_279054_, Blocks.AIR.defaultBlockState(), 3);
+                }
+
+                return true;
+            }
 
         }) > 1;
     }
