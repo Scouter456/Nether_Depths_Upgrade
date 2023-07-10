@@ -31,12 +31,12 @@ public class NDUArmorMaterial implements ArmorMaterial {
 
 
     @Override
-    public int getDurabilityForType(ArmorItem.Type type) {
+    public int getDefenseForType(ArmorItem.Type type) {
         return this.damageReduction[type.getSlot().getIndex()];
     }
 
     @Override
-    public int getDefenseForType(ArmorItem.Type type) {
+    public int getDurabilityForType(ArmorItem.Type type) {
         return this.durability[type.getSlot().getIndex()];
     }
 

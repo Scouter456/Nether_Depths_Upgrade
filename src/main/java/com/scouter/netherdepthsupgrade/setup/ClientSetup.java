@@ -35,7 +35,7 @@ public class ClientSetup {
         EntityRenderers.register(NDUEntity.FORTRESS_GROUPER.get(), FortressGrouperRenderer::new);
         EntityRenderers.register(NDUEntity.EYEBALL_FISH.get(), EyeballfishRenderer::new);
         EntityRenderers.register(NDUEntity.LAVA_BOBBER.get(), LavaFishingBobberRenderer::new);
-        NDUItemProperties.addItemProperties();
+        event.enqueueWork(NDUItemProperties::addItemProperties);
     }
 
     @SubscribeEvent
