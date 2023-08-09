@@ -1,13 +1,16 @@
 package com.scouter.netherdepthsupgrade.setup;
 
 import com.mojang.logging.LogUtils;
+import com.scouter.netherdepthsupgrade.advancements.NDUAdvancementTriggers;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
+import com.scouter.netherdepthsupgrade.blocks.entity.NDUBlockEntities;
 import com.scouter.netherdepthsupgrade.config.NetherDepthsUpgradeConfig;
 import com.scouter.netherdepthsupgrade.creativetabs.NDUTabs;
 import com.scouter.netherdepthsupgrade.effect.MobEffects;
 import com.scouter.netherdepthsupgrade.enchantments.NDUEnchantments;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
+import com.scouter.netherdepthsupgrade.modcompat.FarmersDelightCompat;
 import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
 import com.scouter.netherdepthsupgrade.particle.NDUParticle;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
@@ -28,6 +31,7 @@ public class Registration {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, NetherDepthsUpgradeConfig.CONFIG_BUILDER);
 
         NDUBlocks.BLOCKS.register(bus);
+        NDUBlockEntities.BLOCK_ENTITIES.register(bus);
         NDUEntity.ENTITY_TYPES.register(bus);
         MobEffects.MOB_EFFECTS.register(bus);
         NDUItems.ITEMS.register(bus);
@@ -39,11 +43,12 @@ public class Registration {
         //NDUConfiguredFeatures.CONFIGURED_FEATURES.register(bus);
         //NDUConfiguredFeatures.PLACED_FEATURES.register(bus);
         NDUFeatures.FEATURES.register(bus);
-
+        NDUAdvancementTriggers.init();
 
         if(ModChecker.farmersDelightPresent){
-       //     FarmersDelightCompat.ITEMS_FARMERS_DELIGHT.register(bus);
-       //     FarmersDelightCompat.BLOCKS_FARMERS_DELIGHT.register(bus);
+            FarmersDelightCompat.ITEMS_FARMERS_DELIGHT.register(bus);
+            FarmersDelightCompat.BLOCKS_FARMERS_DELIGHT.register(bus);
+            FarmersDelightCompat.TABS.register(bus);
         }
 
     }

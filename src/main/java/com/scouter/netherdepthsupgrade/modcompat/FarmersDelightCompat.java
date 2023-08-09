@@ -1,4 +1,4 @@
-/*package com.scouter.netherdepthsupgrade.modcompat;
+package com.scouter.netherdepthsupgrade.modcompat;
 
 import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
@@ -11,6 +11,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -189,17 +190,59 @@ public class FarmersDelightCompat {
                 , Component.translatable("item.netherdepthsupgrade.nether_rice_roll_medley_block.flavor_text").withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.ITALIC)));
 
     }
-    
-    
-    
-    
+
+
     private static final CreativeModeTab NDU_FARMERS_DELIGHT = new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 9)
             .title(Component.translatable("itemGroup.netherdepthsupgrade_food"))
+            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .icon(() -> new ItemStack(NETHER_RICE_ROLL_MEDLEY_BLOCKITEM.get()))
             .displayItems((d, entries) ->{
+                entries.accept(LAVA_PUFFERFISH_SLICE.get());
+                entries.accept(OBSIDIANFISH_SLICE.get());
+                entries.accept(SEARING_COD_SLICE.get());
+                entries.accept(BLAZEFISH_SLICE.get());
+                entries.accept(MAGMACUBEFISH_SLICE.get());
+                entries.accept(GLOWDINE_SLICE.get());
+                entries.accept(SOULSUCKER_SLICE.get());
 
+                entries.accept(COOKED_LAVA_PUFFERFISH_SLICE.get());
+                entries.accept(COOKED_OBSIDIANFISH_SLICE.get());
+                entries.accept(COOKED_MAGMACUBEFISH_SLICE.get());
+                entries.accept(COOKED_GLOWDINE_SLICE.get());
+                entries.accept(COOKED_SOULSUCKER_SLICE.get());
+
+                entries.accept(LAVA_PUFFERFISH_ROLL.get());
+                entries.accept(OBSIDIANFISH_ROLL.get());
+                entries.accept(SEARING_COD_ROLL.get());
+                entries.accept(BLAZEFISH_ROLL.get());
+                entries.accept(MAGMA_CUBE_FISH_ROLL.get());
+                entries.accept(GLOWDINE_ROLL.get());
+                entries.accept(SOULSUCKER_ROLL.get());
+                entries.accept(WARPED_KELP_ROLL.get());
+                entries.accept(WARPED_KELP_ROLL_SLICE.get());
+
+                entries.accept(GRILLED_LAVA_PUFFERFISH.get());
+                entries.accept(GRILLED_OBSIDIANFISH.get());
+                entries.accept(GRILLED_SEARING_COD.get());
+                entries.accept(GRILLED_BLAZEFISH.get());
+                entries.accept(GRILLED_MAGMA_CUBE_FISH.get());
+                entries.accept(GRILLED_GLOWDINE.get());
+                entries.accept(GRILLED_SOULSUCKER.get());
+
+                entries.accept(BAKED_LAVA_PUFFERFISH_STEW.get());
+                entries.accept(BAKED_OBSIDIANFISH_STEW.get());
+                entries.accept(BAKED_SEARING_COD_STEW.get());
+                entries.accept(BAKED_BLAZEFISH_STEW.get());
+                entries.accept(BAKED_MAGMACUBEFISH_STEW.get());
+                entries.accept(BAKED_GLOWDINE_STEW.get());
+                entries.accept(BAKED_SOULSUCKER_STEW.get());
+
+                entries.accept(NETHER_RICE_ROLL_MEDLEY_BLOCKITEM.get());
             })
             .build();
+
+
+
 
     public static final RegistryObject<CreativeModeTab> NDU_FARMERS_DELIGHT_TAB = TABS.register("netherdepthsupgrade_food", () -> NDU_FARMERS_DELIGHT);
 
@@ -241,4 +284,3 @@ public class FarmersDelightCompat {
         }
     }
 }
-*/

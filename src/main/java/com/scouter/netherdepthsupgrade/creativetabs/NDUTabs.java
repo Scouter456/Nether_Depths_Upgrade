@@ -72,6 +72,10 @@ public class NDUTabs {
                 entries.accept(NDUItems.WARPED_SEAGRASS.get());
                 entries.accept(NDUItems.WARPED_KELP_BLOCK.get());
                 entries.accept(NDUItems.WARPED_KELP_CARPET_BLOCK.get());
+                entries.accept(NDUItems.CRIMSON_KELP.get());
+                entries.accept(NDUItems.CRIMSON_SEAGRASS.get());
+                entries.accept(NDUItems.CRIMSON_KELP_BLOCK.get());
+                entries.accept(NDUItems.CRIMSON_KELP_CARPET_BLOCK.get());
                 entries.accept(NDUItems.LAVA_GLASS.get());
 
                 entries.accept(NDUItems.SOUL_SUCKER_LEATHER.get());

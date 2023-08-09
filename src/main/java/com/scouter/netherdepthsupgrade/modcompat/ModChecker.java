@@ -23,7 +23,7 @@ public class ModChecker {
         try{
 
             modid = "farmersdelight";
-            //loadModCompat(modid, () -> FarmersDelightCompat.setupCompat());
+            loadModCompat(modid, () -> FarmersDelightCompat.setupCompat());
 
             modid = "infernalexp";
             loadModCompat(modid, () -> InfernalExpansionCompat.setupCompatPreInit());

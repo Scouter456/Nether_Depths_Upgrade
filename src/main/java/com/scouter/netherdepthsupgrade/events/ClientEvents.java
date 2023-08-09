@@ -43,7 +43,7 @@ public class ClientEvents {
         if (player != null && player.hasEffect(MobEffects.LAVA_VISION.get())) {
                 if (minecraft.level != null) {
                     BlockState state = minecraft.level.getBlockState(new BlockPos(player.blockPosition().above(1)));
-                    if (state.is(Blocks.LAVA) || state.is(NDUBlocks.TALL_WARPED_SEAGRASS.get()) || state.is(NDUBlocks.WARPED_KELP.get()) || state.is(NDUBlocks.WARPED_KELP_PLANT.get())) {
+                    if (state.is(Blocks.LAVA) || state.is(NDUBlocks.TALL_WARPED_SEAGRASS.get()) || state.is(NDUBlocks.WARPED_KELP.get()) || state.is(NDUBlocks.WARPED_KELP_PLANT.get()) || state.is(NDUBlocks.TALL_CRIMSON_SEAGRASS.get()) || state.is(NDUBlocks.CRIMSON_KELP.get()) || state.is(NDUBlocks.CRIMSON_KELP_PLANT.get() )) {
                         event.setNearPlaneDistance(16.0f);
                         event.setFarPlaneDistance(32.0f);
                         event.setCanceled(true);

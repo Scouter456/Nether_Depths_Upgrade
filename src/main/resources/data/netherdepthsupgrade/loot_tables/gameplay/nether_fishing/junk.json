@@ -116,16 +116,6 @@
           ],
           "name": "minecraft:basalt",
           "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "name": "netherdepthsupgrade:fortress_grouper_plate"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "name": "netherdepthsupgrade:eyeball"
         }
       ]
     }

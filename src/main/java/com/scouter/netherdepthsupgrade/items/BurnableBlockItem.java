@@ -10,15 +10,14 @@ import net.minecraft.world.level.block.Block;
 import javax.annotation.Nullable;
 
 public class BurnableBlockItem extends BlockItem {
-    public BurnableBlockItem(Block pBlock, Properties pProperties) {
+    private int burntime;
+    public BurnableBlockItem(Block pBlock, Properties pProperties, int burntime) {
         super(pBlock, pProperties);
+        this.burntime = burntime;
     }
 
     @Override
     public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType){
-        if(itemStack.is(NDUBlocks.WARPED_KELP_BLOCK.get().asItem())) {
-            return 6000;
-        }
-        return 0;
+        return burntime;
     }
 }

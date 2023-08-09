@@ -1,0 +1,31 @@
+{
+  "criteria": {
+    "entered_nether": {
+      "conditions": {
+        "to": "minecraft:the_nether"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "netherdepthsupgrade:textures/block/lava.png",
+    "description": {
+      "translate": "netherdepthsupgrade.advancement.root.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "netherdepthsupgrade:soulsucker"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "netherdepthsupgrade.advancement.root"
+    }
+  },
+  "requirements": [
+    [
+      "entered_nether"
+    ]
+  ]
+}

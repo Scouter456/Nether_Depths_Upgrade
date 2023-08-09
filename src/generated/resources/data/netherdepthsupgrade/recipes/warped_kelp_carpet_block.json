@@ -1,15 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "ccc"
-  ],
   "key": {
     "c": {
       "item": "netherdepthsupgrade:warped_kelp_block"
     }
   },
+  "pattern": [
+    "ccc"
+  ],
   "result": {
-    "item": "netherdepthsupgrade:warped_kelp_carpet_block",
-    "count": 3
+    "count": 3,
+    "item": "netherdepthsupgrade:warped_kelp_carpet_block"
   }
 }

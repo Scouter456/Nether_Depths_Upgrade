@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:glowstone_dust",
-    "count": 2
+    "count": 2,
+    "item": "minecraft:glowstone_dust"
   }
 }

@@ -1,0 +1,37 @@
+{
+  "parent": "netherdepthsupgrade:main/get_eyeball_fish",
+  "criteria": {
+    "wet_lava_sponge": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "netherdepthsupgrade:wet_lava_sponge"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "netherdepthsupgrade.advancement.get_wet_lava_sponge.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "netherdepthsupgrade:wet_lava_sponge"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "netherdepthsupgrade.advancement.get_wet_lava_sponge"
+    }
+  },
+  "requirements": [
+    [
+      "wet_lava_sponge"
+    ]
+  ]
+}

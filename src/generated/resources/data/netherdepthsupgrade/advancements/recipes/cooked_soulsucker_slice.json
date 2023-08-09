@@ -1,35 +1,10 @@
 {
   "advancements": [
     {
-      "conditions": [
-        {
-          "values": [
-            {
-              "modid": "farmersdelight",
-              "type": "forge:mod_loaded"
-            },
-            {
-              "item": "netherdepthsupgrade:soulsucker_slice",
-              "type": "forge:item_exists"
-            },
-            {
-              "item": "netherdepthsupgrade:cooked_soulsucker_slice",
-              "type": "forge:item_exists"
-            }
-          ],
-          "type": "forge:and"
-        }
-      ],
       "advancement": {
         "parent": "minecraft:recipes/root",
-        "rewards": {
-          "recipes": [
-            "netherdepthsupgrade:cooked_soulsucker_slice"
-          ]
-        },
         "criteria": {
           "cooked_soulsucker_slice": {
-            "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
                 {
@@ -38,13 +13,14 @@
                   ]
                 }
               ]
-            }
+            },
+            "trigger": "minecraft:inventory_changed"
           },
           "has_the_recipe": {
-            "trigger": "minecraft:recipe_unlocked",
             "conditions": {
               "recipe": "netherdepthsupgrade:cooked_soulsucker_slice"
-            }
+            },
+            "trigger": "minecraft:recipe_unlocked"
           }
         },
         "requirements": [
@@ -52,8 +28,32 @@
             "cooked_soulsucker_slice",
             "has_the_recipe"
           ]
-        ]
-      }
+        ],
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:cooked_soulsucker_slice"
+          ]
+        }
+      },
+      "conditions": [
+        {
+          "type": "forge:and",
+          "values": [
+            {
+              "type": "forge:mod_loaded",
+              "modid": "farmersdelight"
+            },
+            {
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:soulsucker_slice"
+            },
+            {
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:cooked_soulsucker_slice"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

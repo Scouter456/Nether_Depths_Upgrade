@@ -77,13 +77,6 @@ public class SpongeFeature extends Feature<NoneFeatureConfiguration> {
                         if (worldgenlevel.getFluidState((blockpos1.offset(-x, -y, -z))).is(Fluids.LAVA)) {
                             worldgenlevel.setBlock(blockpos1.offset(-x, -y, -z), block, 3);
                         }
-
-
-
-
-
-
-
                     }
                 }
             }

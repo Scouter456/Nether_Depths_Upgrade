@@ -1,43 +1,10 @@
 {
   "advancements": [
     {
-      "conditions": [
-        {
-          "values": [
-            {
-              "modid": "farmersdelight",
-              "type": "forge:mod_loaded"
-            },
-            {
-              "item": "farmersdelight:cabbage",
-              "type": "forge:item_exists"
-            },
-            {
-              "item": "farmersdelight:onion",
-              "type": "forge:item_exists"
-            },
-            {
-              "item": "netherdepthsupgrade:cooked_obsidianfish_slice",
-              "type": "forge:item_exists"
-            },
-            {
-              "item": "netherdepthsupgrade:grilled_obsidianfish",
-              "type": "forge:item_exists"
-            }
-          ],
-          "type": "forge:and"
-        }
-      ],
       "advancement": {
         "parent": "minecraft:recipes/root",
-        "rewards": {
-          "recipes": [
-            "netherdepthsupgrade:food/grilled_obsidianfish"
-          ]
-        },
         "criteria": {
           "has_obsidianfish": {
-            "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
                 {
@@ -46,13 +13,14 @@
                   ]
                 }
               ]
-            }
+            },
+            "trigger": "minecraft:inventory_changed"
           },
           "has_the_recipe": {
-            "trigger": "minecraft:recipe_unlocked",
             "conditions": {
               "recipe": "netherdepthsupgrade:food/grilled_obsidianfish"
-            }
+            },
+            "trigger": "minecraft:recipe_unlocked"
           }
         },
         "requirements": [
@@ -60,8 +28,40 @@
             "has_obsidianfish",
             "has_the_recipe"
           ]
-        ]
-      }
+        ],
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:food/grilled_obsidianfish"
+          ]
+        }
+      },
+      "conditions": [
+        {
+          "type": "forge:and",
+          "values": [
+            {
+              "type": "forge:mod_loaded",
+              "modid": "farmersdelight"
+            },
+            {
+              "type": "forge:item_exists",
+              "item": "farmersdelight:cabbage"
+            },
+            {
+              "type": "forge:item_exists",
+              "item": "farmersdelight:onion"
+            },
+            {
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:cooked_obsidianfish_slice"
+            },
+            {
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:grilled_obsidianfish"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

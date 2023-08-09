@@ -1,35 +1,10 @@
 {
   "advancements": [
     {
-      "conditions": [
-        {
-          "values": [
-            {
-              "modid": "farmersdelight",
-              "type": "forge:mod_loaded"
-            },
-            {
-              "item": "netherdepthsupgrade:glowdine_slice",
-              "type": "forge:item_exists"
-            },
-            {
-              "item": "netherdepthsupgrade:cooked_glowdine_slice",
-              "type": "forge:item_exists"
-            }
-          ],
-          "type": "forge:and"
-        }
-      ],
       "advancement": {
         "parent": "minecraft:recipes/root",
-        "rewards": {
-          "recipes": [
-            "netherdepthsupgrade:cooked_glowdine_slice_from_campfire_cooking"
-          ]
-        },
         "criteria": {
           "cooked_glowdine_slice": {
-            "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
                 {
@@ -38,13 +13,14 @@
                   ]
                 }
               ]
-            }
+            },
+            "trigger": "minecraft:inventory_changed"
           },
           "has_the_recipe": {
-            "trigger": "minecraft:recipe_unlocked",
             "conditions": {
               "recipe": "netherdepthsupgrade:cooked_glowdine_slice_from_campfire_cooking"
-            }
+            },
+            "trigger": "minecraft:recipe_unlocked"
           }
         },
         "requirements": [
@@ -52,8 +28,32 @@
             "cooked_glowdine_slice",
             "has_the_recipe"
           ]
-        ]
-      }
+        ],
+        "rewards": {
+          "recipes": [
+            "netherdepthsupgrade:cooked_glowdine_slice_from_campfire_cooking"
+          ]
+        }
+      },
+      "conditions": [
+        {
+          "type": "forge:and",
+          "values": [
+            {
+              "type": "forge:mod_loaded",
+              "modid": "farmersdelight"
+            },
+            {
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:glowdine_slice"
+            },
+            {
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:cooked_glowdine_slice"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -4,17 +4,17 @@
     {
       "conditions": [
         {
+          "type": "forge:and",
           "values": [
             {
-              "modid": "farmersdelight",
-              "type": "forge:mod_loaded"
+              "type": "forge:mod_loaded",
+              "modid": "farmersdelight"
             },
             {
-              "item": "netherdepthsupgrade:lava_pufferfish_slice",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:lava_pufferfish_slice"
             }
-          ],
-          "type": "forge:and"
+          ]
         }
       ],
       "recipe": {
@@ -24,18 +24,18 @@
             "item": "netherdepthsupgrade:lava_pufferfish"
           }
         ],
-        "tool": {
-          "tag": "forge:tools/knives"
-        },
         "result": [
           {
-            "item": "netherdepthsupgrade:lava_pufferfish_slice",
-            "count": 2
+            "count": 2,
+            "item": "netherdepthsupgrade:lava_pufferfish_slice"
           },
           {
             "item": "minecraft:bone_meal"
           }
-        ]
+        ],
+        "tool": {
+          "tag": "forge:tools/knives"
+        }
       }
     }
   ]

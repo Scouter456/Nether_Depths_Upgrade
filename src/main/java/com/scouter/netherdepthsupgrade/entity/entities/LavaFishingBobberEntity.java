@@ -37,6 +37,8 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
@@ -237,6 +239,26 @@ public class LavaFishingBobberEntity extends FishingHook implements IEntityAddit
     private void checkCollision() {
         HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
         if (hitresult.getType() == HitResult.Type.MISS || !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)) this.onHit(hitresult);
+    }
+
+    protected boolean canHitEntity(Entity p_37135_) {
+        return super.canHitEntity(p_37135_) || p_37135_.isAlive() && p_37135_ instanceof ItemEntity;
+    }
+
+    /**
+     * Called when the arrow hits an entity
+     */
+    protected void onHitEntity(EntityHitResult pResult) {
+        super.onHitEntity(pResult);
+        if (!this.level().isClientSide) {
+            this.setHookedEntity(pResult.getEntity());
+        }
+
+    }
+
+    protected void onHitBlock(BlockHitResult pResult) {
+        super.onHitBlock(pResult);
+        this.setDeltaMovement(this.getDeltaMovement().normalize().scale(pResult.distanceTo(this)));
     }
 
     private boolean calculateOpenLava(BlockPos p_37159_) {
@@ -448,7 +470,16 @@ public class LavaFishingBobberEntity extends FishingHook implements IEntityAddit
         this.updateOwnerInfo(this);
     }
 
+    public void lerpTo(double pX, double pY, double pZ, float pYaw, float pPitch, int pPosRotationIncrements, boolean pTeleport) {
+    }
 
+    /**
+     * Checks if the entity is in range to render.
+     */
+    public boolean shouldRenderAtSqrDistance(double pDistance) {
+        double d0 = 64.0D;
+        return pDistance < 4096.0D;
+    }
 
     public void remove(RemovalReason pReason) {
         this.updateOwnerInfo((LavaFishingBobberEntity)null);

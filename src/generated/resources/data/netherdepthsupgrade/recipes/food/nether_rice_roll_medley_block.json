@@ -4,41 +4,41 @@
     {
       "conditions": [
         {
+          "type": "forge:and",
           "values": [
             {
-              "modid": "farmersdelight",
-              "type": "forge:mod_loaded"
+              "type": "forge:mod_loaded",
+              "modid": "farmersdelight"
             },
             {
-              "item": "farmersdelight:cooked_rice",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "farmersdelight:cooked_rice"
             },
             {
-              "item": "netherdepthsupgrade:warped_kelp_roll_slice",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:warped_kelp_roll_slice"
             },
             {
-              "item": "netherdepthsupgrade:lava_pufferfish_roll",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:lava_pufferfish_roll"
             },
             {
-              "item": "netherdepthsupgrade:searing_cod_roll",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:searing_cod_roll"
             },
             {
-              "item": "netherdepthsupgrade:magmacubefish_roll",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:magmacubefish_roll"
             },
             {
-              "item": "netherdepthsupgrade:glowdine_roll",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:glowdine_roll"
             },
             {
-              "item": "netherdepthsupgrade:soulsucker_roll",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:soulsucker_roll"
             }
-          ],
-          "type": "forge:and"
+          ]
         }
       ],
       "recipe": {

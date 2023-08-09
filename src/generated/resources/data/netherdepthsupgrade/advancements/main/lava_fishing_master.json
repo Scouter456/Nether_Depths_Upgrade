@@ -1,0 +1,168 @@
+{
+  "parent": "netherdepthsupgrade:main/craft_lava_fishing_rod",
+  "criteria": {
+    "blazefish": {
+      "conditions": {
+        "item": {
+          "items": [
+            "netherdepthsupgrade:blazefish"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "bonefish": {
+      "conditions": {
+        "item": {
+          "items": [
+            "netherdepthsupgrade:bonefish"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "eyeball_fish": {
+      "conditions": {
+        "item": {
+          "items": [
+            "netherdepthsupgrade:eyeball_fish"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "fortress_grouper": {
+      "conditions": {
+        "item": {
+          "items": [
+            "netherdepthsupgrade:fortress_grouper"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "glowdine": {
+      "conditions": {
+        "item": {
+          "items": [
+            "netherdepthsupgrade:glowdine"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "lava_pufferfish": {
+      "conditions": {
+        "item": {
+          "items": [
+            "netherdepthsupgrade:lava_pufferfish"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "magma_cube_fish": {
+      "conditions": {
+        "item": {
+          "items": [
+            "netherdepthsupgrade:magmacubefish"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "obsidianfish": {
+      "conditions": {
+        "item": {
+          "items": [
+            "netherdepthsupgrade:obsidianfish"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "searing_cod": {
+      "conditions": {
+        "item": {
+          "items": [
+            "netherdepthsupgrade:searing_cod"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "soulsucker": {
+      "conditions": {
+        "item": {
+          "items": [
+            "netherdepthsupgrade:soulsucker"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "wither_bonefish": {
+      "conditions": {
+        "item": {
+          "items": [
+            "netherdepthsupgrade:wither_bonefish"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "netherdepthsupgrade.advancement.lava_fishing_master.desc"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "netherdepthsupgrade:lava_pufferfish"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "netherdepthsupgrade.advancement.lava_fishing_master"
+    }
+  },
+  "requirements": [
+    [
+      "lava_pufferfish"
+    ],
+    [
+      "searing_cod"
+    ],
+    [
+      "glowdine"
+    ],
+    [
+      "soulsucker"
+    ],
+    [
+      "fortress_grouper"
+    ],
+    [
+      "eyeball_fish"
+    ],
+    [
+      "obsidianfish"
+    ],
+    [
+      "bonefish"
+    ],
+    [
+      "wither_bonefish"
+    ],
+    [
+      "magma_cube_fish"
+    ],
+    [
+      "blazefish"
+    ]
+  ],
+  "rewards": {
+    "experience": 200
+  }
+}

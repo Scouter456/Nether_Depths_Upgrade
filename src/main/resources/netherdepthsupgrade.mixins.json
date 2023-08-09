@@ -7,7 +7,7 @@
   "mixins": [
   ],
   "client": [
-    "LavaFluidMixin"
+
   ],
   "injectors": {
     "defaultRequire": 1

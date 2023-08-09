@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:shears"
+    },
+    {
+      "item": "netherdepthsupgrade:eyeball_fish"
+    }
+  ],
+  "result": {
+    "item": "netherdepthsupgrade:eyeball"
+  }
+}

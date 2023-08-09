@@ -25,7 +25,15 @@ public class ModSetup {
             ModChecker.setupModCompatCommonSetup();
             NDUEntityPlacement.entityPlacement();
 
-            PotionBrewing.addMix(Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH.get(), NDUPotions.LAVA_VISION.get());
+            PotionBrewing.addMix(Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH.get(), NDUPotions.WITHER.get());
+            PotionBrewing.addMix(NDUPotions.WITHER.get(), Items.REDSTONE, NDUPotions.LONG_WITHER.get());
+            PotionBrewing.addMix(Potions.AWKWARD, NDUItems.EYEBALL_FISH_EYE.get(), NDUPotions.LAVA_VISION.get());
+            PotionBrewing.addMix(Potions.AWKWARD, NDUItems.EYEBALL_FISH.get(), NDUPotions.LAVA_VISION.get());
+            PotionBrewing.addMix(Potions.AWKWARD, NDUItems.OBSIDIANFISH.get(), NDUPotions.RESISTANCE.get());
+            PotionBrewing.addMix(Potions.AWKWARD, NDUItems.GLOWDINE.get(), NDUPotions.GLOWING.get());
+            PotionBrewing.addMix(NDUPotions.GLOWING.get(), Items.REDSTONE, NDUPotions.LONG_GLOWING.get());
+            PotionBrewing.addMix(NDUPotions.RESISTANCE.get(), Items.REDSTONE, NDUPotions.LONG_RESISTANCE.get());
+            PotionBrewing.addMix(NDUPotions.RESISTANCE.get(), Items.GLOWSTONE_DUST, NDUPotions.STRONG_RESISTANCE.get());
             PotionBrewing.addMix(NDUPotions.LAVA_VISION.get(), Items.REDSTONE, NDUPotions.LONG_LAVA_VISION.get());
         });
     }

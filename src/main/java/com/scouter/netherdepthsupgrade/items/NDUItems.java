@@ -10,12 +10,15 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Nullable;
 
 
 public class NDUItems {
@@ -27,9 +30,15 @@ public class NDUItems {
     public static final RegistryObject<Item> WARPED_KELP = fromBlockFireRes(NDUBlocks.WARPED_KELP);
     public static final RegistryObject<Item> WARPED_SEAGRASS = fromBlockFireRes(NDUBlocks.WARPED_SEAGRASS);
 
-    public static final RegistryObject<Item> WARPED_KELP_BLOCK = fromBlockFireResFuel(NDUBlocks.WARPED_KELP_BLOCK);
+    public static final RegistryObject<Item> WARPED_KELP_BLOCK = fromBlockFireResFuel(NDUBlocks.WARPED_KELP_BLOCK, 6400);
     public static final RegistryObject<Item> WARPED_KELP_CARPET_BLOCK = fromBlockFireRes(NDUBlocks.WARPED_KELP_CARPET_BLOCK);
-    public static final RegistryObject<Item> LAVA_GLASS = fromBlockFireResFuel(NDUBlocks.LAVA_GLASS);
+
+    public static final RegistryObject<Item> CRIMSON_KELP = fromBlockFireRes(NDUBlocks.CRIMSON_KELP);
+    public static final RegistryObject<Item> CRIMSON_SEAGRASS = fromBlockFireRes(NDUBlocks.CRIMSON_SEAGRASS);
+
+    public static final RegistryObject<Item> CRIMSON_KELP_BLOCK = fromBlockFireResFuel(NDUBlocks.CRIMSON_KELP_BLOCK, 6400);
+    public static final RegistryObject<Item> CRIMSON_KELP_CARPET_BLOCK = fromBlockFireRes(NDUBlocks.CRIMSON_KELP_CARPET_BLOCK);
+    public static final RegistryObject<Item> LAVA_GLASS = fromBlockFireRes(NDUBlocks.LAVA_GLASS);
     //ITEM
     public static final RegistryObject<Item> SOUL_SUCKER_LEATHER = ITEMS.register("soul_sucker_leather", () -> new Item(new Item.Properties().fireResistant()));
 
@@ -46,7 +55,12 @@ public class NDUItems {
     public static final RegistryObject<Item> OBSIDIANFISH = ITEMS.register("obsidianfish", () -> new Item(new Item.Properties().fireResistant()
             .food(NDUFoods.OBSIDIANFISH)));
     public static final RegistryObject<Item> SEARING_COD = ITEMS.register("searing_cod", () -> new Item(new Item.Properties().fireResistant()
-            .food(NDUFoods.SEARING_COD)));
+            .food(NDUFoods.SEARING_COD)){
+        @Override
+        public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
+            return 3200;
+        }
+    });
     public static final RegistryObject<Item> BONEFISH = ITEMS.register("bonefish", () -> new Item(new Item.Properties().fireResistant()
             .food(NDUFoods.BONEFISH)));
     public static final RegistryObject<Item> WITHER_BONEFISH = ITEMS.register("wither_bonefish", () -> new Item(new Item.Properties().fireResistant()
@@ -146,8 +160,8 @@ public class NDUItems {
         return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().fireResistant()));
     }
 
-    public static <B extends Block> RegistryObject<Item> fromBlockFireResFuel(RegistryObject<B> block) {
-        return ITEMS.register(block.getId().getPath(), () -> new BurnableBlockItem(block.get(), new Item.Properties().fireResistant()));
+    public static <B extends Block> RegistryObject<Item> fromBlockFireResFuel(RegistryObject<B> block, int burntime) {
+        return ITEMS.register(block.getId().getPath(), () -> new BurnableBlockItem(block.get(), new Item.Properties().fireResistant(), burntime));
     }
 
 }
