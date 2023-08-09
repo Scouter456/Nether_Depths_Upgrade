@@ -1,0 +1,60 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_eyeball_fish_eye": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "netherdepthsupgrade:eyeball"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fortress_grouper_plate": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "netherdepthsupgrade:fortress_grouper_plate"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_glass": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:glass"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "netherdepthsupgrade:lava_glass"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_fortress_grouper_plate",
+      "has_eyeball_fish_eye",
+      "has_glass",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "netherdepthsupgrade:lava_glass"
+    ]
+  }
+}

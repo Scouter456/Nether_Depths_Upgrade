@@ -2,7 +2,7 @@ package com.scouter.netherdepthsupgrade.world.feature;
 
 import com.mojang.serialization.Codec;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
-import com.scouter.netherdepthsupgrade.blocks.TallLavaSeagrassBlock;
+import com.scouter.netherdepthsupgrade.blocks.TallWarpedSeagrassBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -39,7 +39,7 @@ public class WarpedSeagrassFeature extends Feature<ProbabilityFeatureConfigurati
             BlockState blockstate = flag1 ? NDUBlocks.TALL_WARPED_SEAGRASS.defaultBlockState() : NDUBlocks.WARPED_SEAGRASS.defaultBlockState();
             if (blockstate.canSurvive(worldgenlevel, blockpos1)) {
                 if (flag1) {
-                    BlockState blockstate1 = blockstate.setValue(TallLavaSeagrassBlock.HALF, DoubleBlockHalf.UPPER);
+                    BlockState blockstate1 = blockstate.setValue(TallWarpedSeagrassBlock.HALF, DoubleBlockHalf.UPPER);
                     BlockPos blockpos2 = blockpos1.above();
                     if (worldgenlevel.getBlockState(blockpos2).is(Blocks.LAVA)) {
                         worldgenlevel.setBlock(blockpos1, blockstate, 2);

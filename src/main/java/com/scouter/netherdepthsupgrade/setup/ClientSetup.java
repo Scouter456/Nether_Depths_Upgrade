@@ -31,6 +31,8 @@ public class ClientSetup implements ClientModInitializer {
         EntityRendererRegistry.register(NDUEntity.LAVA_BOBBER, LavaFishingBobberRenderer::new);
         RenderLayerRegistration();
         NDUItemProperties.addItemProperties();
+
+
     }
 
 
@@ -45,6 +47,10 @@ public class ClientSetup implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(NDUBlocks.WARPED_KELP_PLANT, cutout);
         BlockRenderLayerMap.INSTANCE.putBlock(NDUBlocks.WARPED_SEAGRASS, cutout);
         BlockRenderLayerMap.INSTANCE.putBlock(NDUBlocks.TALL_WARPED_SEAGRASS, cutout);
+        BlockRenderLayerMap.INSTANCE.putBlock(NDUBlocks.CRIMSON_KELP, cutout);
+        BlockRenderLayerMap.INSTANCE.putBlock(NDUBlocks.CRIMSON_KELP_PLANT, cutout);
+        BlockRenderLayerMap.INSTANCE.putBlock(NDUBlocks.CRIMSON_SEAGRASS, cutout);
+        BlockRenderLayerMap.INSTANCE.putBlock(NDUBlocks.TALL_CRIMSON_SEAGRASS, cutout);
         BlockRenderLayerMap.INSTANCE.putBlock(NDUBlocks.LAVA_GLASS, translucent);
         particleRegistration();
     }

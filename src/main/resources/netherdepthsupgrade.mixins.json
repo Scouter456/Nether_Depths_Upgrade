@@ -5,9 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
 
-    "MovementSpeed",
-    "FrogFeedMixin",
-    "LavaFluidMixin"
+    "PlayerTickMixin",
+    "FrogFeedMixin"
   ],
   "client": [
     "render.ScreenFireEffect",

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "netherdepthsupgrade:crimson_kelp_block"
+    }
+  },
+  "pattern": [
+    "ccc"
+  ],
+  "result": {
+    "count": 3,
+    "item": "netherdepthsupgrade:crimson_kelp_carpet_block"
+  }
+}

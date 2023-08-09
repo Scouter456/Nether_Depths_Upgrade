@@ -12,10 +12,11 @@ public final class VectorUtil {
         if (d < 1.0E-7) {
             return Vec3.ZERO;
         }
-        Vec3 vec3d = (d > 1.0 ? movementInput.normalize() : movementInput).multiply(speed, speed, speed);
+        LOGGER.info("d " + d);
+        Vec3 vec3d = (d > 1.0 ? movementInput.normalize() : movementInput).multiply(speed, 20, speed);
         float f = (float)Math.sin(yaw * ((float)Math.PI / 180));
         float g = (float)Math.cos(yaw * ((float)Math.PI / 180));
-        return new Vec3(vec3d.x * (double)g - vec3d.z * (double)f, vec3d.y, vec3d.z * (double)g + vec3d.x * (double)f);
+        return new Vec3(vec3d.x * (double)g - vec3d.z * (double)f, vec3d.y * 2, vec3d.z * (double)g + vec3d.x * (double)f);
     }
 
 

@@ -1,6 +1,8 @@
 package com.scouter.netherdepthsupgrade.setup;
 
+import com.scouter.netherdepthsupgrade.advancements.NDUAdvancementTriggers;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
+import com.scouter.netherdepthsupgrade.blocks.entity.NDUBlockEntities;
 import com.scouter.netherdepthsupgrade.effect.MobEffects;
 import com.scouter.netherdepthsupgrade.enchantments.NDUEnchantments;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
@@ -25,6 +27,7 @@ public class Registration {
     public static void init(){
         NDUItems.ITEMS();
         NDUBlocks.BLOCKS();
+        NDUBlockEntities.BLOCKENTITIES();
         NDUEntity.ENTITY_TYPES();
         MobEffects.MOBEFFECTS();
         NDUPotions.POTIONS();
@@ -37,7 +40,7 @@ public class Registration {
         registerFuels();
         NDUGeneration.generateFeatures();
         NDUGeneration.spawnCreatures();
-
+        NDUAdvancementTriggers.init();
     }
 
 
@@ -57,8 +60,11 @@ public class Registration {
 
     private static void registerFuels(){
         FuelRegistry registry = FuelRegistry.INSTANCE;
+        registry.add(NDUBlocks.WARPED_KELP_BLOCK, 6400);
+        registry.add(NDUBlocks.CRIMSON_KELP_BLOCK, 6400);
+        registry.add(NDUItems.SEARING_COD, 3200);
 
-        registry.add(NDUBlocks.WARPED_KELP_BLOCK, 6000);
+
     }
 
     public static final CreativeModeTab defaultBuilder = FabricItemGroupBuilder.build(prefix("netherdepthsupgrade"), () -> new ItemStack(NDUItems.SOUL_SUCKER_LEATHER));

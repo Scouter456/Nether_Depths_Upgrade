@@ -1,0 +1,85 @@
+{
+  "parent": "netherdepthsupgrade:main/get_eyeball_fish",
+  "criteria": {
+    "crimson_kelp": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "netherdepthsupgrade:crimson_kelp"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "crimson_seagrass": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "netherdepthsupgrade:crimson_seagrass"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "warped_kelp": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "netherdepthsupgrade:warped_kelp"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "warped_seagrass": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "netherdepthsupgrade:warped_seagrass"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "netherdepthsupgrade.advancement.abyssal_flora_expert.desc"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "netherdepthsupgrade:warped_kelp"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "netherdepthsupgrade.advancement.abyssal_flora_expert"
+    }
+  },
+  "requirements": [
+    [
+      "warped_kelp"
+    ],
+    [
+      "warped_seagrass"
+    ],
+    [
+      "crimson_kelp"
+    ],
+    [
+      "crimson_seagrass"
+    ]
+  ],
+  "rewards": {
+    "experience": 200
+  }
+}
