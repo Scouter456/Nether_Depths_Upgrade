@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "netherdepthsupgrade:block/tall_crimson_seagrass_bottom"
+    },
+    "half=upper": {
+      "model": "netherdepthsupgrade:block/tall_crimson_seagrass_top"
+    }
+  }
+}

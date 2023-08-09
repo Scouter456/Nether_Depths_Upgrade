@@ -29,11 +29,16 @@ public class NDUItems {
 
     //BLOCK ITEMS
     public static final Item LAVA_SPONGE = registerBlockItem(NDUBlocks.LAVA_SPONGE);
-    public static final Item WET_LAVA_SPONGE = registerBlockItem(NDUBlocks.WET_LAVA_SPONGE);
+    public static final Item WET_LAVA_SPONGE = registerWetLavaSpongeBlockItem(NDUBlocks.WET_LAVA_SPONGE);
     public static final Item WARPED_KELP = registerBlockItem(NDUBlocks.WARPED_KELP);
     public static final Item WARPED_SEAGRASS = registerBlockItem(NDUBlocks.WARPED_SEAGRASS);
     public static final Item WARPED_KELP_BLOCK = registerBlockItem(NDUBlocks.WARPED_KELP_BLOCK);
     public static final Item WARPED_KELP_BLOCK_CARPET = registerBlockItem(NDUBlocks.WARPED_KELP_CARPET_BLOCK);
+
+    public static final Item CRIMSON_KELP = registerBlockItem(NDUBlocks.CRIMSON_KELP);
+    public static final Item CRIMSON_SEAGRASS = registerBlockItem(NDUBlocks.CRIMSON_SEAGRASS);
+    public static final Item CRIMSON_KELP_BLOCK = registerBlockItem(NDUBlocks.CRIMSON_KELP_BLOCK);
+    public static final Item CRIMSON_KELP_CARPET_BLOCK = registerBlockItem(NDUBlocks.CRIMSON_KELP_CARPET_BLOCK);
     public static final Item LAVA_GLASS = registerBlockItem(NDUBlocks.LAVA_GLASS);
 
     //ITEMS
@@ -181,10 +186,9 @@ public class NDUItems {
                 new BlockItem(block, new FabricItemSettings().fireproof()));
     }
 
-    public static void registerItems() {
-
-
-
+    private static Item registerWetLavaSpongeBlockItem(Block block){
+        return Registry.register(BuiltInRegistries.ITEM, prefix(block.getDescriptionId().replace("block.netherdepthsupgrade.", "").toString()),
+                new WetLavaSpongeBlockItem(block, new FabricItemSettings().fireproof()));
     }
 
 

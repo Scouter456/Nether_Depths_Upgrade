@@ -16,7 +16,7 @@ public class SoulSuckerArmorItem extends ArmorItem {
     public SoulSuckerArmorItem(ArmorMaterial pMaterial, ArmorItem.Type pSlot, Properties pProperties) {
         super(pMaterial, pSlot, pProperties);
     }
-
+/*
     @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
         if (livingEntity instanceof Player player) {
@@ -31,7 +31,7 @@ public class SoulSuckerArmorItem extends ArmorItem {
         }
     }
 
-
+*/
     @Override
     public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
         pStack.enchant(Enchantments.SOUL_SPEED, 3);

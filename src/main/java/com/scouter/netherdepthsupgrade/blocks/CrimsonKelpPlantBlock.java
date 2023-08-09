@@ -11,13 +11,13 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.Shapes;
 
-public class LavaKelpPlantBlock extends GrowingLavaPlantBodyBlock implements LiquidBlockContainer {
-    public LavaKelpPlantBlock(Properties p_54323_) {
+public class CrimsonKelpPlantBlock extends GrowingLavaPlantBodyBlock implements LiquidBlockContainer {
+    public CrimsonKelpPlantBlock(Properties p_54323_) {
         super(p_54323_, Direction.UP, Shapes.block(), true);
     }
 
     protected GrowingLavaPlantHeadBlock getHeadBlock() {
-        return (GrowingLavaPlantHeadBlock) NDUBlocks.WARPED_KELP;
+        return (GrowingLavaPlantHeadBlock) NDUBlocks.CRIMSON_KELP;
     }
 
     public FluidState getFluidState(BlockState pState) {

@@ -25,13 +25,13 @@ import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 
-public class TallLavaSeagrassBlock extends DoublePlantBlock implements LiquidBlockContainer {
+public class TallCrimsonSeagrassBlock extends DoublePlantBlock implements LiquidBlockContainer {
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final EnumProperty<DoubleBlockHalf> HALF = DoublePlantBlock.HALF;
     protected static final float AABB_OFFSET = 6.0F;
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D);
 
-    public TallLavaSeagrassBlock(Properties p_154745_) {
+    public TallCrimsonSeagrassBlock(Properties p_154745_) {
         super(p_154745_);
     }
 
@@ -44,7 +44,7 @@ public class TallLavaSeagrassBlock extends DoublePlantBlock implements LiquidBlo
     }
 
     public ItemStack getCloneItemStack(BlockGetter p_154749_, BlockPos p_154750_, BlockState p_154751_) {
-        return new ItemStack(NDUBlocks.WARPED_SEAGRASS);
+        return new ItemStack(NDUBlocks.CRIMSON_SEAGRASS);
     }
 
     @Nullable

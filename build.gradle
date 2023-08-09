@@ -40,11 +40,11 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	modImplementation 'software.bernie.geckolib:geckolib-fabric-1.20:4.2'
-	//modCompileOnlyApi "curse.maven:jei-238222:3944625"
-	//modRuntimeOnly "curse.maven:jei-238222:3944625"
+	modCompileOnlyApi "curse.maven:jei-238222:4644452"
+	modRuntimeOnly "curse.maven:jei-238222:4644452"
 //
-	//modImplementation "curse.maven:farmersdelight-482834:4111426"
-	//modRuntimeOnly "curse.maven:farmersdelight-482834:4111426"
+	modImplementation "curse.maven:farmersdelight-482834:4640640"
+	modRuntimeOnly "curse.maven:farmersdelight-482834:4640640"
 }
 
 processResources {

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "netherdepthsupgrade:wither_rose"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_witherbonefish": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "netherdepthsupgrade:wither_bonefish"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_witherbonefish",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "netherdepthsupgrade:wither_rose"
+    ]
+  }
+}

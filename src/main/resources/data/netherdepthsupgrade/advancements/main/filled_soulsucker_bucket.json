@@ -1,0 +1,35 @@
+{
+  "parent": "netherdepthsupgrade:main/place_lava_glass",
+  "criteria": {
+    "filled_soulsucker_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "netherdepthsupgrade:soulsucker_bucket"
+          ]
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "netherdepthsupgrade.advancement.filled_soulsucker_bucket.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "netherdepthsupgrade:soulsucker_bucket"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "netherdepthsupgrade.advancement.filled_soulsucker_bucket"
+    }
+  },
+  "requirements": [
+    [
+      "filled_soulsucker_bucket"
+    ]
+  ]
+}

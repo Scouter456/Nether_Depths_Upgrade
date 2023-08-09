@@ -37,6 +37,16 @@ public class NetherDepthsUpgrade implements ModInitializer {
 		
 	}
 	public static void registerBrewingRecipes(){
+		PotionBrewing.addMix(Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH, NDUPotions.WITHER);
+		PotionBrewing.addMix(NDUPotions.WITHER, Items.REDSTONE, NDUPotions.LONG_WITHER);
+		PotionBrewing.addMix(Potions.AWKWARD, NDUItems.EYEBALL_FISH_EYE, NDUPotions.LAVA_VISION);
+		PotionBrewing.addMix(Potions.AWKWARD, NDUItems.EYEBALL_FISH, NDUPotions.LAVA_VISION);
+		PotionBrewing.addMix(Potions.AWKWARD, NDUItems.OBSIDIANFISH, NDUPotions.RESISTANCE);
+		PotionBrewing.addMix(Potions.AWKWARD, NDUItems.GLOWDINE, NDUPotions.GLOWING);
+		PotionBrewing.addMix(NDUPotions.GLOWING, Items.REDSTONE, NDUPotions.LONG_GLOWING);
+		PotionBrewing.addMix(NDUPotions.RESISTANCE, Items.REDSTONE, NDUPotions.LONG_RESISTANCE);
+		PotionBrewing.addMix(NDUPotions.RESISTANCE, Items.GLOWSTONE_DUST, NDUPotions.STRONG_RESISTANCE);
+		PotionBrewing.addMix(NDUPotions.LAVA_VISION, Items.REDSTONE, NDUPotions.LONG_LAVA_VISION);
 		PotionBrewing.addMix(Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH, NDUPotions.LAVA_VISION);
 		PotionBrewing.addMix(NDUPotions.LAVA_VISION, Items.REDSTONE, NDUPotions.LONG_LAVA_VISION);
 	}

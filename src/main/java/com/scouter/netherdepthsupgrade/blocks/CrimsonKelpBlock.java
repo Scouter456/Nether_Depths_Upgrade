@@ -18,11 +18,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class LavaKelpBlock extends GrowingLavaPlantHeadBlock implements LiquidBlockContainer {
+public class CrimsonKelpBlock extends GrowingLavaPlantHeadBlock implements LiquidBlockContainer {
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 9.0D, 16.0D);
     private static final double GROW_PER_TICK_PROBABILITY = 0.14D;
 
-    public LavaKelpBlock(Properties p_54300_) {
+    public CrimsonKelpBlock(Properties p_54300_) {
         super(p_54300_, Direction.UP, SHAPE, true, 0.14D);
     }
 
@@ -31,7 +31,7 @@ public class LavaKelpBlock extends GrowingLavaPlantHeadBlock implements LiquidBl
     }
 
     protected Block getBodyBlock() {
-        return NDUBlocks.WARPED_KELP_PLANT;
+        return NDUBlocks.CRIMSON_KELP_PLANT;
     }
 
     protected boolean canAttachTo(BlockState pState) {
@@ -62,4 +62,6 @@ public class LavaKelpBlock extends GrowingLavaPlantHeadBlock implements LiquidBl
     public FluidState getFluidState(BlockState pState) {
         return Fluids.LAVA.getSource(false);
     }
+
+
 }

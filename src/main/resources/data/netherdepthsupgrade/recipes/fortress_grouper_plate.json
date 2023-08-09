@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:shears"
+    },
+    {
+      "item": "netherdepthsupgrade:fortress_grouper"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "netherdepthsupgrade:fortress_grouper_plate"
+  }
+}

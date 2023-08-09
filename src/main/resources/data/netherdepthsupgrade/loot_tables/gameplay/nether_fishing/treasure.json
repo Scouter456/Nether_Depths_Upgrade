@@ -79,6 +79,16 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:gold_nugget"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "netherdepthsupgrade:fortress_grouper_plate"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "netherdepthsupgrade:eyeball"
         }
       ]
     }

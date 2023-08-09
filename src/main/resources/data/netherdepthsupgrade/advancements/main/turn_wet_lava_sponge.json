@@ -1,0 +1,36 @@
+{
+  "parent": "netherdepthsupgrade:main/get_wet_lava_sponge",
+  "criteria": {
+    "turn_wet_lava_sponge": {
+      "conditions": {
+        "location": [
+          {
+            "block": "netherdepthsupgrade:lava_sponge",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "netherdepthsupgrade:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "netherdepthsupgrade.advancement.turn_wet_lava_sponge.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "netherdepthsupgrade:lava_sponge"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "netherdepthsupgrade.advancement.turn_wet_lava_sponge"
+    }
+  },
+  "requirements": [
+    [
+      "turn_wet_lava_sponge"
+    ]
+  ]
+}

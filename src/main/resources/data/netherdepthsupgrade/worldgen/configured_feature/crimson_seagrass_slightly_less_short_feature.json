@@ -1,0 +1,6 @@
+{
+  "type": "netherdepthsupgrade:crimson_seagrass_feature",
+  "config": {
+    "probability": 0.4
+  }
+}
