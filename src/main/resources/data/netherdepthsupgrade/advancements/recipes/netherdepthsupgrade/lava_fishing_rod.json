@@ -1,13 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
-  "rewards": {
-    "recipes": [
-      "netherdepthsupgrade:lava_fishing_rod"
-    ]
-  },
   "criteria": {
     "has_blaze_rod": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -16,22 +10,10 @@
             ]
           }
         ]
-      }
-    },
-    "has_netherite_scrap": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "minecraft:netherite_scrap"
-            ]
-          }
-        ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "has_chain": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -40,13 +22,26 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_netherite_scrap": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:netherite_scrap"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "netherdepthsupgrade:lava_fishing_rod"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
@@ -56,5 +51,10 @@
       "has_chain",
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "netherdepthsupgrade:lava_fishing_rod"
+    ]
+  }
 }

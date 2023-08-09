@@ -20,8 +20,10 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
+import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
+
 public class LavaFishingBobberRenderer extends EntityRenderer<LavaFishingBobberEntity> {
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation("textures/entity/fishing_hook.png");
+    private static final ResourceLocation TEXTURE_LOCATION = prefix("textures/entity/lava_fishing_hook.png");
     private static final RenderType RENDER_TYPE = RenderType.entityCutout(TEXTURE_LOCATION);
     private static final double VIEW_BOBBING_SCALE = 960.0D;
 
@@ -118,7 +120,7 @@ public class LavaFishingBobberRenderer extends EntityRenderer<LavaFishingBobberE
         f3 /= f6;
         f4 /= f6;
         f5 /= f6;
-        p_174122_.vertex(p_174123_.pose(), f, f1, f2).color(0, 0, 0, 255).normal(p_174123_.normal(), f3, f4, f5).endVertex();
+        p_174122_.vertex(p_174123_.pose(), f, f1, f2).color(105, 84, 69,  255).normal(p_174123_.normal(), f3, f4, f5).endVertex();
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.mixin;
+/*package com.scouter.netherdepthsupgrade.mixin;
 
 
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
@@ -32,3 +32,4 @@ public class LavaFluidMixin {
  //  }
 
 }
+*/
