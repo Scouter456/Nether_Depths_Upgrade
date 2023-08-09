@@ -4,31 +4,31 @@
     {
       "conditions": [
         {
+          "type": "forge:and",
           "values": [
             {
-              "modid": "farmersdelight",
-              "type": "forge:mod_loaded"
+              "type": "forge:mod_loaded",
+              "modid": "farmersdelight"
             },
             {
-              "item": "netherdepthsupgrade:magmacubefish_slice",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:magmacubefish_slice"
             },
             {
-              "item": "netherdepthsupgrade:cooked_magmacubefish_slice",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:cooked_magmacubefish_slice"
             }
-          ],
-          "type": "forge:and"
+          ]
         }
       ],
       "recipe": {
         "type": "minecraft:smoking",
+        "cookingtime": 100,
+        "experience": 0.35,
         "ingredient": {
           "item": "netherdepthsupgrade:magmacubefish_slice"
         },
-        "result": "netherdepthsupgrade:cooked_magmacubefish_slice",
-        "experience": 0.35,
-        "cookingtime": 100
+        "result": "netherdepthsupgrade:cooked_magmacubefish_slice"
       }
     }
   ]

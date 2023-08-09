@@ -89,21 +89,21 @@ public interface BucketableLava {
 
     }
 
-    static <T extends LivingEntity & BucketableLava> Optional<InteractionResult> bucketMobPickup(Player p_148829_, InteractionHand p_148830_, T p_148831_) {
-        ItemStack itemstack = p_148829_.getItemInHand(p_148830_);
-        if (itemstack.getItem() == Items.LAVA_BUCKET && p_148831_.isAlive()) {
-            p_148831_.playSound(p_148831_.getPickupSound(), 1.0F, 1.0F);
-            ItemStack itemstack1 = p_148831_.getBucketItemStack();
-            p_148831_.saveToBucketTag(itemstack1);
-            ItemStack itemstack2 = ItemUtils.createFilledResult(itemstack, p_148829_, itemstack1, false);
-            p_148829_.setItemInHand(p_148830_, itemstack2);
-            Level level = p_148831_.level;
+    static <T extends LivingEntity & BucketableLava> Optional<InteractionResult> bucketMobPickup(Player player, InteractionHand hand, T entity) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (itemstack.getItem() == Items.LAVA_BUCKET && entity.isAlive()) {
+            entity.playSound(entity.getPickupSound(), 1.0F, 1.0F);
+            ItemStack itemstack1 = entity.getBucketItemStack();
+            entity.saveToBucketTag(itemstack1);
+            ItemStack itemstack2 = ItemUtils.createFilledResult(itemstack, player, itemstack1, false);
+            player.setItemInHand(hand, itemstack2);
+            Level level = entity.level;
             if (!level.isClientSide) {
                 //TODO add custom lava advancement
-                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer)p_148829_, itemstack1);
+                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer)player, itemstack1);
             }
 
-            p_148831_.discard();
+            entity.discard();
             return Optional.of(InteractionResult.sidedSuccess(level.isClientSide));
         } else {
             return Optional.empty();

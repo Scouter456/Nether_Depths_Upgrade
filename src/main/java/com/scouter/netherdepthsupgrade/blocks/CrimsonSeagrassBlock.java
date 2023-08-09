@@ -9,6 +9,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -20,11 +21,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class LavaSeagrassBlock extends BushBlock implements BonemealableBlock, LiquidBlockContainer, net.minecraftforge.common.IForgeShearable {
+public class CrimsonSeagrassBlock extends BushBlock implements BonemealableBlock, LiquidBlockContainer, net.minecraftforge.common.IForgeShearable {
     protected static final float AABB_OFFSET = 6.0F;
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D);
 
-    public LavaSeagrassBlock(Properties p_154496_) {
+    public CrimsonSeagrassBlock(Properties p_154496_) {
         super(p_154496_);
     }
 
@@ -60,9 +61,11 @@ public class LavaSeagrassBlock extends BushBlock implements BonemealableBlock, L
     /**
      * @return whether bonemeal can be used on this block
      */
-    public boolean isValidBonemealTarget(BlockGetter p_154510_, BlockPos p_154511_, BlockState p_154512_, boolean p_154513_) {
+    @Override
+    public boolean isValidBonemealTarget(BlockGetter pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
         return true;
     }
+
 
     public boolean isBonemealSuccess(Level p_154515_, RandomSource p_154516_, BlockPos p_154517_, BlockState p_154518_) {
         return true;
@@ -73,7 +76,7 @@ public class LavaSeagrassBlock extends BushBlock implements BonemealableBlock, L
     }
 
     public void performBonemeal(ServerLevel p_154498_, RandomSource p_154499_, BlockPos p_154500_, BlockState p_154501_) {
-        BlockState blockstate = NDUBlocks.TALL_WARPED_SEAGRASS.get().defaultBlockState();
+        BlockState blockstate = NDUBlocks.TALL_CRIMSON_SEAGRASS.get().defaultBlockState();
         BlockState blockstate1 = blockstate.setValue(TallSeagrassBlock.HALF, DoubleBlockHalf.UPPER);
         BlockPos blockpos = p_154500_.above();
         if (p_154498_.getBlockState(blockpos).is(Blocks.LAVA)) {

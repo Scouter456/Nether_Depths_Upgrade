@@ -1,2 +1,3 @@
-// 1.19.2	2022-09-07T20:16:25.6593308	Nether Depths Upgrade Tags
-90eff1aab9bd97ff63e3990e2805c35472e211ce data/minecraft/tags/blocks/mineable/hoe.json
+// 1.19.2	2023-08-09T13:06:51.7991413	Nether Depths Upgrade Tags
+6e4efb8ef88ec15b7ed18fb4ac96d0e07c1e61f7 data/minecraft/tags/blocks/impermeable.json
+72d0fa02998466c008a23ede041da4a2d1acf38b data/minecraft/tags/blocks/mineable/hoe.json

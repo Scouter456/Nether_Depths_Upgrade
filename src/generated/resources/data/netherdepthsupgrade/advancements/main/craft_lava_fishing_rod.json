@@ -1,0 +1,38 @@
+{
+  "parent": "netherdepthsupgrade:main/root",
+  "criteria": {
+    "lava_fishing_rod": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "netherdepthsupgrade:lava_fishing_rod"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "netherdepthsupgrade.advancement.craft_lava_fishing_rod.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "netherdepthsupgrade:lava_fishing_rod",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "netherdepthsupgrade.advancement.craft_lava_fishing_rod"
+    }
+  },
+  "requirements": [
+    [
+      "lava_fishing_rod"
+    ]
+  ]
+}

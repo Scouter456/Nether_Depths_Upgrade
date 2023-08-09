@@ -4,21 +4,21 @@
     {
       "conditions": [
         {
+          "type": "forge:and",
           "values": [
             {
-              "modid": "farmersdelight",
-              "type": "forge:mod_loaded"
+              "type": "forge:mod_loaded",
+              "modid": "farmersdelight"
             },
             {
-              "item": "farmersdelight:cooked_rice",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "farmersdelight:cooked_rice"
             },
             {
-              "item": "netherdepthsupgrade:magmacubefish_slice",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:magmacubefish_slice"
             }
-          ],
-          "type": "forge:and"
+          ]
         }
       ],
       "recipe": {

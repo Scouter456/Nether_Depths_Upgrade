@@ -4,25 +4,27 @@
     {
       "conditions": [
         {
+          "type": "forge:and",
           "values": [
             {
-              "modid": "farmersdelight",
-              "type": "forge:mod_loaded"
+              "type": "forge:mod_loaded",
+              "modid": "farmersdelight"
             },
             {
-              "item": "netherdepthsupgrade:magmacubefish_slice",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:magmacubefish_slice"
             },
             {
-              "item": "netherdepthsupgrade:baked_magmacubefish_stew",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:baked_magmacubefish_stew"
             }
-          ],
-          "type": "forge:and"
+          ]
         }
       ],
       "recipe": {
         "type": "farmersdelight:cooking",
+        "cookingtime": 200,
+        "experience": 0.35,
         "ingredients": [
           {
             "item": "netherdepthsupgrade:magmacubefish_slice"
@@ -39,9 +41,7 @@
         ],
         "result": {
           "item": "netherdepthsupgrade:baked_magmacubefish_stew"
-        },
-        "experience": 0.35,
-        "cookingtime": 200
+        }
       }
     }
   ]

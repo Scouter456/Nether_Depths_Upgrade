@@ -18,6 +18,10 @@ public class RenderLayerRegistration {
         ItemBlockRenderTypes.setRenderLayer(NDUBlocks.WARPED_KELP_PLANT.get(), cutout);
         ItemBlockRenderTypes.setRenderLayer(NDUBlocks.WARPED_SEAGRASS.get(), cutout);
         ItemBlockRenderTypes.setRenderLayer(NDUBlocks.TALL_WARPED_SEAGRASS.get(), cutout);
+        ItemBlockRenderTypes.setRenderLayer(NDUBlocks.CRIMSON_KELP.get(), cutout);
+        ItemBlockRenderTypes.setRenderLayer(NDUBlocks.CRIMSON_KELP_PLANT.get(), cutout);
+        ItemBlockRenderTypes.setRenderLayer(NDUBlocks.CRIMSON_SEAGRASS.get(), cutout);
+        ItemBlockRenderTypes.setRenderLayer(NDUBlocks.TALL_CRIMSON_SEAGRASS.get(), cutout);
         ItemBlockRenderTypes.setRenderLayer(NDUBlocks.LAVA_GLASS.get(), translucent);
     }
 }

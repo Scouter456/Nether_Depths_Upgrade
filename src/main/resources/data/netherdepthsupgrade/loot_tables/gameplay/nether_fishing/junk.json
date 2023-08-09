@@ -101,31 +101,19 @@
         },
         {
           "type": "minecraft:item",
-          "conditions": [
+          "player": [
             {
-              "condition": "minecraft:alternative",
-              "terms": [
-                {
-                  "condition": "minecraft:location_check",
-                  "predicate": {
-                    "biome": "minecraft:basalt_deltas"
-                  }
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "location": {
+                  "structure": "minecraft:fortress"
                 }
-              ]
+              }
             }
           ],
           "weight": 10,
           "name": "minecraft:basalt"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "name": "netherdepthsupgrade:fortress_grouper_plate"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "name": "netherdepthsupgrade:eyeball"
         }
       ]
     }

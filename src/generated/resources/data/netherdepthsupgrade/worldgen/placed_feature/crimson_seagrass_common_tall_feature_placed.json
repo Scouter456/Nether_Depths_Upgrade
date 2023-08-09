@@ -1,0 +1,19 @@
+{
+  "feature": "netherdepthsupgrade:crimson_seagrass_tall_feature",
+  "placement": [
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR_WG"
+    },
+    {
+      "type": "minecraft:count",
+      "count": 256
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

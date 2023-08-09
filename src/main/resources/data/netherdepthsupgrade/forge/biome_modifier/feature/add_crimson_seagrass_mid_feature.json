@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_nether",
+  "features": "netherdepthsupgrade:crimson_seagrass_mid_feature_placed",
+  "step": "vegetal_decoration"
+}

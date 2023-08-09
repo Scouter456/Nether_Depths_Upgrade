@@ -40,26 +40,22 @@ public class LootTableBlocks extends BlockLoot {
     @Override
     protected void addTables() {
         dropSelf(NDUBlocks.WARPED_KELP.get());
+        dropSelf(NDUBlocks.LAVA_SPONGE.get());
+        dropSelf(NDUBlocks.WET_LAVA_SPONGE.get());
+        dropSelf(NDUBlocks.WARPED_KELP_BLOCK.get());
         dropOther(NDUBlocks.WARPED_KELP_PLANT.get(), NDUBlocks.WARPED_KELP.get());
         add(NDUBlocks.WARPED_SEAGRASS.get(), BlockLoot::createShearsOnlyDrop);
         add(NDUBlocks.TALL_WARPED_SEAGRASS.get(), createDoublePlantShearsDrop(NDUBlocks.WARPED_SEAGRASS.get()));
-        LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.BEETROOTS).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BeetrootBlock.AGE, 2)).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BeetrootBlock.AGE, 3));
-        createCropDrops(Blocks.BEETROOTS, Items.BEETROOT, Items.BEETROOT_SEEDS, lootitemcondition$builder);
+        dropSelf(NDUBlocks.CRIMSON_KELP.get());
+        dropSelf(NDUBlocks.CRIMSON_KELP_BLOCK.get());
+        dropSelf(NDUBlocks.CRIMSON_KELP_CARPET_BLOCK.get());
+        dropSelf(NDUBlocks.WARPED_KELP_CARPET_BLOCK.get());
+        dropOther(NDUBlocks.CRIMSON_KELP_PLANT.get(), NDUBlocks.CRIMSON_KELP.get());
+        add(NDUBlocks.CRIMSON_SEAGRASS.get(), BlockLoot::createShearsOnlyDrop);
+        add(NDUBlocks.TALL_CRIMSON_SEAGRASS.get(), createDoublePlantShearsDrop(NDUBlocks.CRIMSON_SEAGRASS.get()));
+        dropWhenSilkTouch(NDUBlocks.LAVA_GLASS.get());
     }
 
-    private static LootTable.Builder spices(Block block, Item item, Item item2, Item item3) {
-        return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-                .add(AlternativesEntry.alternatives(AlternativesEntry.alternatives(
-                                        //When the property has value 1 drop item
-                                        applyExplosionDecay(block, LootItem.lootTableItem(item).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 1)))).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))),
-                                        //When the property has value 2 drop item2
-                                        applyExplosionDecay(block, LootItem.lootTableItem(item2).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2)))).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))),
-                                        applyExplosionDecay(block, LootItem.lootTableItem(item).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2)))).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))),
-                                        //When the property has value 3 drop item3
-                                        applyExplosionDecay(block, LootItem.lootTableItem(item3).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3)))).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))),
-                                        applyExplosionDecay(block, LootItem.lootTableItem(item).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 4)))).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
-                                .when(HAS_NO_SILK_TOUCH),
-                        AlternativesEntry.alternatives(LootItem.lootTableItem(block)))));}
     @Override
     protected Iterable<Block> getKnownBlocks() {
         return knownBlocks;

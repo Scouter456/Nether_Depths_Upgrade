@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:crimson_forest",
+  "features": "netherdepthsupgrade:crimson_kelp_feature_common_placed",
+  "step": "vegetal_decoration"
+}

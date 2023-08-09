@@ -1,23 +1,39 @@
 package com.scouter.netherdepthsupgrade.blocks;
 
 import com.mojang.logging.LogUtils;
+import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
+import com.scouter.netherdepthsupgrade.blocks.advancements.NDUAdvancementTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 public class WetLavaSpongeBlock extends Block {
     private static final Logger LOGGER = LogUtils.getLogger();
     public WetLavaSpongeBlock(Properties p_58222_) {
         super(p_58222_);
+    }
+
+    @Override
+    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
+        NetherDepthsUpgrade.LOGGER.info("placer " + pPlacer);
+        if (pLevel.getBlockState(pPos.above()).getFluidState().is(FluidTags.WATER)) {
+            if(pPlacer instanceof ServerPlayer player){
+                NDUAdvancementTriggers.PLACE_WET_LAVA_SPONGE.trigger(player, pPos, pStack);
+            }
+        }
     }
 
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {

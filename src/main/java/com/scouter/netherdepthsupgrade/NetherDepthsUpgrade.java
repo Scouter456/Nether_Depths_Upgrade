@@ -9,6 +9,8 @@ import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
 import com.scouter.netherdepthsupgrade.setup.ClientSetup;
 import com.scouter.netherdepthsupgrade.setup.ModSetup;
 import com.scouter.netherdepthsupgrade.setup.Registration;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -53,6 +55,10 @@ public class NetherDepthsUpgrade
 
     public static ResourceLocation prefix(String name) {
         return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
+    }
+
+    public static MutableComponent getTranslation(String key, Object... args) {
+        return Component.translatable("netherdepthsupgrade." + key, args);
     }
 
 }

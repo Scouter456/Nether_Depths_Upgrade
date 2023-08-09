@@ -4,17 +4,17 @@
     {
       "conditions": [
         {
+          "type": "forge:and",
           "values": [
             {
-              "modid": "farmersdelight",
-              "type": "forge:mod_loaded"
+              "type": "forge:mod_loaded",
+              "modid": "farmersdelight"
             },
             {
-              "item": "netherdepthsupgrade:warped_kelp_roll",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:warped_kelp_roll"
             }
-          ],
-          "type": "forge:and"
+          ]
         }
       ],
       "recipe": {
@@ -24,15 +24,15 @@
             "item": "netherdepthsupgrade:warped_kelp_roll"
           }
         ],
-        "tool": {
-          "tag": "forge:tools/knives"
-        },
         "result": [
           {
-            "item": "netherdepthsupgrade:warped_kelp_roll_slice",
-            "count": 3
+            "count": 3,
+            "item": "netherdepthsupgrade:warped_kelp_roll_slice"
           }
-        ]
+        ],
+        "tool": {
+          "tag": "forge:tools/knives"
+        }
       }
     }
   ]

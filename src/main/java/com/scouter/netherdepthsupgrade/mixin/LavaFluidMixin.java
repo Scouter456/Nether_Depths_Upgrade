@@ -1,4 +1,4 @@
-package com.scouter.netherdepthsupgrade.mixin;
+/*package com.scouter.netherdepthsupgrade.mixin;
 
 
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
@@ -23,4 +23,4 @@ public class LavaFluidMixin {
                     !LiquidBlockRenderer.isFaceOccludedBySelf(level, pos, blockState, side) && !LiquidBlockRenderer.isNeighborSameFluid(fluidState, neighborFluid) && !level.getBlockState(pos).getFluidState().is(FluidTags.LAVA);
         }
 }
-
+*/

@@ -2,9 +2,8 @@ package com.scouter.netherdepthsupgrade.world.feature;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
-
-import com.scouter.netherdepthsupgrade.blocks.LavaKelpBlock;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
+import com.scouter.netherdepthsupgrade.blocks.WarpedKelpBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -46,7 +45,7 @@ public class WarpedKelpFeature extends Feature<NoneFeatureConfiguration> {
             for(int l = 0; l <= k; ++l) {
                 if (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA) && worldgenlevel.getBlockState(blockpos1.above()).is(Blocks.LAVA) && blockstate1.canSurvive(worldgenlevel, blockpos1)) {
                     if (l == k) {
-                        worldgenlevel.setBlock(blockpos1, blockstate.setValue(LavaKelpBlock.AGE, Integer.valueOf(random.nextInt(4) + 20)), 2);
+                        worldgenlevel.setBlock(blockpos1, blockstate.setValue(WarpedKelpBlock.AGE, Integer.valueOf(random.nextInt(4) + 20)), 2);
                         ++i;
                     } else {
                         worldgenlevel.setBlock(blockpos1, blockstate1, 2);
@@ -54,7 +53,7 @@ public class WarpedKelpFeature extends Feature<NoneFeatureConfiguration> {
                 } else if (l > 0) {
                     BlockPos blockpos2 = blockpos1.below();
                     if (blockstate.canSurvive(worldgenlevel, blockpos2) && !worldgenlevel.getBlockState(blockpos2.below()).is(NDUBlocks.WARPED_KELP.get())) {
-                        worldgenlevel.setBlock(blockpos2, blockstate.setValue(LavaKelpBlock.AGE, Integer.valueOf(random.nextInt(4) + 20)), 2);
+                        worldgenlevel.setBlock(blockpos2, blockstate.setValue(WarpedKelpBlock.AGE, Integer.valueOf(random.nextInt(4) + 20)), 2);
                         ++i;
                     }
                     break;

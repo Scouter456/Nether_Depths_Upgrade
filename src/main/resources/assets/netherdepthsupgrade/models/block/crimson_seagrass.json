@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_seagrass",
+  "textures": {
+    "texture": "netherdepthsupgrade:block/crimson_seagrass"
+  }
+}

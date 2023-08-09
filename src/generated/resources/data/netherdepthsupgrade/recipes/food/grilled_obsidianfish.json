@@ -4,29 +4,29 @@
     {
       "conditions": [
         {
+          "type": "forge:and",
           "values": [
             {
-              "modid": "farmersdelight",
-              "type": "forge:mod_loaded"
+              "type": "forge:mod_loaded",
+              "modid": "farmersdelight"
             },
             {
-              "item": "farmersdelight:cabbage",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "farmersdelight:cabbage"
             },
             {
-              "item": "farmersdelight:onion",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "farmersdelight:onion"
             },
             {
-              "item": "netherdepthsupgrade:cooked_obsidianfish_slice",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:cooked_obsidianfish_slice"
             },
             {
-              "item": "netherdepthsupgrade:grilled_obsidianfish",
-              "type": "forge:item_exists"
+              "type": "forge:item_exists",
+              "item": "netherdepthsupgrade:grilled_obsidianfish"
             }
-          ],
-          "type": "forge:and"
+          ]
         }
       ],
       "recipe": {
