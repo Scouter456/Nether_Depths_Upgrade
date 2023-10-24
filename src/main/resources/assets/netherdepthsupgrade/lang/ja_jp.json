@@ -126,7 +126,7 @@
   "item.netherdepthsupgrade.wither_bonefish": "ウィザーボーンフィッシュ",
   "item.netherdepthsupgrade.wither_bonefish_bucket": "ウィザーボーンフィッシュ入りバケツ",
   "item.netherdepthsupgrade.wither_bonefish_spawn_egg": "ウィザーボーンフィッシュのスポーンエッグ",
-  "itemGroup.netherdepthsupgrade": "Nether Depths Upgrade",
-  "itemGroup.netherdepthsupgrade_fish": "Nether Depths Upgrade : 魚",
-  "itemGroup.netherdepthsupgrade_food": "Nether Depths Upgrade : 料理"
+  "itemGroup.netherdepthsupgrade.netherdepthsupgrade": "Nether Depths Upgrade",
+  "itemGroup.netherdepthsupgrade.netherdepthsupgrade_fish": "Nether Depths Upgrade : 魚",
+  "itemGroup.netherdepthsupgrade.netherdepthsupgrade_food": "Nether Depths Upgrade : 料理"
 }
