@@ -1,21 +1,4 @@
 {
-
-
-        "type": "minecraft:crafting_shapeless",
-        "ingredients": [
-          {
-            "item": "netherdepthsupgrade:soulsucker_slice"
-          },
-          {
-            "item": "netherdepthsupgrade:soulsucker_slice"
-          },
-          {
-            "item": "farmersdelight:cooked_rice"
-          }
-        ],
-        "result": {
-          "item": "netherdepthsupgrade:soulsucker_roll"
-        },
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",
@@ -23,6 +6,21 @@
         "farmersdelight"
       ]
     }
-  ]
-      }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "netherdepthsupgrade:soulsucker_slice"
+    },
+    {
+      "item": "netherdepthsupgrade:soulsucker_slice"
+    },
+    {
+      "item": "farmersdelight:cooked_rice"
+    }
+  ],
+  "result": {
+    "item": "netherdepthsupgrade:soulsucker_roll"
+  }
+}
 

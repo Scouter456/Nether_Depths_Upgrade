@@ -20,6 +20,7 @@
   "entity.netherdepthsupgrade.glowdine": "Glowdine",
   "entity.netherdepthsupgrade.lava_fishing_bobber": "Lava Bobber",
   "entity.netherdepthsupgrade.lava_pufferfish": "Lava Pufferfish",
+  "entity.netherdepthsupgrade.eyeball_fish": "Eyeball Fish",
   "entity.netherdepthsupgrade.magmacubefish": "Magma Cube fish",
   "entity.netherdepthsupgrade.obsidianfish": "Obsidianfish",
   "entity.netherdepthsupgrade.searing_cod": "Searing Cod",
@@ -176,7 +177,7 @@
   "netherdepthsupgrade.advancement.abyssal_flora_expert": "Abyssal Flora Expert",
   "netherdepthsupgrade.advancement.abyssal_flora_expert.desc": "Obtain all Lava Plants from the depths",
   "netherdepthsupgrade.advancement.craft_lava_fishing_rod": "Peaceful.. Tidings?",
-  "netherdepthsupgrade.advancement.craft_lava_fishing_rod.desc": "Craft a Lava Fishing Rod and start your Lava Fishing yourney",
+  "netherdepthsupgrade.advancement.craft_lava_fishing_rod.desc": "Craft a Lava Fishing Rod and start your Lava Fishing journey",
   "netherdepthsupgrade.advancement.filled_soulsucker_bucket": "Cleaning!",
   "netherdepthsupgrade.advancement.filled_soulsucker_bucket.desc": "Obtain a Soulsucker to clean your Lavaquarium",
   "netherdepthsupgrade.advancement.get_eyeball_fish": "It's still looking at me!",
@@ -190,5 +191,7 @@
   "netherdepthsupgrade.advancement.root": "Nether Depths Upgrade",
   "netherdepthsupgrade.advancement.root.desc": "A whole new world awaits you below the depths!",
   "netherdepthsupgrade.advancement.turn_wet_lava_sponge": "Dry Lava Sponge?",
-  "netherdepthsupgrade.advancement.turn_wet_lava_sponge.desc": "Place a Wet Lava Sponge underwater to dry it"
+  "netherdepthsupgrade.advancement.turn_wet_lava_sponge.desc": "Place a Wet Lava Sponge underwater to dry it",
+  "block.netherdepthsupgrade.tall_warped_seagrass": "Tall Warped Seagrass",
+  "block.netherdepthsupgrade.tall_crimson_seagrass": "Tall Crimson Seagrass"
 }
