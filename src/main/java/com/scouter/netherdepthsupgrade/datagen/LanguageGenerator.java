@@ -45,7 +45,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(NDUItems.BONEFISH_SPAWN_EGG, "Bonefish Spawn Egg");
         addItem(NDUItems.WITHER_BONEFISH_SPAWN_EGG, "Wither Bonefish Spawn Egg");
         addItem(NDUItems.BLAZEFISH_SPAWN_EGG, "Blazefish Spawn Egg");
-        addItem(NDUItems.MAGMACUBEFISH_SPAWN_EGG, "Magma Cube fish Spawn Egg");
+        addItem(NDUItems.MAGMACUBEFISH_SPAWN_EGG, "Magma Cube Fish Spawn Egg");
         addItem(NDUItems.GLOWDINE_SPAWN_EGG, "Glowdine Spawn Egg");
         addItem(NDUItems.SOULSUCKER_SPAWN_EGG, "Soul Sucker Spawn Egg");
         addItem(NDUItems.FORTRESS_GROUPER_SPAWN_EGG, "Fortress Grouper Spawn Egg");
@@ -83,10 +83,11 @@ public class LanguageGenerator extends LanguageProvider {
         addEntityType(NDUEntity.BONEFISH, "Bonefish");
         addEntityType(NDUEntity.WITHER_BONEFISH, "Wither Bonefish");
         addEntityType(NDUEntity.BLAZEFISH, "Blazefish");
-        addEntityType(NDUEntity.MAGMACUBEFISH, "Magma Cube fish");
+        addEntityType(NDUEntity.MAGMACUBEFISH, "Magma Cube Fish");
         addEntityType(NDUEntity.GLOWDINE, "Glowdine");
         addEntityType(NDUEntity.SOULSUCKER, "Soul Sucker");
         addEntityType(NDUEntity.FORTRESS_GROUPER, "Fortress Grouper");
+        addEntityType(NDUEntity.EYEBALL_FISH, "Eyeball Fish");
         addEntityType(NDUEntity.LAVA_BOBBER, "Lava Bobber");
 
         addItem(NDUItems.LAVA_PUFFERFISH_BUCKET, "Bucket of Lava Pufferfish");
@@ -101,8 +102,8 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(NDUItems.WITHER_BONEFISH, "Wither Bonefish");
         addItem(NDUItems.BLAZEFISH_BUCKET, "Bucket of Blazefish");
         addItem(NDUItems.BLAZEFISH, "Blazefish");
-        addItem(NDUItems.MAGMACUBEFISH_BUCKET, "Bucket of Magma Cube fish");
-        addItem(NDUItems.MAGMACUBEFISH, "Magma Cube fish");
+        addItem(NDUItems.MAGMACUBEFISH_BUCKET, "Bucket of Magma Cube Fish");
+        addItem(NDUItems.MAGMACUBEFISH, "Magma Cube Fish");
         addItem(NDUItems.GLOWDINE_BUCKET, "Bucket of Glowdine");
         addItem(NDUItems.GLOWDINE, "Glowdine");
         addItem(NDUItems.SOULSUCKER_BUCKET, "Bucket of Soul Sucker");
@@ -183,7 +184,7 @@ public class LanguageGenerator extends LanguageProvider {
         add("netherdepthsupgrade.advancement.filled_soulsucker_bucket", "Cleaning!");
         add("netherdepthsupgrade.advancement.filled_soulsucker_bucket.desc", "Obtain a Soulsucker to clean your Lavaquarium");
         add("netherdepthsupgrade.advancement.craft_lava_fishing_rod", "Peaceful.. Tidings?");
-        add("netherdepthsupgrade.advancement.craft_lava_fishing_rod.desc", "Craft a Lava Fishing Rod and start your Lava Fishing yourney");
+        add("netherdepthsupgrade.advancement.craft_lava_fishing_rod.desc", "Craft a Lava Fishing Rod and start your Lava Fishing journey");
         add("netherdepthsupgrade.advancement.abyssal_flora_expert", "Abyssal Flora Expert");
         add("netherdepthsupgrade.advancement.abyssal_flora_expert.desc", "Obtain all Lava Plants from the depths");
 

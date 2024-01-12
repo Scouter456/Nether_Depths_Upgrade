@@ -39,11 +39,13 @@ public class NDUBiomeTagsProvider extends BiomeTagsProvider {
         tag(NDUTags.Biomes.IS_OBSIDIANFISH_BIOME).add(Biomes.BASALT_DELTAS)
                 .addOptional(new ResourceLocation("byg", "brimstone_caverns"));
 
-        tag(NDUTags.Biomes.IS_FORTRESS_GROUPER_BIOME).add(Biomes.BASALT_DELTAS)
+        tag(NDUTags.Biomes.IS_FORTRESS_GROUPER_BIOME)
+                .add(Biomes.BASALT_DELTAS)
                 .addTag(BiomeTags.HAS_NETHER_FORTRESS)
                 .addOptional(new ResourceLocation("byg", "brimstone_caverns"));
 
-        tag(NDUTags.Biomes.IS_EYEBALL_FISH_BIOME).add(Biomes.CRIMSON_FOREST)
+        tag(NDUTags.Biomes.IS_EYEBALL_FISH_BIOME)
+                .add(Biomes.CRIMSON_FOREST)
                 .addOptional(new ResourceLocation("byg", "wailing_garth"));
     }
 }
