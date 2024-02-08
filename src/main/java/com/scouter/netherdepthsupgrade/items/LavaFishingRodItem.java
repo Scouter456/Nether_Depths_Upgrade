@@ -1,6 +1,8 @@
 package com.scouter.netherdepthsupgrade.items;
 
+import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.entity.entities.LavaFishingBobberEntity;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -9,9 +11,13 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class LavaFishingRodItem extends FishingRodItem {
     public LavaFishingRodItem(Properties p_41285_) {
@@ -52,3 +58,4 @@ public class LavaFishingRodItem extends FishingRodItem {
         return 5;
     }
 }
+

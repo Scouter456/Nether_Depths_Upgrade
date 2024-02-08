@@ -50,7 +50,7 @@ public class LanguageGenerator extends LanguageProvider {
         addItem(NDUItems.SOULSUCKER_SPAWN_EGG, "Soul Sucker Spawn Egg");
         addItem(NDUItems.FORTRESS_GROUPER_SPAWN_EGG, "Fortress Grouper Spawn Egg");
         addItem(NDUItems.EYEBALL_FISH_SPAWN_EGG, "Eyeball Fish Spawn Egg");
-        addItem(NDUItems.FORTRESS_GROUPER_PLATE, "Fortress Grouper Playe");
+        addItem(NDUItems.FORTRESS_GROUPER_PLATE, "Fortress Grouper Plate");
         addItem(NDUItems.EYEBALL_FISH_EYE, "Eyeball Fish Eye");
         //POTIONS
         addPotion(NDUPotions.LAVA_VISION, "Potion of Lava Vision", "lava_vision");
