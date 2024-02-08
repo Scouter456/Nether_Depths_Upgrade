@@ -486,7 +486,17 @@ public class LavaFishingBobberEntity extends FishingHook {
                         entity = NDUEntity.FORTRESS_GROUPER.create(this.level());
                     }
                     if (entity == null) {
-                        ItemEntity itementity = new ItemEntity(this.level(), this.getX(), this.getY() + 1, this.getZ(), stack);
+                        ItemEntity itementity = new ItemEntity(this.level(), this.getX(), this.getY() + 1, this.getZ(), stack){
+
+                            @Override
+                            public boolean displayFireAnimation() {
+                                return false;
+                            }
+
+                            @Override
+                            public void lavaHurt() {
+                            }
+                        };
                         double d0 = player.position().x() - this.position().x();
                         double d1 = player.position().y() - (this.position().y() + 1);
                         double d2 = player.position().z() - this.position().z();

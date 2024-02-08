@@ -56,21 +56,9 @@
         },
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "location": {
-                  "structure": "minecraft:fortress"
-                }
-              }
-            }
-          ],
           "weight": 15,
           "name": "netherdepthsupgrade:blazefish"
         }
-
       ]
     }
   ]
