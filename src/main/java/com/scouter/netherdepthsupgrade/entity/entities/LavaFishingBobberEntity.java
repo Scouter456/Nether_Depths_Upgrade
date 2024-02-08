@@ -434,7 +434,17 @@ public class LavaFishingBobberEntity extends FishingHook implements IEntityAddit
                 CriteriaTriggers.FISHING_ROD_HOOKED.trigger((ServerPlayer)player, p_37157_, this, list);
 
                 for(ItemStack itemstack : list) {
-                    ItemEntity itementity = new ItemEntity(this.level(), this.getX(), this.getY() + 1, this.getZ(), itemstack);
+                    ItemEntity itementity = new ItemEntity(this.level(), this.getX(), this.getY() + 1, this.getZ(), itemstack){
+
+                        @Override
+                        public boolean displayFireAnimation() {
+                            return false;
+                        }
+
+                        @Override
+                        public void lavaHurt() {
+                        }
+                    };
                     double d0 = player.getX() - this.getX();
                     double d1 = player.getY() - (this.getY() + 1);
                     double d2 = player.getZ() - this.getZ();
