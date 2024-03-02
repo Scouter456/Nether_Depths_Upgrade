@@ -3,7 +3,6 @@ package com.scouter.netherdepthsupgrade.world.feature;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import net.minecraft.world.level.levelgen.feature.Feature;
-
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraftforge.registries.DeferredRegister;

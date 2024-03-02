@@ -13,19 +13,14 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -38,9 +33,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
     private static final EntityDataAccessor<BlockPos> SOULSAND_POS = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.BLOCK_POS);
@@ -172,7 +164,7 @@ public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
         private int counter = 0;
         private int suckCounter = 30;
         private BlockPos lastPos;
-        private Random rand = new Random();
+        private RandomSource rand = RandomSource.create();
         public final List<BlockPos> soulSandList = new ArrayList<>();
         private boolean stuck;
 
@@ -195,18 +187,8 @@ public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
 
         @Override
         public void start() {
-            //LOGGER.info("starting!!");
             if (this.mob.level() instanceof ServerLevel) {
-                ServerLevel serverlevel = (ServerLevel) this.mob.level();
                 this.mob.getNavigation().stop();
-                BlockPos blockpos = this.mob.blockPosition();
-
-               //List<BlockState> blockStateList = serverlevel.getBlockStatesIfLoaded(this.mob.getBoundingBox().inflate(5)).filter((state) -> {
-               //    return state.is(Blocks.SOUL_SAND);
-               //}).collect(Collectors.toList());
-               //BlockPos.betweenClosedStream(aabb).filter(blockPos -> serverlevel.getBlockState(blockPos).is(Blocks.SOUL_SAND) && serverlevel.getBlockState(blockPos.above()).is(Blocks.LAVA) && !this.mob.level.getFluidState(blockPos.below()).is(Fluids.LAVA))
-               //        .forEach(blockPos -> {soulSandList.add(blockPos.immutable());});
-
 
                 for (int x = -5; x < 5; x++) {
                     for (int y = 0; y < 10; y++) {

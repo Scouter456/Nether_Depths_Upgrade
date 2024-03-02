@@ -1,10 +1,7 @@
 package com.scouter.netherdepthsupgrade.creativetabs;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
-import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
-import com.scouter.netherdepthsupgrade.items.NDUFoods;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
-import com.scouter.netherdepthsupgrade.setup.Registration;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -13,7 +10,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class NDUTabs {

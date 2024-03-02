@@ -2,9 +2,8 @@ package com.scouter.netherdepthsupgrade.world.feature;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
-
-import com.scouter.netherdepthsupgrade.blocks.WarpedKelpBlock;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
+import com.scouter.netherdepthsupgrade.blocks.WarpedKelpBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;

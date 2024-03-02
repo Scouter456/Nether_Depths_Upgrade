@@ -1,7 +1,6 @@
 package com.scouter.netherdepthsupgrade.blocks;
 
 import com.mojang.logging.LogUtils;
-import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
