@@ -246,15 +246,17 @@ public class LanguageGenerator extends LanguageProvider {
         add(key.get(), name, regName);
     }
 
-    public void addEnchantDescription(String description, Enchantment enchantment){
-        add(enchantment.getDescriptionId() + ".desc", description);
-    }
-
     public void add(Potion key, String name, String regName) {
         add("item.minecraft.potion.effect." + regName, name);
         add("item.minecraft.splash_potion.effect." + regName, "Splash " + name);
         add("item.minecraft.lingering_potion.effect." + regName, "Lingering " + name);
     }
+
+    public void addEnchantDescription(String description, Enchantment enchantment){
+        add(enchantment.getDescriptionId() + ".desc", description);
+    }
+
+
 
     public void addTippedArrow(Supplier<? extends Potion> key, String name) {
         addTippedArrow(key.get(), name);

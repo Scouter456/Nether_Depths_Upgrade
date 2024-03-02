@@ -4,11 +4,10 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
-
-import java.util.Random;
+import net.minecraft.util.RandomSource;
 
 public class GlowdineParticle extends TextureSheetParticle {
-    static final Random RANDOM = new Random();
+    static final RandomSource RANDOM = RandomSource.create();
     private final SpriteSet sprites;
 
     GlowdineParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, SpriteSet pSprites) {

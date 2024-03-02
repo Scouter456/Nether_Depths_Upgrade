@@ -8,7 +8,6 @@ import com.scouter.netherdepthsupgrade.modcompat.InfernalExpansionCompat;
 import com.scouter.netherdepthsupgrade.setup.Registration;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
@@ -17,7 +16,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.common.registry.ModSounds;
 
 
 public class NDUItems {

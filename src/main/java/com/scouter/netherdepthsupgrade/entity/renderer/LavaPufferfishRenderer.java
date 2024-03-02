@@ -1,7 +1,6 @@
 package com.scouter.netherdepthsupgrade.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import com.scouter.netherdepthsupgrade.entity.entities.LavaPufferfishEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.PufferfishBigModel;

@@ -3,7 +3,6 @@ package com.scouter.netherdepthsupgrade.entity.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
-
 import com.scouter.netherdepthsupgrade.entity.entities.WitherBonefishEntity;
 import com.scouter.netherdepthsupgrade.entity.model.WitherBonefishModel;
 import net.minecraft.client.renderer.MultiBufferSource;

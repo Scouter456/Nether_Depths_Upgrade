@@ -22,7 +22,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class NDUConfiguredFeatures {
@@ -64,7 +63,6 @@ public class NDUConfiguredFeatures {
     private static final String CRIMSON_SEAGRASS_COMMON_TALL_FEATURE_NAME_PLACED = "crimson_seagrass_common_tall_feature_placed";
     private static final String VENT_FEATURE_NAME_PLACED = "vent_feature_placed";
     private static final String LAVA_SPONGE_FEATURE_NAME_PLACED = "lava_sponge_feature_placed";
-    private static Random rand = new Random();
 
     public static final RegistryObject<ConfiguredFeature<?, ?>> CONFIGURED_WARPED_SEAGRASS_SIMPLE = registerConfiguredFeature(WARPED_SEAGRASS_SIMPLE_FEATURE_NAME, () -> new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(NDUBlocks.WARPED_SEAGRASS.get()))));
 

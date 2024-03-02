@@ -1,7 +1,5 @@
 package com.scouter.netherdepthsupgrade;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.events.ClientEvents;
 import com.scouter.netherdepthsupgrade.events.ForgeEvents;

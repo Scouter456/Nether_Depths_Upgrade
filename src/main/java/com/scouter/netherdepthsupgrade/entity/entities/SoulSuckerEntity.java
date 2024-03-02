@@ -15,6 +15,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -22,9 +23,7 @@ import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -40,9 +39,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, IAnimationTickable {
     private static final EntityDataAccessor<BlockPos> SOULSAND_POS = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.BLOCK_POS);
@@ -64,7 +60,6 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
         this.goalSelector.addGoal(1, new FindSoulSandGoal3(this));
         this.goalSelector.addGoal(4, this.fishSwimGoal);
         this.fishSwimGoal.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-        //this.goalSelector.addGoal(4, new AbstractLavaFish.FishSwimGoal(this));
     }
 
     public void aiStep() {
@@ -283,7 +278,7 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
         private int counter = 0;
         private int suckCounter = 30;
         private BlockPos lastPos;
-        private Random rand = new Random();
+        private RandomSource rand = RandomSource.create();
         public final List<BlockPos> soulSandList = new ArrayList<>();
         private boolean stuck;
 

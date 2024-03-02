@@ -1,7 +1,6 @@
 package com.scouter.netherdepthsupgrade.setup;
 
 import com.mojang.logging.LogUtils;
-
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.blocks.advancements.NDUAdvancementTriggers;
 import com.scouter.netherdepthsupgrade.blocks.entity.NDUBlockEntities;

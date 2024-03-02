@@ -2,23 +2,17 @@ package com.scouter.netherdepthsupgrade.datagen;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
-import com.scouter.netherdepthsupgrade.blocks.advancements.NDUAdvancementTriggers;
 import com.scouter.netherdepthsupgrade.blocks.advancements.PlaceWetLavaSpongeTrigger;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
-import com.scouter.netherdepthsupgrade.potion.NDUPotions;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import vectorwing.farmersdelight.common.registry.ModItems;
-import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.function.Consumer;
 

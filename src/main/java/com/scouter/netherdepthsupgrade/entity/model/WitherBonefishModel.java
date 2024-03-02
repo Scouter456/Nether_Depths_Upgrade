@@ -4,7 +4,6 @@ import com.scouter.netherdepthsupgrade.entity.entities.WitherBonefishEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedTickingGeoModel;
 
-
 import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class WitherBonefishModel extends AnimatedTickingGeoModel<WitherBonefishEntity> {

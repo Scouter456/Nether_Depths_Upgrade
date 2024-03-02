@@ -6,7 +6,6 @@ import com.scouter.netherdepthsupgrade.config.NetherDepthsUpgradeConfig;
 import com.scouter.netherdepthsupgrade.enchantments.NDUEnchantments;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.entity.entities.LavaFishingBobberEntity;
-import com.scouter.netherdepthsupgrade.entity.renderer.LavaFishingBobberRenderer;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;

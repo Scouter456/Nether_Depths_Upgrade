@@ -5,7 +5,6 @@ import com.scouter.netherdepthsupgrade.entity.entities.GlowdineEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedTickingGeoModel;
 
-
 import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class GlowdineModel extends AnimatedTickingGeoModel<GlowdineEntity> {
