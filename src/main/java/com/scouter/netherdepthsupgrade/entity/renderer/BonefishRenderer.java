@@ -34,6 +34,5 @@ public class BonefishRenderer extends GeoEntityRenderer<BonefishEntity> {
             matrixStackIn.translate((double) 0.1F, (double) 0.1F, (double) -0.1F);
             matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
         }
-
     }
 }

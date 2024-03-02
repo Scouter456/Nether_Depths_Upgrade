@@ -1,6 +1,5 @@
 package com.scouter.netherdepthsupgrade.entity;
 
-import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
@@ -17,8 +16,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Random;
 
 public abstract class LavaAnimal extends PathfinderMob {
     public static final Logger LOGGER = LoggerFactory.getLogger("netherdepthsupgrade");

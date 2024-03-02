@@ -6,8 +6,6 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.resources.ResourceLocation;
 
-import java.lang.annotation.Annotation;
-
 @JeiPlugin
 public class JEIIntegration implements IModPlugin {
     @Override

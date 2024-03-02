@@ -4,9 +4,8 @@
   "package": "com.scouter.netherdepthsupgrade.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-
-    "PlayerTickMixin",
-    "FrogFeedMixin"
+    "FrogFeedMixin",
+    "PlayerTickMixin"
   ],
   "client": [
     "render.ScreenFireEffect",

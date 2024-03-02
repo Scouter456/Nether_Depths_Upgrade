@@ -3,7 +3,6 @@ package com.scouter.netherdepthsupgrade.entity;
 import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.entity.ai.FishSwimGoal;
 import com.scouter.netherdepthsupgrade.entity.ai.LavaBoundPathNavigation;
-import com.scouter.netherdepthsupgrade.entity.entities.GlowdineEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

@@ -1,7 +1,5 @@
 package com.scouter.netherdepthsupgrade.items;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
 import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;

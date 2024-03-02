@@ -1,7 +1,6 @@
 package com.scouter.netherdepthsupgrade.blocks;
 
 import com.scouter.netherdepthsupgrade.blocks.entity.LavaGlassBlockEntity;
-import com.scouter.netherdepthsupgrade.blocks.entity.NDUBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;

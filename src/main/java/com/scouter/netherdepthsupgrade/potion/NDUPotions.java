@@ -4,7 +4,6 @@ package com.scouter.netherdepthsupgrade.potion;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.effect.MobEffects;
 import net.minecraft.core.Registry;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.Potion;
 import org.slf4j.Logger;

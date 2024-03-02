@@ -3,7 +3,9 @@ package com.scouter.netherdepthsupgrade.world.feature;
 import com.google.common.collect.ImmutableList;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
-import net.minecraft.core.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Blocks;
@@ -18,8 +20,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.placement.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Random;
 
 public class NDUConfiguredFeatures {
     public static final Logger LOGGER = LoggerFactory.getLogger("netherdepthsupgrade");
@@ -63,7 +63,7 @@ public class NDUConfiguredFeatures {
 
     private static final String VENT_FEATURE_NAME_PLACED = "vent_feature_placed";
     private static final String LAVA_SPONGE_FEATURE_NAME_PLACED = "lava_sponge_feature_placed";
-    private static Random rand = new Random();
+
 
     public static final Holder<ConfiguredFeature<SimpleBlockConfiguration, ?>> CONFIGURED_WARPED_SEAGRASS_SIMPLE = FeatureUtils.register(WARPED_SEAGRASS_SIMPLE_FEATURE_NAME, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(NDUBlocks.WARPED_SEAGRASS)));
 

@@ -15,6 +15,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -38,7 +39,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Random;
 
 public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, IAnimationTickable {
     private static final EntityDataAccessor<BlockPos> SOULSAND_POS = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.BLOCK_POS);
@@ -288,7 +288,7 @@ public class SoulSuckerEntity extends AbstractLavaFish implements IAnimatable, I
         private int counter = 0;
         private int suckCounter = 30;
         private BlockPos lastPos;
-        private Random rand = new Random();
+        private RandomSource rand = RandomSource.create();
         public final List<BlockPos> soulSandList = new ArrayList<>();
         private boolean stuck;
 
