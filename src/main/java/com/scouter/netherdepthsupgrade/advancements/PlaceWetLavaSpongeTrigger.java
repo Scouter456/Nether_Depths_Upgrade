@@ -2,14 +2,11 @@ package com.scouter.netherdepthsupgrade.advancements;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,11 +19,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 
-import javax.annotation.Nullable;
-
 import java.util.Arrays;
-
-import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class PlaceWetLavaSpongeTrigger extends SimpleCriterionTrigger<PlaceWetLavaSpongeTrigger.TriggerInstance> {
     final ResourceLocation id;

@@ -2,7 +2,6 @@ package com.scouter.netherdepthsupgrade.setup;
 
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
-import com.scouter.netherdepthsupgrade.entity.entities.EyeballfishEntity;
 import com.scouter.netherdepthsupgrade.entity.renderer.*;
 import com.scouter.netherdepthsupgrade.items.NDUItemProperties;
 import com.scouter.netherdepthsupgrade.particle.GlowdineParticle;
@@ -11,7 +10,6 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 
 public class ClientSetup implements ClientModInitializer {

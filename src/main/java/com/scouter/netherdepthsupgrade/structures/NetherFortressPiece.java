@@ -20,11 +20,9 @@ import net.minecraft.world.level.material.Fluids;
 import org.slf4j.Logger;
 
 import java.util.Optional;
-import java.util.Random;
 
 public class NetherFortressPiece extends Structure {
     private static final Logger LOGGER = LogUtils.getLogger();
-    static Random rand = new Random();
     public static final Codec<NetherFortressPiece> CODEC =  RecordCodecBuilder.<NetherFortressPiece>mapCodec(instance ->
             instance.group(NetherFortressPiece.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
@@ -77,7 +75,8 @@ public class NetherFortressPiece extends Structure {
     public Optional<GenerationStub> findGenerationPoint(GenerationContext context) {
         // Check if the spot is valid for our structure. This is just as another method for cleanness.
         // Returning an empty optional tells the game to skip this spot as it will not generate the structure.
-        int y = rand.nextInt(15,30);
+
+        int y = context.random().nextInt(15,30);
         BlockPos centerPos = new BlockPos(context.chunkPos().getMinBlockX(), y, context.chunkPos().getMinBlockZ());
 
         // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)

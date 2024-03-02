@@ -1,4 +1,4 @@
-/*package com.scouter.netherdepthsupgrade.mixin;
+package com.scouter.netherdepthsupgrade.mixin;
 
 import com.scouter.netherdepthsupgrade.enchantments.NDUEnchantments;
 import com.scouter.netherdepthsupgrade.util.VectorUtil;
@@ -60,5 +60,5 @@ public abstract class MovementSpeed extends Entity {
             return deltaMovement;
         }
     }
-}*/
+}
 

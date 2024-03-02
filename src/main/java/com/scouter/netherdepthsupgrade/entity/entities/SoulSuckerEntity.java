@@ -13,6 +13,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -32,7 +33,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Random;
 
 public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
     private static final EntityDataAccessor<BlockPos> SOULSAND_POS = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.BLOCK_POS);
@@ -55,7 +55,6 @@ public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
         this.goalSelector.addGoal(1, new FindSoulSandGoal3(this));
         this.goalSelector.addGoal(4, this.fishSwimGoal);
         this.fishSwimGoal.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-        //this.goalSelector.addGoal(4, new AbstractLavaFish.FishSwimGoal(this));
     }
 
     public void aiStep() {
@@ -66,9 +65,6 @@ public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
                 this.setCooldownTimer(this.getSeekSoulSandTimer());
             }
         }
-        //LOGGER.info("time " + this.getSeekSoulSandTimer().intValue());
-        //LOGGER.info("time2 " + this.getCooldownTimer().intValue());
-        //LOGGER.info("position to go to " + this.moveControl.getWantedX() + "" + this.moveControl.getWantedY() + "" + this.moveControl.getWantedZ());
         suckTimer++;
         BlockPos blockPos = BlockPos.containing(this.getX(), this.getY(), this.getZ());
         if ((this.level().getBlockState(blockPos.below()).is(Blocks.SOUL_SAND) || (this.level().getBlockState(blockPos).is(Blocks.SOUL_SAND)) && this.isInLava())) {
@@ -164,7 +160,7 @@ public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
         private int counter = 0;
         private int suckCounter = 30;
         private BlockPos lastPos;
-        private Random rand = new Random();
+        private RandomSource rand = RandomSource.create();
         public final List<BlockPos> soulSandList = new ArrayList<>();
         private boolean stuck;
 
@@ -187,19 +183,8 @@ public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
 
         @Override
         public void start() {
-            //LOGGER.info("starting!!");
             if (this.mob.level() instanceof ServerLevel) {
-                ServerLevel serverlevel = (ServerLevel) this.mob.level();
                 this.mob.getNavigation().stop();
-                BlockPos blockpos = this.mob.blockPosition();
-
-               //List<BlockState> blockStateList = serverlevel.getBlockStatesIfLoaded(this.mob.getBoundingBox().inflate(5)).filter((state) -> {
-               //    return state.is(Blocks.SOUL_SAND);
-               //}).collect(Collectors.toList());
-               //BlockPos.betweenClosedStream(aabb).filter(blockPos -> serverlevel.getBlockState(blockPos).is(Blocks.SOUL_SAND) && serverlevel.getBlockState(blockPos.above()).is(Blocks.LAVA) && !this.mob.level.getFluidState(blockPos.below()).is(Fluids.LAVA))
-               //        .forEach(blockPos -> {soulSandList.add(blockPos.immutable());});
-
-
                 for (int x = -5; x < 5; x++) {
                     for (int y = 0; y < 10; y++) {
                         for (int z = -5; z < 5; z++) {
@@ -315,7 +300,6 @@ public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
         double z12 = z1 - z2;
 
         double disTot = (x12 * x12) + (y12 * y12) + (z12 * z12);
-        //LOGGER.info("dis " + disTot);
         return (disTot <= 3.0);
     }
 }

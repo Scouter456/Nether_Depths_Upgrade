@@ -1,30 +1,12 @@
 package com.scouter.netherdepthsupgrade.world.feature;
 
-import com.google.common.collect.ImmutableList;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
-import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
-import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
-import net.minecraft.core.*;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.features.FeatureUtils;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.placement.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Random;
 
 public class NDUConfiguredFeatures {
     public static final Logger LOGGER = LoggerFactory.getLogger("netherdepthsupgrade");
@@ -45,7 +27,6 @@ public class NDUConfiguredFeatures {
     private static final ResourceKey<ConfiguredFeature<?, ?>> WARPED_SEAGRASS_TALL_FEATURE_NAME_PLACED = registerKey("warped_seagrass_tall_feature_placed");
     private static final ResourceKey<ConfiguredFeature<?, ?>> VENT_FEATURE_NAME_PLACED = registerKey("vent_feature_placed");
     private static final ResourceKey<ConfiguredFeature<?, ?>> LAVA_SPONGE_FEATURE_NAME_PLACED = registerKey("lava_sponge_feature_placed");
-    private static Random rand = new Random();
     
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(NetherDepthsUpgrade.MODID, name));

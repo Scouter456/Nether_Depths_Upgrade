@@ -4,9 +4,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 
-import java.util.Optional;
-import java.util.function.Supplier;
-
 public class NDUFoods {
     public static final FoodProperties LAVA_PUFFERFISH = new FoodProperties.Builder()
             .nutrition(1)
