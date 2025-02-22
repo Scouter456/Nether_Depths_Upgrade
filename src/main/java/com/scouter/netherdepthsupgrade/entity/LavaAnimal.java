@@ -2,12 +2,12 @@ package com.scouter.netherdepthsupgrade.entity;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -35,11 +35,12 @@ public abstract class LavaAnimal extends PathfinderMob {
         return 120;
     }
 
-    @Override
-    protected int getBaseExperienceReward() {
-        return 1 + this.level().random.nextInt(3);
-    }
 
+
+    @Override
+    protected int getBaseExperienceReward(ServerLevel serverLevel) {
+        return 1 + serverLevel.random.nextInt(3);
+    }
 
     protected void handleAirSupply(int p_30344_) {
         if (this.isAlive() && !this.isInLava()) {
@@ -75,9 +76,10 @@ public abstract class LavaAnimal extends PathfinderMob {
     }
 
 
-    public static boolean checkSurfaceLavaAnimalSpawnRules(EntityType<? extends LavaAnimal> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource randomSource) {
+    public static boolean checkSurfaceLavaAnimalSpawnRules(EntityType<? extends LavaAnimal> entityType, LevelAccessor level, EntitySpawnReason entitySpawnReason,
+             BlockPos pos, RandomSource randomSource) {
         int i = 40;
         int j = i - 30;
-        return pos.getY() >= j && pos.getY() <= i && (spawnType == MobSpawnType.SPAWNER || level.getFluidState(pos.below()).is(FluidTags.LAVA) && level.getBlockState(pos.above()).is(Blocks.LAVA));
+        return pos.getY() >= j && pos.getY() <= i && (entitySpawnReason == EntitySpawnReason.SPAWNER || level.getFluidState(pos.below()).is(FluidTags.LAVA) && level.getBlockState(pos.above()).is(Blocks.LAVA));
     }
 }

@@ -23,15 +23,15 @@ public class SoulSuckerRenderer extends GeoEntityRenderer<SoulSuckerEntity> {
         return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
     }
 
+
     @Override
-    protected void applyRotations(SoulSuckerEntity entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw,
-                                  float partialTicks) {
-        super.applyRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
+    protected void applyRotations(SoulSuckerEntity animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick, float nativeScale) {
+        super.applyRotations(animatable, poseStack, ageInTicks, rotationYaw, partialTick, nativeScale);
         float f = 4.3F * Mth.sin(0.6F * ageInTicks);
-        matrixStackIn.mulPose(Axis.YP.rotationDegrees(f));
-        if (!entityLiving.isInLava()) {
-            matrixStackIn.translate((double) 0.1F, (double) 0.1F, (double) -0.1F);
-            matrixStackIn.mulPose(Axis.ZP.rotationDegrees(90.0F));
+        poseStack.mulPose(Axis.YP.rotationDegrees(f));
+        if (!animatable.isInLava()) {
+            poseStack.translate((double) 0.1F, (double) 0.1F, (double) -0.1F);
+            poseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
         }
     }
 }

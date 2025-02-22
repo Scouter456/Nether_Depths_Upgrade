@@ -3,7 +3,6 @@ package com.scouter.netherdepthsupgrade;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
-import com.scouter.netherdepthsupgrade.setup.ClientSetup;
 import com.scouter.netherdepthsupgrade.setup.Registration;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;

@@ -5,8 +5,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,8 +27,8 @@ public abstract class GrowingLavaPlantHeadBlock extends GrowingLavaPlantBlock im
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, Integer.valueOf(0)));
     }
 
-    public BlockState getStateForPlacement(LevelAccessor pLevel) {
-        return this.defaultBlockState().setValue(AGE, Integer.valueOf(pLevel.getRandom().nextInt(25)));
+    public BlockState getStateForPlacement(RandomSource randomSource) {
+        return (BlockState)this.defaultBlockState().setValue(AGE, randomSource.nextInt(25));
     }
 
     /**
@@ -66,28 +66,37 @@ public abstract class GrowingLavaPlantHeadBlock extends GrowingLavaPlantBlock im
     protected BlockState updateBodyAfterConvertedFromHead(BlockState p_153329_, BlockState p_153330_) {
         return p_153330_;
     }
-
     /**
      * Update the provided state given the provided neighbor direction and neighbor state, returning a new state.
      * For example, fences make their connections to the passed in state if possible, and wet concrete powder immediately
      * returns its solidified counterpart.
      * Note that this method should ideally consider only the specific direction passed in.
      */
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-        if (pFacing == this.growthDirection.getOpposite() && !pState.canSurvive(pLevel, pCurrentPos)) {
-            pLevel.scheduleTick(pCurrentPos, this, 1);
+    @Override
+    protected BlockState updateShape(BlockState blockState, LevelReader levelReader, ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction, BlockPos blockPos2, BlockState blockState2, RandomSource randomSource) {
+
+        if (direction == this.growthDirection.getOpposite() && !blockState.canSurvive(levelReader, blockPos)) {
+            scheduledTickAccess.scheduleTick(blockPos, this, 1);
         }
 
-        if (pFacing != this.growthDirection || !pFacingState.is(this) && !pFacingState.is(this.getBodyBlock())) {
+        if (direction != this.growthDirection || !blockState2.is(this) && !blockState2.is(this.getBodyBlock())) {
             if (this.scheduleFluidTicks) {
-                pLevel.scheduleTick(pCurrentPos, Fluids.LAVA, Fluids.LAVA.getTickDelay(pLevel));
+                scheduledTickAccess.scheduleTick(blockPos, Fluids.LAVA, Fluids.LAVA.getTickDelay(levelReader));
             }
 
-            return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+            return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, blockPos2, blockState2, randomSource);
         } else {
-            return this.updateBodyAfterConvertedFromHead(pState, this.getBodyBlock().defaultBlockState());
+            return this.updateBodyAfterConvertedFromHead(blockState, this.getBodyBlock().defaultBlockState());
         }
+
+
+
     }
+
+
+
+
+
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(AGE);

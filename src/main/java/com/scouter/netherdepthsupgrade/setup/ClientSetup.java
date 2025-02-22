@@ -3,7 +3,6 @@ package com.scouter.netherdepthsupgrade.setup;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.entity.renderer.*;
-import com.scouter.netherdepthsupgrade.items.NDUItemProperties;
 import com.scouter.netherdepthsupgrade.particle.GlowdineParticle;
 import com.scouter.netherdepthsupgrade.particle.NDUParticle;
 import net.fabricmc.api.ClientModInitializer;
@@ -28,7 +27,7 @@ public class ClientSetup implements ClientModInitializer {
         EntityRendererRegistry.register(NDUEntity.EYEBALL_FISH, EyeballfishRenderer::new);
         EntityRendererRegistry.register(NDUEntity.LAVA_BOBBER, LavaFishingBobberRenderer::new);
         RenderLayerRegistration();
-        NDUItemProperties.addItemProperties();
+
     }
 
 

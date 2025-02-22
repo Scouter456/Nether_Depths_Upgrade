@@ -12,8 +12,9 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.TropicalFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -34,7 +35,7 @@ public class FishBucketItem extends MobBucketItem {
     private static final MapCodec<TropicalFish.Variant> VARIANT_FIELD_CODEC = TropicalFish.Variant.CODEC.fieldOf("BucketVariantTag");;
     private final EntityType<?> type;
     private final SoundEvent emptySound;
-    public FishBucketItem(EntityType<?> fishTypeIn, Fluid fluid, Properties builder) {
+    public FishBucketItem(EntityType<? extends Mob> fishTypeIn, Fluid fluid, Properties builder) {
         super(fishTypeIn, fluid, SoundEvents.BUCKET_EMPTY_FISH, builder.stacksTo(1));
         this.type = fishTypeIn;
         this.emptySound = SoundEvents.BUCKET_EMPTY_FISH;
@@ -55,7 +56,7 @@ public class FishBucketItem extends MobBucketItem {
     }
 
     private void spawn(ServerLevel serverLevel, ItemStack bucketedMobStack, BlockPos pos) {
-        Entity entity = this.type.spawn(serverLevel, bucketedMobStack, (Player)null, pos, MobSpawnType.BUCKET, true, false);
+        Entity entity = this.type.spawn(serverLevel, bucketedMobStack, (Player)null, pos, EntitySpawnReason.BUCKET, true, false);
         if (entity instanceof BucketableLava bucketable) {
             CustomData customData = (CustomData)bucketedMobStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
             bucketable.loadFromBucketTag(customData.copyTag());

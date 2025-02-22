@@ -10,6 +10,8 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.redstone.Orientation;
+import org.jetbrains.annotations.Nullable;
 
 public class LavaSpongeBlock extends Block {
     public static final int MAX_DEPTH = 6;
@@ -28,10 +30,13 @@ public class LavaSpongeBlock extends Block {
     }
 
     @Override
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
-        this.tryAbsorbLava(pLevel, pPos);
-        super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
+    protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, @Nullable Orientation orientation, boolean bl) {
+
+        this.tryAbsorbLava(level, blockPos);
+        super.neighborChanged(blockState, level, blockPos, block, orientation, bl);
     }
+
+
 
     protected void tryAbsorbLava(Level pLevel, BlockPos pPos) {
         if (this.removeLavaBreadthFirstSearch(pLevel, pPos)) {
@@ -50,16 +55,16 @@ public class LavaSpongeBlock extends Block {
 
         }, (p_279054_) -> {
             if (p_279054_.equals(pPos)) {
-                return true;
+                return BlockPos.TraversalNodeStatus.ACCEPT;
             } else {
                 BlockState blockstate = pLevel.getBlockState(p_279054_);
                 FluidState fluidstate = pLevel.getFluidState(p_279054_);
                 Block block = blockstate.getBlock();
-                if (blockstate.is(Blocks.WATER)) return false;
+                if (blockstate.is(Blocks.WATER)) return BlockPos.TraversalNodeStatus.SKIP;
                 if (block instanceof BucketPickup) {
                     BucketPickup bucketpickup = (BucketPickup) block;
                     if (!bucketpickup.pickupBlock(null ,pLevel, p_279054_, blockstate).isEmpty()) {
-                        return true;
+                        return BlockPos.TraversalNodeStatus.ACCEPT;
                     }
                 }
 
@@ -67,7 +72,7 @@ public class LavaSpongeBlock extends Block {
                     pLevel.setBlock(p_279054_, Blocks.AIR.defaultBlockState(), 3);
                 } else {
                     if (!blockstate.is(NDUBlocks.WARPED_SEAGRASS) && !blockstate.is(NDUBlocks.TALL_WARPED_SEAGRASS) && !blockstate.is(NDUBlocks.WARPED_KELP) && !blockstate.is(NDUBlocks.WARPED_KELP_PLANT)) {
-                        return false;
+                        return BlockPos.TraversalNodeStatus.SKIP;
                     }
 
                     BlockEntity blockentity = blockstate.hasBlockEntity() ? pLevel.getBlockEntity(p_279054_) : null;
@@ -75,7 +80,7 @@ public class LavaSpongeBlock extends Block {
                     pLevel.setBlock(p_279054_, Blocks.AIR.defaultBlockState(), 3);
                 }
 
-                return true;
+                return BlockPos.TraversalNodeStatus.ACCEPT;
             }
 
         }) > 1;

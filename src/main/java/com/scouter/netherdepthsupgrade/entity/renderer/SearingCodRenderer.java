@@ -28,9 +28,11 @@ public class SearingCodRenderer extends GeoEntityRenderer<SearingCodEntity> {
         return COD_LOCATION;
     }
 
+
+
     @Override
-    protected void applyRotations(SearingCodEntity animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
-        super.applyRotations(animatable, poseStack, ageInTicks, rotationYaw, partialTick);
+    protected void applyRotations(SearingCodEntity animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick, float nativeScale) {
+        super.applyRotations(animatable, poseStack, ageInTicks, rotationYaw, partialTick, nativeScale);
         float f = 4.3F * Mth.sin(0.6F * ageInTicks);
         poseStack.mulPose(Axis.YP.rotationDegrees(f));
         if (!animatable.isInLava()) {

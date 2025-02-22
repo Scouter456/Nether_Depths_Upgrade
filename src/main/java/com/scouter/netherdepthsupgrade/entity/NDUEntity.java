@@ -2,10 +2,11 @@ package com.scouter.netherdepthsupgrade.entity;
 
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.entity.entities.*;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import org.slf4j.Logger;
@@ -15,79 +16,89 @@ import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class NDUEntity {
     public static final Logger LOGGER = LoggerFactory.getLogger("netherdepthsupgrade");
-    public static final EntityType<LavaPufferfishEntity> LAVA_PUFFERFISH = Registry.register(BuiltInRegistries.ENTITY_TYPE, prefix("lava_pufferfish"),
-            FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, LavaPufferfishEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.7F,0.7F))
-                    .trackRangeChunks(4)
-                    .build());
 
-    public static final EntityType<ObsidianfishEntity> OBSIDIAN_FISH = Registry.register(BuiltInRegistries.ENTITY_TYPE, prefix("obsidianfish"),
-            FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, ObsidianfishEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.7F,0.4F))
-                    .trackRangeChunks(4)
-                    .build());
 
-    public static final EntityType<SearingCodEntity> SEARING_COD = Registry.register(BuiltInRegistries.ENTITY_TYPE, prefix("searing_cod"),
-            FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, SearingCodEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.5F,0.3F))
-                    .trackRangeChunks(4)
-                    .build());
 
-    public static final EntityType<BonefishEntity> BONEFISH = Registry.register(BuiltInRegistries.ENTITY_TYPE, prefix("bonefish"),
-            FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, BonefishEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.6F,0.4F))
-                    .trackRangeChunks(4)
-                    .build());
-    public static final EntityType<WitherBonefishEntity> WITHER_BONEFISH = Registry.register(BuiltInRegistries.ENTITY_TYPE, prefix("wither_bonefish"),
-            FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, WitherBonefishEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.6F,0.4F))
-                    .trackRangeChunks(4)
-                    .build());
 
-    public static final EntityType<BlazefishEntity> BLAZEFISH = Registry.register(BuiltInRegistries.ENTITY_TYPE, prefix("blazefish"),
-            FabricEntityTypeBuilder.create(MobCategory.AMBIENT, BlazefishEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.7F,0.8F))
-                    .trackRangeChunks(4)
-                    .build());
+    public static final EntityType<LavaPufferfishEntity> LAVA_PUFFERFISH = register("lava_pufferfish",
+            EntityType.Builder.of(LavaPufferfishEntity::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.7F,0.7F)
+                    .clientTrackingRange(4));
 
-    public static final EntityType<MagmaCubefishEntity> MAGMACUBEFISH = Registry.register(BuiltInRegistries.ENTITY_TYPE, prefix("magmacubefish"),
-            FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, MagmaCubefishEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.6F,0.6F))
-                    .trackRangeChunks(4)
-                    .build());
-    public static final EntityType<GlowdineEntity> GLOWDINE = Registry.register(BuiltInRegistries.ENTITY_TYPE, prefix("glowdine"),
-            FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, GlowdineEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.6F,0.4F))
-                    .trackRangeChunks(4)
-                    .build());
+    public static final EntityType<ObsidianfishEntity> OBSIDIAN_FISH = register("obsidianfish",
+            EntityType.Builder.of(ObsidianfishEntity::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.7F,0.4F)
+                    .clientTrackingRange(4));
 
-    public static final EntityType<SoulSuckerEntity> SOULSUCKER = Registry.register(BuiltInRegistries.ENTITY_TYPE, prefix("soulsucker"),
-            FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, SoulSuckerEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.6F,0.4F))
-                    .trackRangeChunks(4)
-                    .build());
+    public static final EntityType<SearingCodEntity> SEARING_COD = register("searing_cod",
+            EntityType.Builder.of(SearingCodEntity::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.5F,0.3F)
+                    .clientTrackingRange(4)
+                    );
 
-    public static final EntityType<FortressGrouperEntity> FORTRESS_GROUPER = Registry.register(BuiltInRegistries.ENTITY_TYPE, prefix("fortressgrouper"),
-            FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, FortressGrouperEntity::new)
-                    .dimensions(EntityDimensions.fixed(2F, 1.6F))
-                    .trackRangeChunks(4)
-                    .build());
+    public static final EntityType<BonefishEntity> BONEFISH = register("bonefish",
+            EntityType.Builder.of(BonefishEntity::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.6F,0.4F)
+                    .clientTrackingRange(4)
+                    );
+    public static final EntityType<WitherBonefishEntity> WITHER_BONEFISH = register("wither_bonefish",
+            EntityType.Builder.of(WitherBonefishEntity::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.6F,0.4F)
+                    .clientTrackingRange(4)
+                    );
 
-    public static final EntityType<EyeballfishEntity> EYEBALL_FISH = Registry.register(BuiltInRegistries.ENTITY_TYPE, prefix("eyeball_fish"),
-            FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, EyeballfishEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.7F, 0.7F))
-                    .trackRangeChunks(4)
-                    .build());
-    public static final EntityType<LavaFishingBobberEntity> LAVA_BOBBER = Registry.register(BuiltInRegistries.ENTITY_TYPE, prefix("lava_fishing_bobber"),
-            FabricEntityTypeBuilder.<LavaFishingBobberEntity>create(MobCategory.WATER_AMBIENT, LavaFishingBobberEntity::new)
-                    .disableSaving().disableSummon()
+    public static final EntityType<BlazefishEntity> BLAZEFISH = register("blazefish",
+            EntityType.Builder.of(BlazefishEntity::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.7F,0.8F)
+                    .clientTrackingRange(4)
+                    );
+
+    public static final EntityType<MagmaCubefishEntity> MAGMACUBEFISH = register("magmacubefish",
+            EntityType.Builder.of(MagmaCubefishEntity::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.6F,0.6F)
+                    .clientTrackingRange(4)
+                    );
+    public static final EntityType<GlowdineEntity> GLOWDINE = register("glowdine",
+            EntityType.Builder.of(GlowdineEntity::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.6F,0.4F)
+                    .clientTrackingRange(4)
+                    );
+
+    public static final EntityType<SoulSuckerEntity> SOULSUCKER = register("soulsucker",
+            EntityType.Builder.of(SoulSuckerEntity::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.6F,0.4F)
+                    .clientTrackingRange(4)
+                    );
+
+    public static final EntityType<FortressGrouperEntity> FORTRESS_GROUPER = register("fortressgrouper",
+            EntityType.Builder.of(FortressGrouperEntity::new, MobCategory.WATER_AMBIENT)
+                    .sized(2F, 1.6F)
+                    .clientTrackingRange(4)
+                    );
+
+    public static final EntityType<EyeballfishEntity> EYEBALL_FISH = register("eyeball_fish",
+            EntityType.Builder.of(EyeballfishEntity::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.7F, 0.7F)
+                    .clientTrackingRange(4)
+                    );
+    public static final EntityType<LavaFishingBobberEntity> LAVA_BOBBER = register("lava_fishing_bobber",
+            EntityType.Builder.<LavaFishingBobberEntity>of(LavaFishingBobberEntity::new, MobCategory.WATER_AMBIENT)
+                    .noSave().noSummon()
                     .fireImmune()
-                    .dimensions(EntityDimensions.fixed(0.25F,0.25F))
-                    .trackRangeChunks(4)
-                    .trackedUpdateRate(5)
-                    .build());
+                    .sized(0.25F,0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(5));
 
+    private static ResourceKey<EntityType<?>> nduEntityId(String string) {
+        return ResourceKey.create(Registries.ENTITY_TYPE, prefix(string));
+    }
 
+    private static <T extends Entity> EntityType<T> register(String string, EntityType.Builder<T> builder) {
+        return register(nduEntityId(string), builder);
+    }
+    private static <T extends Entity> EntityType<T> register(ResourceKey<EntityType<?>> resourceKey, EntityType.Builder<T> builder) {
+        return Registry.register(BuiltInRegistries.ENTITY_TYPE, resourceKey, builder.build(resourceKey));
+    }
 
     public static void ENTITY_TYPES(){
         LOGGER.info("Registering Entity Types for " + NetherDepthsUpgrade.MODID);

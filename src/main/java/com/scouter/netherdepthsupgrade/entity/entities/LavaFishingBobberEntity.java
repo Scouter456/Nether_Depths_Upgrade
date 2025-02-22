@@ -19,10 +19,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
@@ -446,37 +443,37 @@ public class LavaFishingBobberEntity extends FishingHook {
                 for (ItemStack stack : list) {
                     Entity entity = null;
                     if (stack.getItem() == NDUItems.SEARING_COD) {
-                        entity = NDUEntity.SEARING_COD.create(this.level());
+                        entity = NDUEntity.SEARING_COD.create(this.level(), EntitySpawnReason.TRIGGERED);
                     }
                     if (stack.getItem() == NDUItems.SOULSUCKER) {
-                        entity = NDUEntity.SOULSUCKER.create(this.level());
+                        entity = NDUEntity.SOULSUCKER.create(this.level(), EntitySpawnReason.TRIGGERED);
                     }
                     if (stack.getItem() == NDUItems.LAVA_PUFFERFISH) {
-                        entity = NDUEntity.LAVA_PUFFERFISH.create(this.level());
+                        entity = NDUEntity.LAVA_PUFFERFISH.create(this.level(), EntitySpawnReason.TRIGGERED);
                     }
                     if (stack.getItem() == NDUItems.BONEFISH) {
-                        entity = NDUEntity.BONEFISH.create(this.level());
+                        entity = NDUEntity.BONEFISH.create(this.level(), EntitySpawnReason.TRIGGERED);
                     }
                     if (stack.getItem() == NDUItems.WITHER_BONEFISH) {
-                        entity = NDUEntity.WITHER_BONEFISH.create(this.level());
+                        entity = NDUEntity.WITHER_BONEFISH.create(this.level(), EntitySpawnReason.TRIGGERED);
                     }
                     if (stack.getItem() == NDUItems.GLOWDINE) {
-                        entity = NDUEntity.GLOWDINE.create(this.level());
+                        entity = NDUEntity.GLOWDINE.create(this.level(), EntitySpawnReason.TRIGGERED);
                     }
                     if (stack.getItem() == NDUItems.MAGMACUBEFISH) {
-                        entity = NDUEntity.MAGMACUBEFISH.create(this.level());
+                        entity = NDUEntity.MAGMACUBEFISH.create(this.level(), EntitySpawnReason.TRIGGERED);
                     }
                     if (stack.getItem() == NDUItems.OBSIDIANFISH) {
-                        entity = NDUEntity.OBSIDIAN_FISH.create(this.level());
+                        entity = NDUEntity.OBSIDIAN_FISH.create(this.level(), EntitySpawnReason.TRIGGERED);
                     }
                     if (stack.getItem() == NDUItems.BLAZEFISH) {
-                        entity = NDUEntity.BLAZEFISH.create(this.level());
+                        entity = NDUEntity.BLAZEFISH.create(this.level(), EntitySpawnReason.TRIGGERED);
                     }
                     if (stack.getItem() == NDUItems.EYEBALL_FISH) {
-                        entity = NDUEntity.EYEBALL_FISH.create(this.level());
+                        entity = NDUEntity.EYEBALL_FISH.create(this.level(), EntitySpawnReason.TRIGGERED);
                     }
                     if (stack.getItem() == NDUItems.FORTRESS_GROUPER) {
-                        entity = NDUEntity.FORTRESS_GROUPER.create(this.level());
+                        entity = NDUEntity.FORTRESS_GROUPER.create(this.level(), EntitySpawnReason.TRIGGERED);
                     }
                     if (entity == null) {
                         ItemEntity itementity = new ItemEntity(this.level(), this.getX(), this.getY() + 1, this.getZ(), stack){

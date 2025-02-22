@@ -43,10 +43,14 @@ public class TallCrimsonSeagrassBlock extends DoublePlantBlock implements Liquid
         return p_154774_.isFaceSturdy(p_154775_, p_154776_, Direction.UP) && !p_154774_.is(Blocks.MAGMA_BLOCK);
     }
 
+
     @Override
-    public ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
+    protected ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean bl) {
         return new ItemStack(NDUBlocks.CRIMSON_SEAGRASS);
     }
+
+
+
 
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext p_154747_) {

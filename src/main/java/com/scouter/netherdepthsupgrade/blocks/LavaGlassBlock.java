@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -69,15 +70,15 @@ public class LavaGlassBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
-        if(!pLevel.isClientSide()){
-            LavaGlassBlockEntity blockEntity = (LavaGlassBlockEntity) pLevel.getBlockEntity(pPos);
+    protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, @Nullable Orientation orientation, boolean bl) {
+        if(!level.isClientSide()){
+            LavaGlassBlockEntity blockEntity = (LavaGlassBlockEntity) level.getBlockEntity(blockPos);
             blockEntity.getOcclusionDirs().clear();
             blockEntity.setOcclusionShape(Shapes.empty());
             VoxelShape shape = blockEntity.getOcclusionShape();
 
             for(Direction direction : Direction.values()){
-                if(pLevel.getFluidState(pPos.relative(direction)).is(FluidTags.LAVA)){
+                if(level.getFluidState(blockPos.relative(direction)).is(FluidTags.LAVA)){
                     shape = Shapes.or(shape, occlusionShapes.get(direction));
                     blockEntity.addDirection(direction);
                 }
@@ -85,10 +86,11 @@ public class LavaGlassBlock extends BaseEntityBlock {
 
             blockEntity.setOcclusionShape(shape);
         }
-        pLevel.sendBlockUpdated(pPos, pState, pState, Block.UPDATE_IMMEDIATE);
-        super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
-    }
+        level.sendBlockUpdated(blockPos, blockState, blockState, Block.UPDATE_IMMEDIATE);
 
+
+        super.neighborChanged(blockState, level, blockPos, block, orientation, bl);
+    }
 
 
     public VoxelShape getVisualShape(BlockState pState, BlockGetter pReader, BlockPos pPos, CollisionContext pContext) {
@@ -99,23 +101,28 @@ public class LavaGlassBlock extends BaseEntityBlock {
         return 1.0F;
     }
 
-    @Override
-    public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        LavaGlassBlockEntity blockEntity = (LavaGlassBlockEntity) pLevel.getBlockEntity(pPos);
-        if(blockEntity != null) {
-            VoxelShape shape = blockEntity.getOcclusionShape();
-            return shape;
-        }
-        return Shapes.empty();
-    }
+
+    //@Override
+    //protected VoxelShape getOcclusionShape(BlockState blockState) {
+    //    LavaGlassBlockEntity blockEntity = (LavaGlassBlockEntity) pLevel.getBlockEntity(pPos);
+    //    if(blockEntity != null) {
+    //        VoxelShape shape = blockEntity.getOcclusionShape();
+    //        return shape;
+    //    }
+//
+    //    return super.getOcclusionShape(blockState);
+    //}
+
 
     public boolean skipRendering(BlockState pState, BlockState pAdjacentBlockState, Direction pSide) {
         return pAdjacentBlockState.is(this) ? true : super.skipRendering(pState, pAdjacentBlockState, pSide);
     }
 
-    public boolean propagatesSkylightDown(BlockState pState, BlockGetter pReader, BlockPos pPos) {
+    @Override
+    protected boolean propagatesSkylightDown(BlockState blockState) {
         return true;
     }
+
 
     @Nullable
     @Override

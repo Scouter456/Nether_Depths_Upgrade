@@ -104,7 +104,7 @@ public interface BucketableLava {
             }
 
             p_148831_.discard();
-            return Optional.of(InteractionResult.sidedSuccess(level.isClientSide));
+            return Optional.of(InteractionResult.SUCCESS);
         } else {
             return Optional.empty();
         }

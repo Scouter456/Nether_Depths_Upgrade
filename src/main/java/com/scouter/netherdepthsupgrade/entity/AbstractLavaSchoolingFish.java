@@ -2,8 +2,8 @@ package com.scouter.netherdepthsupgrade.entity;
 
 import com.scouter.netherdepthsupgrade.entity.ai.FollowLavaFlockLeaderGoal;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -107,17 +107,19 @@ public abstract class AbstractLavaSchoolingFish extends AbstractLavaFish {
         });
     }
 
+    @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pSpawnType, @Nullable SpawnGroupData pSpawnGroupData) {
-        super.finalizeSpawn(pLevel, pDifficulty, pSpawnType, pSpawnGroupData);
-        if (pSpawnGroupData == null) {
-            pSpawnGroupData = new AbstractLavaSchoolingFish.SchoolSpawnGroupData(this);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, EntitySpawnReason entitySpawnReason, @Nullable SpawnGroupData spawnGroupData) {
+      super.finalizeSpawn(serverLevelAccessor, difficultyInstance, entitySpawnReason, spawnGroupData);
+        if (spawnGroupData == null) {
+            spawnGroupData = new AbstractLavaSchoolingFish.SchoolSpawnGroupData(this);
         } else {
-            this.startFollowing(((AbstractLavaSchoolingFish.SchoolSpawnGroupData)pSpawnGroupData).leader);
+            this.startFollowing(((AbstractLavaSchoolingFish.SchoolSpawnGroupData)spawnGroupData).leader);
         }
 
-        return pSpawnGroupData;
+        return spawnGroupData;
     }
+
 
     public static class SchoolSpawnGroupData implements SpawnGroupData {
         public final AbstractLavaSchoolingFish leader;

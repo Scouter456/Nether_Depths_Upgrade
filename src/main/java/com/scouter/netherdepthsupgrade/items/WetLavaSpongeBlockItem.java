@@ -24,8 +24,8 @@ public class WetLavaSpongeBlockItem extends BlockItem {
     public InteractionResult useOn(UseOnContext context) {
         InteractionResult interactionResult = this.place(new BlockPlaceContext(context));
         if (!interactionResult.consumesAction()) {
-            InteractionResult interactionResult2 = this.use(context.getLevel(), context.getPlayer(), context.getHand()).getResult();
-            return interactionResult2 == InteractionResult.CONSUME ? InteractionResult.CONSUME_PARTIAL : interactionResult2;
+            InteractionResult interactionResult2 = this.use(context.getLevel(), context.getPlayer(), context.getHand());
+            return interactionResult2 == InteractionResult.CONSUME ? InteractionResult.FAIL : interactionResult2;
         }
         Player player = context.getPlayer();
         Direction dir = context.getClickedFace();

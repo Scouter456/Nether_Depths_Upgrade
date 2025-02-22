@@ -42,7 +42,7 @@ public class LavaBoundPathNavigation extends PathNavigation {
     }
 
     public boolean isStableDestination(BlockPos pPos) {
-        return !this.level.getBlockState(pPos).isSolidRender(this.level, pPos);
+        return !this.level.getBlockState(pPos).isSolidRender();
     }
 
     public void setCanFloat(boolean pCanSwim) {

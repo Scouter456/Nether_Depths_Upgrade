@@ -17,7 +17,6 @@ import com.scouter.netherdepthsupgrade.world.NDUGeneration;
 import com.scouter.netherdepthsupgrade.world.feature.NDUConfiguredFeatures;
 import com.scouter.netherdepthsupgrade.world.feature.NDUFeatures;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 
 public class Registration {
 
@@ -37,7 +36,7 @@ public class Registration {
         NDUConfiguredFeatures.CONFIGURED_FEATURES();
         NDUStructures.STRUCTURES();
         registerAttributes();
-        registerFuels();
+        //registerFuels();
         NDUGeneration.generateFeatures();
         NDUGeneration.spawnCreatures();
         NDUAdvancementTriggers.init();
@@ -58,13 +57,13 @@ public class Registration {
         FabricDefaultAttributeRegistry.register(NDUEntity.EYEBALL_FISH, EyeballfishEntity.setAttributes());
     }
 
-    private static void registerFuels(){
-        FuelRegistry registry = FuelRegistry.INSTANCE;
-
-        registry.add(NDUBlocks.WARPED_KELP_BLOCK, 6400);
-        registry.add(NDUBlocks.CRIMSON_KELP_BLOCK, 6400);
-        registry.add(NDUItems.SEARING_COD, 3200);
-    }
+    //private static void registerFuels(){
+    //    FuelRegistry registry = FuelRegistry.INSTANCE;
+//
+    //    registry.add(NDUBlocks.WARPED_KELP_BLOCK, 6400);
+    //    registry.add(NDUBlocks.CRIMSON_KELP_BLOCK, 6400);
+    //    registry.add(NDUItems.SEARING_COD, 3200);
+    //}
 
    // public static final CreativeModeTab defaultBuilder = FabricItemGroupBuilder.build(prefix("netherdepthsupgrade"), () -> new ItemStack(NDUItems.SOUL_SUCKER_LEATHER));
    // public static final CreativeModeTab fishBuilder = FabricItemGroupBuilder.build(prefix("netherdepthsupgrade_fish"), () -> new ItemStack(NDUItems.SEARING_COD));

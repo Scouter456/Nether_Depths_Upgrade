@@ -6,7 +6,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.FishingRodItem;
@@ -20,7 +20,8 @@ public class LavaFishingRodItem extends FishingRodItem {
         super(p_41285_);
     }
 
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
+
+    public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (pPlayer.fishing != null) {
             if (!pLevel.isClientSide) {
@@ -43,7 +44,7 @@ public class LavaFishingRodItem extends FishingRodItem {
             pPlayer.gameEvent(GameEvent.ITEM_INTERACT_START);
         }
 
-        return InteractionResultHolder.sidedSuccess(itemstack, pLevel.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     /**

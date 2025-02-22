@@ -1,17 +1,16 @@
 package com.scouter.netherdepthsupgrade.items;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.Level;
 
 public class SoulSuckerArmorItem extends ArmorItem {
 
-    public SoulSuckerArmorItem(Holder<ArmorMaterial> holder, Type type, Properties properties) {
+    public SoulSuckerArmorItem(ArmorMaterial holder, ArmorType type, Properties properties) {
         super(holder, type, properties);
     }
 
@@ -31,11 +30,12 @@ public class SoulSuckerArmorItem extends ArmorItem {
         }
 
     */
+
     @Override
-    public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
-        pLevel.registryAccess().registry(Registries.ENCHANTMENT).ifPresent(e -> {
-            e.getHolder(Enchantments.SOUL_SPEED).ifPresent(d -> {
-                pStack.enchant(d, 3);
+    public void onCraftedPostProcess(ItemStack itemStack, Level level) {
+        level.registryAccess().lookup(Registries.ENCHANTMENT).ifPresent(e -> {
+            e.get(Enchantments.SOUL_SPEED).ifPresent(d -> {
+                itemStack.enchant(d, 3);
             });
         });
 

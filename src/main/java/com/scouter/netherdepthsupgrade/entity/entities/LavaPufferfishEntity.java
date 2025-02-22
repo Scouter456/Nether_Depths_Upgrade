@@ -8,6 +8,7 @@ import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -29,7 +30,6 @@ import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public class LavaPufferfishEntity extends AbstractLavaFish implements GeoEntity {
     public static final RawAnimation MOVING_PUFFERFISH = RawAnimation.begin().thenLoop("animation.pufferfish.swim");
@@ -39,12 +39,14 @@ public class LavaPufferfishEntity extends AbstractLavaFish implements GeoEntity 
     private static final EntityDataAccessor<Integer> PUFF_STATE = SynchedEntityData.defineId(LavaPufferfishEntity.class, EntityDataSerializers.INT);
     int inflateCounter;
     int deflateTimer;
-    private static final Predicate<LivingEntity> SCARY_MOB = (p_29634_) -> {
-        if (p_29634_ instanceof Player && ((Player)p_29634_).isCreative()) {
-            return false;
-        } else {
-            return !p_29634_.getType().is(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH);
+    private static final TargetingConditions.Selector SCARY_MOB = (livingEntity, serverLevel) -> {
+        if (livingEntity instanceof Player player) {
+            if (player.isCreative()) {
+                return false;
+            }
         }
+
+        return !livingEntity.getType().is(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH);
     };
     static final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(SCARY_MOB);
     public static final int STATE_SMALL = 0;
@@ -138,38 +140,50 @@ public class LavaPufferfishEntity extends AbstractLavaFish implements GeoEntity 
      */
     public void aiStep() {
         super.aiStep();
-        if (this.isAlive() && this.getPuffState() > 0) {
-            for(Mob mob : this.level().getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(0.3D), (p_149013_) -> {
-                return targetingConditions.test(this, p_149013_);
-            })) {
-                if (mob.isAlive()) {
-                    this.touch(mob);
+        Level level = this.level();
+
+            if(level instanceof ServerLevel serverLevel) {
+                if (this.isAlive() && this.getPuffState() > 0) {
+                    for(Mob mob : this.level().getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(0.3D), (p_149013_) -> {
+                        return targetingConditions.test(serverLevel, this, p_149013_);
+                    })) {
+                        if (mob.isAlive()) {
+                            this.touch(serverLevel, mob);
+                        }
+                    }
                 }
             }
-        }
+
+
+
+
 
     }
 
-    private void touch(Mob p_29606_) {
+    private void touch(ServerLevel serverLevel, Mob mob) {
         int i = this.getPuffState();
-        if (p_29606_.hurt(this.damageSources().mobAttack(this), (float)(1 + i))) {
-            p_29606_.addEffect(new MobEffectInstance(MobEffects.WITHER, 60 * i, 0), this);
+        if (mob.hurtServer(serverLevel, this.damageSources().mobAttack(this), (float)(1 + i))) {
+            mob.addEffect(new MobEffectInstance(MobEffects.WITHER, 60 * i, 0), this);
             this.playSound(SoundEvents.PUFFER_FISH_STING, 1.0F, 1.0F);
         }
 
     }
 
+
     /**
      * Called by a player entity when they collide with an entity
      */
-    public void playerTouch(Player pEntity) {
-        int i = this.getPuffState();
-        if (pEntity instanceof ServerPlayer && i > 0 && pEntity.hurt(this.damageSources().mobAttack(this), (float)(1 + i))) {
-            if (!this.isSilent()) {
-                ((ServerPlayer)pEntity).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0F));
-            }
 
-            pEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 60 * i, 0), this);
+    public void playerTouch(Player player) {
+        int i = this.getPuffState();
+        if (player instanceof ServerPlayer serverPlayer) {
+            if (i > 0 && player.hurtServer(serverPlayer.serverLevel(), this.damageSources().mobAttack(this), (float)(1 + i))) {
+                if (!this.isSilent()) {
+                    serverPlayer.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0F));
+                }
+
+                player.addEffect(new MobEffectInstance(MobEffects.WITHER, 60 * i, 0), this);
+            }
         }
 
     }
@@ -228,10 +242,14 @@ public class LavaPufferfishEntity extends AbstractLavaFish implements GeoEntity 
          * method as well.
          */
         public boolean canUse() {
-            List<LivingEntity> list = this.fish.level().getEntitiesOfClass(LivingEntity.class, this.fish.getBoundingBox().inflate(2.0D), (p_149015_) -> {
-                return LavaPufferfishEntity.targetingConditions.test(this.fish, p_149015_);
-            });
-            return !list.isEmpty();
+            Level level = this.fish.level();
+            if(level instanceof ServerLevel serverLevel) {
+                List<LivingEntity> list = this.fish.level().getEntitiesOfClass(LivingEntity.class, this.fish.getBoundingBox().inflate(2.0D), (p_149015_) -> {
+                    return LavaPufferfishEntity.targetingConditions.test(serverLevel, this.fish, p_149015_);
+                });
+                return !list.isEmpty();
+            }
+            return false;
         }
 
         /**

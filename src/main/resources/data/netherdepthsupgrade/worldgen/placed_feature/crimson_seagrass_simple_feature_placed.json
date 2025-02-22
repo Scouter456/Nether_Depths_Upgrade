@@ -2,10 +2,6 @@
   "feature": "netherdepthsupgrade:crimson_seagrass_simple_feature",
   "placement": [
     {
-      "type": "minecraft:carving_mask",
-      "step": "liquid"
-    },
-    {
       "type": "minecraft:rarity_filter",
       "chance": 10
     },

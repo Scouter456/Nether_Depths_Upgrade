@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.entity.AbstractLavaFish;
 import com.scouter.netherdepthsupgrade.entity.ai.FishSwimGoal;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -190,7 +191,12 @@ public class FortressGrouperEntity extends AbstractLavaFish implements GeoEntity
                 livingentity.hurtMarked = true;
                 if (livingentity != null) {
                     if (this.mob.getBoundingBox().inflate(2).intersects(livingentity.getBoundingBox())) {
-                        this.mob.doHurtTarget(livingentity);
+                        if(livingentity.level() instanceof ServerLevel level) {
+                            this.mob.doHurtTarget(level, livingentity);
+                        }
+
+
+
                     }
                 }
             }

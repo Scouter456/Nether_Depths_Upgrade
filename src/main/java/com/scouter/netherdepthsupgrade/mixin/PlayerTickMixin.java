@@ -62,8 +62,8 @@ public class PlayerTickMixin {
     @Unique
     private static int getHellStriderLevel(Player entity) {
         return entity.registryAccess()
-                .registry(Registries.ENCHANTMENT)
-                .flatMap(e -> e.getHolder(NDUEnchantments.HELL_STRIDER))
+                .lookup(Registries.ENCHANTMENT)
+                .flatMap(e -> e.get(NDUEnchantments.HELL_STRIDER))
                 .map(d -> EnchantmentHelper.getEnchantmentLevel(d, entity))
                 .orElse(0);
     }

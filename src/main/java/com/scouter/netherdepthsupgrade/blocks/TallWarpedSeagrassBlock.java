@@ -44,7 +44,7 @@ public class TallWarpedSeagrassBlock extends DoublePlantBlock implements LiquidB
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
+    protected ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean bl) {
         return new ItemStack(NDUBlocks.WARPED_SEAGRASS);
     }
 

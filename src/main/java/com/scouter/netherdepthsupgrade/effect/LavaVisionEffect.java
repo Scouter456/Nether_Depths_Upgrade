@@ -1,5 +1,6 @@
 package com.scouter.netherdepthsupgrade.effect;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,11 +14,11 @@ public class LavaVisionEffect extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int i) {
+    public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity livingEntity, int i) {
         if(livingEntity.isOnFire()){
             livingEntity.clearFire();
         }
-        return super.applyEffectTick(livingEntity, i);
+        return super.applyEffectTick(serverLevel, livingEntity, i);
     }
 
     @Override
