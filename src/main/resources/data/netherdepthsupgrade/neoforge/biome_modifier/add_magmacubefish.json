@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#netherdepthsupgrade:is_magmacubefish_biome",
+  "spawners": {
+    "type": "netherdepthsupgrade:magmacubefish",
+    "maxCount": 4,
+    "minCount": 2,
+    "weight": 10
+  }
+}

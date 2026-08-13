@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#netherdepthsupgrade:is_obsidianfish_biome",
+  "spawners": {
+    "type": "netherdepthsupgrade:obsidianfish",
+    "maxCount": 5,
+    "minCount": 1,
+    "weight": 15
+  }
+}

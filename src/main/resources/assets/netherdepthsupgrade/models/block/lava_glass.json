@@ -1,6 +1,54 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "cullface": "down",
+          "texture": "#tex",
+          "tintindex": 0
+        },
+        "east": {
+          "cullface": "east",
+          "texture": "#tex",
+          "tintindex": 0
+        },
+        "north": {
+          "cullface": "north",
+          "texture": "#tex",
+          "tintindex": 0
+        },
+        "south": {
+          "cullface": "south",
+          "texture": "#tex",
+          "tintindex": 0
+        },
+        "up": {
+          "cullface": "up",
+          "texture": "#tex",
+          "tintindex": 0
+        },
+        "west": {
+          "cullface": "west",
+          "texture": "#tex",
+          "tintindex": 0
+        }
+      },
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ]
+    }
+  ],
+  "render_type": "minecraft:cutout_mipped",
   "textures": {
-    "all": "netherdepthsupgrade:block/lava_glass"
+    "particle": "netherdepthsupgrade:block/lava_glass_all",
+    "tex": "netherdepthsupgrade:block/lava_glass_blank"
   }
 }

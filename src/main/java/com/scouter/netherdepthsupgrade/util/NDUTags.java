@@ -2,12 +2,29 @@ package com.scouter.netherdepthsupgrade.util;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
 
 import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class NDUTags {
+
+    public static class Blocks {
+        public static final TagKey<Block> LAVA_PLANTS = tag("lava_plants");
+
+
+        private static TagKey<Block> tag(String name){
+            return TagKey.create( Registries.BLOCK,prefix(name));
+
+        }
+        private static TagKey<Block> fabrictag(String name){
+            return TagKey.create(Registries.BLOCK, ResourceLocation.tryBuild("fabric", name));
+
+        }
+    }
+
     public static class Biomes {
         public static final TagKey<Biome> IS_LAVA_PUFFERFISH_BIOME = tag("is_lava_pufferfish_biome");
         public static final TagKey<Biome> IS_WITHER_BONEFISH_BIOME = tag("is_wither_bonefish_biome");

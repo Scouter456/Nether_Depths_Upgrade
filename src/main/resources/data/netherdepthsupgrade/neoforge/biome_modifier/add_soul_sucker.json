@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#netherdepthsupgrade:is_soulsucker_biome",
+  "spawners": {
+    "type": "netherdepthsupgrade:soulsucker",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 10
+  }
+}

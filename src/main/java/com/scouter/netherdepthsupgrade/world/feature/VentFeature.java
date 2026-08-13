@@ -31,71 +31,84 @@ public class VentFeature extends Feature<NoneFeatureConfiguration> {
      *
      * @param pContext A context object with a reference to the level and the position the feature is being placed at
      */
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> p_159956_) {
-        WorldGenLevel worldgenlevel = p_159956_.level();
-        BlockPos blockpos = p_159956_.origin();
-        RandomSource random = p_159956_.random();
-        int z = 30 + random.nextInt(-29, 0);
-        BlockPos blockpos1 = new BlockPos(blockpos.getX(), z, blockpos.getZ());
-        if (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA)) {
-            while(worldgenlevel.getFluidState(blockpos1).is(Fluids.LAVA)){
-                blockpos1 = blockpos1.below();
-            }
-            BlockState block = Blocks.NETHERRACK.defaultBlockState();
-            BlockState block2 = Blocks.ANCIENT_DEBRIS.defaultBlockState();
-            BlockState block3 = Blocks.NETHER_GOLD_ORE.defaultBlockState();
-            BlockState block4 = Blocks.NETHER_QUARTZ_ORE.defaultBlockState();
-            FluidState block5 = Fluids.LAVA.defaultFluidState();
-            BlockState block6 = Blocks.AIR.defaultBlockState();
-            int rRand = random.nextInt(3, 7);
-            int heightMax = random.nextInt(5, 15);
-            for (int y = 0; y < heightMax; y++) {
-                for (int l = 0; l < (rRand); l++) {
-                    for (int p = 0; p < (rRand); p++) {
-                        for (double a = 0; a < (Math.PI * 2); a = a + 0.05) {
-                            double x = (l) * Math.cos(a);
-                            double k = (p) * Math.sin(a);
-                            int randomNum = random.nextInt(0, 100);
-                            if (randomNum < 80) {
-                                worldgenlevel.setBlock(blockpos1.offset((int) Math.round(x), y, (int) Math.round(k)), block, 3);
+    @Override
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+        WorldGenLevel level = context.level();
+        BlockPos origin = context.origin();
+        RandomSource random = context.random();
 
-                            } else if (randomNum > 80 && randomNum < 90) {
-                                worldgenlevel.setBlock(blockpos1.offset((int) Math.round(x), y, (int) Math.round(k)), block4, 3);
-                            } else if (randomNum > 90 && randomNum < 98) {
-                                worldgenlevel.setBlock(blockpos1.offset((int) Math.round(x), y, (int) Math.round(k)), block3, 3);
-                            } else if (randomNum > 98 && randomNum < 100) {
-                                worldgenlevel.setBlock(blockpos1.offset((int) Math.round(x), y, (int) Math.round(k)), block2, 3);
-                            }
-                        }
-                    }
-                }
-                if (y % 2 == 0) {
-                    rRand--;
-                }
-            }
-            for (int y = 0; y < heightMax; y++) {
-                if (checkSurrounding(worldgenlevel, blockpos1.offset(0, y, 0))) {
-                    worldgenlevel.setBlock(blockpos1.offset(0, y, 0), block5.createLegacyBlock(), 3);
-                }if(blockpos1.offset(0,y,0).getY() > 29 && !checkSurrounding(worldgenlevel, blockpos1.offset(0, y, 0))){
-                    worldgenlevel.setBlock(blockpos1.offset(0, y, 0), block6, 3);
-                }
-            }
+        // Find lava in the selected column.
+        BlockPos.MutableBlockPos searchPos = new BlockPos.MutableBlockPos(origin.getX(), 31, origin.getZ());
 
-
+        while (searchPos.getY() > level.getMinBuildHeight()
+                && !level.getFluidState(searchPos).is(FluidTags.LAVA)) {
+            searchPos.move(Direction.DOWN);
         }
 
+        if (!level.getFluidState(searchPos).is(FluidTags.LAVA)) {
+            return false;
+        }
 
-        return true;
+        // Find the floor underneath the lava.
+        while (searchPos.getY() > level.getMinBuildHeight()
+                && level.getFluidState(searchPos).is(FluidTags.LAVA)) {
+            searchPos.move(Direction.DOWN);
+        }
+
+        BlockPos basePos = searchPos.immutable();
+
+        int startingRadius = random.nextInt(3, 7);
+        int maximumHeight = random.nextInt(5, 15);
+        int generatedHeight = 0;
+
+        for (int y = 0; y < maximumHeight; y++) {
+            int radius = startingRadius - ((y + 1) / 2);
+
+            if (radius <= 0) {
+                break;
+            }
+
+            int radiusSq = radius * radius;
+
+            for (int x = -radius; x <= radius; x++) {
+                for (int z = -radius; z <= radius; z++) {
+                    if (x * x + z * z > radiusSq) {
+                        continue;
+                    }
+
+                    BlockPos targetPos = basePos.offset(x, y, z);
+                    level.setBlock(targetPos, getVentBlock(random), 2);
+                }
+            }
+
+            generatedHeight = y + 1;
+        }
+
+        // Create the lava shaft in the centre.
+        BlockState lava = Fluids.LAVA.defaultFluidState().createLegacyBlock();
+
+        for (int y = 0; y < generatedHeight; y++) {
+            level.setBlock(basePos.offset(0, y, 0), lava, 2);
+        }
+
+        return generatedHeight > 0;
     }
 
-    public boolean checkSurrounding(WorldGenLevel level, BlockPos pos) {
-        for (Direction direction : Direction.Plane.HORIZONTAL) {
-            BlockState blockstate1 = level.getBlockState(pos.relative(direction));
-            FluidState fluidstate = level.getFluidState(pos.relative(direction));
-            if (fluidstate.is(FluidTags.LAVA) || !blockstate1.is(Blocks.AIR)) {
-                return true;
-            }
+    private static BlockState getVentBlock(RandomSource random) {
+        int roll = random.nextInt(100);
+
+        if (roll < 81) {
+            return Blocks.NETHERRACK.defaultBlockState();
         }
-        return false;
+
+        if (roll < 91) {
+            return Blocks.NETHER_QUARTZ_ORE.defaultBlockState();
+        }
+
+        if (roll < 99) {
+            return Blocks.NETHER_GOLD_ORE.defaultBlockState();
+        }
+
+        return Blocks.ANCIENT_DEBRIS.defaultBlockState();
     }
 }

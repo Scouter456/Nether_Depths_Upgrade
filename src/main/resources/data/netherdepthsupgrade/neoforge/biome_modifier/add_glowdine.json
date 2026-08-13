@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#netherdepthsupgrade:is_glowdine_biome",
+  "spawners": {
+    "type": "netherdepthsupgrade:glowdine",
+    "maxCount": 6,
+    "minCount": 4,
+    "weight": 8
+  }
+}

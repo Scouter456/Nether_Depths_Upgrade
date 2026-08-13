@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(Frog.class)
 public abstract class FrogFeedMixin extends Animal {
@@ -24,32 +25,41 @@ public abstract class FrogFeedMixin extends Animal {
     }
 
     @Override
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        Frog frog = (Frog)(Object)this;
-        ItemStack itemStack_ochre = new ItemStack(Items.OCHRE_FROGLIGHT);
-        ItemStack itemStack_pearlescent = new ItemStack(Items.PEARLESCENT_FROGLIGHT);
-        ItemStack itemStack_verdant = new ItemStack(Items.VERDANT_FROGLIGHT);
-        ItemEntity itemEntity_ochre = new ItemEntity(level(), frog.getX(), frog.getY(), frog.getZ(), itemStack_ochre);
-        ItemEntity itemEntity_pearlescent = new ItemEntity(level(), frog.getX(), frog.getY(), frog.getZ(), itemStack_pearlescent);
-        ItemEntity itemEntity_verdant = new ItemEntity(level(), frog.getX(), frog.getY(), frog.getZ(), itemStack_verdant);
-        ItemStack itemInHand = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack heldStack = player.getItemInHand(hand);
 
-        if(itemInHand.getItem() == NDUItems.MAGMACUBEFISH){
-            if(frog.getVariant() == FrogVariant.COLD){
-                level().addFreshEntity(itemEntity_verdant);
-            }
-            if(frog.getVariant() == FrogVariant.TEMPERATE){
-                level().addFreshEntity(itemEntity_ochre);
-            }
-            if(frog.getVariant() == FrogVariant.WARM){
-                level().addFreshEntity (itemEntity_pearlescent);
-            }
-            if(!pPlayer.isCreative()) {
-                level().playSound(null, frog.blockPosition(), SoundEvents.FROG_EAT, SoundSource.NEUTRAL, 1, 1);
-                itemInHand.setCount(itemInHand.getCount() - 1);
-            }
-            return InteractionResult.SUCCESS;
+        if (!heldStack.is(NDUItems.MAGMACUBEFISH)) {
+            return super.mobInteract(player, hand);
         }
-        return super.mobInteract(pPlayer, pHand);
+
+        Frog frog = (Frog) (Object) this;
+        Level level = level();
+
+        if (!level.isClientSide) {
+            ItemStack froglight = ndu$getFroglightForVariant(frog);
+
+            level.addFreshEntity(new ItemEntity(level, frog.getX(), frog.getY(), frog.getZ(), froglight));
+
+            level.playSound(null, frog.blockPosition(), SoundEvents.FROG_EAT, SoundSource.NEUTRAL, 1.0F, 1.0F);
+
+            if (!player.isCreative()) {
+                heldStack.shrink(1);
+            }
+        }
+
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    @Unique
+    private static ItemStack ndu$getFroglightForVariant(Frog frog) {
+        if (frog.getVariant() == FrogVariant.COLD) {
+            return new ItemStack(Items.VERDANT_FROGLIGHT);
+        }
+
+        if (frog.getVariant() == FrogVariant.WARM) {
+            return new ItemStack(Items.PEARLESCENT_FROGLIGHT);
+        }
+
+        return new ItemStack(Items.OCHRE_FROGLIGHT);
     }
 }

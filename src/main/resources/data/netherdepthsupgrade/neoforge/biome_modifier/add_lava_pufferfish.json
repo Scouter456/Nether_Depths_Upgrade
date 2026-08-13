@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#netherdepthsupgrade:is_lava_pufferfish_biome",
+  "spawners": {
+    "type": "netherdepthsupgrade:lava_pufferfish",
+    "maxCount": 5,
+    "minCount": 1,
+    "weight": 15
+  }
+}

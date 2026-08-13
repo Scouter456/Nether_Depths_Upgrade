@@ -33,7 +33,7 @@ public class NDUBlocks {
 
     public static final Block CRIMSON_KELP_BLOCK  = registerBlock("crimson_kelp_block", new Block(FabricBlockSettings.copyOf(Blocks.KELP).mapColor(MapColor.WATER).strength(0.5F, 2.5F).sounds(SoundType.WET_GRASS)));
     public static final Block CRIMSON_KELP_CARPET_BLOCK = registerBlock("crimson_kelp_carpet_block", new CarpetBlock(FabricBlockSettings.copyOf(Blocks.RED_CARPET).mapColor(MapColor.WATER).strength(0.1F).sounds(SoundType.WET_GRASS)));
-    public static final Block LAVA_GLASS = registerBlock("lava_glass", new LavaGlassBlock(FabricBlockSettings.of().mapColor(MapColor.WATER).strength(0.6F).sound(SoundType.GLASS)));
+    public static final Block LAVA_GLASS = registerBlock("lava_glass", new LavaGlassBlock(FabricBlockSettings.of().mapColor(MapColor.WATER).strength(0.6F).sound(SoundType.GLASS).dynamicShape()));
 
     private static Block registerBlock(String name, Block block){
         return Registry.register(BuiltInRegistries.BLOCK, prefix(name), block);

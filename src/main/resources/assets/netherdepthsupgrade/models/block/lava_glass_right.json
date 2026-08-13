@@ -1,0 +1,13 @@
+{
+  "parent": "minecraft:block/cube",
+  "render_type": "minecraft:cutout_mipped",
+  "textures": {
+    "down": "netherdepthsupgrade:block/lava_glass_right",
+    "east": "netherdepthsupgrade:block/lava_glass_blank",
+    "north": "netherdepthsupgrade:block/lava_glass_left",
+    "particle": "netherdepthsupgrade:block/lava_glass_all",
+    "south": "netherdepthsupgrade:block/lava_glass_right",
+    "up": "netherdepthsupgrade:block/lava_glass_right",
+    "west": "netherdepthsupgrade:block/lava_glass_blank"
+  }
+}

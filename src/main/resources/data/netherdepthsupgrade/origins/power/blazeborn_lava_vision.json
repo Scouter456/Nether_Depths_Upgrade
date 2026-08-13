@@ -1,0 +1,10 @@
+{
+  "type": "origins:permanent_effect",
+  "effect": {
+    "amplifier": 0,
+    "effect": "netherdepthsupgrade:lava_vision",
+    "show_icon": false,
+    "show_particles": false
+  },
+  "hidden": true
+}

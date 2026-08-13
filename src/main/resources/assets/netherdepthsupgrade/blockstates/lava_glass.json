@@ -1,7 +1,59 @@
 {
-  "variants": {
-    "": {
-      "model": "netherdepthsupgrade:block/lava_glass"
+  "multipart": [
+    {
+      "apply": {
+        "model": "netherdepthsupgrade:block/lava_glass"
+      }
+    },
+    {
+      "apply": {
+        "model": "netherdepthsupgrade:block/lava_glass_up"
+      },
+      "when": {
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "netherdepthsupgrade:block/lava_glass_down"
+      },
+      "when": {
+        "down": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "netherdepthsupgrade:block/lava_glass_right"
+      },
+      "when": {
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "netherdepthsupgrade:block/lava_glass_left"
+      },
+      "when": {
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "netherdepthsupgrade:block/lava_glass_left",
+        "y": 90
+      },
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "netherdepthsupgrade:block/lava_glass_right",
+        "y": 90
+      },
+      "when": {
+        "south": "false"
+      }
     }
-  }
+  ]
 }

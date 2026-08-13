@@ -4,6 +4,8 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -29,68 +31,59 @@ public class SpongeFeature extends Feature<NoneFeatureConfiguration> {
      *
      * @param pContext A context object with a reference to the level and the position the feature is being placed at
      */
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> p_159956_) {
-        WorldGenLevel worldgenlevel = p_159956_.level();
-        BlockPos blockpos = p_159956_.origin();
-        RandomSource random = p_159956_.random();
-        int t = 30 + random.nextInt(-29, 0);
-        BlockPos blockpos1 = new BlockPos(blockpos.getX(), t, blockpos.getZ());
-        BlockState block = NDUBlocks.WET_LAVA_SPONGE.defaultBlockState();
+    @Override
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+        WorldGenLevel level = context.level();
+        BlockPos origin = context.origin();
+        RandomSource random = context.random();
 
-        if (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA)) {
-            while (worldgenlevel.getFluidState(blockpos1).is(Fluids.LAVA)) {
-                blockpos1 = blockpos1.below();
-            }
-            int radius = random.nextInt(3, 6);
-            radius += 0.5D;
-            double radiusSq = radius * radius;
-            int ceilRadius = (int) Math.ceil(radius);
-            for (int x = 0; x <= ceilRadius; x++) {
-                for (int y = 0; y <= ceilRadius; y++) {
-                    for (int z = 0; z <= ceilRadius; z++) {
-                        double dSq = lengthSq(x, y, z);
+        // Search downward from the Nether lava-sea level.
+        BlockPos.MutableBlockPos searchPos = new BlockPos.MutableBlockPos(origin.getX(), 31, origin.getZ());
 
-                        if (dSq > radiusSq) {
-                            continue;
-                        }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(x, y, z))).is(Fluids.LAVA)) {
-                            worldgenlevel.setBlock(blockpos1.offset(x, y, z), block, 3);
-                        }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(-x, y, z))).is(Fluids.LAVA)) {
-                            worldgenlevel.setBlock(blockpos1.offset(-x, y, z), block, 3);
-                        }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(x, -y, z))).is(Fluids.LAVA)) {
-                            worldgenlevel.setBlock(blockpos1.offset(x, -y, z), block, 3);
-                        }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(x, y, -z))).is(Fluids.LAVA)) {
-                            worldgenlevel.setBlock(blockpos1.offset(x, y, -z), block, 3);
-                        }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(-x, -y, z))).is(Fluids.LAVA)) {
-                            worldgenlevel.setBlock(blockpos1.offset(-x, -y, z), block, 3);
-                        }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(x, -y, -z))).is(Fluids.LAVA)) {
-                            worldgenlevel.setBlock(blockpos1.offset(x, -y, -z), block, 3);
-                        }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(-x, y, -z))).is(Fluids.LAVA)) {
-                            worldgenlevel.setBlock(blockpos1.offset(-x, y, -z), block, 3);
-                        }
-                        if (worldgenlevel.getFluidState((blockpos1.offset(-x, -y, -z))).is(Fluids.LAVA)) {
-                            worldgenlevel.setBlock(blockpos1.offset(-x, -y, -z), block, 3);
-                        }
+        while (searchPos.getY() > level.getMinBuildHeight()
+                && !level.getFluidState(searchPos).is(FluidTags.LAVA)) {
+            searchPos.move(Direction.DOWN);
+        }
 
+        // This column contains no lava.
+        if (!level.getFluidState(searchPos).is(FluidTags.LAVA)) {
+            return false;
+        }
 
+        // Move through the lava until reaching the floor underneath it.
+        while (searchPos.getY() > level.getMinBuildHeight()
+                && level.getFluidState(searchPos).is(FluidTags.LAVA)) {
+            searchPos.move(Direction.DOWN);
+        }
 
+        BlockPos floorPos = searchPos.immutable();
+        BlockState spongeState = NDUBlocks.WET_LAVA_SPONGE.defaultBlockState();
 
+        double radius = random.nextInt(3, 6) + 0.5D;
+        double radiusSq = radius * radius;
+        int ceilRadius = (int) Math.ceil(radius);
+        int placedBlocks = 0;
 
+        for (int x = -ceilRadius; x <= ceilRadius; x++) {
+            for (int y = -ceilRadius; y <= ceilRadius; y++) {
+                for (int z = -ceilRadius; z <= ceilRadius; z++) {
+                    int distanceSq = x * x + y * y + z * z;
 
+                    if (distanceSq > radiusSq) {
+                        continue;
+                    }
 
+                    BlockPos targetPos = floorPos.offset(x, y, z);
+
+                    if (level.getFluidState(targetPos).is(FluidTags.LAVA)) {
+                        if (level.setBlock(targetPos, spongeState, 2)) {
+                            placedBlocks++;
+                        }
                     }
                 }
             }
         }
-        return true;
-    }
-    public static double lengthSq(int x, int y, int z){
-        return Math.pow(x,2) +  Math.pow(y,2) + Math.pow(z,2);
+
+        return placedBlocks > 0;
     }
 }

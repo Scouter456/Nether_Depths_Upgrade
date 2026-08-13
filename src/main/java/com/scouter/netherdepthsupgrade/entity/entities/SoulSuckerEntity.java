@@ -7,22 +7,19 @@ import com.scouter.netherdepthsupgrade.items.NDUItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.FluidState;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -30,18 +27,18 @@ import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.List;
+
+import static net.minecraft.world.level.block.Block.UPDATE_ALL;
 
 public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
-    private static final EntityDataAccessor<BlockPos> SOULSAND_POS = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.BLOCK_POS);
-    private static final EntityDataAccessor<Integer> SEEK_SOULSAND_TIMER = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> COOLDOWN_TTIMER = SynchedEntityData.defineId(SoulSuckerEntity.class, EntityDataSerializers.INT);
+    private static final int SOUL_SAND_SEARCH_COOLDOWN = 500;
+
+    private int soulSandSearchCooldown;
+
     public static final RawAnimation MOVING_SOULSUCKER = RawAnimation.begin().thenLoop("soulsucker.moving");
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final Logger LOGGER = LogUtils.getLogger();
-    public int suckTimer = 0;
     @Nullable
     protected FishSwimGoal fishSwimGoal;
 
@@ -51,25 +48,33 @@ public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.fishSwimGoal = new FishSwimGoal(this);
-        this.goalSelector.addGoal(1, new FindSoulSandGoal3(this));
-        this.goalSelector.addGoal(4, this.fishSwimGoal);
-        this.fishSwimGoal.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        this.goalSelector.addGoal(1, new FindSoulSandGoal(this));
     }
 
     public void aiStep() {
         super.aiStep();
+
         if (!this.level().isClientSide) {
-            if (this.getCooldownTimer().intValue() > 0) {
-                this.setSeekSoulSandTimer(this.getSeekSoulSandTimer() - 1);
-                this.setCooldownTimer(this.getSeekSoulSandTimer());
+            if (this.soulSandSearchCooldown > 0) {
+                this.soulSandSearchCooldown--;
             }
+
+            return;
         }
-        suckTimer++;
-        BlockPos blockPos = BlockPos.containing(this.getX(), this.getY(), this.getZ());
-        if ((this.level().getBlockState(blockPos.below()).is(Blocks.SOUL_SAND) || (this.level().getBlockState(blockPos).is(Blocks.SOUL_SAND)) && this.isInLava())) {
-            this.level().addParticle(ParticleTypes.SOUL, this.getRandomX(0.6D), this.getY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
+
+        if (!this.isInLava() || this.getRandom().nextInt(3) != 0) {
+            return;
         }
+
+        BlockPos currentPos = this.blockPosition();
+
+        boolean touchingSoulSand = this.level().getBlockState(currentPos).is(Blocks.SOUL_SAND) || this.level().getBlockState(currentPos.below()).is(Blocks.SOUL_SAND);
+
+        if (!touchingSoulSand) {
+            return;
+        }
+
+        this.level().addParticle(ParticleTypes.SOUL, this.getRandomX(0.6D), this.getY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
     }
 
 
@@ -94,7 +99,7 @@ public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
     }
 
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "soulsucker.moving", 0,state -> state.setAndContinue(MOVING_SOULSUCKER)));
+        controllers.add(new AnimationController<GeoAnimatable>(this, "soulsucker.moving", 0, state -> state.setAndContinue(MOVING_SOULSUCKER)));
     }
 
     @Override
@@ -102,205 +107,232 @@ public class SoulSuckerEntity extends AbstractLavaFish implements GeoEntity {
         return this.cache;
     }
 
-    @Override
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        super.defineSynchedData(pBuilder);
-        pBuilder.define(SOULSAND_POS, BlockPos.ZERO);
-        pBuilder.define(SEEK_SOULSAND_TIMER, 0);
-        pBuilder.define(COOLDOWN_TTIMER, 0);
-    }
-
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("SoulSandPosX", this.getSoulSandPos().getX());
-        pCompound.putInt("SoulSandPosY", this.getSoulSandPos().getY());
-        pCompound.putInt("SoulSandPosZ", this.getSoulSandPos().getZ());
-        pCompound.putInt("seeksoulsandtimer", this.getSeekSoulSandTimer());
-        pCompound.putInt("cooldowntimer", this.getCooldownTimer());
+        pCompound.putInt("SoulSandSearchCooldown", this.soulSandSearchCooldown);
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
-        int i = pCompound.getInt("SoulSandPosX");
-        int j = pCompound.getInt("SoulSandPosY");
-        int k = pCompound.getInt("SoulSandPosZ");
-        this.setSoulsandPos(new BlockPos(i, j, k));
-        setSeekSoulSandTimer(pCompound.getInt("seeksoulsandtimer"));
-        setCooldownTimer(pCompound.getInt("cooldowntimer"));
         super.readAdditionalSaveData(pCompound);
+
+        if (pCompound.contains("SoulSandSearchCooldown")) {
+            this.soulSandSearchCooldown = Math.max(0, pCompound.getInt("SoulSandSearchCooldown"));
+        } else {
+            int oldSeekTimer = pCompound.getInt("seeksoulsandtimer");
+            int oldCooldownTimer = pCompound.getInt("cooldowntimer");
+            this.soulSandSearchCooldown = Math.max(0, Math.max(oldSeekTimer, oldCooldownTimer));
+        }
     }
 
-    public void setSoulsandPos(BlockPos pPos) {
-        this.entityData.set(SOULSAND_POS, pPos);
+
+    private boolean isSoulSandSearchReady() {
+        return this.soulSandSearchCooldown <= 0;
     }
 
-    public BlockPos getSoulSandPos() {
-        return this.entityData.get(SOULSAND_POS);
+    private void resetSoulSandSearchCooldown() {
+        this.soulSandSearchCooldown =
+                SOUL_SAND_SEARCH_COOLDOWN;
     }
 
-    public void setSeekSoulSandTimer(Integer time) {
-        this.entityData.set(SEEK_SOULSAND_TIMER, Integer.valueOf(time));
-    }
+    private static class FindSoulSandGoal extends Goal {
 
-    public Integer getSeekSoulSandTimer() {
-        return this.entityData.get(SEEK_SOULSAND_TIMER);
-    }
+        private static final int HORIZONTAL_SEARCH_RADIUS = 5;
+        private static final int VERTICAL_SEARCH_DEPTH = 9;
+        private static final int REQUIRED_DRAIN_TICKS = 100;
+        private static final int MAX_GOAL_TICKS = 20 * 30;
 
-    public void setCooldownTimer(Integer time) {
-        this.entityData.set(COOLDOWN_TTIMER, Integer.valueOf(time));
-    }
+        private static final double MOVEMENT_SPEED = 1.0D;
+        private static final double ARRIVAL_DISTANCE_SQR = 2.25D;
 
-    public Integer getCooldownTimer() {
-        return this.entityData.get(COOLDOWN_TTIMER);
-    }
-
-    static class FindSoulSandGoal3 extends Goal {
-        private static final Logger LOGGER = LogUtils.getLogger();
         private final SoulSuckerEntity mob;
-        private int i = 0;
-        private int counter = 0;
-        private int suckCounter = 30;
-        private BlockPos lastPos;
-        private RandomSource rand = RandomSource.create();
-        public final List<BlockPos> soulSandList = new ArrayList<>();
-        private boolean stuck;
 
-        public FindSoulSandGoal3(SoulSuckerEntity mob) {
+        private BlockPos targetPos;
+        private int drainTicks;
+        private int elapsedTicks;
+        private boolean finished;
+
+        private FindSoulSandGoal(SoulSuckerEntity mob) {
             this.mob = mob;
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override
         public boolean canUse() {
-            return (this.mob.isInLava() && !this.mob.level().getBlockState(this.mob.blockPosition().below()).is(Blocks.SOUL_SAND)) && this.mob.getSeekSoulSandTimer().intValue() == 0;
+            if (!this.mob.isInLava()
+                    || !this.mob.isSoulSandSearchReady()) {
+                return false;
+            }
+
+            this.targetPos = this.findNearestSoulSand();
+
+            if (this.targetPos == null) {
+                // Prevent an expensive area scan every tick when
+                // no valid Soul Sand exists nearby.
+                this.mob.resetSoulSandSearchCooldown();
+                return false;
+            }
+
+            return true;
         }
 
         @Override
         public boolean canContinueToUse() {
-            BlockPos blockpos = this.mob.getSoulSandPos();
-            return this.mob.getSeekSoulSandTimer().intValue() == 0;
+            return !this.finished
+                    && this.targetPos != null
+                    && this.mob.isAlive()
+                    && this.mob.isInLava()
+                    && this.mob.isSoulSandSearchReady()
+                    && this.elapsedTicks < MAX_GOAL_TICKS
+                    && this.isValidSoulSandTarget(this.targetPos);
         }
-
 
         @Override
         public void start() {
-            if (this.mob.level() instanceof ServerLevel) {
-                this.mob.getNavigation().stop();
-                for (int x = -5; x < 5; x++) {
-                    for (int y = 0; y < 10; y++) {
-                        for (int z = -5; z < 5; z++) {
-                            double posX = this.mob.blockPosition().getX();
-                            double posY = this.mob.blockPosition().getY();
-                            double posZ = this.mob.blockPosition().getZ();
-                            BlockPos blockPos = BlockPos.containing(posX - x, posY - y, posZ - z);
-                            if (this.mob.level().getBlockState(blockPos).is(Blocks.SOUL_SAND) && this.mob.level().getFluidState(blockPos.above()).is(Fluids.LAVA) &&
-                                    !this.mob.level().getFluidState(blockPos.below()).is(Fluids.LAVA) && this.mob.level().getBlockState(blockPos.north()).is(Blocks.SOUL_SAND) &&
-                                    this.mob.level().getBlockState(blockPos.east()).is(Blocks.SOUL_SAND) && this.mob.level().getBlockState(blockPos.south()).is(Blocks.SOUL_SAND) &&
-                                    this.mob.level().getBlockState(blockPos.west()).is(Blocks.SOUL_SAND)) {
-                                soulSandList.add(blockPos);
+            this.drainTicks = 0;
+            this.elapsedTicks = 0;
+            this.finished = false;
 
-                            }
-                        }
-                    }
-                }
-
-
-                if (soulSandList.size() > 0) {
-
-                    this.mob.getNavigation().moveTo(soulSandList.get(i).getX(), soulSandList.get(i).getY() + 0.5, soulSandList.get(i).getZ(), 1.0F);
-                } else {
-                    this.mob.setSeekSoulSandTimer(500);
-                    this.mob.setCooldownTimer(this.mob.getSeekSoulSandTimer());
-                    this.mob.fishSwimGoal.trigger();
-                    this.stop();
-                }
-            }
+            this.moveToTarget();
         }
 
         @Override
         public void stop() {
-            BlockPos blockpos = this.mob.getSoulSandPos();
-            super.stop();
-            this.mob.setSeekSoulSandTimer(500);
-            this.mob.setCooldownTimer(this.mob.getSeekSoulSandTimer());
-            this.mob.fishSwimGoal.trigger();
-            soulSandList.clear();
-            suckCounter = 0;
-            counter = 0;
-            i = 0;
+            this.mob.getNavigation().stop();
+            this.mob.resetSoulSandSearchCooldown();
+
+            if (this.mob.fishSwimGoal != null) {
+                this.mob.fishSwimGoal.trigger();
+            }
+
+            this.targetPos = null;
+            this.drainTicks = 0;
+            this.elapsedTicks = 0;
+            this.finished = false;
         }
 
-        //TODO very bad change to better code plz
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
         @Override
         public void tick() {
-
-            super.tick();
-
-            lastPos = this.mob.blockPosition();
-
-            if (soulSandList.size() == 0 || (i >= soulSandList.size())) {
-                this.stop();
-                this.mob.fishSwimGoal.trigger();
+            if (this.targetPos == null) {
+                this.finished = true;
                 return;
             }
 
-            if (!this.mob.level().getBlockState(soulSandList.get(i)).is(Blocks.SOUL_SAND) && counter < soulSandList.size()) {
-                i++;
-                counter++;
-            }
-            if (soulSandList.size() == 0 || (i >= soulSandList.size())) {
-                this.stop();
-                this.mob.fishSwimGoal.trigger();
+            this.elapsedTicks++;
+
+            double targetX = this.targetPos.getX() + 0.5D;
+            double targetY = this.targetPos.getY() + 1.0D;
+            double targetZ = this.targetPos.getZ() + 0.5D;
+
+            this.mob.getLookControl().setLookAt(targetX, targetY, targetZ);
+
+            double distanceSqr = this.mob.distanceToSqr(targetX, targetY, targetZ);
+
+            if (distanceSqr > ARRIVAL_DISTANCE_SQR) {
+                this.drainTicks = 0;
+
+                if (this.mob.getNavigation().isDone()
+                        || this.elapsedTicks % 20 == 0) {
+                    this.moveToTarget();
+                }
+
                 return;
             }
-            if (((this.mob.level().getBlockState(this.mob.blockPosition().below()).is(Blocks.SOUL_SAND)) || (this.mob.level().getBlockState(this.mob.blockPosition().below()).is(Blocks.SOUL_SOIL))) && checkDistance(this.mob.blockPosition(), soulSandList.get(i))) {
-                suckCounter++;
-                this.mob.getNavigation().moveTo(soulSandList.get(i).getX(), soulSandList.get(i).getY() + 0.5, soulSandList.get(i).getZ(), 1.0F);
-                if (suckCounter == 100) {
-                    if (!this.mob.level().getBlockState(this.mob.blockPosition()).is(Blocks.SOUL_SAND)) {
-                        this.mob.level().setBlock(this.mob.blockPosition().below(), Blocks.SOUL_SOIL.defaultBlockState(), 3);
-                    } else {
-                        this.mob.level().setBlock(this.mob.blockPosition(), Blocks.SOUL_SOIL.defaultBlockState(), 3);
-                    }
-                    this.mob.invulnerableTime = 30;
-                    i++;
-                    counter++;
-                }
-            } else {
-                this.mob.getNavigation().moveTo(soulSandList.get(i).getX(), soulSandList.get(i).getY() + 1, soulSandList.get(i).getZ(), 1.0F);
+
+            this.mob.getNavigation().stop();
+            this.drainTicks++;
+
+            if (this.drainTicks < REQUIRED_DRAIN_TICKS) {
+                return;
             }
 
-            if (suckCounter >= 100) {
-                if (counter < soulSandList.size()) {
-                    this.mob.getNavigation().moveTo(soulSandList.get(i).getX(), soulSandList.get(i).getY() + 0.5, soulSandList.get(i).getZ(), 1.0F);
-
-                } else {
-                    BlockPos blockPos = new BlockPos(this.mob.blockPosition().getX() + rand.nextInt(-5, 5), this.mob.blockPosition().getY() + rand.nextInt(0, 3), this.mob.blockPosition().getZ() + rand.nextInt(-5, 5));
-                    if (this.mob.level().getFluidState(blockPos).is(Fluids.LAVA)) {
-                        this.mob.getNavigation().moveTo(this.mob.blockPosition().getX() + rand.nextInt(-5, 5), this.mob.blockPosition().getY() + rand.nextInt(0, 3), this.mob.blockPosition().getZ() + rand.nextInt(-5, 5), 1.0F);
-                    }
-                    this.mob.setSeekSoulSandTimer(500);
-                    this.stop();
-                }
-                suckCounter = 0;
+            if (this.isValidSoulSandTarget(this.targetPos)) {
+                this.mob.level().setBlock(
+                        this.targetPos,
+                        Blocks.SOUL_SOIL.defaultBlockState(),
+                        UPDATE_ALL
+                );
             }
 
+            this.finished = true;
         }
-    }
 
+        private void moveToTarget() {
+            if (this.targetPos == null) {
+                return;
+            }
 
-    public static boolean checkDistance(BlockPos entityPos, BlockPos blockPos) {
-        double x1 = entityPos.getX();
-        double x2 = blockPos.getX();
-        double x12 = x1 - x2;
-        double y1 = entityPos.getY();
-        double y2 = blockPos.getY();
-        double y12 = y1 - y2;
-        double z1 = entityPos.getZ();
-        double z2 = entityPos.getZ();
-        double z12 = z1 - z2;
+            this.mob.getNavigation().moveTo(this.targetPos.getX() + 0.5D, this.targetPos.getY() + 1.0D, this.targetPos.getZ() + 0.5D, MOVEMENT_SPEED);
+        }
 
-        double disTot = (x12 * x12) + (y12 * y12) + (z12 * z12);
-        return (disTot <= 3.0);
+        private BlockPos findNearestSoulSand() {
+            BlockPos origin = this.mob.blockPosition();
+            BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+
+            BlockPos nearestTarget = null;
+            double nearestDistanceSqr = Double.MAX_VALUE;
+
+            for (int x = -HORIZONTAL_SEARCH_RADIUS;
+                 x <= HORIZONTAL_SEARCH_RADIUS;
+                 x++) {
+
+                for (int y = 0;
+                     y >= -VERTICAL_SEARCH_DEPTH;
+                     y--) {
+
+                    for (int z = -HORIZONTAL_SEARCH_RADIUS;
+                         z <= HORIZONTAL_SEARCH_RADIUS;
+                         z++) {
+
+                        mutablePos.setWithOffset(
+                                origin,
+                                x,
+                                y,
+                                z
+                        );
+
+                        if (!this.isValidSoulSandTarget(mutablePos)) {
+                            continue;
+                        }
+
+                        double distanceSqr =
+                                origin.distSqr(mutablePos);
+
+                        if (distanceSqr < nearestDistanceSqr) {
+                            nearestDistanceSqr = distanceSqr;
+                            nearestTarget = mutablePos.immutable();
+                        }
+                    }
+                }
+            }
+
+            return nearestTarget;
+        }
+
+        private boolean isValidSoulSandTarget(BlockPos position) {
+            if (!this.mob.level().getBlockState(position).is(Blocks.SOUL_SAND)) {
+                return false;
+            }
+
+            FluidState fluidAbove = this.mob.level().getFluidState(position.above());
+
+            if (!fluidAbove.is(FluidTags.LAVA) || !fluidAbove.isSource()) {
+                return false;
+            }
+
+            if (this.mob.level().getFluidState(position.below()).is(FluidTags.LAVA)) {
+                return false;
+            }
+
+            return this.mob.level().getBlockState(position.north()).is(Blocks.SOUL_SAND)
+                    && this.mob.level().getBlockState(position.east()).is(Blocks.SOUL_SAND)
+                    && this.mob.level().getBlockState(position.south()).is(Blocks.SOUL_SAND)
+                    && this.mob.level().getBlockState(position.west()).is(Blocks.SOUL_SAND);
+        }
     }
 }

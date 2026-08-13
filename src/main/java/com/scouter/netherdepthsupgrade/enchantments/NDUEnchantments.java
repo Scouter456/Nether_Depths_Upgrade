@@ -38,7 +38,7 @@ public class NDUEnchantments {
         HolderGetter<Enchantment> holderGetter2 = bootstrapContext.lookup(Registries.ENCHANTMENT);
         HolderGetter<Item> holderGetter3 = bootstrapContext.lookup(Registries.ITEM);
         HolderGetter<Block> holderGetter4 = bootstrapContext.lookup(Registries.BLOCK);
-        register(bootstrapContext, HELL_STRIDER, Enchantment.enchantment(Enchantment.definition(holderGetter3.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE), 10, 2, Enchantment.dynamicCost(1, 11), Enchantment.dynamicCost(12, 11), 1, new EquipmentSlotGroup[]{EquipmentSlotGroup.ARMOR})).exclusiveWith(holderGetter2.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE)).withEffect(NDUDataComponents.HAS_HELL_STRIDER));
+        register(bootstrapContext, HELL_STRIDER, Enchantment.enchantment(Enchantment.definition(holderGetter3.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE), 10, 2, Enchantment.dynamicCost(1, 11), Enchantment.dynamicCost(12, 11), 1, new EquipmentSlotGroup[]{EquipmentSlotGroup.ARMOR})).exclusiveWith(holderGetter2.getOrThrow(EnchantmentTags.BOOTS_EXCLUSIVE)).withEffect(NDUDataComponents.HAS_HELL_STRIDER));
 
     }
 

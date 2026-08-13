@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#netherdepthsupgrade:is_eyeball_fish_biome",
+  "spawners": {
+    "type": "netherdepthsupgrade:eyeball_fish",
+    "maxCount": 4,
+    "minCount": 2,
+    "weight": 3
+  }
+}

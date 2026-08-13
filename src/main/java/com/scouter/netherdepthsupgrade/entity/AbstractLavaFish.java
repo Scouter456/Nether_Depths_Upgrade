@@ -110,10 +110,11 @@ public abstract class AbstractLavaFish extends LavaAnimal implements BucketableL
     protected void registerGoals() {
         super.registerGoals();
         this.fishSwimGoal = new FishSwimGoal(this);
+        this.fishSwimGoal.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishSwimGoal(this));
-        this.fishSwimGoal.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        this.goalSelector.addGoal(3, this.fishSwimGoal);
     }
 
     protected PathNavigation createNavigation(Level pLevel) {

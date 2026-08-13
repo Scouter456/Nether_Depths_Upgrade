@@ -1,7 +1,9 @@
 package com.scouter.netherdepthsupgrade.blocks;
 
+import com.scouter.netherdepthsupgrade.util.NDUTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -43,7 +45,7 @@ public class LavaSpongeBlock extends Block {
 
     private boolean removeLavaBreadthFirstSearch(Level pLevel, BlockPos pPos) {
         BlockState spongeState = pLevel.getBlockState(pPos);
-        return BlockPos.breadthFirstTraversal(pPos, 6, 65, (p_277519_, p_277492_) -> {
+        return BlockPos.breadthFirstTraversal(pPos, MAX_DEPTH, MAX_COUNT, (p_277519_, p_277492_) -> {
             for (Direction direction : ALL_DIRECTIONS) {
                 p_277492_.accept(p_277519_.relative(direction));
             }
@@ -55,8 +57,9 @@ public class LavaSpongeBlock extends Block {
                 BlockState blockstate = pLevel.getBlockState(p_279054_);
                 FluidState fluidstate = pLevel.getFluidState(p_279054_);
                 Block block = blockstate.getBlock();
-                if (blockstate.is(Blocks.WATER)) return false;
-                if (block instanceof BucketPickup) {
+                if (!fluidstate.is(FluidTags.LAVA)) {
+                    return false;
+                }                if (block instanceof BucketPickup) {
                     BucketPickup bucketpickup = (BucketPickup) block;
                     if (!bucketpickup.pickupBlock(null ,pLevel, p_279054_, blockstate).isEmpty()) {
                         return true;
@@ -66,7 +69,7 @@ public class LavaSpongeBlock extends Block {
                 if (blockstate.getBlock() instanceof LiquidBlock) {
                     pLevel.setBlock(p_279054_, Blocks.AIR.defaultBlockState(), 3);
                 } else {
-                    if (!blockstate.is(NDUBlocks.WARPED_SEAGRASS) && !blockstate.is(NDUBlocks.TALL_WARPED_SEAGRASS) && !blockstate.is(NDUBlocks.WARPED_KELP) && !blockstate.is(NDUBlocks.WARPED_KELP_PLANT)) {
+                    if (!blockstate.is(NDUTags.Blocks.LAVA_PLANTS)) {
                         return false;
                     }
 

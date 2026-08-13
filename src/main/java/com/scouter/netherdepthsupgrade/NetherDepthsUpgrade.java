@@ -5,6 +5,7 @@ import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
 import com.scouter.netherdepthsupgrade.setup.ClientSetup;
 import com.scouter.netherdepthsupgrade.setup.Registration;
+import com.scouter.netherdepthsupgrade.world.LavaGlassMigration;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
 import net.minecraft.resources.ResourceLocation;
@@ -29,6 +30,8 @@ public class NetherDepthsUpgrade implements ModInitializer {
 		// Proceed with mild caution.
 
 		Registration.init();
+		LavaGlassMigration.register();
+
 		registerBrewingRecipes();
 		//GeckoLib.initialize();
 		ModChecker.setupModCompatPreInit();
