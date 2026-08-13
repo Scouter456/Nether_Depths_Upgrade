@@ -325,7 +325,6 @@ public class LavaFishingBobberEntity extends FishingHook {
         ServerLevel serverlevel = (ServerLevel)this.level();
         int i = 1;
         BlockPos blockpos = p_37146_.above();
-        //todo change this perhaps
         if (this.random.nextFloat() < 0.25F && this.level().isRainingAt(blockpos)) {
             ++i;
         }
@@ -352,7 +351,7 @@ public class LavaFishingBobberEntity extends FishingHook {
                 double d1 = (double)((float)Mth.floor(this.getY()) + 1.0F);
                 double d2 = this.getZ() + (double)(f2 * (float)this.timeUntilHooked * 0.1F);
                 BlockState blockstate = serverlevel.getBlockState(BlockPos.containing(d0, d1 - 1.0D, d2));
-                if (serverlevel.getBlockState(BlockPos.containing((int)d0, (int)d1 - 1, (int)d2)).is(Blocks.LAVA)) {
+                if (blockstate.is(Blocks.LAVA)) {
                     if (this.random.nextFloat() < 0.15F) {
                         serverlevel.sendParticles(ParticleTypes.CRIT, d0, d1 - (double)0.1F, d2, 1, (double)f1, 0.1D, (double)f2, 0.0D);
                     }
@@ -365,7 +364,6 @@ public class LavaFishingBobberEntity extends FishingHook {
             } else {
                 this.playSound(SoundEvents.FISHING_BOBBER_SPLASH, 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
                 double d3 = this.getY() + 0.5D;
-                serverlevel.sendParticles(ParticleTypes.SMOKE, this.getX(), d3, this.getZ(), (int)(1.0F + this.getBbWidth() * 20.0F), (double)this.getBbWidth(), 0.0D, (double)this.getBbWidth(), (double)0.2F);
                 serverlevel.sendParticles(ParticleTypes.SMOKE, this.getX(), d3, this.getZ(), (int)(1.0F + this.getBbWidth() * 20.0F), (double)this.getBbWidth(), 0.0D, (double)this.getBbWidth(), (double)0.2F);
                 this.nibble = Mth.nextInt(this.random, 20, 40);
                 this.getEntityData().set(DATA_BITING, true);
@@ -388,7 +386,7 @@ public class LavaFishingBobberEntity extends FishingHook {
                 double d5 = (double)((float)Mth.floor(this.getY()) + 1.0F);
                 double d6 = this.getZ() + (double)(Mth.cos(f6) * f7) * 0.1D;
                 BlockState blockstate1 = serverlevel.getBlockState(BlockPos.containing(d4, d5 - 1.0D, d6));
-                if (serverlevel.getBlockState(BlockPos.containing(d4, d5 - 1.0D, d6)).is(Blocks.LAVA)) {
+                if (blockstate1.is(Blocks.LAVA)) {
                     serverlevel.sendParticles(ParticleTypes.LANDING_LAVA, d4, d5, d6, 2 + this.random.nextInt(2), (double)0.1F, 0.0D, (double)0.1F, 0.0D);
                 }
             }

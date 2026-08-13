@@ -58,20 +58,6 @@ public class FortressGrouperEntity extends AbstractLavaFish implements GeoEntity
         this.targetSelector.addGoal(4, new MoveTowardsTargetGoal(this, 2, 20F));
 
     }
-    @Override
-    public void travel(Vec3 pTravelVector) {
-        if (this.isEffectiveAi() && this.isInLava()) {
-            this.moveRelative(0.01F, pTravelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.getTarget() == null) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
-            }
-        } else {
-            super.travel(pTravelVector);
-        }
-
-    }
 
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "fortressgrouper.moving", 0, state -> state.setAndContinue(MOVING_FORTRESS_GROUPER)));

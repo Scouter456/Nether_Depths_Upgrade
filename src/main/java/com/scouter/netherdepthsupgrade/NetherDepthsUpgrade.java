@@ -3,9 +3,7 @@ package com.scouter.netherdepthsupgrade;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
-import com.scouter.netherdepthsupgrade.setup.ClientSetup;
 import com.scouter.netherdepthsupgrade.setup.Registration;
-import com.scouter.netherdepthsupgrade.world.LavaGlassMigration;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
 import net.minecraft.resources.ResourceLocation;
@@ -30,7 +28,6 @@ public class NetherDepthsUpgrade implements ModInitializer {
 		// Proceed with mild caution.
 
 		Registration.init();
-		LavaGlassMigration.register();
 
 		registerBrewingRecipes();
 		//GeckoLib.initialize();
@@ -48,8 +45,6 @@ public class NetherDepthsUpgrade implements ModInitializer {
 			e.addMix(NDUPotions.GLOWING, Items.REDSTONE, NDUPotions.LONG_GLOWING);
 			e.addMix(NDUPotions.RESISTANCE, Items.REDSTONE, NDUPotions.LONG_RESISTANCE);
 			e.addMix(NDUPotions.RESISTANCE, Items.GLOWSTONE_DUST, NDUPotions.STRONG_RESISTANCE);
-			e.addMix(NDUPotions.LAVA_VISION, Items.REDSTONE, NDUPotions.LONG_LAVA_VISION);
-			e.addMix(Potions.AWKWARD, NDUItems.LAVA_PUFFERFISH, NDUPotions.LAVA_VISION);
 			e.addMix(NDUPotions.LAVA_VISION, Items.REDSTONE, NDUPotions.LONG_LAVA_VISION);
 		});
 
