@@ -110,10 +110,7 @@ public class FortressGrouperEntity extends AbstractLavaFish implements GeoEntity
 
         private int attackCooldown;
 
-        private GulpGoal(
-                FortressGrouperEntity mob,
-                float attackRange
-        ) {
+        private GulpGoal(FortressGrouperEntity mob, float attackRange) {
             this.mob = mob;
             this.attackRangeSqr = attackRange * attackRange;
 
@@ -133,10 +130,7 @@ public class FortressGrouperEntity extends AbstractLavaFish implements GeoEntity
         private boolean hasValidTargetInRange() {
             LivingEntity target = this.mob.getTarget();
 
-            return target != null
-                    && target.isAlive()
-                    && this.mob.distanceToSqr(target) < this.attackRangeSqr
-                    && this.mob.getSensing().hasLineOfSight(target);
+            return target != null && target.isAlive() && this.mob.distanceToSqr(target) < this.attackRangeSqr && this.mob.getSensing().hasLineOfSight(target);
         }
 
         @Override
@@ -163,19 +157,12 @@ public class FortressGrouperEntity extends AbstractLavaFish implements GeoEntity
                 return;
             }
 
-            this.mob.getLookControl().setLookAt(
-                    target,
-                    30.0F,
-                    30.0F
-            );
+            this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
 
-            Vec3 directionToGrouper = this.mob.position()
-                    .subtract(target.position());
+            Vec3 directionToGrouper = this.mob.position().subtract(target.position());
 
             if (directionToGrouper.lengthSqr() > 1.0E-6D) {
-                Vec3 pullVelocity = directionToGrouper
-                        .normalize()
-                        .scale(PULL_SPEED);
+                Vec3 pullVelocity = directionToGrouper.normalize().scale(PULL_SPEED);
 
                 target.setDeltaMovement(pullVelocity);
                 target.hurtMarked = true;
@@ -185,10 +172,7 @@ public class FortressGrouperEntity extends AbstractLavaFish implements GeoEntity
                 this.attackCooldown--;
             }
 
-            boolean touchingTarget = this.mob
-                    .getBoundingBox()
-                    .inflate(CONTACT_INFLATION)
-                    .intersects(target.getBoundingBox());
+            boolean touchingTarget = this.mob.getBoundingBox().inflate(CONTACT_INFLATION).intersects(target.getBoundingBox());
 
             if (touchingTarget && this.attackCooldown <= 0) {
                 this.mob.doHurtTarget(target);

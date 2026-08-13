@@ -75,6 +75,8 @@ public class ForgeEvents {
         builder.addMix(NDUPotions.RESISTANCE.getDelegate(), Items.REDSTONE, NDUPotions.LONG_RESISTANCE.getDelegate());
         builder.addMix(NDUPotions.RESISTANCE.getDelegate(), Items.GLOWSTONE_DUST, NDUPotions.STRONG_RESISTANCE.getDelegate());
         builder.addMix(NDUPotions.LAVA_VISION.getDelegate(), Items.REDSTONE, NDUPotions.LONG_LAVA_VISION.getDelegate());
+        builder.addMix(NDUPotions.WITHER.getDelegate(),Items.REDSTONE, NDUPotions.LONG_WITHER.getDelegate());
+
     }
 
     @SubscribeEvent

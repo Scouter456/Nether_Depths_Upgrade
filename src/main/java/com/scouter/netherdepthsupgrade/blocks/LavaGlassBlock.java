@@ -83,26 +83,6 @@ public class LavaGlassBlock extends Block {
         return state;
     }
 
-  // @Override
-  // public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
-  //     if(!pLevel.isClientSide()){
-  //         LavaGlassBlockEntity blockEntity = (LavaGlassBlockEntity) pLevel.getBlockEntity(pPos);
-  //         blockEntity.getOcclusionDirs().clear();
-  //         blockEntity.setOcclusionShape(Shapes.empty());
-  //         VoxelShape shape = blockEntity.getOcclusionShape();
-
-  //         for(Direction direction : Direction.values()){
-  //             if(pLevel.getFluidState(pPos.relative(direction)).is(FluidTags.LAVA)){
-  //                 shape = Shapes.or(shape, occlusionShapes.get(direction));
-  //                 blockEntity.addDirection(direction);
-  //             }
-  //         }
-
-  //         blockEntity.setOcclusionShape(shape);
-  //     }
-  //     pLevel.sendBlockUpdated(pPos, pState, pState, Block.UPDATE_IMMEDIATE);
-  //     super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
-  // }
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos position, BlockPos neighborPosition) {
         return state.setValue(getConnectionProperty(direction), neighborState.is(this));
