@@ -1,10 +1,9 @@
 plugins {
-	id 'fabric-loom' version '1.6-SNAPSHOT'
+	id 'fabric-loom' version '1.17-SNAPSHOT'
 	id 'maven-publish'
 }
 
 
-archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
@@ -35,10 +34,7 @@ loom {
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.layered() {
-		officialMojangMappings()
-		parchment("org.parchmentmc.data:parchment-1.19.3:2023.03.12@zip")
-	}
+	mappings loom.officialMojangMappings()
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 
