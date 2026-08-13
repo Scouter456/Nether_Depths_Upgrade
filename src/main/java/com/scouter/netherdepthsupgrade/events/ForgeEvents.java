@@ -10,10 +10,14 @@ import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffects;
@@ -31,21 +35,30 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.chunk.status.ChunkType;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.level.ChunkDataEvent;
 import net.neoforged.neoforge.event.level.ChunkEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @EventBusSubscriber(modid = NetherDepthsUpgrade.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class ForgeEvents {
 
+    private static final String LEGACY_LAVA_GLASS_ENTITY_ID =
+            NetherDepthsUpgrade.MODID + ":lava_glass_entity";
+
+    private static final Map<LevelChunk, List<BlockPos>> PENDING_LAVA_GLASS_MIGRATIONS = new ConcurrentHashMap<>();
 
     @SubscribeEvent
     public static void registerBrewingRecipes(RegisterBrewingRecipesEvent event) {
@@ -72,11 +85,6 @@ public class ForgeEvents {
             return;
         }
 
-        /*
-         * BlockPos.containing floors coordinates correctly.
-         * Casting to int was incorrect for negative coordinates:
-         * for example, (int) -0.5 becomes 0 instead of -1.
-         */
         BlockPos eyePosition = BlockPos.containing(player.getX(), player.getEyeY(), player.getZ());
 
         if (!player.level().getFluidState(eyePosition).is(FluidTags.LAVA)) {
@@ -95,31 +103,57 @@ public class ForgeEvents {
             return;
         }
 
-        Vec3 originalMovement = player.getDeltaMovement();
-        boolean falling = originalMovement.y <= 0.0D;
+        Vec3 movement = player.getDeltaMovement();
 
-        double gravity = falling && player.hasEffect(MobEffects.SLOW_FALLING) ? 0.01D : 0.0D;
+        double maximumSpeed = 0.4D + 0.06D * enchantmentLevel;
+        double acceleration = 0.045D * enchantmentLevel;
 
-        double horizontalSpeed = 1.15D + 0.35D * enchantmentLevel;
+        double movementX = movement.x;
+        double movementZ = movement.z;
 
-        Vec3 boostedMovement = originalMovement.multiply(horizontalSpeed, 0.8D, horizontalSpeed);
+        double localInputX = player.xxa;
+        double localInputZ = player.zza;
 
-        Vec3 adjustedMovement = player.getFluidFallingAdjustedMovement(gravity, falling, boostedMovement);
+        double inputLength = Math.sqrt(localInputX * localInputX + localInputZ * localInputZ);
 
-        Vec3 finalMovement = adjustedMovement;
+        if (inputLength > 1.0E-4D) {
+            double inputStrength = Math.min(inputLength, 1.0D);
+
+            localInputX /= inputLength;
+            localInputZ /= inputLength;
+
+            float rotation = player.getYRot() * Mth.DEG_TO_RAD;
+            double sin = Mth.sin(rotation);
+            double cos = Mth.cos(rotation);
+
+            double inputX = localInputX * cos - localInputZ * sin;
+            double inputZ = localInputZ * cos + localInputX * sin;
+            double speedInInputDirection = movementX * inputX + movementZ * inputZ;
+
+            double speedToAdd = Math.min(acceleration * inputStrength, Math.max(maximumSpeed - speedInInputDirection, 0.0D));
+
+            movementX += inputX * speedToAdd;
+            movementZ += inputZ * speedToAdd;
+        }
+
+
+        double movementY = movement.y;
 
         if (player.isShiftKeyDown()) {
-            finalMovement = new Vec3(adjustedMovement.x, -0.075D * enchantmentLevel, adjustedMovement.z);
+            movementY = -0.075D * enchantmentLevel;
+        } else if (player.jumping) {
+            double upwardAcceleration = 0.016D * enchantmentLevel;
+            double maximumUpwardSpeed = 0.20D + 0.025D * enchantmentLevel;
+
+            movementY = Math.min(movementY + upwardAcceleration, maximumUpwardSpeed);
         }
 
-        /*
-         * Preserve the vanilla-style upward movement when colliding with a ledge.
-         */
-        if (player.horizontalCollision && player.isFree(adjustedMovement.x, adjustedMovement.y + 0.6D,adjustedMovement.z)) {
-            finalMovement = new Vec3(adjustedMovement.x, 0.3D, adjustedMovement.z);
+
+        if (player.horizontalCollision && player.isFree(movementX, movementY + 0.6D,movementZ)) {
+            movementY = 0.3D;
         }
 
-        player.setDeltaMovement(finalMovement);
+        player.setDeltaMovement(movementX, movementY, movementZ);
     }
 
     private static int getHellStriderLevel(Player entity) {
@@ -179,64 +213,91 @@ public class ForgeEvents {
     }
 
     @SubscribeEvent
+    public static void findOldLavaGlassData(ChunkDataEvent.Load event) {
+        if (event.getType() != ChunkType.LEVELCHUNK
+                || !(event.getChunk() instanceof LevelChunk chunk)) {
+            return;
+        }
+
+        CompoundTag chunkData = event.getData();
+        ListTag blockEntities = chunkData.getList(
+                "block_entities",
+                Tag.TAG_COMPOUND
+        );
+
+        List<BlockPos> legacyPositions = new ArrayList<>();
+
+        for (int index = blockEntities.size() - 1; index >= 0; index--) {
+            CompoundTag blockEntityData = blockEntities.getCompound(index);
+
+            if (!LEGACY_LAVA_GLASS_ENTITY_ID.equals(
+                    blockEntityData.getString("id")
+            )) {
+                continue;
+            }
+
+            BlockPos position = new BlockPos(
+                    blockEntityData.getInt("x"),
+                    blockEntityData.getInt("y"),
+                    blockEntityData.getInt("z")
+            );
+
+            if (chunk.getBlockState(position).getBlock() instanceof LavaGlassBlock) {
+                legacyPositions.add(position);
+            }
+
+            // Prevent the obsolete block entity from being loaded.
+            blockEntities.remove(index);
+        }
+
+        if (!legacyPositions.isEmpty()) {
+            PENDING_LAVA_GLASS_MIGRATIONS.put(
+                    chunk,
+                    List.copyOf(legacyPositions)
+            );
+        }
+    }
+
+    @SubscribeEvent
     public static void migrateOldLavaGlass(ChunkEvent.Load event) {
         if (!(event.getLevel() instanceof ServerLevel serverLevel)
                 || !(event.getChunk() instanceof LevelChunk chunk)) {
             return;
         }
 
-        List<BlockPos> legacyPositions = chunk
-                .getBlockEntities()
-                .entrySet()
-                .stream()
-                .filter(entry ->
-                        entry.getValue().getType()
-                                == NDUBlockEntities.LAVA_GLASS.get()
-                )
-                .map(entry -> entry.getKey().immutable())
-                .toList();
+        List<BlockPos> legacyPositions =
+                PENDING_LAVA_GLASS_MIGRATIONS.remove(chunk);
 
-        if (legacyPositions.isEmpty()) {
+        if (legacyPositions == null) {
             return;
         }
 
-        // Remove the obsolete data from the chunk. It will no
-        // longer be present after the chunk is saved.
         for (BlockPos position : legacyPositions) {
-            chunk.removeBlockEntity(position);
+            BlockState currentState = chunk.getBlockState(position);
+
+            if (!(currentState.getBlock()
+                    instanceof LavaGlassBlock lavaGlass)) {
+                continue;
+            }
+
+            BlockState connectedState = lavaGlass.withConnections(
+                    currentState,
+                    serverLevel,
+                    position
+            );
+
+            if (!connectedState.equals(currentState)) {
+                serverLevel.setBlock(
+                        position,
+                        connectedState,
+                        Block.UPDATE_CLIENTS
+                );
+            }
         }
 
-        // Chunk load events can happen before the chunk has
-        // completely finished loading. Delay level operations
-        // until the server thread processes its next tasks.
-        serverLevel.getServer().execute(() -> {
-            for (BlockPos position : legacyPositions) {
-                BlockState currentState =
-                        serverLevel.getBlockState(position);
-
-                if (!(currentState.getBlock()
-                        instanceof LavaGlassBlock lavaGlass)) {
-                    continue;
-                }
-
-                BlockState connectedState =
-                        lavaGlass.withConnections(
-                                currentState,
-                                serverLevel,
-                                position
-                        );
-
-                if (!connectedState.equals(currentState)) {
-                    serverLevel.setBlock(
-                            position,
-                            connectedState,
-                            Block.UPDATE_CLIENTS
-                    );
-                }
-            }
-        });
+        // Ensures the chunk is saved without the obsolete block-entity data,
+        // even when an isolated glass block's state did not change.
+        chunk.setUnsaved(true);
     }
-
-
 }
 

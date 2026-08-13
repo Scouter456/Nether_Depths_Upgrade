@@ -97,15 +97,18 @@ public class LanguageGenerator extends LanguageProvider {
         addPotion(NDUPotions.GLOWING, "Potion of Glowing", "glowdine_glowing");
         addPotion(NDUPotions.LONG_GLOWING, "Potion of Glowing", "glowdine_long_glowing");
 
-        addTippedArrow(NDUPotions.LAVA_VISION, "Lava Vision");
-        addTippedArrow(NDUPotions.WITHER, "Wither");
-        addTippedArrow(NDUPotions.LONG_WITHER, "Wither");
-        addTippedArrow(NDUPotions.RESISTANCE, "the Steadfast Treader");
-        addTippedArrow(NDUPotions.LONG_RESISTANCE, "the Steadfast Treader");
-        addTippedArrow(NDUPotions.STRONG_RESISTANCE, "the Steadfast Treader");
-        addTippedArrow(NDUPotions.GLOWING, "Glowing");
-        addTippedArrow(NDUPotions.LONG_GLOWING, "Glowing");
+        addTippedArrow("lava_vision", "Lava Vision");
+        addTippedArrow("long_lava_vision", "Lava Vision");
 
+        addTippedArrow("lava_puffer_wither", "Wither");
+        addTippedArrow("lava_puffer_long_wither", "Wither");
+
+        addTippedArrow("obsidianfish_resistance", "the Steadfast Treader");
+        addTippedArrow("obsidianfish_long_resistance", "the Steadfast Treader");
+        addTippedArrow("obsidianfish_strong_resistance", "the Steadfast Treader");
+
+        addTippedArrow("glowdine_glowing", "Glowing");
+        addTippedArrow("glowdine_long_glowing", "Glowing");
 
         //ENTITIES
         addEntityType(NDUEntity.LAVA_PUFFERFISH, "Lava Pufferfish");
@@ -330,6 +333,12 @@ public class LanguageGenerator extends LanguageProvider {
     }
 
 
+    private void addTippedArrow(String registryName, String name) {
+        add(
+                "item.minecraft.tipped_arrow.effect." + registryName,
+                "Arrow of " + name
+        );
+    }
 
     public void addTippedArrow(Supplier<? extends Potion> key, String name) {
         addTippedArrow(key.get(), name);

@@ -42,7 +42,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new EntityTagGenerator(packOutput, lookupProvider, existingFileHelper));
         //generator.addProvider(event.includeServer(), new StructureUpdater("structure", packOutput, existingFileHelper));
         generator.addProvider(true,new AdvancementProvider(packOutput, lookupProvider, existingFileHelper));
-
+        generator.addProvider(event.includeServer(), new OriginsCompatGenerator(packOutput));
 
 
 

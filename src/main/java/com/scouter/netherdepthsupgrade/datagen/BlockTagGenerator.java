@@ -58,6 +58,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
                         NDUBlocks.CRIMSON_KELP.get(),
                         NDUBlocks.CRIMSON_KELP_PLANT.get()
                 );
+        tag(BlockTags.LEAVES).addTag(NDUTags.Blocks.LAVA_PLANTS);
     }
     
     public void addToTag(Block block){

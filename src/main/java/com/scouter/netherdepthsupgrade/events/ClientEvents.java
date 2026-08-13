@@ -10,6 +10,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FogType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -40,8 +41,7 @@ public class ClientEvents {
         Player player = minecraft.player;
         if (player != null && player.hasEffect(MobEffects.LAVA_VISION.getDelegate())) {
                 if (minecraft.level != null) {
-                    BlockState state = minecraft.level.getBlockState(new BlockPos(player.blockPosition().above(1)));
-                    if(state.getFluidState().is(FluidTags.LAVA)) {
+                    if(event.getCamera().getFluidInCamera() == FogType.LAVA) {
                         event.setNearPlaneDistance(16.0f);
                         event.setFarPlaneDistance(32.0f);
                         event.setCanceled(true);
