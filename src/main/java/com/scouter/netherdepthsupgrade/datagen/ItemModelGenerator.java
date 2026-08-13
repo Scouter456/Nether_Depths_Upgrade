@@ -87,7 +87,10 @@ public class ItemModelGenerator extends ItemModelProvider {
         toBlock(NDUBlocks.WARPED_KELP_CARPET_BLOCK);
         toBlock(NDUBlocks.CRIMSON_KELP_BLOCK);
         toBlock(NDUBlocks.CRIMSON_KELP_CARPET_BLOCK);
-        toBlock(NDUBlocks.LAVA_GLASS);
+        toBlockModel(
+                NDUBlocks.LAVA_GLASS,
+                "lava_glass_all"
+        );
 
         //singleTexFood(FarmersDelightCompat.BAKED_BLAZEFISH_STEW);
         //singleTexFood(FarmersDelightCompat.BAKED_GLOWDINE_STEW);

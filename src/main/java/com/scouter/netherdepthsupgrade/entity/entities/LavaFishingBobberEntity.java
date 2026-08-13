@@ -1,7 +1,9 @@
 package com.scouter.netherdepthsupgrade.entity.entities;
 
+import com.scouter.netherdepthsupgrade.config.NetherDepthsUpgradeConfig;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.items.LavaFishingRodItem;
+import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.loot.NDULootTables;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -27,6 +29,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -40,19 +43,40 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.entity.IEntityWithComplexSpawn;
+import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
-public class LavaFishingBobberEntity extends FishingHook implements IEntityWithComplexSpawn {
+public class LavaFishingBobberEntity extends FishingHook {
     private static final EntityDataAccessor<Integer> DATA_HOOKED_ENTITY = SynchedEntityData.defineId(LavaFishingBobberEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_BITING = SynchedEntityData.defineId(LavaFishingBobberEntity.class, EntityDataSerializers.BOOLEAN);
-
-    private final RandomSource syncronizedRandom = RandomSource.create();
+    /*
+     * This nested holder is initialized only when a fish is actually retrieved.
+     * That prevents DeferredHolder#get() from being called during early registry setup.
+     */
+    private static final class LiveFishTypes {
+        private static final Map<Item, EntityType<?>> VALUES = Map.ofEntries(
+                Map.entry(NDUItems.SEARING_COD.get(), NDUEntity.SEARING_COD.get()),
+                Map.entry(NDUItems.SOULSUCKER.get(), NDUEntity.SOULSUCKER.get()),
+                Map.entry(NDUItems.LAVA_PUFFERFISH.get(), NDUEntity.LAVA_PUFFERFISH.get()),
+                Map.entry(NDUItems.BONEFISH.get(), NDUEntity.BONEFISH.get()),
+                Map.entry(NDUItems.WITHER_BONEFISH.get(), NDUEntity.WITHER_BONEFISH.get()),
+                Map.entry(NDUItems.GLOWDINE.get(), NDUEntity.GLOWDINE.get()),
+                Map.entry(NDUItems.MAGMACUBEFISH.get(), NDUEntity.MAGMACUBEFISH.get()),
+                Map.entry(NDUItems.OBSIDIANFISH.get(), NDUEntity.OBSIDIAN_FISH.get()),
+                Map.entry(NDUItems.BLAZEFISH.get(), NDUEntity.BLAZEFISH.get()),
+                Map.entry(NDUItems.EYEBALL_FISH.get(), NDUEntity.EYEBALL_FISH.get()),
+                Map.entry(NDUItems.FORTRESS_GROUPER.get(), NDUEntity.FORTRESS_GROUPER.get())
+        );
+    }
+    private final RandomSource synchronizedRandom = RandomSource.create();
     private boolean bitingFish;
     private int luck;
     private int lureSpeed;
@@ -118,7 +142,7 @@ public class LavaFishingBobberEntity extends FishingHook implements IEntityWithC
     }
 
     public void tick() {
-        this.syncronizedRandom.setSeed(this.getUUID().getLeastSignificantBits() ^ this.level().getGameTime());
+        this.synchronizedRandom.setSeed(this.getUUID().getLeastSignificantBits() ^ this.level().getGameTime());
         Player player = this.getPlayerOwner();
         if (player == null) {
             this.discard();
@@ -186,7 +210,7 @@ public class LavaFishingBobberEntity extends FishingHook implements IEntityWithC
                     if (flag) {
                         this.outOfLavaTime = Math.max(0, this.outOfLavaTime - 1);
                         if (this.bitingFish) {
-                            this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.1D * (double)this.syncronizedRandom.nextFloat() * (double)this.syncronizedRandom.nextFloat(), 0.0D));
+                            this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.1D * (double)this.synchronizedRandom.nextFloat() * (double)this.synchronizedRandom.nextFloat(), 0.0D));
                         }
 
                         if (!this.level().isClientSide) {
@@ -309,7 +333,7 @@ public class LavaFishingBobberEntity extends FishingHook implements IEntityWithC
                 double d1 = (double)((float)Mth.floor(this.getY()) + 1.0F);
                 double d2 = this.getZ() + (double)(f2 * (float)this.timeUntilHooked * 0.1F);
                 BlockState blockstate = serverlevel.getBlockState(BlockPos.containing(d0, d1 - 1.0D, d2));
-                if (serverlevel.getBlockState(BlockPos.containing((int)d0, (int)d1 - 1, (int)d2)).is(Blocks.LAVA)) {
+                if (blockstate.is(Blocks.LAVA)) {
                     if (this.random.nextFloat() < 0.15F) {
                         serverlevel.sendParticles(ParticleTypes.CRIT, d0, d1 - (double)0.1F, d2, 1, (double)f1, 0.1D, (double)f2, 0.0D);
                     }
@@ -322,7 +346,6 @@ public class LavaFishingBobberEntity extends FishingHook implements IEntityWithC
             } else {
                 this.playSound(SoundEvents.FISHING_BOBBER_SPLASH, 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
                 double d3 = this.getY() + 0.5D;
-                serverlevel.sendParticles(ParticleTypes.SMOKE, this.getX(), d3, this.getZ(), (int)(1.0F + this.getBbWidth() * 20.0F), (double)this.getBbWidth(), 0.0D, (double)this.getBbWidth(), (double)0.2F);
                 serverlevel.sendParticles(ParticleTypes.SMOKE, this.getX(), d3, this.getZ(), (int)(1.0F + this.getBbWidth() * 20.0F), (double)this.getBbWidth(), 0.0D, (double)this.getBbWidth(), (double)0.2F);
                 this.nibble = Mth.nextInt(this.random, 20, 40);
                 this.getEntityData().set(DATA_BITING, true);
@@ -345,7 +368,7 @@ public class LavaFishingBobberEntity extends FishingHook implements IEntityWithC
                 double d5 = (double)((float)Mth.floor(this.getY()) + 1.0F);
                 double d6 = this.getZ() + (double)(Mth.cos(f6) * f7) * 0.1D;
                 BlockState blockstate1 = serverlevel.getBlockState(BlockPos.containing(d4, d5 - 1.0D, d6));
-                if (serverlevel.getBlockState(BlockPos.containing(d4, d5 - 1.0D, d6)).is(Blocks.LAVA)) {
+                if (blockstate1.is(Blocks.LAVA)) {
                     serverlevel.sendParticles(ParticleTypes.LANDING_LAVA, d4, d5, d6, 2 + this.random.nextInt(2), (double)0.1F, 0.0D, (double)0.1F, 0.0D);
                 }
             }
@@ -356,99 +379,165 @@ public class LavaFishingBobberEntity extends FishingHook implements IEntityWithC
             }
         } else {
             this.timeUntilLured = Mth.nextInt(this.random, 100, 600);
-            this.timeUntilLured -= this.lureSpeed * 20 * 5;
+            int lureReduction = this.lureSpeed;
+            this.timeUntilLured = Math.max(1, timeUntilLured - lureReduction);
         }
 
     }
 
-    public int retrieve(ItemStack p_37157_) {
+    public int retrieve(ItemStack rod) {
         Player player = this.getPlayerOwner();
-        if (!this.level().isClientSide && player != null && !this.shouldStopFishing(player)) {
-            int i = 0;
-            net.neoforged.neoforge.event.entity.player.ItemFishedEvent event = null;
-            if (this.hookedEntity != null) {
-                this.pullEntity(this.hookedEntity);
-                CriteriaTriggers.FISHING_ROD_HOOKED.trigger((ServerPlayer)player, p_37157_, this, Collections.emptyList());
-                this.level().broadcastEntityEvent(this, (byte)31);
-                i = this.hookedEntity instanceof ItemEntity ? 3 : 5;
-            } else if (this.nibble > 0) {
 
-                LootParams lootparams = (new LootParams.Builder((ServerLevel)this.level()))
-                        .withParameter(LootContextParams.ORIGIN, this.position())
-                        .withParameter(LootContextParams.TOOL, p_37157_)
-                        .withParameter(LootContextParams.THIS_ENTITY, this)
-                        .withParameter(LootContextParams.ATTACKING_ENTITY, this.getOwner())
-                        .withLuck((float)this.luck + player.getLuck())
-                        .create(LootContextParamSets.FISHING);
-
-
-
-                LootTable loottable = null;
-                double d = (float) Math.floor(this.getBoundingBox().minY) + 1.0F;
-                BlockState blockstate = this.level()
-                        .getBlockState(BlockPos.containing(this.position().x, d - 1.0D, this.position().z));
-                if(blockstate.is(Blocks.LAVA)) {
-                    if (this.level().dimension() == Level.NETHER) {
-                        loottable = Objects.requireNonNull(this.level().getServer()).reloadableRegistries().getLootTable(NDULootTables.NETHER_FISHING);
-                    } else {
-                        loottable = Objects.requireNonNull(this.level().getServer()).reloadableRegistries().getLootTable(NDULootTables.LAVA_FISHING);
-                    }
-
-                }else {
-                    loottable = Objects.requireNonNull(this.level().getServer()).reloadableRegistries().getLootTable(NDULootTables.FAILED_FISHING);
-                }
-                if(loottable == null && event != null){
-                    this.discard();
-                    return 0;
-                    //return event.getRodDamage();
-                }
-
-                List<ItemStack> list = loottable.getRandomItems(lootparams);
-                event = new net.neoforged.neoforge.event.entity.player.ItemFishedEvent(list, this.onGround() ? 2 : 1, this);
-                net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(event);
-                if (event.isCanceled()) {
-                    this.discard();
-                    return event.getRodDamage();
-                }
-                CriteriaTriggers.FISHING_ROD_HOOKED.trigger((ServerPlayer)player, p_37157_, this, list);
-
-                for(ItemStack itemstack : list) {
-                    ItemEntity itementity = new ItemEntity(this.level(), this.getX(), this.getY() + 1, this.getZ(), itemstack){
-
-                        @Override
-                        public boolean displayFireAnimation() {
-                            return false;
-                        }
-
-                        @Override
-                        public void lavaHurt() {
-                        }
-                    };
-                    double d0 = player.getX() - this.getX();
-                    double d1 = player.getY() - (this.getY() + 1);
-                    double d2 = player.getZ() - this.getZ();
-                    double d3 = 0.1D;
-                    itementity.setDeltaMovement(d0 * 0.1D, d1 * 0.1D + Math.sqrt(Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2)) * 0.08D, d2 * 0.1D);
-                    this.level().addFreshEntity(itementity);
-                    player.level().addFreshEntity(new ExperienceOrb(player.level(), player.getX(), player.getY() + 0.5D, player.getZ() + 0.5D, this.random.nextInt(6) + 1));
-                    if (itemstack.is(ItemTags.FISHES)) {
-                        player.awardStat(Stats.FISH_CAUGHT, 1);
-                    }
-                }
-
-                i = 1;
-            }
-
-            if (this.onGround()) {
-                i = 2;
-            }
-
-            this.discard();
-            return event == null ? i : event.getRodDamage();
-        } else {
+        if (this.level().isClientSide || player == null || this.shouldStopFishing(player)) {
             return 0;
         }
+
+        int rodDamage = 0;
+        ItemFishedEvent fishingEvent = null;
+
+        if (this.hookedEntity != null) {
+            this.pullEntity(this.hookedEntity);
+
+            if (player instanceof ServerPlayer serverPlayer) {
+                CriteriaTriggers.FISHING_ROD_HOOKED.trigger(serverPlayer, rod, this, Collections.emptyList());
+            }
+
+            this.level().broadcastEntityEvent(this, (byte) 31);
+            rodDamage = this.hookedEntity instanceof ItemEntity ? 3 : 5;
+        } else if (this.nibble > 0) {
+            ServerLevel serverLevel = (ServerLevel) this.level();
+
+            LootParams lootParams = new LootParams.Builder(serverLevel)
+                    .withParameter(LootContextParams.ORIGIN, this.position())
+                    .withParameter(LootContextParams.TOOL, rod)
+                    .withParameter(LootContextParams.THIS_ENTITY, this)
+                    .withParameter(LootContextParams.ATTACKING_ENTITY, player)
+                    .withLuck(this.luck + player.getLuck())
+                    .create(LootContextParamSets.FISHING);
+
+            LootTable lootTable = this.getFishingLootTable(serverLevel);
+            List<ItemStack> generatedDrops = lootTable.getRandomItems(lootParams);
+
+            fishingEvent = new ItemFishedEvent(generatedDrops, this.onGround() ? 2 : 1, this);
+
+            NeoForge.EVENT_BUS.post(fishingEvent);
+
+            if (fishingEvent.isCanceled()) {
+                this.discard();
+                return fishingEvent.getRodDamage();
+            }
+
+            List<ItemStack> drops = fishingEvent.getDrops();
+
+            if (player instanceof ServerPlayer serverPlayer) {
+                CriteriaTriggers.FISHING_ROD_HOOKED.trigger(
+                        serverPlayer,
+                        rod,
+                        this,
+                        drops
+                );
+            }
+
+            for (ItemStack stack : drops) {
+                this.spawnFishingDrop(player, stack);
+            }
+
+            if (!drops.isEmpty()) {
+                serverLevel.addFreshEntity(new ExperienceOrb(serverLevel, player.getX(), player.getY() + 0.5D, player.getZ() + 0.5D, this.random.nextInt(6) + 1));
+            }
+
+            int caughtFish = drops.stream().filter(stack -> stack.is(ItemTags.FISHES)).mapToInt(ItemStack::getCount).sum();
+
+            if (caughtFish > 0) {
+                player.awardStat(Stats.FISH_CAUGHT, caughtFish);
+            }
+
+            rodDamage = fishingEvent.getRodDamage();
+        }
+
+        if (fishingEvent == null && this.onGround()) {
+            rodDamage = 2;
+        }
+
+        this.discard();
+        return rodDamage;
     }
+
+    private LootTable getFishingLootTable(ServerLevel level) {
+        if (!level.getFluidState(this.blockPosition()).is(FluidTags.LAVA)) {
+            return level.getServer()
+                    .reloadableRegistries()
+                    .getLootTable(NDULootTables.FAILED_FISHING);
+        }
+
+        if (level.dimension().equals(Level.NETHER)) {
+            return level.getServer()
+                    .reloadableRegistries()
+                    .getLootTable(NDULootTables.NETHER_FISHING);
+        }
+
+        return level.getServer()
+                .reloadableRegistries()
+                .getLootTable(NDULootTables.LAVA_FISHING);
+    }
+
+    private void spawnFishingDrop(Player player, ItemStack stack) {
+        EntityType<?> fishType = NetherDepthsUpgradeConfig.FISH_ENTITIES.get() ? LiveFishTypes.VALUES.get(stack.getItem()) : null;
+        if (fishType == null) {
+            this.spawnItemDrop(player, stack.copy());
+            return;
+        }
+
+        /*
+         * A stack of three fish must produce three entities, rather than silently
+         * discarding two of them.
+         */
+        for (int count = 0; count < stack.getCount(); count++) {
+            Entity fish = fishType.create(this.level());
+
+            if (fish == null) {
+                this.spawnItemDrop(player, stack.copyWithCount(1));
+                continue;
+            }
+
+            fish.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+
+            fish.setDeltaMovement(this.getRetrievalVelocity(player, this.getY(), 0.12D, 0.14D));
+
+            this.level().addFreshEntity(fish);
+        }
+    }
+
+    private void spawnItemDrop(Player player, ItemStack stack) {
+        ItemEntity itemEntity = new ItemEntity(this.level(), this.getX(), this.getY() + 1.0D, this.getZ(), stack) {
+            @Override
+            public boolean displayFireAnimation() {
+                return false;
+            }
+
+            @Override
+            public void lavaHurt() {
+                // Fishing loot must survive while travelling out of the lava.
+            }
+        };
+
+        itemEntity.setDeltaMovement(this.getRetrievalVelocity(player, this.getY() + 1.0D, 0.1D, 0.08D)
+        );
+
+        this.level().addFreshEntity(itemEntity);
+    }
+
+    private Vec3 getRetrievalVelocity(Player player, double sourceY, double horizontalScale, double liftScale
+    ) {
+        double xDifference = player.getX() - this.getX();
+        double yDifference = player.getY() - sourceY;
+        double zDifference = player.getZ() - this.getZ();
+
+        double distanceSquared = xDifference * xDifference + yDifference * yDifference + zDifference * zDifference;
+
+        return new Vec3(xDifference * horizontalScale, yDifference * horizontalScale + Math.sqrt(Math.sqrt(distanceSquared)) * liftScale, zDifference * horizontalScale);
+    }
+
 
     public void onClientRemoval() {
         this.updateOwnerInfo((LavaFishingBobberEntity)null);
@@ -459,15 +548,12 @@ public class LavaFishingBobberEntity extends FishingHook implements IEntityWithC
         this.updateOwnerInfo(this);
     }
 
-    public void lerpTo(double pX, double pY, double pZ, float pYaw, float pPitch, int pPosRotationIncrements, boolean pTeleport) {
-    }
-
     /**
      * Checks if the entity is in range to render.
      */
-    public boolean shouldRenderAtSqrDistance(double pDistance) {
-        double d0 = 64.0D;
-        return pDistance < 4096.0D;
+    @Override
+    public boolean shouldRenderAtSqrDistance(double distanceSqr) {
+        return distanceSqr < 64.0D * 64.0D;
     }
 
     public void remove(RemovalReason pReason) {
@@ -503,24 +589,13 @@ public class LavaFishingBobberEntity extends FishingHook implements IEntityWithC
         }
     }
 
-    @Override
-    public void writeSpawnData(RegistryFriendlyByteBuf buffer) {
-
-    }
-
-    @Override
-    public void readSpawnData(RegistryFriendlyByteBuf additionalData) {
-
-    }
-
-
-    static enum LavaFishingBobberEntityState {
+    private enum LavaFishingBobberEntityState {
         FLYING,
         HOOKED_IN_ENTITY,
         BOBBING;
     }
 
-    static enum FishLavaType {
+    private enum FishLavaType {
         ABOVE_LAVA,
         INSIDE_LAVA,
         INVALID;

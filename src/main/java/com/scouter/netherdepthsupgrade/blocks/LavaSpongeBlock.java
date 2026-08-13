@@ -1,5 +1,6 @@
 package com.scouter.netherdepthsupgrade.blocks;
 
+import com.scouter.netherdepthsupgrade.utils.NDUTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -66,7 +67,7 @@ public class LavaSpongeBlock extends Block {
                 if (blockstate.getBlock() instanceof LiquidBlock) {
                     pLevel.setBlock(p_279054_, Blocks.AIR.defaultBlockState(), 3);
                 } else {
-                    if (!blockstate.is(NDUBlocks.WARPED_SEAGRASS.get()) && !blockstate.is(NDUBlocks.TALL_WARPED_SEAGRASS.get()) && !blockstate.is(NDUBlocks.WARPED_KELP.get()) && !blockstate.is(NDUBlocks.WARPED_KELP_PLANT.get())) {
+                    if (!blockstate.is(NDUTags.Blocks.LAVA_PLANTS)) {
                         return false;
                     }
 

@@ -28,12 +28,8 @@ public class CrimsonSeagrassFeature extends Feature<ProbabilityFeatureConfigurat
         boolean flag = false;
         RandomSource random = p_160318_.random();
         WorldGenLevel worldgenlevel = p_160318_.level();
-        BlockPos blockpos = p_160318_.origin();
+        BlockPos blockpos1 = p_160318_.origin();
         ProbabilityFeatureConfiguration probabilityfeatureconfiguration = p_160318_.config();
-        int i = random.nextInt(8) - random.nextInt(8);
-        int j = random.nextInt(8) - random.nextInt(8);
-        int k = 30 + random.nextInt(-29,10);
-        BlockPos blockpos1 = new BlockPos(blockpos.getX() + i, k, blockpos.getZ() + j);
         if (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA)) {
             boolean flag1 = random.nextDouble() < (double)probabilityfeatureconfiguration.probability;
             BlockState blockstate = flag1 ? NDUBlocks.TALL_CRIMSON_SEAGRASS.get().defaultBlockState() : NDUBlocks.CRIMSON_SEAGRASS.get().defaultBlockState();

@@ -4,7 +4,9 @@ import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
+import com.scouter.netherdepthsupgrade.blocks.LavaGlassBlock;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.PackOutput;
@@ -98,13 +100,185 @@ public class SBlockStateGenerator extends BlockStateProvider {
 
        simpleBlock(NDUBlocks.LAVA_SPONGE.get());
        simpleBlock(NDUBlocks.WET_LAVA_SPONGE.get());
-       simpleBlock(NDUBlocks.LAVA_GLASS.get());
-
+       //simpleBlock(NDUBlocks.LAVA_GLASS.get());
+       createConnectedLavaGlass();
     }
 
 
+    private void createConnectedLavaGlass() {
+        LavaGlassBlock block =
+                (LavaGlassBlock) NDUBlocks.LAVA_GLASS.get();
 
+        ResourceLocation baseTexture =
+                prefix("block/lava_glass");
 
+        ResourceLocation allTexture =
+                prefix("block/lava_glass_all");
+
+        ResourceLocation blankTexture =
+                prefix("block/lava_glass_blank");
+
+        ResourceLocation upTexture =
+                prefix("block/lava_glass_up");
+
+        ResourceLocation downTexture =
+                prefix("block/lava_glass_down");
+
+        ResourceLocation leftTexture =
+                prefix("block/lava_glass_left");
+
+        ResourceLocation rightTexture =
+                prefix("block/lava_glass_right");
+
+        BlockModelBuilder baseModel =
+                createLavaGlassBaseModel(blankTexture, allTexture);
+
+        models()
+                .cubeAll(
+                        "lava_glass_all",
+                        allTexture
+                )
+                .renderType("cutout_mipped");
+
+        BlockModelBuilder upModel = models()
+                .withExistingParent(
+                        "lava_glass_up",
+                        mcLoc("block/cube")
+                )
+                .renderType("cutout_mipped")
+                .texture("particle", allTexture)
+                .texture("down", blankTexture)
+                .texture("up", blankTexture)
+                .texture("north", upTexture)
+                .texture("east", upTexture)
+                .texture("south", upTexture)
+                .texture("west", upTexture);
+
+        BlockModelBuilder downModel = models()
+                .withExistingParent(
+                        "lava_glass_down",
+                        mcLoc("block/cube")
+                )
+                .renderType("cutout_mipped")
+                .texture("particle", allTexture)
+                .texture("down", blankTexture)
+                .texture("up", blankTexture)
+                .texture("north", downTexture)
+                .texture("east", downTexture)
+                .texture("south", downTexture)
+                .texture("west", downTexture);
+
+        BlockModelBuilder leftModel = models()
+                .withExistingParent(
+                        "lava_glass_left",
+                        mcLoc("block/cube")
+                )
+                .renderType("cutout_mipped")
+                .texture("particle", allTexture)
+                .texture("down", leftTexture)
+                .texture("up", leftTexture)
+                .texture("north", rightTexture)
+                .texture("east", blankTexture)
+                .texture("south", leftTexture)
+                .texture("west", blankTexture);
+
+        BlockModelBuilder rightModel = models()
+                .withExistingParent(
+                        "lava_glass_right",
+                        mcLoc("block/cube")
+                )
+                .renderType("cutout_mipped")
+                .texture("particle", allTexture)
+                .texture("down", rightTexture)
+                .texture("up", rightTexture)
+                .texture("north", leftTexture)
+                .texture("east", blankTexture)
+                .texture("south", rightTexture)
+                .texture("west", blankTexture);
+
+        MultiPartBlockStateBuilder builder =
+                getMultipartBuilder(block);
+
+        builder.part()
+                .modelFile(baseModel)
+                .addModel()
+                .end();
+
+        builder.part()
+                .modelFile(upModel)
+                .uvLock(false)
+                .addModel()
+                .condition(LavaGlassBlock.UP, false)
+                .end();
+
+        builder.part()
+                .modelFile(downModel)
+                .uvLock(false)
+                .addModel()
+                .condition(LavaGlassBlock.DOWN, false)
+                .end();
+
+        builder.part()
+                .modelFile(rightModel)
+                .uvLock(false)
+                .addModel()
+                .condition(LavaGlassBlock.EAST, false)
+                .end();
+
+        builder.part()
+                .modelFile(leftModel)
+                .uvLock(false)
+                .addModel()
+                .condition(LavaGlassBlock.WEST, false)
+                .end();
+
+        builder.part()
+                .modelFile(leftModel)
+                .rotationY(90)
+                .uvLock(false)
+                .addModel()
+                .condition(LavaGlassBlock.NORTH, false)
+                .end();
+
+        builder.part()
+                .modelFile(rightModel)
+                .rotationY(90)
+                .uvLock(false)
+                .addModel()
+                .condition(LavaGlassBlock.SOUTH, false)
+                .end();
+    }
+
+    private BlockModelBuilder createLavaGlassBaseModel(
+            ResourceLocation visualTexture,
+            ResourceLocation particleTexture
+    ) {
+        BlockModelBuilder model = models()
+                .withExistingParent(
+                        "lava_glass",
+                        mcLoc("block/block")
+                )
+                .renderType("cutout_mipped")
+                .texture("particle", particleTexture)
+                .texture("tex", visualTexture);
+
+        var element = model.element()
+                .from(0.0F, 0.0F, 0.0F)
+                .to(16.0F, 16.0F, 16.0F);
+
+        for (Direction direction : Direction.values()) {
+            element.face(direction)
+                    .uvs(0.0F, 0.0F, 16.0F, 16.0F)
+                    .texture("#tex")
+                    .cullface(direction)
+                    .tintindex(0)
+                    .end();
+        }
+
+        element.end();
+
+        return model;
+    }
 
     private void createPottedPlant(DeferredBlock<Block> plant, DeferredBlock<Block> pottedPlant, String renderType){
         ConfiguredModel cFfile = new ConfiguredModel(pottedPlant(name(pottedPlant.get()), blockTexture(plant.get()), renderType));

@@ -15,6 +15,9 @@ import static com.scouter.netherdepthsupgrade.NetherDepthsUpgrade.prefix;
 
 public class NDUTags {
     public static class Blocks {
+        public static final TagKey<Block> LAVA_PLANTS = tag("lava_plants");
+
+
         private static TagKey<Block> tag(String name){
             return BlockTags.create(prefix(name));
 

@@ -38,7 +38,7 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void registerParticleTypes(RegisterParticleProvidersEvent event){
-        Minecraft.getInstance().particleEngine.register(NDUParticle.GLOWDINE_PARTICLE.get(), GlowdineParticle.GlowdineProvider::new);
+        event.registerSpriteSet(NDUParticle.GLOWDINE_PARTICLE.get(), GlowdineParticle.GlowdineProvider::new);
     }
 }
 

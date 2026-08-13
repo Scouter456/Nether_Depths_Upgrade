@@ -27,7 +27,6 @@ public class Registration {
 
         IEventBus bus = ModLoadingContext.get().getActiveContainer().getEventBus();
         ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.COMMON, NetherDepthsUpgradeConfig.CONFIG_BUILDER);
-        //NDUDataComponents.DATA_COMPONENTS.register(bus);
         NDUDataComponents.ENCHANT_COMPONENT.register(bus);
         NDUBlocks.BLOCKS.register(bus);
         NDUBlockEntities.BLOCK_ENTITIES.register(bus);
@@ -37,11 +36,7 @@ public class Registration {
         NDUTabs.TABS.register(bus);
         NDUStructures.STRUCTURES.register(bus);
         NDUParticle.PARTICLE.register(bus);
-        NDUEnchantments.ENCHANTMENTS();
-        //NDUEnchantments.ENCHANTMENT.register(bus);
         NDUPotions.POTIONS.register(bus);
-        //NDUConfiguredFeatures.CONFIGURED_FEATURES.register(bus);
-        //NDUConfiguredFeatures.PLACED_FEATURES.register(bus);
         NDUFeatures.FEATURES.register(bus);
         NDUAdvancementTriggers.TRIGGERS.register(bus);
 

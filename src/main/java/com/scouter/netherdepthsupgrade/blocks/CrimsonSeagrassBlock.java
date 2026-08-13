@@ -31,10 +31,11 @@ public class CrimsonSeagrassBlock extends BushBlock implements BonemealableBlock
     public CrimsonSeagrassBlock(Properties p_154496_) {
         super(p_154496_);
     }
-
+    public static final MapCodec<CrimsonSeagrassBlock> CODEC =
+            simpleCodec(CrimsonSeagrassBlock::new);
     @Override
     protected MapCodec<? extends BushBlock> codec() {
-        return null;
+        return  CODEC;
     }
 
     public VoxelShape getShape(BlockState p_154525_, BlockGetter p_154526_, BlockPos p_154527_, CollisionContext p_154528_) {

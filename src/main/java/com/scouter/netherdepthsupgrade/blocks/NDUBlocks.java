@@ -29,5 +29,5 @@ public class NDUBlocks {
     public static final DeferredBlock<Block> TALL_CRIMSON_SEAGRASS = BLOCKS.register("tall_crimson_seagrass", () -> new TallCrimsonSeagrassBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).noCollission().instabreak().sound(SoundType.WET_GRASS).noOcclusion()));
     public static final DeferredBlock<Block> CRIMSON_KELP_BLOCK = (DeferredBlock<Block>) BLOCKS.register("crimson_kelp_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).strength(0.5F, 2.5F).sound(SoundType.WET_GRASS)));
     public static final DeferredBlock<Block> CRIMSON_KELP_CARPET_BLOCK = BLOCKS.register("crimson_kelp_carpet_block", () -> new CarpetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).strength(0.1F).sound(SoundType.WET_GRASS)));
-    public static final DeferredBlock<Block> LAVA_GLASS = BLOCKS.register("lava_glass", () -> new LavaGlassBlock(BlockBehaviour.Properties.of().strength(0.6F).sound(SoundType.GLASS)));
+    public static final DeferredBlock<Block> LAVA_GLASS = BLOCKS.register("lava_glass", () -> new LavaGlassBlock(BlockBehaviour.Properties.of().strength(0.6F).sound(SoundType.GLASS).dynamicShape()));
 }

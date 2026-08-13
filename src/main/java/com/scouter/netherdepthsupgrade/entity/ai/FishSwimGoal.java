@@ -24,9 +24,15 @@ public class FishSwimGoal extends RandomStrollGoal {
      */
     @Override
     public boolean canUse() {
-        if (!this.mob.isInLava() && !this.mob.isInWater() || this.mob.isPassenger() || mob.getTarget() != null || !this.mob.isInWater() && !this.mob.isInLava()) {
+        boolean outsideValidFluid = !this.mob.isInLava() && !this.mob.isInWater();
+
+
+
+        if (outsideValidFluid
+                || this.mob.isPassenger()
+                || this.mob.getTarget() != null) {
             return false;
-        } else {
+        }else {
             if (!this.forceTrigger) {
                 if (this.mob.getRandom().nextInt(this.interval) >= 100) {
 

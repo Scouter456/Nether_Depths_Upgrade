@@ -38,11 +38,11 @@ public class NetherDepthsUpgrade
 
         if (FMLEnvironment.dist == Dist.CLIENT)
         {
-            NeoForge.EVENT_BUS.register(ClientEvents.class);
+            //NeoForge.EVENT_BUS.register(ClientEvents.class);
             modbus.addListener(ClientSetup::init);
             // static method with no client-only classes in method signature
         }
-        NeoForge.EVENT_BUS.register(ForgeEvents.class);
+        //NeoForge.EVENT_BUS.register(ForgeEvents.class);
 
 
         //GeckoLib.initialize();

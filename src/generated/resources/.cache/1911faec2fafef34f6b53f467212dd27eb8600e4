@@ -1,4 +1,4 @@
-// 1.21	2024-06-18T14:03:50.3532053	Item Models: netherdepthsupgrade
+// 1.21.1	2026-08-13T13:49:44.332642	Item Models: netherdepthsupgrade
 f7cd5c65cdde1854e1ecc55ee99f452efd65944a assets/netherdepthsupgrade/models/item/blazefish.json
 c3399de39ead13a93b5bb8c8a97eaaaf65d41e3c assets/netherdepthsupgrade/models/item/blazefish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/netherdepthsupgrade/models/item/blazefish_spawn_egg.json
@@ -18,7 +18,7 @@ d36be349412092d586f62f9a8c8125a8dcd2d8e9 assets/netherdepthsupgrade/models/item/
 1d8da5108be7322c4bd0096543a19400a53bedcb assets/netherdepthsupgrade/models/item/glowdine.json
 de4ec2cf037b5abe019e772a75da0172d637c5c1 assets/netherdepthsupgrade/models/item/glowdine_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/netherdepthsupgrade/models/item/glowdine_spawn_egg.json
-4971dd169993d0cf19b6c60c19e8dc3dd7ba6fa4 assets/netherdepthsupgrade/models/item/lava_glass.json
+2a528565fb239666f80c2d1e2164fc0c325d951d assets/netherdepthsupgrade/models/item/lava_glass.json
 ee0e4c189590caae712faf105a4703eb94349ccf assets/netherdepthsupgrade/models/item/lava_pufferfish.json
 20513d88fb7a6747ec2f17ef3a0c58343b90dd70 assets/netherdepthsupgrade/models/item/lava_pufferfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/netherdepthsupgrade/models/item/lava_pufferfish_spawn_egg.json

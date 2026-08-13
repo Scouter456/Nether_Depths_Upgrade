@@ -6,6 +6,7 @@ import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.effect.MobEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,8 +26,7 @@ public class ClientEvents {
     public static void renderBlockOverlayEvent(RenderBlockScreenEffectEvent event) {
         // Remove fire overlay from players when they have the lava vision enchantment
         if (event.getPlayer().hasEffect(MobEffects.LAVA_VISION.getDelegate())) {
-            //if (event.getPlayer().isInLava()) {
-                if (event.getBlockState() == Blocks.FIRE.defaultBlockState()) {
+                if (event.getOverlayType() == RenderBlockScreenEffectEvent.OverlayType.FIRE) {
                     event.setCanceled(true);
            //     }
             }
@@ -41,7 +41,7 @@ public class ClientEvents {
         if (player != null && player.hasEffect(MobEffects.LAVA_VISION.getDelegate())) {
                 if (minecraft.level != null) {
                     BlockState state = minecraft.level.getBlockState(new BlockPos(player.blockPosition().above(1)));
-                    if (state.is(Blocks.LAVA) || state.is(NDUBlocks.TALL_WARPED_SEAGRASS.get()) || state.is(NDUBlocks.WARPED_KELP.get()) || state.is(NDUBlocks.WARPED_KELP_PLANT.get()) || state.is(NDUBlocks.TALL_CRIMSON_SEAGRASS.get()) || state.is(NDUBlocks.CRIMSON_KELP.get()) || state.is(NDUBlocks.CRIMSON_KELP_PLANT.get() )) {
+                    if(state.getFluidState().is(FluidTags.LAVA)) {
                         event.setNearPlaneDistance(16.0f);
                         event.setFarPlaneDistance(32.0f);
                         event.setCanceled(true);

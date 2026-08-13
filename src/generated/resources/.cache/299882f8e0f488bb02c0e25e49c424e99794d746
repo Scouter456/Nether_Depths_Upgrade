@@ -1,3 +1,4 @@
-// 1.21	2024-06-18T14:03:50.3581657	Tags for minecraft:block mod id netherdepthsupgrade
+// 1.21.1	2026-08-13T16:19:45.901017	Tags for minecraft:block mod id netherdepthsupgrade
 6e4efb8ef88ec15b7ed18fb4ac96d0e07c1e61f7 data/minecraft/tags/block/impermeable.json
 72d0fa02998466c008a23ede041da4a2d1acf38b data/minecraft/tags/block/mineable/hoe.json
+216716856c5cd8a72c79e162c3dce7a2e408ddc7 data/netherdepthsupgrade/tags/block/lava_plants.json

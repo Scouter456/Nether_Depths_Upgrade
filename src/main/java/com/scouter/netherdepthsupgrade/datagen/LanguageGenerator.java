@@ -67,6 +67,7 @@ public class LanguageGenerator extends LanguageProvider {
         addBlock(NDUBlocks.TALL_WARPED_SEAGRASS, "Tall Warped Seagrass");
         addBlock(NDUBlocks.WARPED_KELP_PLANT, "Warped Kelp Plant");
         addBlock(NDUBlocks.CRIMSON_KELP_PLANT, "Crimson Kelp Plant");
+        addBlock(NDUBlocks.LAVA_GLASS, "Lava Glass");
 
         //EGGS
         addItem(NDUItems.LAVA_PUFFERFISH_SPAWN_EGG, "Lava Pufferfish Spawn Egg");

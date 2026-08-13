@@ -3,6 +3,7 @@ package com.scouter.netherdepthsupgrade.datagen;
 import com.google.common.collect.ImmutableMap;
 import com.scouter.netherdepthsupgrade.NetherDepthsUpgrade;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
+import com.scouter.netherdepthsupgrade.utils.NDUTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.PackOutput;
@@ -46,7 +47,17 @@ public class BlockTagGenerator extends BlockTagsProvider {
                 .add(NDUBlocks.LAVA_SPONGE.get());
         tag(BlockTags.IMPERMEABLE)
                 .add(NDUBlocks.LAVA_GLASS.get());
-
+        tag(NDUTags.Blocks.LAVA_PLANTS)
+                .add(
+                        NDUBlocks.WARPED_SEAGRASS.get(),
+                        NDUBlocks.TALL_WARPED_SEAGRASS.get(),
+                        NDUBlocks.WARPED_KELP.get(),
+                        NDUBlocks.WARPED_KELP_PLANT.get(),
+                        NDUBlocks.CRIMSON_SEAGRASS.get(),
+                        NDUBlocks.TALL_CRIMSON_SEAGRASS.get(),
+                        NDUBlocks.CRIMSON_KELP.get(),
+                        NDUBlocks.CRIMSON_KELP_PLANT.get()
+                );
     }
     
     public void addToTag(Block block){

@@ -26,6 +26,11 @@ public class GlowdineEntity extends AbstractLavaSchoolingFish implements GeoEnti
 
     public void aiStep() {
         super.aiStep();
+
+        if (!this.level().isClientSide || this.random.nextInt(3) != 0) {
+            return;
+        }
+
         this.level().addParticle(NDUParticle.GLOWDINE_PARTICLE.get(), this.getRandomX(0.6D), this.getRandomY(), this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
     }
 

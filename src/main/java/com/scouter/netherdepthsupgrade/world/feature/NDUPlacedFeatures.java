@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -65,60 +66,106 @@ public class NDUPlacedFeatures {
         context.register(WARPED_KELP_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.WARPED_KELP_FEATURE_NAME), ImmutableList.of(
                 NoiseBasedCountPlacement.of(120, 80.0D, 0.0D),
                 InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                HeightRangePlacement.uniform(
+                        VerticalAnchor.absolute(1),
+                        VerticalAnchor.absolute(39)
+                ),
                 BiomeFilter.biome())));
 
 
         context.register(WARPED_KELP_FEATURE_NAME_PLACED_COMMON, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.WARPED_KELP_FEATURE_NAME), ImmutableList.of(
                 NoiseBasedCountPlacement.of(256, 80.0D, 0.0D),
                 InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                HeightRangePlacement.uniform(
+                        VerticalAnchor.absolute(1),
+                        VerticalAnchor.absolute(39)
+                ),
                 BiomeFilter.biome())));
 
-        context.register(WARPED_SEAGRASS_SHORT_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.WARPED_SEAGRASS_SHORT_FEATURE_NAME), ImmutableList.of(
-                InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
-                CountPlacement.of(80),
-                BiomeFilter.biome())));
+        context.register(WARPED_SEAGRASS_SHORT_FEATURE_NAME_PLACED, new PlacedFeature(
+                features.getOrThrow(NDUConfiguredFeatures.WARPED_SEAGRASS_SHORT_FEATURE_NAME),
+                ImmutableList.of(
+                        CountPlacement.of(80),
+                        InSquarePlacement.spread(),
+                        HeightRangePlacement.uniform(
+                                VerticalAnchor.absolute(1),
+                                VerticalAnchor.absolute(39)
+                        ),
+                        BiomeFilter.biome()
+                )
+        ));
 
-        context.register(WARPED_SEAGRASS_SLIGHTLY_LESS_SHORT_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.WARPED_SEAGRASS_SLIGHTLY_LESS_SHORT_FEATURE_NAME), ImmutableList.of(
-                InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
-                CountPlacement.of(48),
-                BiomeFilter.biome())));
+        context.register(WARPED_SEAGRASS_SLIGHTLY_LESS_SHORT_FEATURE_NAME_PLACED, new PlacedFeature(
+                features.getOrThrow(NDUConfiguredFeatures.WARPED_SEAGRASS_SLIGHTLY_LESS_SHORT_FEATURE_NAME),
+                ImmutableList.of(
+                        CountPlacement.of(48),
+                        InSquarePlacement.spread(),
 
-        context.register(WARPED_SEAGRASS_MID_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.WARPED_SEAGRASS_MID_FEATURE_NAME), ImmutableList.of(
-                InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
-                CountPlacement.of(64),
-                BiomeFilter.biome())));
+                        HeightRangePlacement.uniform(
+                                VerticalAnchor.absolute(1),
+                                VerticalAnchor.absolute(39)
+                        ),
+                        BiomeFilter.biome()
+                )
+        ));
 
-        context.register(WARPED_SEAGRASS_TALL_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.WARPED_SEAGRASS_TALL_FEATURE_NAME), ImmutableList.of(
-                InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
-                CountPlacement.of(80),
-                BiomeFilter.biome())));
+        context.register(WARPED_SEAGRASS_MID_FEATURE_NAME_PLACED, new PlacedFeature(
+                features.getOrThrow(NDUConfiguredFeatures.WARPED_SEAGRASS_MID_FEATURE_NAME),
+                ImmutableList.of(
+                        CountPlacement.of(64),
+                        InSquarePlacement.spread(),
+                        HeightRangePlacement.uniform(
+                                VerticalAnchor.absolute(1),
+                                VerticalAnchor.absolute(39)
+                        ),
+                        BiomeFilter.biome()
+                )
+        ));
 
-        context.register(WARPED_SEAGRASS_TALL_FEATURE_NAME_PLACED_COMMON, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.WARPED_SEAGRASS_TALL_FEATURE_NAME), ImmutableList.of(
-                InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
-                CountPlacement.of(256),
-                BiomeFilter.biome())));
+        context.register(WARPED_SEAGRASS_TALL_FEATURE_NAME_PLACED, new PlacedFeature(
+                features.getOrThrow(NDUConfiguredFeatures.WARPED_SEAGRASS_TALL_FEATURE_NAME),
+                ImmutableList.of(
+                        CountPlacement.of(80),
+                        InSquarePlacement.spread(),
+                        HeightRangePlacement.uniform(
+                                VerticalAnchor.absolute(1),
+                                VerticalAnchor.absolute(39)
+                        ),
+                        BiomeFilter.biome()
+                )
+        ));
+
+        context.register(WARPED_SEAGRASS_TALL_FEATURE_NAME_PLACED_COMMON, new PlacedFeature(
+                features.getOrThrow(NDUConfiguredFeatures.WARPED_SEAGRASS_TALL_FEATURE_NAME),
+                ImmutableList.of(
+                        CountPlacement.of(256),
+                        InSquarePlacement.spread(),
+                        HeightRangePlacement.uniform(
+                                VerticalAnchor.absolute(1),
+                                VerticalAnchor.absolute(39)
+                        ),
+                        BiomeFilter.biome()
+                )
+        ));
 
 
-        context.register(VENT_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.VENT_FEATURE_NAME), ImmutableList.of(
-                RarityFilter.onAverageOnceEvery(25),
-                //InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
-                //CountPlacement.of(80),
-                BiomeFilter.biome())));
+        context.register(VENT_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.VENT_FEATURE_NAME),
+                ImmutableList.of(
+                        RarityFilter.onAverageOnceEvery(20),
+                        InSquarePlacement.spread(),
+                        HeightRangePlacement.uniform(
+                                VerticalAnchor.absolute(1),
+                                VerticalAnchor.absolute(39)
+                        ),
+                        BiomeFilter.biome()
+                )));
 
         context.register(LAVA_SPONGE_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.LAVA_SPONGE_FEATURE_NAME), ImmutableList.of(
-                RarityFilter.onAverageOnceEvery(40),
-                //InSquarePlacement.spread(),
+                RarityFilter.onAverageOnceEvery(25),
+                InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_TOP_SOLID,
-                //CountPlacement.of(80),
-                BiomeFilter.biome())));
+                BiomeFilter.biome())
+        ));
 
 
         context.register(CRIMSON_SEAGRASS_SIMPLE_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.CRIMSON_SEAGRASS_SIMPLE_FEATURE_NAME), ImmutableList.of(
@@ -138,42 +185,68 @@ public class NDUPlacedFeatures {
         context.register(CRIMSON_KELP_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.CRIMSON_KELP_FEATURE_NAME), ImmutableList.of(
                 NoiseBasedCountPlacement.of(120, 80.0D, 0.0D),
                 InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                HeightRangePlacement.uniform(
+                        VerticalAnchor.absolute(1),
+                        VerticalAnchor.absolute(39)
+                ),
                 BiomeFilter.biome())));
         context.register(CRIMSON_KELP_FEATURE_NAME_PLACED_COMMON, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.CRIMSON_KELP_FEATURE_NAME), ImmutableList.of(
                 NoiseBasedCountPlacement.of(256, 80.0D, 0.0D),
                 InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                HeightRangePlacement.uniform(
+                        VerticalAnchor.absolute(1),
+                        VerticalAnchor.absolute(39)
+                ),
                 BiomeFilter.biome())));
 
         context.register(CRIMSON_SEAGRASS_SHORT_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.CRIMSON_SEAGRASS_SHORT_FEATURE_NAME), ImmutableList.of(
-                InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
                 CountPlacement.of(80),
-                BiomeFilter.biome())));
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(
+                        VerticalAnchor.absolute(1),
+                        VerticalAnchor.absolute(39)
+                ),
+                BiomeFilter.biome())
+        ));
 
         context.register(CRIMSON_SEAGRASS_SLIGHTLY_LESS_SHORT_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.CRIMSON_SEAGRASS_SLIGHTLY_LESS_SHORT_FEATURE_NAME), ImmutableList.of(
-                InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
                 CountPlacement.of(48),
-                BiomeFilter.biome())));
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(
+                        VerticalAnchor.absolute(1),
+                        VerticalAnchor.absolute(39)
+                ),
+                BiomeFilter.biome()
+        )));
 
         context.register(CRIMSON_SEAGRASS_MID_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.CRIMSON_SEAGRASS_MID_FEATURE_NAME), ImmutableList.of(
-                InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
                 CountPlacement.of(64),
-                BiomeFilter.biome())));
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(
+                        VerticalAnchor.absolute(1),
+                        VerticalAnchor.absolute(39)
+                ),
+                BiomeFilter.biome()
+        )));
 
         context.register(CRIMSON_SEAGRASS_TALL_FEATURE_NAME_PLACED, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.CRIMSON_SEAGRASS_TALL_FEATURE_NAME), ImmutableList.of(
-                InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
                 CountPlacement.of(80),
-                BiomeFilter.biome())));
-        context.register(CRIMSON_SEAGRASS_TALL_FEATURE_NAME_PLACED_COMMON, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.CRIMSON_SEAGRASS_TALL_FEATURE_NAME), ImmutableList.of(
                 InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                HeightRangePlacement.uniform(
+                        VerticalAnchor.absolute(1),
+                        VerticalAnchor.absolute(39)
+                ),
+                BiomeFilter.biome()
+        )));
+        context.register(CRIMSON_SEAGRASS_TALL_FEATURE_NAME_PLACED_COMMON, new PlacedFeature(features.getOrThrow(NDUConfiguredFeatures.CRIMSON_SEAGRASS_TALL_FEATURE_NAME), ImmutableList.of(
                 CountPlacement.of(256),
-                BiomeFilter.biome())));
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(
+                        VerticalAnchor.absolute(1),
+                        VerticalAnchor.absolute(39)
+                ),
+                BiomeFilter.biome()
+        )));
 
     }
 

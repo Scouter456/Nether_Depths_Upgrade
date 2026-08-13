@@ -156,63 +156,53 @@ public class NDUBiomeModifiers {
 
 
         MobSpawnSettings.SpawnerData bonefish = new MobSpawnSettings.SpawnerData(NDUEntity.BONEFISH.get(), 8,1, 5);
-        MobSpawnSettings bonefishSet = new MobSpawnSettings.Builder().addSpawn(MobCategory.WATER_AMBIENT, bonefish).build();
         context.register(ADD_BONEFISH, new BiomeModifiers.AddSpawnsBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_NETHER),
                 List.of(bonefish)));
 
 
         MobSpawnSettings.SpawnerData eyeballFish = new MobSpawnSettings.SpawnerData(NDUEntity.EYEBALL_FISH.get(), 3,2, 4);
-        MobSpawnSettings eyeballFishSet = new MobSpawnSettings.Builder().addSpawn(MobCategory.WATER_AMBIENT, eyeballFish).build();
         context.register(ADD_EYEBALL_FISH, new BiomeModifiers.AddSpawnsBiomeModifier(
                 biomes.getOrThrow(NDUTags.Biomes.IS_EYEBALL_FISH_BIOME),
                 List.of(eyeballFish)));
 
         MobSpawnSettings.SpawnerData fg = new MobSpawnSettings.SpawnerData(NDUEntity.FORTRESS_GROUPER.get(), 3,1, 2);
-        MobSpawnSettings fgSet = new MobSpawnSettings.Builder().addSpawn(MobCategory.WATER_AMBIENT, bonefish).build();
         context.register(ADD_FORTRESS_GROUPER, new BiomeModifiers.AddSpawnsBiomeModifier(
                 biomes.getOrThrow(NDUTags.Biomes.IS_FORTRESS_GROUPER_BIOME),
                 List.of(fg)));
 
         MobSpawnSettings.SpawnerData gd = new MobSpawnSettings.SpawnerData(NDUEntity.GLOWDINE.get(), 8,4, 6);
-        MobSpawnSettings gdSet = new MobSpawnSettings.Builder().addSpawn(MobCategory.WATER_AMBIENT, bonefish).build();
         context.register(ADD_GLOWDINE, new BiomeModifiers.AddSpawnsBiomeModifier(
                 biomes.getOrThrow(NDUTags.Biomes.IS_GLOWDINE_BIOME),
                 List.of(gd)));
 
         MobSpawnSettings.SpawnerData pf = new MobSpawnSettings.SpawnerData(NDUEntity.LAVA_PUFFERFISH.get(), 15,1, 5);
-        MobSpawnSettings pfSet = new MobSpawnSettings.Builder().addSpawn(MobCategory.WATER_AMBIENT, bonefish).build();
         context.register(ADD_LAVA_PUFFERFISH, new BiomeModifiers.AddSpawnsBiomeModifier(
                 biomes.getOrThrow(NDUTags.Biomes.IS_LAVA_PUFFERFISH_BIOME),
                 List.of(pf)));
 
         MobSpawnSettings.SpawnerData mc = new MobSpawnSettings.SpawnerData(NDUEntity.MAGMACUBEFISH.get(), 10,2, 4);
-        MobSpawnSettings mcSet = new MobSpawnSettings.Builder().addSpawn(MobCategory.WATER_AMBIENT, bonefish).build();
         context.register(ADD_MAGMACUBEFISH, new BiomeModifiers.AddSpawnsBiomeModifier(
                 biomes.getOrThrow(NDUTags.Biomes.IS_MAGMACUBEFISH_BIOME),
                 List.of(mc)));
 
         MobSpawnSettings.SpawnerData of = new MobSpawnSettings.SpawnerData(NDUEntity.OBSIDIAN_FISH.get(), 15,1, 5);
-        MobSpawnSettings ofSet = new MobSpawnSettings.Builder().addSpawn(MobCategory.WATER_AMBIENT, bonefish).build();
         context.register(ADD_OBSIDIANFISH, new BiomeModifiers.AddSpawnsBiomeModifier(
                 biomes.getOrThrow(NDUTags.Biomes.IS_OBSIDIANFISH_BIOME),
                 List.of(of)));
 
 
         MobSpawnSettings.SpawnerData sc = new MobSpawnSettings.SpawnerData(NDUEntity.SEARING_COD.get(), 10,3, 6);
-        MobSpawnSettings scSet = new MobSpawnSettings.Builder().addSpawn(MobCategory.WATER_AMBIENT, bonefish).build();
         context.register(ADD_SEARING_COD, new BiomeModifiers.AddSpawnsBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_NETHER),
                 List.of(sc)));
 
         MobSpawnSettings.SpawnerData wbf = new MobSpawnSettings.SpawnerData(NDUEntity.WITHER_BONEFISH.get(), 3,1, 3);
-        MobSpawnSettings wbfSet = new MobSpawnSettings.Builder().addSpawn(MobCategory.WATER_AMBIENT, bonefish).build();
         context.register(ADD_WITHER_BONEFISH, new BiomeModifiers.AddSpawnsBiomeModifier(
                 biomes.getOrThrow(NDUTags.Biomes.IS_WITHER_BONEFISH_BIOME),
                 List.of(wbf)));
 
         MobSpawnSettings.SpawnerData ss = new MobSpawnSettings.SpawnerData(NDUEntity.SOULSUCKER.get(), 10,1, 2);
-        MobSpawnSettings ssSet = new MobSpawnSettings.Builder().addSpawn(MobCategory.WATER_AMBIENT, bonefish).build();
         context.register(ADD_SOUL_SUCKER, new BiomeModifiers.AddSpawnsBiomeModifier(
                 biomes.getOrThrow(NDUTags.Biomes.IS_SOULSUCKER_BIOME),
                 List.of(ss)));

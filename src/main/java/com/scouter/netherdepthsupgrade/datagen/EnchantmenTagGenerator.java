@@ -21,7 +21,7 @@ public class EnchantmenTagGenerator extends EnchantmentTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
         this.tag(EnchantmentTags.TOOLTIP_ORDER).add(NDUEnchantments.HELL_STRIDER);
-        this.tag(EnchantmentTags.ARMOR_EXCLUSIVE).add(NDUEnchantments.HELL_STRIDER);
+        this.tag(EnchantmentTags.BOOTS_EXCLUSIVE).add(NDUEnchantments.HELL_STRIDER);
         this.tag(EnchantmentTags.NON_TREASURE).add(NDUEnchantments.HELL_STRIDER);
         this.tag(Tags.Enchantments.ENTITY_SPEED_ENHANCEMENTS).add(NDUEnchantments.HELL_STRIDER);
     }

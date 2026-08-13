@@ -7,6 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -72,28 +73,34 @@ public class NetherFortressPiece extends Structure {
     public Optional<GenerationStub> findGenerationPoint(GenerationContext context) {
         // Check if the spot is valid for our structure. This is just as another method for cleanness.
         // Returning an empty optional tells the game to skip this spot as it will not generate the structure.
-        int y = context.random().nextInt(15,30);
-        BlockPos centerPos = new BlockPos(context.chunkPos().getMinBlockX(), y, context.chunkPos().getMinBlockZ());
+        int sampleY = context.random().nextInt(15, 30);
+        BlockPos structurePos = context.chunkPos().getMiddleBlockPosition(sampleY);
 
-        // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
-        BlockPos blockpos = context.chunkPos().getMiddleBlockPosition(0);
-        blockpos = blockpos.offset(0,y,0);
+        NoiseColumn column = context.chunkGenerator().getBaseColumn(
+                structurePos.getX(),
+                structurePos.getZ(),
+                context.heightAccessor(),
+                context.randomState()
+        );
 
-        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-        ChunkGenerator chunkGenerator = context.chunkGenerator();
-        mutable = mutable.set(centerPos);
-        NoiseColumn columnOfBlocks = chunkGenerator.getBaseColumn(blockpos.getX(), blockpos.getZ(), context.heightAccessor(), context.randomState());
-        BlockState state = columnOfBlocks.getBlock(blockpos.getY());
-        if(!state.getFluidState().is(Fluids.LAVA)){
+        BlockState state = column.getBlock(structurePos.getY());
+
+        if (!state.getFluidState().is(FluidTags.LAVA)) {
             return Optional.empty();
         }
 
-        while(state.getFluidState().is(Fluids.LAVA) || blockpos.getY() > 0){
-            blockpos = blockpos.below();
-            state = columnOfBlocks.getBlock(blockpos.getY());
-            if(!state.getFluidState().is(Fluids.LAVA)){
-                break;
-            }
+        int minimumY = context.heightAccessor().getMinBuildHeight();
+
+        while (structurePos.getY() > minimumY
+                && state.getFluidState().is(FluidTags.LAVA)) {
+
+            structurePos = structurePos.below();
+            state = column.getBlock(structurePos.getY());
+        }
+
+        // No solid floor was found within the dimension.
+        if (state.getFluidState().is(FluidTags.LAVA)) {
+            return Optional.empty();
         }
         // Set's our spawning blockpos's y offset to be 60 blocks up.
         // Since we are going to have heightmap/terrain height spawning set to true further down, this will make it so we spawn 60 blocks above terrain.
@@ -105,7 +112,7 @@ public class NetherFortressPiece extends Structure {
                         this.startPool, // The starting pool to use to create the structure layout from
                         this.startJigsawName, // Can be used to only spawn from one Jigsaw block. But we don't need to worry about this.
                         this.size, // How deep a branch of pieces can go away from center piece. (5 means branches cannot be longer than 5 pieces from center piece)
-                        blockpos, // Where to spawn the structure.
+                        structurePos, // Where to spawn the structure.
                         false, // "useExpansionHack" This is for legacy villages to generate properly. You should keep this false always.
                         this.projectStartToHeightmap, // Adds the terrain height's y value to the passed in blockpos's y value. (This uses WORLD_SURFACE_WG heightmap which stops at top water too)
                         // Here, blockpos's y value is 60 which means the structure spawn 60 blocks above terrain height.

@@ -133,7 +133,7 @@ public class NDUItems {
 
 
     //FISH
-    public static final DeferredItem<Item> EYEBALL_FISH = (DeferredItem<Item>) ITEMS.register("eyeball_fish", () -> new Item(new Item.Properties().fireResistant()
+    public static final DeferredItem<Item> EYEBALL_FISH = ITEMS.register("eyeball_fish", () -> new Item(new Item.Properties().fireResistant()
             .food(NDUFoods.EYEBALL_FISH)));
 
     //FISH_BUCKET

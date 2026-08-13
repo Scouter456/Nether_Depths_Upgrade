@@ -25,7 +25,6 @@ public class ModSetup {
     }
 
     public static void setup(){
-        IEventBus bus = NeoForge.EVENT_BUS;
     }
 
 

@@ -2,6 +2,7 @@ package com.scouter.netherdepthsupgrade.world.feature;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
+import com.scouter.netherdepthsupgrade.blocks.GrowingLavaPlantHeadBlock;
 import com.scouter.netherdepthsupgrade.blocks.NDUBlocks;
 import com.scouter.netherdepthsupgrade.blocks.WarpedKelpBlock;
 import net.minecraft.core.BlockPos;
@@ -31,12 +32,8 @@ public class WarpedKelpFeature extends Feature<NoneFeatureConfiguration> {
 
         int i = 0;
         WorldGenLevel worldgenlevel = p_159956_.level();
-        BlockPos blockpos = p_159956_.origin();
         RandomSource random = p_159956_.random();
-        //LOGGER.info("placing" + worldgenlevel);
-        int j = 30 + random.nextInt(-29,10);
-        //LOGGER.info("j" + j);
-        BlockPos blockpos1 = new BlockPos(blockpos.getX(), j, blockpos.getZ());
+        BlockPos blockpos1 = p_159956_.origin();
         if (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA)) {
             BlockState blockstate = NDUBlocks.WARPED_KELP.get().defaultBlockState();
             BlockState blockstate1 = NDUBlocks.WARPED_KELP_PLANT.get().defaultBlockState();
@@ -45,7 +42,7 @@ public class WarpedKelpFeature extends Feature<NoneFeatureConfiguration> {
             for(int l = 0; l <= k; ++l) {
                 if (worldgenlevel.getBlockState(blockpos1).is(Blocks.LAVA) && worldgenlevel.getBlockState(blockpos1.above()).is(Blocks.LAVA) && blockstate1.canSurvive(worldgenlevel, blockpos1)) {
                     if (l == k) {
-                        worldgenlevel.setBlock(blockpos1, blockstate.setValue(WarpedKelpBlock.AGE, Integer.valueOf(random.nextInt(4) + 20)), 2);
+                        worldgenlevel.setBlock(blockpos1, blockstate.setValue(GrowingLavaPlantHeadBlock.AGE, Integer.valueOf(random.nextInt(4) + 20)), 2);
                         ++i;
                     } else {
                         worldgenlevel.setBlock(blockpos1, blockstate1, 2);
@@ -53,7 +50,7 @@ public class WarpedKelpFeature extends Feature<NoneFeatureConfiguration> {
                 } else if (l > 0) {
                     BlockPos blockpos2 = blockpos1.below();
                     if (blockstate.canSurvive(worldgenlevel, blockpos2) && !worldgenlevel.getBlockState(blockpos2.below()).is(NDUBlocks.WARPED_KELP.get())) {
-                        worldgenlevel.setBlock(blockpos2, blockstate.setValue(WarpedKelpBlock.AGE, Integer.valueOf(random.nextInt(4) + 20)), 2);
+                        worldgenlevel.setBlock(blockpos2, blockstate.setValue(GrowingLavaPlantHeadBlock.AGE, Integer.valueOf(random.nextInt(4) + 20)), 2);
                         ++i;
                     }
                     break;
