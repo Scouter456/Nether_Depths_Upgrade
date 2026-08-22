@@ -57,10 +57,7 @@ import java.util.Objects;
 public class LavaFishingBobberEntity extends FishingHook {
     private static final EntityDataAccessor<Integer> DATA_HOOKED_ENTITY = SynchedEntityData.defineId(LavaFishingBobberEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_BITING = SynchedEntityData.defineId(LavaFishingBobberEntity.class, EntityDataSerializers.BOOLEAN);
-    /*
-     * This nested holder is initialized only when a fish is actually retrieved.
-     * That prevents DeferredHolder#get() from being called during early registry setup.
-     */
+
     private static final class LiveFishTypes {
         private static final Map<Item, EntityType<?>> VALUES = Map.ofEntries(
                 Map.entry(NDUItems.SEARING_COD.get(), NDUEntity.SEARING_COD.get()),
@@ -378,7 +375,7 @@ public class LavaFishingBobberEntity extends FishingHook {
                 this.timeUntilHooked = Mth.nextInt(this.random, 20, 80);
             }
         } else {
-            this.timeUntilLured = Mth.nextInt(this.random, 100, 600);
+            this.timeUntilLured = Mth.nextInt(this.random, 200, 600);
             int lureReduction = this.lureSpeed;
             this.timeUntilLured = Math.max(1, timeUntilLured - lureReduction);
         }
@@ -488,10 +485,7 @@ public class LavaFishingBobberEntity extends FishingHook {
             return;
         }
 
-        /*
-         * A stack of three fish must produce three entities, rather than silently
-         * discarding two of them.
-         */
+
         for (int count = 0; count < stack.getCount(); count++) {
             Entity fish = fishType.create(this.level());
 
@@ -517,7 +511,6 @@ public class LavaFishingBobberEntity extends FishingHook {
 
             @Override
             public void lavaHurt() {
-                // Fishing loot must survive while travelling out of the lava.
             }
         };
 
