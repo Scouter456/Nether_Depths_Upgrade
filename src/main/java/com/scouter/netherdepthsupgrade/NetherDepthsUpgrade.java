@@ -1,5 +1,6 @@
 package com.scouter.netherdepthsupgrade;
 
+import com.scouter.netherdepthsupgrade.config.NetherDepthsUpgradeConfig;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
 import com.scouter.netherdepthsupgrade.modcompat.ModChecker;
 import com.scouter.netherdepthsupgrade.potion.NDUPotions;
@@ -26,6 +27,7 @@ public class NetherDepthsUpgrade implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
+		NetherDepthsUpgradeConfig.registerConfigs();
 
 		Registration.init();
 

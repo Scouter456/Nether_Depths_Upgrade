@@ -6,7 +6,9 @@ plugins {
 
 version = project.mod_version
 group = project.maven_group
-
+base {
+	archivesName = project.archives_base_name
+}
 repositories {
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because
@@ -71,9 +73,9 @@ java {
 	targetCompatibility = JavaVersion.VERSION_21
 }
 
-jar {
+tasks.named("jar", Jar) {
 	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
+		rename { "${it}_${project.archives_base_name}" }
 	}
 }
 

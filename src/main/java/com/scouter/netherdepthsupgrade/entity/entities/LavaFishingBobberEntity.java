@@ -1,5 +1,6 @@
 package com.scouter.netherdepthsupgrade.entity.entities;
 
+import com.scouter.netherdepthsupgrade.config.NetherDepthsUpgradeConfig;
 import com.scouter.netherdepthsupgrade.entity.NDUEntity;
 import com.scouter.netherdepthsupgrade.items.LavaFishingRodItem;
 import com.scouter.netherdepthsupgrade.items.NDUItems;
@@ -396,7 +397,7 @@ public class LavaFishingBobberEntity extends FishingHook {
                 this.timeUntilHooked = Mth.nextInt(this.random, 20, 80);
             }
         } else {
-            this.timeUntilLured = Mth.nextInt(this.random, 100, 600);
+            this.timeUntilLured = Mth.nextInt(this.random, 200, 600);
             this.timeUntilLured = Math.max(1, this.timeUntilLured - this.lureSpeed);
         }
 
@@ -425,7 +426,7 @@ public class LavaFishingBobberEntity extends FishingHook {
         } else if (this.nibble > 0) {
             ServerLevel serverLevel = (ServerLevel) this.level();
 
-            LootParams lootParams = new LootParams.Builder(serverLevel).withParameter(LootContextParams.ORIGIN, this.position()).withParameter(LootContextParams.TOOL, rod).withParameter(LootContextParams.THIS_ENTITY, this).withParameter(LootContextParams.ATTACKING_ENTITY, player)
+            LootParams lootParams = new LootParams.Builder(serverLevel).withParameter(LootContextParams.ORIGIN, this.position()).withParameter(LootContextParams.TOOL, rod).withParameter(LootContextParams.THIS_ENTITY, this)
                     .withLuck(this.luck + player.getLuck())
                     .create(LootContextParamSets.FISHING);
 
@@ -488,7 +489,7 @@ public class LavaFishingBobberEntity extends FishingHook {
     }
 
     private void spawnFishingDrop(Player player, ItemStack stack) {
-        EntityType<?> fishType = LiveFishTypes.VALUES.get(stack.getItem());
+        EntityType<?> fishType = NetherDepthsUpgradeConfig.FISH_ENTITIES ? LiveFishTypes.VALUES.get(stack.getItem()) : null;
 
         if (fishType == null) {
             spawnItemDrop(player, stack.copy());
@@ -520,7 +521,6 @@ public class LavaFishingBobberEntity extends FishingHook {
 
             @Override
             public void lavaHurt() {
-                // Fishing loot must survive while leaving the lava.
             }
         };
 
@@ -529,27 +529,14 @@ public class LavaFishingBobberEntity extends FishingHook {
         this.level().addFreshEntity(itemEntity);
     }
 
-    private Vec3 getRetrievalVelocity(
-            Player player,
-            double sourceY,
-            double horizontalScale,
-            double liftScale
-    ) {
+    private Vec3 getRetrievalVelocity(Player player, double sourceY, double horizontalScale, double liftScale) {
         double xDifference = player.getX() - this.getX();
         double yDifference = player.getY() - sourceY;
         double zDifference = player.getZ() - this.getZ();
 
-        double distanceSquared =
-                xDifference * xDifference
-                        + yDifference * yDifference
-                        + zDifference * zDifference;
+        double distanceSquared = xDifference * xDifference + yDifference * yDifference + zDifference * zDifference;
 
-        return new Vec3(
-                xDifference * horizontalScale,
-                yDifference * horizontalScale
-                        + Math.sqrt(Math.sqrt(distanceSquared)) * liftScale,
-                zDifference * horizontalScale
-        );
+        return new Vec3(xDifference * horizontalScale, yDifference * horizontalScale + Math.sqrt(Math.sqrt(distanceSquared)) * liftScale, zDifference * horizontalScale);
     }
 
     public void onClientRemoval() {
